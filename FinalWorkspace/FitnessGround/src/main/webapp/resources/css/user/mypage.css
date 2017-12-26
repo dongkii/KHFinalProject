@@ -1,8 +1,7 @@
 @CHARSET "UTF-8";
 
-body {
-	background:white !important;
-}
+body, input {background:white !important;}
+
 
 
 
@@ -385,7 +384,7 @@ body {
 	content:'';display:block;overflow:hidden;position:absolute;
 	left:-1px;top:-2px;width:0;height:2px;-webkit-transition:all .4s;-o-transition:all .4s;transition:all .4s;background-color:#11A6B7
 }
-.tab-list.tab-b li.in a,.tab-list.tab-b li a:hover{z-index:1}
+.tab-list.tab-b li.in a,.tab-list.tab-b li a:hover{z-index:2; border-top: 2px solid #11A6B7;}
 .tab-list.tab-b li.in a:after,.tab-list.tab-b li a:hover:after{width:0}
 .tab-list.tab-b li.in a span,.tab-list.tab-b li a:hover span{color:#11A6B7; font-size: 1.1rem}
 .tab-list.tab-b li.in a span:after,.tab-list.tab-b li a:hover span:after{width:101%}
@@ -397,44 +396,71 @@ body {
 
 
 .userBoardNav {
-	margin-top:120px;
-	margin-bottom:20px;
-}
-.userBoardNav #navTitle li a {
-	text-align:center;
-	padding:20px;
-	text-size:20pt;
-	text-weight:bold;
+	margin-top:100px;
 }
 #searchBt a:hover, #searchBt a:visited, #searchBt a:link {
 	text-decoration: none;
 }
-#qnaT tr:nth-child(1) th{
-	padding-top:40px;
-	padding-bottom:15px;
+#qnaT {
+	margin-top:50px;
+	border-top: 0px !important;
+	border-left: 0px;
+	border-right: 0px;
+}
+#qnaT tr:nth-child(1) th {
+	padding-bottom:30px;
 	text-align:center;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	padding-top:0px;
+	background:white;
+}
+#searchInfo {
+	color:#11A6B7;
+	margin-top:0px;
 }
 #qnaT th {
+	background:#f5f5f5;
 	text-align:center;
 	text-weight:bold;
+	padding-top:10px;
+	padding-bottom:10px;
+	color:black;
 }
 #qnaT td {
 	text-align:center;
+	padding-top:10px;
+	padding-bottom:10px;
 }
-#qnaT tr:nth-child(1) td {
-	width:30px;
+
+#communityT {
+	margin-top:50px;
+	border-top: 0px !important;
+	border-left: 0px;
+	border-right: 0px;
 }
 #communityT tr:nth-child(1) th{
-	padding-top:40px;
-	padding-bottom:15px;
+	padding-bottom:30px;
 	text-align:center;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	padding-top:0px;
+	background:white;
 }
 #communityT th {
 	text-align:center;
 	text-weight:bold;
+	padding-top:10px;
+	padding-bottom:10px;
+	color:black;
+	background:#f5f5f5;
 }
 #communityT td {
 	text-align:center;
+	padding-top:10px;
+	padding-bottom:10px;
 }
 .boardPage {
 	margin-bottom:110px;
@@ -514,40 +540,6 @@ body {
 
 
 
-
-/* #deleteInfo {
-	box-shadow: 2px 2px 2px rgba(194, 194, 194, 0.5);
-	background:#f0f2f2;
-	border-radius: 5px;
-	margin-bottom:40px;
-	padding:40px;
-}
-#deleteInfo h1 {
-	font-weight:bold;
-}
-#deleteInfo p {
-	font-size:10pt;
-	margin-top:20px;
-}
-#deleteInfoSm {
-	box-shadow: 2px 2px 2px rgba(194, 194, 194, 0.5);
-	background:#f0f2f2;
-	border-radius: 5px;
-	margin-bottom:40px;
-	padding:40px;
-	
-}
-#deleteInfoSm h1 {
-	font-weight:bold;
-	font-size:13pt;
-}
-#deleteInfoSm p {
-	font-size:10pt;
-	margin-top:20px;
-} */
-
-
-
 /*
 	운동 스케줄
 */
@@ -575,8 +567,3 @@ body {
 
 
 
-
-#searchInfo {
-	margin-left:45px;
-	color:#FE424D;
-}

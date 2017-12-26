@@ -292,6 +292,8 @@ public class GymController {
 			map.put("list", list);
 			map.put("plist", plist);
 			
+			if(request.getParameter("mode")!=null) mv.addObject("mode", request.getParameter("mode"));
+			
 			mv.addObject("gympage",map);
 			
 			return mv;
@@ -339,6 +341,7 @@ public class GymController {
 				jgym.put("gym_name", gym.getGym_name());
 				jgym.put("location", gym.getLocation());
 				jgym.put("rename_image", gym.getRename_image());
+				jgym.put("tel", gym.getTel());
 
 				jar.add(jgym);
 			}
@@ -353,6 +356,7 @@ public class GymController {
 
 		}
 		
+		@SuppressWarnings("unchecked")
 		@RequestMapping(value="findpublic.do")
 		@ResponseBody
 		public ModelAndView findPublic(ModelAndView mv, @RequestParam("ppage") int page)
@@ -395,6 +399,7 @@ public class GymController {
 				jpgym.put("public_name", publicgym.getPublic_name());
 				jpgym.put("location", publicgym.getLocation());
 				jpgym.put("homepage", publicgym.getHomepage());
+				jpgym.put("tel", publicgym.getTel());
 
 				jar.add(jpgym);
 			}
@@ -537,6 +542,7 @@ public class GymController {
 			JSONObject jlist = new JSONObject();
 			jlist.put("public_name", pgym.getPublic_name());
 			jlist.put("location", pgym.getLocation());
+			jlist.put("homepage", pgym.getHomepage());
 			jlist.put("lat", pgym.getLat());
 			jlist.put("lng", pgym.getLng());
 			jlist.put("tel", pgym.getTel());

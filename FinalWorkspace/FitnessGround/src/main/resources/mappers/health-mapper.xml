@@ -3,7 +3,7 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="health">
-	<resultMap id="resultCategoryList" type="Health">
+<!-- 	<resultMap id="resultCategoryList" type="Health">
 		<id property="v_no" column="v_no"/>
 		<result property="title" column="title" />
 		<result property="content" column="content"/>
@@ -11,7 +11,7 @@
 		<result property="category2" column="category2"/>
 		<result property="url" column="url"/>
 		<result property="readcount" column="readcount"/>	
-	</resultMap>
+	</resultMap> -->
 	
 	<resultMap id="resultWorkOut" type="Health">
 		<id property="v_no" column="v_no"/>
@@ -23,7 +23,7 @@
 		<result property="readcount" column="readcount"/>	
 	</resultMap>
 	
-	
+<!-- 	
 	<resultMap id="like" type="Health">
 		<id property="v_no" column="v_no"/>
 		<result property="title" column="title" />
@@ -33,7 +33,7 @@
 		<result property="url" column="url"/>
 		<result property="readcount" column="readcount"/>
 			
-	</resultMap>
+	</resultMap> -->
 	<!-- 네이버 헬스 동영상 하나 select -->
 	<select id="selectOneWorkout" parameterType ="_int" resultType="Health" resultMap="resultWorkOut">
 		<![CDATA[
@@ -42,7 +42,7 @@
 	</select>
 	
 	<!-- 네이버 헬스 동영상 부위별 영상 select -->
-	<select id="selectCategoryList" parameterType = "health" resultType="list" resultMap="resultCategoryList">
+	<select id="selectCategoryList" parameterType = "health" resultType="list" resultMap="resultWorkOut">
 		<![CDATA[
 			select * from tb_video_board where category1 = #{category1} and category2 like '%' ||#{category2}|| '%'
 		]]>
@@ -58,7 +58,7 @@
 	
 	<!-- 맨몸운동 메인 조회수 탑 5 출력-->
 	
-	<select id = "selectHomeTraning" resultType="list" resultMap = "resultCategoryList">
+	<select id = "selectHomeTraning" resultType="list" resultMap = "resultWorkOut">
 		<![CDATA[
 			select v_no, title, content, category1, category2, url, readcount from 
 			(select rownum, v_no, title, content, category1, category2, url, readcount 
@@ -68,7 +68,7 @@
 		]]>
 	</select>
 	
-	<select id="selectWorkoutReadCountList" resultType="list" resultMap="resultCategoryList" parameterType="Health">
+	<select id="selectWorkoutReadCountList" resultType="list" resultMap="resultWorkOut" parameterType="Health">
 		<![CDATA[
 			select * from tb_video_board where category1=#{category1} and category2=#{category2} order by readcount desc
 		]]>
@@ -79,6 +79,7 @@
 		select count(*) from tb_video_board where category1='맨몸운동' and category2=#{category2}
 	</select>
 	
+	<!-- 제목으로 검색 -->
 	<select id="selectSearchList" resultType="list" parameterType="String" resultMap="resultWorkOut">
 	
 		<![CDATA[
@@ -86,6 +87,7 @@
 		]]>
 	</select>
 	
+	<!-- 셀렉박스 좋아요 정렬 -->
 	<select id="selectLikeCountlist" resultType="list" parameterType="Health" resultMap="resultWorkOut">
 		<![CDATA[
 			select *
@@ -100,11 +102,29 @@
 		]]>
 	</select>
 	
+	<!-- 제목으로 검색 갯수 -->
 	<select id="selectSearchVideoCount" resultType="_int" parameterType="String">
 		select count(*) from tb_video_board where category1='맨몸운동' and title like '%' ||#{keyWord}|| '%'
 	</select>
 	
-	<select id="HealthList" resultType="list" resultMap = "resultCategoryList">
+	<!-- 로그인 X 메인 리스트(좋아요 많은) -->
+	<select id = "mainList" resultType="list" resultMap="resultWorkOut">
+		<![CDATA[
+			select v_no, title, content, category1, category2, url,readcount from( 
+  				select rownum as rnum,v_no, title, content, category1, category2, url,readcount from(
+    				(select v_no,NVL(likecount, 0) as tt, title,content,category1,category2,url,readcount
+     				 from tb_video_board
+				     left outer join ( select v_no, count(*) as likecount
+                      				   from tb_like
+                      				   group by v_no )
+      				  using ( v_no ))
+      				  order by tt desc
+			))where rnum<11
+		]]>
+	</select>
+	
+	<!-- 규연이  -->
+	<select id="HealthList" resultType="list" resultMap = "resultWorkOut">
 		select  category1,  sum(readcount) from tb_video_board group by category1
 	</select>
 </mapper>

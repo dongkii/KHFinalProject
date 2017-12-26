@@ -149,7 +149,7 @@
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="gymsearchdiv">
 				<div class="input-group">
 					<input type="text" oninput="gymsearch(${ sessionScope.user.user_no });" id="gymsearch" class="form-control" placeholder="헬스장 이름으로 검색">
-					<span class="input-group-addon"><a href="javascript:gymsearch(${ sessionScope.user.user_no })"><span class="glyphicon glyphicon-search"></span></a></span>
+					<span class="input-group-addon" style="background:white;"><a href="javascript:gymsearch(${ sessionScope.user.user_no })"><span class="glyphicon glyphicon-search"></span></a></span>
 				</div>
 			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="gymlist">

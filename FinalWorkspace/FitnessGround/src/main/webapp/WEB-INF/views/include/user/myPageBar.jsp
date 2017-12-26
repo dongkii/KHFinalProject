@@ -20,6 +20,11 @@
 							<i class="fa fa-calendar" aria-hidden="true" style="margin-right:5px;"></i> 운동스케줄</a>
 						</li>
 					</c:if>
+					<c:if test="${ sessionScope.user.user_level == 1 }">
+						<li id="uSchedule"><a href="moveregistergym.do">
+							<i class="fa fa-heartbeat" aria-hidden="true" style="margin-right:5px;"></i> 헬스장등록</a>
+						</li>
+					</c:if>
 					<li id="uDel"><a href="userdel.do">
 						<i class="fa fa-user-times" aria-hidden="true" style="margin-right:5px;"></i> 회원탈퇴</a>
 					</li>

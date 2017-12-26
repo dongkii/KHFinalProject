@@ -262,27 +262,9 @@ public class HealthController {
 				list = healthService.selectWorkoutCategoryList(health);
 				
 			}else if(selectValue.equals("좋아요수")){
-				/*list = healthService.selectWorkoutCategoryList(health);*/
+				
 				list = healthService.selectLikeCountList(health);
-				
-				System.out.println(list);
-				/*System.out.println("들어옴");
-				int countArr[] = new int[list.size()];
-				
-				for(int i=0; i<list.size();i++){
-					countArr[i] = healthService.selectLikeCount(list.get(i).getV_no());
-				}
-				
-				//좋아요수 내림차순 정렬
-				for(int i=0; i<countArr.length; i++){
-					for(int j=i+1; j<countArr.length; j++){
-						if(countArr[i]<countArr[j]){
-							Health tmp = list.get(i);
-							list.set(i, list.get(j));
-							list.set(j,tmp);
-						}
-					}
-				}*/			
+							
 			}else if(selectValue.equals("조회수")){
 				
 				list = healthService.selectWorkoutReadCountList(health);
@@ -395,8 +377,125 @@ public class HealthController {
 		mv.setViewName("jsonView");
 		
 		return mv;
-	}
+	}	
+	//메인에 영상 뿌려주기
+	@RequestMapping(value="mainVideoList.do",method=RequestMethod.POST)
+	public void mainVideoList(HttpServletRequest request,HttpServletResponse response) throws IOException{		
+		ArrayList<Health> list = healthService.selectMainList();
+	
+		/* NAVER api code */
+		String clientID="ruv96TRHNK8A6XvNLhkO";
+        String clientSecret = "L2Y9X7t1_5";
+       
+        ArrayList<String> srcarr = new ArrayList<String>();
+        ArrayList<String> keyarr = new ArrayList<String>();
+        
+        String query = "";
+        String src = "";
 		
+		for(int i=0; i<list.size();i++){	//뽑아온 리스트중에 헬스가 있으면
+			if(list.get(i).getCategory1().equals("헬스")){
+				keyarr.add(list.get(i).getTitle().replaceAll(" ", ""));
+				
+				  for(int k=0;k<keyarr.size();k++) {
+			        		
+				        try {
+				        	  query = URLEncoder.encode(keyarr.get(k),"UTF-8");
+				        	} catch (UnsupportedEncodingException e1) {
+				        	  e1.printStackTrace();
+				        	}
+				        int j = 0;
+				        try {
+					        URL url = new URL("https://openapi.naver.com/v1/search/encyc.xml?query="+query);
+					        URLConnection urlConn=url.openConnection(); 
+					        urlConn.setRequestProperty("X-Naver-Client-ID", clientID);
+					        urlConn.setRequestProperty("X-Naver-Client-Secret", clientSecret);
+					        BufferedReader br = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+					        String data="";
+					        String msg = null;
+					        while((msg = br.readLine())!=null)
+					        {
+					            data += msg;
+					        }
+					       
+					         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+					         XmlPullParser parser = factory.newPullParser(); //연결하는거 담고 
+					         parser.setInput(new StringReader(data));
+					         int eventType= parser.getEventType();
+					       
+					         while(eventType != XmlPullParser.END_DOCUMENT){
+					             switch(eventType){
+					             case XmlPullParser.END_DOCUMENT://문서의 끝 
+					                 break;
+					             case XmlPullParser.START_DOCUMENT:
+					                 break;
+					             case XmlPullParser.END_TAG:{
+					                 String tag = parser.getName();
+					                 break;
+					             }
+					             case XmlPullParser.START_TAG: 
+					            	 if (parser.getName().equals("thumbnail")) {
+					            		 src = parser.nextText();
+					            		 if(src.contains("muploader")&&j==0) {
+					            			 srcarr.add(src);  //query하나에 썸네일 하나만 srcarr에 담도록 - j가 0일때만 담음  
+					            			 System.out.println("srcarr:"+srcarr.toString());
+					            			 j++;  
+					            		 }
+					            	 }
+					         }
+					             eventType =parser.next();
+					         }
+					         
+					        }catch(Exception e) {
+								e.printStackTrace();
+					        }
+			        	}
+			}else{ //유투브
+				list.get(i).setTitle(list.get(i).getTitle().replaceAll("\\\"", "＇"));
+				list.get(i).setContent(list.get(i).getContent().replaceAll("\\\"", "＇"));
+			
+			}
+			
+		}
+		
+		
+		/* view로 내보내기 */
+		JSONObject sendJson = new JSONObject();
+		JSONArray jarr = new JSONArray();
+		int index = 0;
+		for(Health h : list){
+			JSONObject jhealth = new JSONObject();
+			jhealth.put("v_no", h.getV_no());
+			jhealth.put("title", URLEncoder.encode(h.getTitle(),"utf-8"));
+			jhealth.put("content", URLEncoder.encode(h.getContent(),"utf-8"));
+			jhealth.put("category1", URLEncoder.encode(h.getCategory1(),"utf-8"));
+			jhealth.put("category2", URLEncoder.encode(h.getCategory2(),"utf-8"));
+			if(h.getCategory1().equals("헬스")){
+				jhealth.put("url", URLEncoder.encode(srcarr.get(index),"utf-8"));
+				index++;
+			}
+			else{
+				jhealth.put("url", URLEncoder.encode(h.getUrl(),"utf-8"));
+			}
+			jhealth.put("readcount", h.getReadcount());
+			
+			jarr.add(jhealth);
+			
+		}
+		
+		sendJson.put("list", jarr);
+		
+		response.setContentType("aplication/json; charset=utf-8"); 
+		PrintWriter out = response.getWriter();
+		out.println(sendJson.toJSONString());
+		out.flush();
+		out.close();
+		
+	
+		
+		
+		
+	}
 	
 	
 }

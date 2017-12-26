@@ -20,9 +20,21 @@
 						<li><a href="#">Etiam dolore nisl</a></li>
 					</ul> -->
 				</li> 
-			</ul></li>
-		<li><a href="findgym.do">운동시설찾기</a></li>
-		<li><a href="community.do">커뮤니티</a></li>
+			</ul>
+		</li>
+		<li><a href="findgym.do">운동시설 찾기</a>
+			<ul>
+				<li><a href="findgym.do?mode=2">공공체육시설</a></li>
+				<li><a href="findgym.do?mode=1">헬스장</a></li>
+			</ul>
+		</li>
+		<li><a href="community.do">커뮤니티</a>
+			<ul>
+				<li><a href="meeting.do">운동모임</a></li>
+				<li><a href="review.do">운동후기</a></li>
+				<li><a href="qna.do">Q&A</a></li>
+			</ul>
+		</li>
 		<c:if test="${ sessionScope.user == null}">
 			<li><a href="javascript:login()">로그인</a></li>
 		</c:if>

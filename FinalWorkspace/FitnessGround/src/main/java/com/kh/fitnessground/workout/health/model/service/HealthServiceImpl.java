@@ -160,6 +160,12 @@ public class HealthServiceImpl implements HealthService{
 		// TODO Auto-generated method stub
 		return healthDao.selectLikeCountList(health);
 	}
+
+	@Override
+	public ArrayList<Health> selectMainList() {
+		// TODO Auto-generated method stub
+		return healthDao.selectMainList();
+	}
 	
 		
 	

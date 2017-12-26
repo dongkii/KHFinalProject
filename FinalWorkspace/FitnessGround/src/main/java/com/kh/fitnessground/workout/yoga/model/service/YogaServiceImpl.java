@@ -106,4 +106,10 @@ public class YogaServiceImpl implements YogaService{
 		// TODO Auto-generated method stub
 		return yogaDao.selectWorkoutReadCountList(yoga);
 	}
+
+	@Override
+	public ArrayList<Yoga> selectLikeCountList(Yoga yoga) {
+		// 
+		return yogaDao.selectLikeCountList(yoga);
+	}
 }

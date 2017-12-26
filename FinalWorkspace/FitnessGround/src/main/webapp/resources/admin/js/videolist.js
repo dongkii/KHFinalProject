@@ -267,19 +267,17 @@
 	}// edit(v_no) ends...
 	
 	/* 수정하기 videoId check */
-	function vIdCheck(){
-		var vid = $('#v-url').val();
-	
-		if(vid==""||vid.length<10){
-			var value = '';
-			value += "<div style='color: #FE424D; font-size: 0.9rem;'> 올바른 video id가 아닙니다 </div>";
-			$("#v-url").css({'border-color':'#FE424D', 'box-shadow':'0 0 1px 1px #FE424D'});
-		}else if(vid.length>10){
-			var value = "";
-			$("#v-url").css({'border-color':'#ced4da', 'box-shadow':'1px solid #ced4da'});
-		}
-		$("#check-msg").html(value);
-	}
+	   function vIdCheck(){
+	      var vid = $('#v-url').val();
+	   
+	      if(vid==""||vid.length<10){
+	         $("#v-url").css({'border':'1px solid #FE424D'});
+	      }else if(vid.length>10){
+	         var value = "";
+	         $("#v-url").css({'border':'1px solid #ced4da'});
+	      }
+	      $("#check-msg").html(value);
+	   }
 	
 	/* Update 수정처리 */
 	function update(v_no){

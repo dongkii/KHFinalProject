@@ -435,13 +435,6 @@ public class UserController {
 		
 		return mv; 
 	}
-	// 내 게시글 상세보기
-	@RequestMapping(value="/userboarddetail.do")
-	public ModelAndView userBoardDetailMethod(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("");
-		// mv에 글 번호 값 추가
-		return mv; 
-	}
 	// 내 운동 스케줄 관리
 	@RequestMapping(value="/uschedule.do")
 	public ModelAndView userScheduleMethod(HttpServletRequest request) {
@@ -482,6 +475,5 @@ public class UserController {
 		String content = (String)job.get("content");
 		userService.updateUserSchedule(s_no, content);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
-	}
-	
+	}	
 }

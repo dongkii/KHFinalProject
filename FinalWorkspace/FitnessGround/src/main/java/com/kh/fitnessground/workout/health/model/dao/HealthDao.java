@@ -137,6 +137,11 @@ public class HealthDao {
 		// TODO Auto-generated method stub
 		return (ArrayList)sqlSession.selectList("health.selectLikeCountlist",health);
 	}
+
+	public ArrayList<Health> selectMainList() {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("health.mainList");
+	}
 	
 	//좋아요
 }

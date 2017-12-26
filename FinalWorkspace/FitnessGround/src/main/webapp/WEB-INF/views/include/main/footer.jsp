@@ -8,12 +8,28 @@
 		    if(e.keyCode==13 && e.srcElement.type != 'textarea')
 		    return false;
 		}
+		function adminQnAInsert() {
+			$.ajax({async : true, 
+			 	type : "post",
+			 	url : "adminQnAInsert.do",
+			 	dataType : "json",
+			 	data: $("#adminQnAForm").serialize(),
+			 	success : function(result){
+			 		location.reload();
+			 	},
+			 	error: function(request,status,error){
+			 		alert("error code : " + request.status + "\n"
+							+ "message : " + request.responseText + "\n"
+							+ "error : " + errorData);
+			 	}
+			});
+		}
 	</script>
     
 <div id="footer" style="clear:left;">
 
 	<c:if test="${ sessionScope.user != null }">
-		<div class="col-md-offset-2 col-md-8" id="footerQna"><form action="gymQnAInsert.do" id="gymQnAForm" method="post" enctype="multipart/form-data" onkeydown="return captureReturnKey(event)">	
+		<div class="col-md-offset-2 col-md-8" id="footerQna"><form action="" id="adminQnAForm" method="post" enctype="multipart/form-data" onkeydown="return captureReturnKey(event)">	
 			<input type="hidden" name="receiver" value="1">
 			<input type="hidden" name="mode" value="1">
 			<input type="hidden" name="sender" value="${sessionScope.user.user_no}">
@@ -31,7 +47,7 @@
 					<tr><td style="padding-bottom:20px;"><input class="form-control" name="title"></td></tr>
 					<tr><th>Content</th></tr>
 					<tr><td style="padding-bottom:30px;"><textarea rows="10" class="form-control" id="editor1" name="content"></textarea></td></tr>
-					<tr><td style="padding-bottom:20px;"><button class="btn btn-primary" onclick="gymQnAInsert();">SEND</button></td></tr>
+					<tr><td style="padding-bottom:20px;"><button class="btn btn-primary" onclick="adminQnAInsert();">SEND</button></td></tr>
 				</table>
 	   		</div>
 	   	</form></div>
@@ -63,11 +79,11 @@
                         </header>
                         <ul class="divided">
                             <li>
-                                <h3 id="footer-title">운동시설/헬스장찾기</h3>
+                                <h3 id="footer-title">운동시설 찾기</h3>
                             </li>
                            		<li>
-                           	<p id="footer-menu"><a href="findgym.do">운동시설찾기</a></p>
-                           	<p id="footer-menu"><a href="#this">헬스장찾기</a></p>
+                           	<p id="footer-menu"><a href="findgym.do?mode=2">공공체육시설</a></p>
+                           	<p id="footer-menu"><a href="findgym.do?mode=1">헬스장</a></p>
 								</li>
                         </ul>
                     </section>
@@ -78,11 +94,11 @@
                         </header>
                         <ul class="divided">
                             <li>
-                                <h3 id="footer-title">Community</h3>
+                                <h3 id="footer-title">커뮤니티</h3>
                             </li>
                            		<li>
-                           	<p id="footer-menu"><a href="meeting.do">운동같이해요</a></p>
-                           	<p id="footer-menu"><a href="review.do">리뷰</a></p>
+                           	<p id="footer-menu"><a href="meeting.do">운동모임</a></p>
+                           	<p id="footer-menu"><a href="review.do">운동후기</a></p>
                            	<p id="footer-menu"><a href="qna.do">Q&A</a></p>
 								</li>
                         </ul>

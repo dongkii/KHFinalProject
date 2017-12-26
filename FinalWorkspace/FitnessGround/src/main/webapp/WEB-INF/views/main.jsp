@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
     <c:import url="./include/common/head.jsp" />
-
+	<link rel="stylesheet" href="/fitnessground/resources/css/workout/workout.css"/>
     <c:import url="include/common/headend.jsp" />
 
     <div id="page-wrapper">
@@ -17,6 +17,7 @@
             <c:import url="user/login.jsp"/>
 			<c:import url="user/findidpwd.jsp"/>
 			<c:import url="user/register.jsp"/>
+			<c:import url="workout/detailView.jsp"/>
         </div>
         <!-- Banner -->
         <section id="banner">
@@ -28,19 +29,21 @@
 
         <!-- Carousel -->
         <section class="carousel">
-            <div class="reel">
+            <div class="reel" id="view_video">
 
-                <article>
-                    <a href="#" class="image featured"><img src="/fitnessground/resources/images/pic01.jpg" alt="" /></a>
-                    <header>
-                        <h3><a href="#">Pulvinar sagittis congue</a></h3>
-                    </header>
-                    <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
+            <!--  <article>
+             		
+                    	<a href="#" class="image featured"><img src="/fitnessground/resources/images/pic01.jpg" alt="" /></a>
+                    	<header>
+                    	    <h3><a href="#">Pulvinar sagittis congue</a></h3>
+                    	</header>
+                    	<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
+                	
                 </article>
 
                 <article>
                     <a href="#" class="image featured"><img src="/fitnessground/resources/images/pic02.jpg" alt="" /></a>
-                    <header>
+                    <header> 
                         <h3><a href="#">Fermentum sagittis proin</a></h3>
                     </header>
                     <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
@@ -108,8 +111,8 @@
                         <h3><a href="#">Varius magnis sollicitudin</a></h3>
                     </header>
                     <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                </article>
-
+                </article> 
+ -->
             </div>
         </section>
 
@@ -172,6 +175,79 @@
         <!-- Footer -->
         
     </div>
+    
+    <script type="text/javascript">
+    
+    	$(function(){
+    		var user_level = ${sessionScope.user.user_level} //일반회원
+    		console.log(user_level);
+       	
+           	if(!user_level){	//로그인 안했을 때 좋아요 많은 순서
+           		console.log("if문 실행");
+            
+          	 	var values="";
+            
+          	 	$.ajax({
+           			url:'mainVideoList.do',
+           			type:'post',
+           			success:function(result){
+
+           				console.log('ajax 호출 성공');
+           				
+           				
+           				var jsonStr = JSON.stringify(result);
+           				var json = JSON.parse(jsonStr);
+           			          	
+           				var title;
+   						var url;
+   						var content;
+   						
+   						
+           				
+           				for(var i in json.list){
+           					var no = json.list[i].v_no;
+           					console.log(decodeURIComponent(json.list[i].url));
+           					if(decodeURIComponent(json.list[i].category1) == "헬스"){ //네이버
+           						
+           						values +=	'<article><div id="video-iframe' + no+ '">' +
+               	                '<a href="javascript:detailView('
+               	                    		+json.list[i].v_no + ',\''+ decodeURIComponent(json.list[i].category1) + '\',' + '\'' + decodeURIComponent(json.list[i].category2).replace(/\+/g,' ') +'\');" class="image featured"><img src="' +decodeURIComponent(json.list[i].url) + '" alt="" /></a>'+
+               	                '<header>'+
+               	                    '<h3><a id = "v-title" href="javascript:detailView('
+               	                    		+json.list[i].v_no + ',\''+ decodeURIComponent(json.list[i].category1) + '\',' + '\'' + decodeURIComponent(json.list[i].category2).replace(/\+/g,' ') +'\');">'
+               	                    +decodeURIComponent(json.list[i].title).replace(/\+/g," ") + 
+               	                    '</a></h3>'+
+               	                '</header>'+
+               	             /*    '<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>'+ */
+               	            	'</div></article>'
+               	            	console.log(values);
+               	            	$("#view_video").html(values);
+           					}else{ //유튜브
+           						console.log("유튜브 들어옴");
+           					
+                   	            	
+           					}
+           						
+           				}
+           					
+           					
+           			
+           			},error: function(request, status, errorData){
+           	            console.log("error code : " + request.status + "\n"
+           	                  + "message : " + request.responseText + "\n"
+           	                  + "error : " + errorData);
+           	         }
+         	  	})
+           	          	
+    		
+           	$("#view_video").html(values);
+        	
+    		}
+           	
+    	});
+   				
+    
+	</script>
 
     <c:import url="./include/main/footer.jsp" />
 

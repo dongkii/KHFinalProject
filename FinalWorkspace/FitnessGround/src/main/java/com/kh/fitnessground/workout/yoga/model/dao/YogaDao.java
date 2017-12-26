@@ -93,4 +93,9 @@ public class YogaDao {
 		return (ArrayList)sqlSession.selectList("yoga.selectWorkoutReadCountList",yoga);
 	}
 
+	public ArrayList<Yoga> selectLikeCountList(Yoga yoga) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("yoga.selectLikeCountlist",yoga);
+	}
+
 }

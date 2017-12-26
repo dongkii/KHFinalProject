@@ -26,6 +26,7 @@ public interface YogaService {
 	int selectSearchVideoCount(String keyWord,String category1);
 	ArrayList<Yoga> selectSearchList(String keyWord, String category1);
 	ArrayList<Yoga> selectWorkoutReadCountList(Yoga yoga);
+	ArrayList<Yoga> selectLikeCountList(Yoga yoga);
 	
 	
 	

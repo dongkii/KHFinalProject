@@ -1,7 +1,7 @@
 /**
  * 시설 지도
  */
-var map = new naver.maps.Map("map");
+var map = new naver.maps.Map("map",	{zoom : 10});
 
 var infoWindow = new naver.maps.InfoWindow({
 	anchorSkew : true
@@ -84,7 +84,6 @@ function changeCoordToAddress(address)
 	});
 	
 }
-
 
 // result by latlng coordinate 위도 경도 -> 주소로 변경
 function searchAddressToCoordinate(address) {
@@ -210,6 +209,7 @@ function onSuccessGeolocation(position) {
 	console.log("onSuccessGeolocation");
 	map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
 	map.setZoom(10); // 지도의 줌 레벨을 변경합니다.
+	setGymlist(map);
 
 /*
  * infoWindow.setContent('<div style="padding:20px;">' + '<h5 style="align:
@@ -299,8 +299,7 @@ function onLoadPublic(map){
 						size : new naver.maps.Size(21, 32),
 						origin : new naver.maps.Point(0, 0),
 						anchor : new naver.maps.Point(10, 32)
-					}
-				
+					}				
 				});	
 				
 			var contentString = ["<div style='padding:20px;'>"+
@@ -349,5 +348,5 @@ function getClickHandler(seq) { // 클릭 이벤트 핸들러 추가하는 함�
 $(window).on("load", function() {
 	initMap();
 	onLoadGeolocation();
-	setGymlist(map);
+	//setGymlist(map);
 });

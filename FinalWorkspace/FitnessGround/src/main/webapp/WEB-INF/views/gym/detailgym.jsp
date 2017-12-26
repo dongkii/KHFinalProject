@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 
 <c:import url="../include/common/head.jsp" />
+<c:import url="/WEB-INF/views/gym/gymQnAInsertView.jsp"/>
 
 <style type="text/css">
 	body{
@@ -259,7 +260,7 @@
 							<h6>${ gym.description }</h6>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 22px" align="right">
-							<button class="btn btn-danger" onclick="location.href='gymQnaView.do?name=${gym.gym_name}&no=${gym.gym_no}'">문의하기</button>
+							<button class="btn btn-danger" onclick="javascript:gymQnaInsertModal('${gym.gym_name}','${gym.gym_no}')">문의하기</button>
 						</div>
 					</div>
 				</div>

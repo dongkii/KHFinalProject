@@ -3,7 +3,6 @@
 
 	<c:import url="../include/common/head.jsp" />
 	<link rel="stylesheet" href="/fitnessground/resources/css/user/mypage.css" />
-	<link rel="stylesheet" href="http://www.w3ii.com/lib/w3.css">
     <c:import url="../include/common/headend.jsp" />
 
 	<script type="text/javascript">
@@ -58,7 +57,7 @@
 
 	<br><div role="tabpanel" class="userBoardNav">
 		<!-- Nav tabs -->
-		<div class="container is-bg-a" style="margin-top:120px;">
+		<div class="container is-bg-a">
 			<div class="wrap">
 				<div class="tab-wrap">
 					<ul class="tab-list tab-b is-col-3">
@@ -67,41 +66,39 @@
 					  	<li><a id="liC" href="#community" aria-controls="community" role="tab" data-toggle="tab" style="padding-top:10px; padding-bottom:10px;">커뮤니티</a></li>
 						</c:if>
 					  	<c:if test="${com eq 'ok'}">
-					  	<li><a href="#qna" aria-controls="qna" role="tab" data-toggle="tab" style="padding-top:10px; padding-bottom:10px;">문의내역</a></li>
-					  	<li class="in"><a href="#community" aria-controls="community" role="tab" data-toggle="tab" style="padding-top:10px; padding-bottom:10px;">커뮤니티_게시글</a></li>
+					  	<li><a id="liQ" href="#qna" aria-controls="qna" role="tab" data-toggle="tab" style="padding-top:10px; padding-bottom:10px;">문의내역</a></li>
+					  	<li class="in"><a id="liC" href="#community" aria-controls="community" role="tab" data-toggle="tab" style="padding-top:10px; padding-bottom:10px;">커뮤니티_게시글</a></li>
 					  	</c:if>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<!-- Tab panes -->
-		<div class="tab-content" style="margin-top:0px;">
+		<div class="container tab-content col-md-offset-1" style="margin-top:0px;">
 			<c:if test="${com eq 'no'}">
 			<div role="tabpanel" class="tab-pane fade in active" id="qna">
 			</c:if>
 		  	<c:if test="${com eq 'ok'}">
 		  	<div role="tabpanel" class="tab-pane fade in" id="qna">
 		  	</c:if>
-				<table class="w3-table-all" style="background:white; border-style:1px;border-top:0px;" id="qnaT">
-					<tr>
-						<th colspan="2" align="left">
-							<c:if test="${null ne qSearchKeyword}">
-							<div id="searchInfo" style="text-align:left;">'${qSearchKeyword}'(으)로 검색한 결과</div>
-							</c:if>
-						</th>
-						<th>  
-							<div class="input-group" id="qnaF">
-							  <input type="text" class="form-control" placeholder="제목으로 검색..." name="searchQKeyword" onkeydown="javascript: if (event.keyCode == 13) {qSearch();}">
-							  <span class="input-group-addon" id="searchBt">
+				<table class="table-bordered" id="qnaT">
+					<tr id="qnaSTitle">
+						<th colspan="3" align="right">
+							<div id="searchInfo" style="text-align:left;" class="col-md-6"><c:if test="${null ne qSearchKeyword}">
+							'${qSearchKeyword}'(으)로 검색한 결과
+							</c:if></div>
+							<div class="input-group col-md-6" id="qnaF">
+							  <input type="text" class="form-control" placeholder="Title Keyword to Search" name="searchQKeyword" onkeydown="javascript: if (event.keyCode == 13) {qSearch();}">
+							  <span class="input-group-addon" id="searchBt" style="background:white; margin-top:20px;">
 							  	<a onclick="qSearch();" class="glyphicon glyphicon-search"></a>
 							  </span>
 							</div>
 						</th>
 					</tr>
 					<tr style="font-weight:bold;">
-					  <th style="width:15%;">번호</th>
-					  <th style="width:60%; text-align:left; padding-left:100px;">제목</th>
-					  <th style="width:25%;">작성일</th>
+					  <th style="width:15%;">Index</th>
+					  <th style="width:60%;">Title</th>
+					  <th style="width:25%;">Date</th>
 					</tr>
 					<c:choose>
 						<c:when test="${!empty qlist}">
@@ -111,7 +108,7 @@
 								</c:url>
 								<tr>
 								  <td>${q.q_no}</td>
-								  <td style="text-align:left; padding-left:100px;"><a href="${detail}">${q.title}</a></td>
+								  <td><a href="${detail}">${q.title}</a></td>
 								  <td>${q.write_date}</td>
 								</tr>
 							</c:forEach>
@@ -190,26 +187,24 @@
 		  	<c:if test="${com eq 'ok'}">
 		  	<div role="tabpanel" class="tab-pane fade in active" id="community">
 		  	</c:if>
-		  		<table class="w3-table-all" style="background:white; border-style:1px;border-top:0px;" id="communityT">
+		  		<table class="table-bordered" style="background:white; border-style:1px;border-top:0px;" id="communityT">
 					<tr>
-						<th colspan="2" align="left">
-							<c:if test="${null ne cSearchKeyword}">
-							<div id="searchInfo" style="text-align:left;">'${cSearchKeyword}'(으)로 검색한 결과</div>
-							</c:if>
-						</th>
-						<th>
-							<div class="input-group " id="comF">
-							  <input type="text" class="form-control" placeholder="제목으로 검색..." name="searchCKeyword" onkeydown="javascript: if (event.keyCode == 13) {cSearch();}">
-							  <span class="input-group-addon" id="searchBt">
+						<th colspan="3" align="right">
+							<div id="searchInfo" style="text-align:left;" class="col-md-6"><c:if test="${null ne cSearchKeyword}">
+							'${cSearchKeyword}'(으)로 검색한 결과
+							</c:if></div>
+							<div class="input-group col-md-6" id="comF">
+							  <input type="text" class="form-control" placeholder="Title Keyword to Search" name="searchCKeyword" onkeydown="javascript: if (event.keyCode == 13) {cSearch();}">
+							  <span class="input-group-addon" id="searchBt" style="background:white; margin-top:20px;">
 							  	<a onclick="cSearch();" class="glyphicon glyphicon-search"></a>
 							  </span>
 							</div>
 						</th>
 					</tr>
 					<tr style="font-weight:bold;">
-					  <th style="width:15%;">분류</th>
-					  <th style="width:60%; text-align:left; padding-left:100px;">제목</th>
-					  <th style="width:25%;">작성일</th>
+					  <th style="width:15%;">Category</th>
+					  <th style="width:60%;">Title</th>
+					  <th style="width:25%;">Date</th>
 					</tr>
 					<c:choose>
 						<c:when test="${!empty clist}">
@@ -226,15 +221,15 @@
 								<tr>
 								  <c:if test="${c.category_no eq 0}">
 								  	<td>후기</td>
-								  	<td style="text-align:left; padding-left:100px;"><a href="${reviewDetail}">${c.title}</a></td>
+								  	<td><a href="${reviewDetail}">${c.title}</a></td>
 								  </c:if>
 								  <c:if test="${c.category_no eq 1}">
 								  	<td>QnA</td>
-								  	<td style="text-align:left; padding-left:100px;"><a href="${qnaDetail}">${c.title}</a></td>
+								  	<td><a href="${qnaDetail}">${c.title}</a></td>
 								  </c:if>
 								  <c:if test="${c.category_no eq 2}">
-								  	<td>운동같이</td>
-								  	<td style="text-align:left; padding-left:100px;"><a href="${meetDetail}">${c.title}</a></td>
+								  	<td>운동모임</td>
+								  	<td><a href="${meetDetail}">${c.title}</a></td>
 								  </c:if>
 								  <td>${c.upload_date}</td>
 								</tr>

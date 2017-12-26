@@ -42,41 +42,55 @@
 				alert("닉네임을 입력해주세요.");
 				return false;
 			}
-			
+			var originNickname = $('#originNickname').val();
 			$.ajax({
-				url : "pwdCk.do",
+				url : "nicknameCheck.do",
 				dataType : "json",
-				type : "post",
-				data : {"pwd":pwd, "user_no":user_no}, 
-				success : function(data){
-					if(data.result == 1){
-						 if(confirm("회원 정보를 수정하시겠습니까?")){
-							 $.ajax({async : true, 
-								 	type : "post",
-								 	url : "uupdate.do",
-								 	dataType : "json",
-								 	data: $("#userDetailContentForm").serialize(),
-								 	success : function(result){
-								 		location.href="mypage.do?userno="+user_no;
-								 	},
-								 	error: function(request,status,error){
-								 		alert("error code : " + request.status + "\n"
-												+ "message : " + request.responseText + "\n"
-												+ "error : " + errorData);
-								 	}
-							});
-						 }
-					}
-					else {
-						alert("비밀번호를 확인해주세요.");
-						result = false;
+				type : "get",
+				data : {"nickname":nickname}, 
+				success : function(responseData){
+					var data = responseData.user;
+					if(data!=null && data.nickname!=originNickname){
+						alert("이미 사용 중인 닉네임입니다.");
+					} else {
+						$.ajax({
+							url : "pwdCk.do",
+							dataType : "json",
+							type : "post",
+							data : {"pwd":pwd, "user_no":user_no}, 
+							success : function(data){
+								if(data.result == 1){
+									 if(confirm("회원 정보를 수정하시겠습니까?")){
+										 $.ajax({async : true, 
+											 	type : "post",
+											 	url : "uupdate.do",
+											 	dataType : "json",
+											 	data: $("#userDetailContentForm").serialize(),
+											 	success : function(result){
+											 		location.href="mypage.do?userno="+user_no;
+											 	},
+											 	error: function(request,status,error){
+											 		alert("error code : " + request.status + "\n"
+															+ "message : " + request.responseText + "\n"
+															+ "error : " + errorData);
+											 	}
+										});
+									 }
+								}
+								else {
+									alert("비밀번호를 확인해주세요.");
+									result = false;
+								}
+							}
+						});
 					}
 				}
 			});
+			
 			return result;
 		}
 	</script>
-
+	
     <c:if test="${ sessionScope.user == null }">
 		<script type="text/javascript">
 			$(function (){
@@ -103,9 +117,10 @@
 	</div>
 	
 	<div class="col-md-offset-2 col-md-8 col-sm-12" id="userDetail" style="margin-top:120px;">
-			<table id="uDetailTitle" align="center">
-				<tr><th>${sessionScope.user.name}님의 기본정보</th></tr>				
-			</table>
+		<table id="uDetailTitle" align="center">
+			<tr><th>${sessionScope.user.name}님의 기본정보</th></tr>				
+		</table>
+		<input type="hidden" value="${sessionScope.user.nickname}" id="originNickname">
 		<div id="uDetailContent">
 			<div class="col-md-4" align="center" id="profileImg">
 				<a href="javascript:profileEdit()">

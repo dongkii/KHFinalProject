@@ -341,25 +341,8 @@ public class YogaController {
 					list = yogaService.selectCList(yoga);
 					
 				}else if(selectValue.equals("좋아요수")){
-					list = yogaService.selectCList(yoga);
+					list = yogaService.selectLikeCountList(yoga);
 					
-					int countArr[] = new int[list.size()];
-					
-					for(int i=0; i<list.size();i++){
-						countArr[i] = healthService.selectLikeCount(list.get(i).getV_no());
-						System.out.println(countArr[i]);
-					}
-					
-					//좋아요수 내림차순 정렬
-					for(int i=0; i<countArr.length; i++){
-						for(int j=i+1; j<countArr.length; j++){
-							if(countArr[i]<countArr[j]){
-								Yoga tmp = list.get(i);
-								list.set(i, list.get(j));
-								list.set(j,tmp);
-							}				
-						}
-					}
 				}else if(selectValue.equals("조회수")){
 					
 					list = yogaService.selectWorkoutReadCountList(yoga);

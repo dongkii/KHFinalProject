@@ -10,6 +10,7 @@
 <c:import url="../include/common/head.jsp" />
 
 <link rel="stylesheet" href="/fitnessground/resources/css/gym/updategym.css">
+<link rel="stylesheet" href="/fitnessground/resources/css/user/mypage.css" />
 
 <c:import url="../include/common/headend.jsp" />
 
@@ -35,7 +36,10 @@
 			<c:import url="../user/register.jsp" />
 		</div>
 	</div>
-	<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+	<div id="myPageBar">
+		<c:import url="../include/user/myPageBar.jsp"/>
+	</div>
+	<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12" style="margin-top:100px;margin-bottom:30px;">
 		<div id="tip">
 			<h3>헬스장 수정</h3>
 			<h5>각 탭의 정보를 입력 후 변경하기를 눌러보세요!</h5>

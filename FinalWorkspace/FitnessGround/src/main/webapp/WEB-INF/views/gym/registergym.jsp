@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Calendar"%>
@@ -9,6 +8,7 @@
 <c:import url="../include/common/head.jsp" />
 
 <link rel="stylesheet" href="/fitnessground/resources/css/gym/registergym.css">
+<link rel="stylesheet" href="/fitnessground/resources/css/user/mypage.css" />
 
 <c:import url="../include/common/headend.jsp" />
 
@@ -22,6 +22,12 @@
 			});
 		</script>
 </c:if>
+
+<script type="text/javascript">
+   	$(function (){
+		$('#myPageBar nav ul #uSchedule').addClass('activeMenu');
+   	});
+</script>
 <c:if test="${ sessionScope.user != null }">
 	<div id="page-wrapper">
 		<!-- Header -->
@@ -34,7 +40,10 @@
 			<c:import url="../user/register.jsp" />
 		</div>
 	</div>
-	<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+	<div id="myPageBar">
+		<c:import url="../include/user/myPageBar.jsp"/>
+	</div>
+	<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12" style="margin-top:100px;margin-bottom:30px;">
 		<div id="tip">
 			<h3>헬스장 등록</h3>
 			<h5>모든 정보를 입력해야 등록버튼이 활성화 됩니다!</h5>

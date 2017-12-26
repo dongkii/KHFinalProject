@@ -74,6 +74,7 @@
       selectComment(v_no); //댓글
       var comment = '<input type="text" id="reply-input" placeholder="댓글을 입력하세요">' +
                 '<input type="hidden" id="user_no" value="' + ${sessionScope.user.user_no}  + '" >' +
+                '<input type="hidden" id="user_level" value="' + ${sessionScope.user.user_level}  + '" >' +
                 /* '<input type="hidden" id="user" value="' + ${sessionScope.user}  + '" >' +  */
                 '<input type="hidden" id="v_no" value="' + v_no  + '" >' +
                '<button type="submit" id="reply-btn" onclick="return insertComment(' + v_no + ');">등록</button>';
@@ -134,7 +135,7 @@
          
          /* 모달창 왼쪽에 영상 띄워주는 부분 */   
          if(category1=="헬스"){
-            src="<iframe width='600' height='400' src="+ responseData.url.replace(/\^/g,"&")
+        	 src="<iframe id='video-play' src="+ responseData.url.replace(/\^/g,"&")
             +"frameborder='0' gesture='media' allow='encrypted-media' allowfullscreen name='iframe'></iframe>"
          }else{
             src= "<iframe id='video-play' src='https://www.youtube.com/embed/"+responseData.url+"' frameborder='0'"+
@@ -253,6 +254,7 @@
       var userLoginCheck = 0;
       var checkLikeTable = 0;
       var user_no = $("#user_no").val();
+      var user_level = $("#user_level").val();
       $("input[name=reloadStat]").val('1');
       
       $.ajax({
@@ -268,10 +270,14 @@
             console.log("checkLikeTable"+checkLikeTable);
             if(userLoginCheck==0){
                alert("로그인이 필요한 서비스 입니다.");
-            }else if(userLoginCheck!=0 && checkLikeTable==0 ){
+            }else if(userLoginCheck!=0 && checkLikeTable==0 && user_level==0){ //일반
                alert("게시물을 추천하셨습니다.\n MyPage - 운동 스케줄에서 게시물을 확인 하실 수 있습니다.");
-            }else if(userLoginCheck!=0 && checkLikeTable==1){
+            }else if(userLoginCheck!=0 && checkLikeTable==1 &&user_level==0){
                alert("추천을 취소 하셨습니다.\n MyPage - 운동 스케줄에서 해당 게시물이 삭제됩니다.");
+            }else if(userLoginCheck!=0 && checkLikeTable==0 && user_level!=0){ //사업자,관리자
+            	alert("게시물을 추천하셨습니다");
+            }else if(userLoginCheck!=0 && checkLikeTable==1 &&user_level==0){
+            	alert("추천을 취소 하셨습니다.");
             }
          },
          error: function(xhr,status,error){
@@ -285,6 +291,7 @@
    
    function selectLikeCount(v_no){
       var user_no = $("#user_no").val();
+      
       $.ajax({
          url:"likeCount.do",
          dataType:"json",

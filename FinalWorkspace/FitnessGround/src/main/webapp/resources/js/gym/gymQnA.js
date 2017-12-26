@@ -1,26 +1,17 @@
 var gfv_count = 1;
-	$(document).ready(function(){
-		$("#addFile").on("click", function(e){ //파일 추가 버튼
-			e.preventDefault();
-			fn_addFile();
-		});
+
+function fn_addFile(){
+	if(gfv_count<1) {gfv_count=1;}
+	if(gfv_count<3) {
+		var str = "<tr><th></th><td><input type='file' class='form-control' id='file' name='file_"+(gfv_count++)+"' style='width:100%'></td>"
+				+ "<td align='right'><a class='btn btn-danger' href='#this' style='text-decoration:none;' id='delete' name='delete'>삭제</a></td></tr>";
+		$("#fileDiv").append(str);
 		$("a[name='delete']").on("click", function(e){ //삭제 버튼
 			e.preventDefault();
 			fn_deleteFile($(this));
 		});
-		$("#addFileSm").on("click", function(e){
-			e.preventDefault();
-			fn_addFileSm();
-		});
-});
-function fn_addFile(){
-	var str = "<tr><th></th><td><input type='file' class='form-control' id='file' name='file_"+(gfv_count++)+"' style='width:100%'></td>"
-			+ "<td align='right'><a class='btn btn-danger' href='#this' style='text-decoration:none;' id='delete' name='delete'>삭제</a></td></tr>";
-	$("#fileDiv").append(str);
-	$("a[name='delete']").on("click", function(e){ //삭제 버튼
-		e.preventDefault();
-		fn_deleteFile($(this));
-	});
+	}
+	return false;
 }
 function fn_addFileSm(){
 	var str = "<tr><td><input type='file' class='form-control' id='file' name='file_"+(gfv_count++)+"' style='width:100%'></td>"
@@ -32,20 +23,10 @@ function fn_addFileSm(){
 	});
 	}
 function fn_deleteFile(obj){
+	gfv_count--;
 	obj.parent().parent().remove();
+	return false;
 }
-
-function gymQnAInsert() {
-	$("#gymQnAForm").submit();
-}
-
-function gymQnAUpdate() {
-	$("#gymQnAForm").attr("action", "gymQnAUpdate.do").submit();
-}
-function gymQnAAnswer() {
-	$("#gymQnAForm").attr("action", "gymQnAAnswer.do").submit();
-}
-
 function ckWordLen(obj, maxByte) {
 	$('#textCount').css('color','black');
 	var strValue = obj.value;
@@ -69,10 +50,19 @@ function ckWordLen(obj, maxByte) {
     }
     // 초과되는 글자 자르기
     if (totalByte > maxByte) {
-    	$('#textCount').css('color','red');
-    	$('#textCount').html(totalByte+'/1500<br>최대 1500자까지 입력 가능합니다.');
-        str2 = strValue.substr(0, len);
+        str2 = strValue.substr(0, len-1);
         obj.value = str2;
-//        ckWordLen(obj, 1502);
+        $('#textCount').text(1500+'/1500');
     }
+}
+
+function gymQnAInsert() {
+	$("#gymQnAForm").submit();
+	// ajax로 바꾸기
+}
+function gymQnAUpdate() {
+	$("#gymQnAForm").attr("action", "gymQnAUpdate.do").submit();
+}
+function gymQnAAnswer() {
+	$("#gymQnAForm").attr("action", "gymQnAAnswer.do").submit();
 }

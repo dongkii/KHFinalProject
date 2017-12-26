@@ -37,6 +37,7 @@ public interface HealthService {
 	ArrayList<Health> selectWorkoutReadCountList(Health health);
 	ArrayList<Health> selectWorkoutLikeDesList(Health health);
 	ArrayList<Health> selectLikeCountList(Health health);
+	ArrayList<Health> selectMainList();
 	
 	
 }

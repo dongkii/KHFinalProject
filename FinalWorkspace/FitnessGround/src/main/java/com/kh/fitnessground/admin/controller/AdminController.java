@@ -24,6 +24,7 @@ import com.kh.fitnessground.admin.model.vo.Visit;
 import com.kh.fitnessground.community.model.service.CommunityBoardService;
 import com.kh.fitnessground.community.model.vo.CommunityBoard;
 import com.kh.fitnessground.community.model.vo.MeetingBoard;
+import com.kh.fitnessground.gym.model.service.GymService;
 import com.kh.fitnessground.gym.model.vo.GymQnABoard;
 import com.kh.fitnessground.user.model.service.UserService;
 import com.kh.fitnessground.user.model.service.UserServiceImpl;
@@ -50,7 +51,9 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
-
+	
+	@Autowired
+	private GymService gymService;
 	
 	
 	// 관리자 메인뷰 이동
@@ -501,7 +504,12 @@ public class AdminController {
 		
 		
 	}*/
-	
 		
-
+	// footer 관리자에게 문의 보내기
+	@RequestMapping(value="/adminQnAInsert.do", method=RequestMethod.POST)
+	public ModelAndView userUpdateMethod(GymQnABoard b, ModelAndView mv, HttpServletRequest request) {
+		gymService.insertGymQnABoard(b, 2);
+		mv.setViewName("jsonView");
+		return mv; 
+	}
 }

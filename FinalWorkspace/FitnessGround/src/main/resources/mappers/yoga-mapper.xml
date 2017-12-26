@@ -116,6 +116,20 @@
 		select * from tb_video_board where category1=#{category1} and category2=#{category2} order by readcount desc
 	]]>
 	</select>
+	<!-- 종아요 정렬 -->
+		<select id="selectLikeCountlist" resultType="list" parameterType="Yoga" resultMap="yogaResult">
+		<![CDATA[
+			select *
+			from (select v_no,NVL(likecount, 0) as tt, title,content,category1,category2,url,readcount
+				  from tb_video_board
+				  left outer join ( select v_no, count(*) as likecount
+				                    from tb_like
+				                    group by v_no )
+				 using ( v_no ))
+			where category1=#{category1} and category2=#{category2}
+			order by tt desc
+		]]>
+	</select>
 	
 	
 	
