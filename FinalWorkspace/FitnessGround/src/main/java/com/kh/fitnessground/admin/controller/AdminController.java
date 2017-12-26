@@ -25,10 +25,12 @@ import com.kh.fitnessground.community.model.service.CommunityBoardService;
 import com.kh.fitnessground.community.model.vo.CommunityBoard;
 import com.kh.fitnessground.community.model.vo.MeetingBoard;
 import com.kh.fitnessground.gym.model.service.GymService;
+import com.kh.fitnessground.gym.model.vo.Gym;
 import com.kh.fitnessground.gym.model.vo.GymQnABoard;
 import com.kh.fitnessground.user.model.service.UserService;
 import com.kh.fitnessground.user.model.service.UserServiceImpl;
 import com.kh.fitnessground.user.model.vo.User;
+import com.kh.fitnessground.workout.commentlike.vo.Like;
 import com.kh.fitnessground.workout.health.model.service.HealthService;
 import com.kh.fitnessground.workout.health.model.vo.Health;
 import com.kh.fitnessground.workout.yoga.model.service.YogaService;
@@ -478,6 +480,21 @@ public class AdminController {
 		}
 			
 	}	
+	
+	
+	@RequestMapping(value="userDetail.do")
+	public ModelAndView userDetailMethod(User u, Like l, HttpServletRequest request, HttpServletResponse response){
+		
+		ModelAndView mv = new ModelAndView("admin/userlist/userDetail");
+		
+		User user = adminService.userDetail(u);
+		Like like = adminService.likeDetail(l);
+		
+		mv.addObject("user", user);
+		mv.addObject("like", like);
+		
+		return mv;
+	}
 	
 	
 	/*public void sessionCreated(HttpSessionEvent sessionEve) {

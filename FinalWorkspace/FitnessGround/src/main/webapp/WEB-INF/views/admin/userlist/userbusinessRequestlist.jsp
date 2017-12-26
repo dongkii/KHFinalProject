@@ -10,7 +10,14 @@
 
 
 <c:import url="../common/headend.jsp" />
-
+ <c:if test="${ sessionScope.user == null }">
+		<script type="text/javascript">
+			$(function (){
+				alert("로그인이 필요합니다.");
+				location.href="main.do";
+			});
+		</script>
+	</c:if>
 <script type="text/javascript">
 	function userlistPage(){
 		location.href="adminuserlist.do"
@@ -23,7 +30,7 @@
 	}
 	
 	function gymRequest(gym_no, user_state){
-		alert("버튼클릭 : " +gym_no +" ,  유저 상태 : "+ user_state);
+		/* alert("버튼클릭 : " +gym_no +" ,  유저 상태 : "+ user_state); */
 		
 		if(user_state == 1){
 			alert("해당 계정은 비활성 상태입니다. 헬스장을 등록할 수 없습니다.");
@@ -51,7 +58,7 @@
 	}
 	
 	function gymCancel(gym_no){
-		alert("버튼클릭 : " +gym_no);
+		/* alert("버튼클릭 : " +gym_no); */
 		
 		$.ajax({
 			url : "gymCancel.do",
@@ -77,7 +84,7 @@
 <c:import url="../common/nav.jsp" />
 <div class="content-wrapper">
 	<div class="container-fluid">
-		<!-- Breadcrumbs-->
+		
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="adminMain.do">Fitness Ground</a></li>
 			<li class="breadcrumb-item active">메인으로 이동</li>
@@ -124,7 +131,14 @@
               </tfoot> -->
 							<tbody>
 								<c:forEach var="item" items="${list }" varStatus="status">
-									<tr align="center">
+									<c:choose>
+											<c:when test="${item.approval_state==0}">
+												<tr id="inactive">
+											</c:when>
+											<c:when test="${item.approval_state==1}">
+												<tr id="Activation">
+											</c:when>
+									</c:choose>
 										<td>${status.count }</td>
 										<td>${item.user_state }</td>
 										<td>${item.email }</td>

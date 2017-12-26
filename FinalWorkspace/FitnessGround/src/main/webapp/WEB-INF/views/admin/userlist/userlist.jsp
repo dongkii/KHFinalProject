@@ -128,16 +128,20 @@
 								<tbody>
 
 									<c:forEach var="item" items="${list }" varStatus="status">
-										<c:choose>
-											<c:when test="${item.user_state==0}">
-												<tr>
-											</c:when>
-											<c:when test="${item.user_state==1}">
+										 <c:choose>
+											<c:when test="${item.user_state==0 && item.delete_date eq null}">
 												<tr id="inactive">
 											</c:when>
-										</c:choose>
+											<c:when test="${item.user_state==1 && item.delete_date eq null}">
+												<tr id="Activation">
+											</c:when>
+											<c:when test="${item.user_state==0 || item.user_state==1 && item.delete_date != null }">
+												<tr id="secession">
+											</c:when>
+										</c:choose> 
+										
 											<td align="center">${status.count }</td>
-											<td align="center">${item.email }</td>
+											<td align="center"><a href="userDetail.do?user_no=${item.user_no }">${item.email }</a></td>
 											<td align="center">${item.name }</td>
 											<td align="center">${item.nickname }</td>
 											<td align="center">${item.phone }</td>
@@ -161,7 +165,7 @@
 											</c:choose>
 											</c:if>
 											<c:if test="${item.delete_date ne null }" >
-											
+													
 													<td align="center">
 													<button class="btn btn-primary" onclick="checkUser('${item.delete_date}');">탈퇴계정</button></td>
 												

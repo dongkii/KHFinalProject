@@ -98,7 +98,7 @@
 						</a>
 					</c:forEach>
 						 <div class="dropdown-divider"></div>
-						<a class="dropdown-item small" href="adminQnABoard.do">자세히보기</a>
+						<a class="dropdown-item small" href="adminQuestionBoard.do">자세히보기</a>
 					
 				<!-- 헬스장 등록요청 최신3개 출력 -->
 				<li class="nav-item dropdown"><a

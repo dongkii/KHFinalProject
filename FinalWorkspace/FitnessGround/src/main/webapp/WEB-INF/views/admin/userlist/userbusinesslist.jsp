@@ -130,7 +130,17 @@
 							<tbody>
 							<form id="massiveDeleteForm">
 								<c:forEach var="item" items="${list }" varStatus="status">
-									<tr align="center">
+									<c:choose>
+										<c:when test="${item.user_state == 0 && item.delete_date eq null }">
+											<tr id="inactive">
+										</c:when>
+										<c:when test="${item.user_state==1 && item.delete_date eq null }">
+											<tr id="Activation">
+										</c:when>
+										<c:when test="${item.user_state==0 || item.user_state==1 && item.delete_date ne null }">
+											<tr id="secession">
+										</c:when>
+									</c:choose>
 										<td>${status.count }</td>
 										<td>${item.email }</td>
 										<td>${item.name }</td>

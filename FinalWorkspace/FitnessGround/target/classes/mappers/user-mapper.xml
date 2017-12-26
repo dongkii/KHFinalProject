@@ -65,6 +65,16 @@
 		]]>
 		
 	</select>
+	
+	<select id="userDetail" parameterType="User" resultType="User" resultMap="resultUser">
+		<![CDATA[
+			select * 
+			from tb_user 
+			where user_no = #{user_no} 
+		]]>
+		
+	</select>
+	
 	<select id="businessList" parameterType="_int" resultType="User"
 		resultMap="resultUser">
 		<![CDATA[
@@ -177,6 +187,7 @@
 		select * from tb_mypage_schedule left join tb_video_board using (v_no) where user_no=#{userNo} and to_char(UPLOAD_DATE,'rr/MM/dd')=to_char(sysdate-1, 'rr/MM/dd')
 		]]>
 	</select>
+	
 	<select id="todaySchedule" parameterType="_int" resultMap="resultUserSchedule" resultType="list">
 		<![CDATA[ 
 		select * from tb_mypage_schedule left join tb_video_board using (v_no) where user_no=#{userNo} and to_char(UPLOAD_DATE,'rr/MM/dd')=to_char(sysdate, 'rr/MM/dd')
@@ -191,6 +202,7 @@
 			where user_no = #{user_no}
 		]]>	
 	</select>
+	
 	<update id="userUpdate" parameterType="User"
 		flushCache="true" statementType="PREPARED" >
 		<![CDATA[
@@ -199,6 +211,7 @@
 		where user_no = #{user_no}
 		]]>
 	</update>
+	
 	<update id="userPwdUpdate" parameterType="User"
 		flushCache="true" statementType="PREPARED" >
 		<![CDATA[
@@ -207,6 +220,7 @@
 		where user_no = #{user_no}
 		]]>
 	</update>
+	
 	<update id="userDelete" parameterType="User"
 		flushCache="true" statementType="PREPARED" >
 		<![CDATA[
@@ -215,6 +229,7 @@
 		where user_no = #{user_no}
 		]]>
 	</update>
+	
 	<update id="userProfileImgUpdate" parameterType="User"
 		flushCache="true" statementType="PREPARED" >
 		<![CDATA[

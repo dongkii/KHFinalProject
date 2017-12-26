@@ -78,10 +78,15 @@ $( document ).ready(function() {
 
 						<tbody>
 							<c:forEach var="item" items="${list }" varStatus="status">
-								
-									<tr align="center">
-										<%-- <td><input type="checkbox" class="deleteCheckBox"
-											name="deleteCheckBox" value="${item.user_no} " /></td> --%>
+									<c:choose>
+										<c:when test="${item.response_state == 1 }">
+											<tr id="Activation">
+										</c:when>
+										<c:when test="${item.response_state == 0 }">
+											<tr id="inactive">
+										</c:when>
+									</c:choose>
+									
 										<td>${status.count }</td>
 										<td>${item.user_no }</td>
 										<td>${item.name }</td>

@@ -13,6 +13,12 @@
 #inactive{
 	background: #DAECF3;
 }
+#Activation{
+	background: #ffccff;
+}
+#secession{
+	background: #6666ff;
+}
 #new-dropdown{
 	box-shadow: 2px 2px 4px 2px rgba(93, 93, 93, 0.75);
 }
