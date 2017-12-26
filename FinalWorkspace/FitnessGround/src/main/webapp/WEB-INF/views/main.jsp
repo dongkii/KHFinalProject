@@ -9,8 +9,9 @@
         <!-- Header -->
         <div id="header">
             <!-- Inner -->
+        
             <c:import url="include/main/maininner.jsp" />
-
+			
             <!-- Nav -->
             <c:import url="include/main/nav.jsp" />
             
@@ -28,91 +29,11 @@
         </section>
 
         <!-- Carousel -->
-        <section class="carousel">
-            <div class="reel" id="view_video">
-
-            <!--  <article>
-             		
-                    	<a href="#" class="image featured"><img src="/fitnessground/resources/images/pic01.jpg" alt="" /></a>
-                    	<header>
-                    	    <h3><a href="#">Pulvinar sagittis congue</a></h3>
-                    	</header>
-                    	<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                	
-                </article>
-
-                <article>
-                    <a href="#" class="image featured"><img src="/fitnessground/resources/images/pic02.jpg" alt="" /></a>
-                    <header> 
-                        <h3><a href="#">Fermentum sagittis proin</a></h3>
-                    </header>
-                    <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                </article>
-
-                <article>
-                    <a href="#" class="image featured"><img src="/fitnessground/resources/images/pic03.jpg" alt="" /></a>
-                    <header>
-                        <h3><a href="#">Sed quis rhoncus placerat</a></h3>
-                    </header>
-                    <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                </article>
-
-                <article>
-                    <a href="#" class="image featured"><img src="/fitnessground/resources/images/pic04.jpg" alt="" /></a>
-                    <header>
-                        <h3><a href="#">Ultrices urna sit lobortis</a></h3>
-                    </header>
-                    <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                </article>
-
-                <article>
-                    <a href="#" class="image featured"><img src="/fitnessground/resources/images/pic05.jpg" alt="" /></a>
-                    <header>
-                        <h3><a href="#">Varius magnis sollicitudin</a></h3>
-                    </header>
-                    <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                </article>
-
-                <article>
-                    <a href="#" class="image featured"><img src="/fitnessground/resources/images/pic01.jpg" alt="" /></a>
-                    <header>
-                        <h3><a href="#">Pulvinar sagittis congue</a></h3>
-                    </header>
-                    <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                </article>
-
-                <article>
-                    <a href="#" class="image featured"><img src="/fitnessground/resources/images/pic02.jpg" alt="" /></a>
-                    <header>
-                        <h3><a href="#">Fermentum sagittis proin</a></h3>
-                    </header>
-                    <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                </article>
-
-                <article>
-                    <a href="#" class="image featured"><img src="/fitnessground/resources/images/pic03.jpg" alt="" /></a>
-                    <header>
-                        <h3><a href="#">Sed quis rhoncus placerat</a></h3>
-                    </header>
-                    <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                </article>
-
-                <article>
-                    <a href="#" class="image featured"><img src="/fitnessground/resources/images/pic04.jpg" alt="" /></a>
-                    <header>
-                        <h3><a href="#">Ultrices urna sit lobortis</a></h3>
-                    </header>
-                    <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                </article>
-
-                <article>
-                    <a href="#" class="image featured"><img src="/fitnessground/resources/images/pic05.jpg" alt="" /></a>
-                    <header>
-                        <h3><a href="#">Varius magnis sollicitudin</a></h3>
-                    </header>
-                    <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                </article> 
- -->
+        <section class="carousel">	<!-- 캐러셀  -->
+            <div class="reel">
+            	<div id="view_video">
+            	
+            	</div>
             </div>
         </section>
 
@@ -177,74 +98,115 @@
     </div>
     
     <script type="text/javascript">
-    
-    	$(function(){
-    		var user_level = ${sessionScope.user.user_level} //일반회원
-    		console.log(user_level);
-       	
-           	if(!user_level){	//로그인 안했을 때 좋아요 많은 순서
-           		console.log("if문 실행");
-            
-          	 	var values="";
-            
-          	 	$.ajax({
-           			url:'mainVideoList.do',
-           			type:'post',
-           			success:function(result){
+	$(function(){
+		
+		
+		var user_level = ${sessionScope.user.user_level} //일반회원
+		console.log(user_level);
+   	
+       	/* if(!user_level){ */	//로그인 안했을 때 좋아요 많은 순서
+       		console.log("if문 실행");
+        
+      	 	var values="";
+        
+      	 	$.ajax({
+       			url:'mainVideoList.do',
+       			type:'post',
+       			success:function(result){
 
-           				console.log('ajax 호출 성공');
-           				
-           				
-           				var jsonStr = JSON.stringify(result);
-           				var json = JSON.parse(jsonStr);
-           			          	
-           				var title;
-   						var url;
-   						var content;
-   						
-   						
-           				
-           				for(var i in json.list){
-           					var no = json.list[i].v_no;
-           					console.log(decodeURIComponent(json.list[i].url));
-           					if(decodeURIComponent(json.list[i].category1) == "헬스"){ //네이버
-           						
-           						values +=	'<article><div id="video-iframe' + no+ '">' +
-               	                '<a href="javascript:detailView('
-               	                    		+json.list[i].v_no + ',\''+ decodeURIComponent(json.list[i].category1) + '\',' + '\'' + decodeURIComponent(json.list[i].category2).replace(/\+/g,' ') +'\');" class="image featured"><img src="' +decodeURIComponent(json.list[i].url) + '" alt="" /></a>'+
-               	                '<header>'+
-               	                    '<h3><a id = "v-title" href="javascript:detailView('
-               	                    		+json.list[i].v_no + ',\''+ decodeURIComponent(json.list[i].category1) + '\',' + '\'' + decodeURIComponent(json.list[i].category2).replace(/\+/g,' ') +'\');">'
-               	                    +decodeURIComponent(json.list[i].title).replace(/\+/g," ") + 
-               	                    '</a></h3>'+
-               	                '</header>'+
-               	             /*    '<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>'+ */
-               	            	'</div></article>'
-               	            	console.log(values);
-               	            	$("#view_video").html(values);
-           					}else{ //유튜브
-           						console.log("유튜브 들어옴");
-           					
-                   	            	
-           					}
-           						
-           				}
-           					
-           					
-           			
-           			},error: function(request, status, errorData){
-           	            console.log("error code : " + request.status + "\n"
-           	                  + "message : " + request.responseText + "\n"
-           	                  + "error : " + errorData);
-           	         }
-         	  	})
-           	          	
-    		
-           	$("#view_video").html(values);
-        	
-    		}
-           	
-    	});
+       				console.log('ajax 호출 성공');
+       				
+       				
+       				var jsonStr = JSON.stringify(result);
+       				var json = JSON.parse(jsonStr);
+       			          	
+       				var title;
+						var url;
+						var content;
+											   						
+						
+       				
+       				for(var i in json.list){
+       					var no = json.list[i].v_no;
+       					console.log(decodeURIComponent(json.list[i].url));
+       					if(decodeURIComponent(json.list[i].category1) == "헬스"){ //네이버
+       						
+       						values +=	'<article><div>' +
+           	                '<a href="javascript:detailView('
+           	                    		+json.list[i].v_no + ',\''+ decodeURIComponent(json.list[i].category1) + '\',' + '\'' + decodeURIComponent(json.list[i].category2).replace(/\+/g,' ') +'\');" class="image featured"><img src="' +decodeURIComponent(json.list[i].url) + '" alt=""/></a>'+
+           	                '<header>'+
+           	                    '<h3><a id = "v-title" href="javascript:detailView('
+           	                    		+json.list[i].v_no + ',\''+ decodeURIComponent(json.list[i].category1) + '\',' + '\'' + decodeURIComponent(json.list[i].category2).replace(/\+/g,' ') +'\');">'
+           	                    +decodeURIComponent(json.list[i].title).replace(/\+/g," ") + 
+           	                    '</a></h3>'+
+           	                '</header>'+
+           	            	'</div></article>'
+           	            	console.log(values);
+           	            	$("#view_video").html(values);
+       					}else{ //유튜브
+       						console.log("유튜브 들어옴");
+       						
+       						title = decodeURIComponent(json.list[i].title).replace(/\+/g," ");
+       						vid = decodeURIComponent(json.list[i].url);
+       						content = decodeURIComponent(json.list[i].title).replace(/\+/g," ");
+       						
+       						var category1 = decodeURIComponent(json.list[i].category1);
+       						var category2 = decodeURIComponent(json.list[i].category2).replace(/\+/g,' ');
+       						var v_no = json.list[i].v_no;
+       						
+       						getYoutubeThumbnail(title,vid,content,category1,category2,v_no);
+       			
+               	            	
+       					}
+       						
+       				}//for문 끝      					
+       			
+       			},error: function(request, status, errorData){
+       	            console.log("error code : " + request.status + "\n"
+       	                  + "message : " + request.responseText + "\n"
+       	                  + "error : " + errorData);
+       	         }
+     	  	})
+       	          	
+		       	
+	/* 	} */
+       	
+	});	
+    
+    
+    	function getYoutubeThumbnail(title,vid,content,category1,category2,v_no){
+    		    		
+    		var thumbnail;
+    		var value = "";
+    		$.get("https://www.googleapis.com/youtube/v3/videos", {
+				part : 'snippet',
+				maxResults : 50,
+				id : vid,
+				key : 'AIzaSyACiHNLQp0NoZLhAx6u2JbtMGjCp3STK3A'
+			}, function(data) {
+				
+				$.each(data.items, function(i, item) {
+					 thumbnail = item.snippet.thumbnails.medium.url;
+					
+					 value +=	'<article><div>' +
+    	                '<a href="javascript:detailView('
+    	                    		+ v_no + ',\''+ category1 + '\',' + '\'' + category2+'\');" class="image featured"><img src="' + thumbnail + '" alt="" /></a>'+
+    	                '<header>'+
+    	                    '<h3><a id = "v-title" href="javascript:detailView('
+    	                    		+ v_no + ',\''+ category1 + '\',' + '\'' + category2 +'\');">'
+    	                    + title.substring(0,18).concat("...") + 
+    	                    '</a></h3>'+
+    	                '</header>'+
+    	            	'</div></article>'
+    	            	
+    	            	$("#view_video").append(value);
+					 
+					
+				});
+			});
+    	}
+    
+    
    				
     
 	</script>
