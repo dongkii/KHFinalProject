@@ -119,6 +119,7 @@ public class CommunityBoardController {
 			jmb.put("user_no", mb.getUser_no());
 			jmb.put("title", mb.getTitle());
 			jmb.put("content", mb.getContent());
+			jmb.put("meeting_location", mb.getMeeting_location());
 			jmb.put("meeting_date", mb.getMeeting_date().toString());
 			jmb.put("upload_date", mb.getUpload_date().toString());
 			jmb.put("readcount", mb.getReadcount());

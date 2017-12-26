@@ -6,77 +6,18 @@
 	
 	
 		<style type="text/css">
-	 	body {
-			font-family: "Open Sans", sans-serif;
-			line-height: 1.25;
-		}
-		
-		h1 {
-			font-weight: bold; 
-			font-size : 20pt;
-			color: black;
-		}
-		
-		a#btn{
-		position:relative;
-		background-color:#11A6B7;
-		color:white;
-		left:54%;
-		}
-		
-	
-		div#community_category_div {
-			padding-left:23%;
-			height:5%;
-		}
-		div#community_search_div{
-			margin-left: 23%;
-		}
-		select#findType{
-			height: 30px;
-			width: 70px;
-			font-size: 14px;
-		}
-		input#searchKey{
-			height: 25px; 
-			width: 200px;
-			}
-		input#searchKey placeholder{
-			color: #F3F3F3;
-			font-size: 14px;
-		}
-	
-		button#community_writer_btn{
-			left:63%;
-			width:70pt;
-			height:25pt;
-			font-size:8pt;
-			
-			
-		}
-		button#community_detail{
-			width:22%;
-			
-		}
-	
-		div#community_table_div{
-			padding-left:23%;
-			padding-right:9%;
-		}
-		table#community_table {
+	  table#community_table {
 			
 			border: 1px solid #ccc;
 			border-collapse: collapse;
 			table-layout: fixed;
-			width: 80%;
 			font-size:10pt;
 		}
 		
 		table#community_table tr {
 			border: 1px solid #ddd;
-			padding: .35em;
-		}
-		
+			
+		}		
 	
 		table#community_table tr:nth-child(even) {
 			background: #f8f8f8;
@@ -88,10 +29,8 @@
 		}
 	
 		table#community_table th {
+			font-weight: bold;
 			background: #D8D8D8;
-			font-size: .85em;
-			letter-spacing: .1em;
-			text-transform: uppercase;
 		}
 		
 		table#community_table td {
@@ -99,7 +38,7 @@
 			overflow: hidden;
 		}
 	</style>
-	
+<link rel="stylesheet" href="/fitnessground/resources/css/community/template.css">		
 	
 	<c:import url="../../include/common/headend.jsp" />
     
@@ -208,37 +147,55 @@
 		
 	</script>
 <br><br>
+<div class="container">
 <h1 align="center">후기</h1>
 <br>
-<div id="community_category_div">
-<button id="community_detail"onclick="meetingPage();">운동같이해요</button> &nbsp;&nbsp;&nbsp;
-<button id="community_detail"onclick="reviewPage();">후기</button>	&nbsp;&nbsp;&nbsp;
-<button id="community_detail"onclick="qnaPage();">Q & A</button>
-</div>
+<div class="row">
+	<div class="col-md-4 col-sm-4 col-xs-12">
+	<a class="btn btn-primary button-size margin-left-10" onclick="meetingPage();">운동같이해요</a>
+	</div>
+	<div class="col-md-4 col-sm-4 col-xs-12">
+	<a class="btn btn-primary button-size margin-left-10" onclick="reviewPage();">후기</a>
+	</div>
+	<div class="col-md-4 col-sm-4 col-xs-12">
+	<a class="btn btn-primary button-size margin-left-10" onclick="qnaPage();">Q & A</a>
+	</div>
+	</div>
 <br>
-<div id="community_search_div" align="left">
-			<div align="left">
-			<form class="form-group" name="form1" role="form" action="review.do" method="post" >
-				<select class="btn" name="searchOption" id="findType">
-					<option value="title"<c:out value="${map.searchOption == 'title'?'selected':''}"/> >제목</option>
-<!-- 이름으로 해야함..--><option value="cb_no"<c:out value="${map.searchOption == 'cb_no'?'selected':''}"/> >이름</option>
-					<option value="content"<c:out value="${map.searchOption == 'content'?'selected':''}"/> >내용</option>
-				</select> 
-				<input name ="searchKey"   id="searchKey" value="${map.searchKey}" placeholder="제목으로 검색" class="form-control">
-				<button type="submit" value="검색" class="btn">검색</button><br>
+	<div class="row">
+			<form class="form-inline" name="form1" role="form" action="review.do" method="post">
+		  <div class="form-group">
+		  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+   		 <span>
+			<select class="btn btn-default" style="width:80;" name="searchOption">
+				<option value="title"<c:out value="${map.searchOption == 'title'?'selected':''}"/>>제목</option>
+				<option value="name"<c:out value="${map.searchOption == 'name'?'selected':''}"/>>이름</option>
+				<option value="content"<c:out value="${map.searchOption == 'content'?'selected':''}"/>>내용</option>
+			</select>
+		</span>
+		</div>
+  	</div>
+  				<div class="form-group">
+   					<input type="text" class="form-control" name ="searchKey"  value="${map.searchKey}" placeholder="Search for..">
+				 </div>
+ 			<span>
+		  		<a class="btn btn-primary" type="submit">검색</a>
+			</span>
+	</form>
 			
-			</form>
-				<c:if test="${sessionScope.user==null }">
-				<h1>게시물 갯수:${review.listCount}개<a id="btn" class="btn" onclick="loginCheck();">글쓰기</a></h1><br>
-				</c:if>
-				<c:if test="${sessionScope.user.name != null }">
-				<h1>게시물 갯수:${review.listCount}개<a href="reviewInsert.do" class="btn" id="btn">글쓰기</a></h1><br>					
-				</c:if>
-
-					
-</div>
-</div>
-<div id="community_table_div">
+			</div>
+			<div class="row">			
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<c:if test="${sessionScope.user==null}">
+					<h1 class="margin-left-10">게시물 갯수:${review.listCount}개<a class="btn btn-primary pull-right margin-right-20" onclick="loginCheck();">글쓰기</a></h1><br>
+					</c:if>
+					<c:if test="${sessionScope.user.name != null }">
+					<h1 class="margin-left-10">게시물 갯수:${review.listCount}개<a href="reviewInsert.do" class="btn btn-primary pull-right margin-right-20">글쓰기</a></h1><br>			
+					</c:if>
+			</div>	
+			
+		</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <table id="community_table">
   <thead>
   		<colgroup>
@@ -324,7 +281,7 @@
 </nav>
 </div>
 </div>
-
+</div>
 
     <c:import url="../../include/main/footer.jsp" />
     <c:import url="../../include/common/end.jsp" />

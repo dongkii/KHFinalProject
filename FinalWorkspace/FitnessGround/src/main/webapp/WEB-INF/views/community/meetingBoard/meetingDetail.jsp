@@ -24,6 +24,9 @@
     height:1pt;
     background-color:#BDBDBD;
     }
+    div#meetingCommentList{
+    font-size:12pt;
+    }
  
     </style>
 	
@@ -44,6 +47,9 @@
 		</div>
     </div>
        
+   <script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=vWkJuuK8gXcwBG8Rijlh&submodules=geocoder">	
+   </script>
    
     <script type="text/javascript">
     function loginCheck(){
@@ -67,7 +73,7 @@
    					 {
    					  	
    					 	values += "<div class='jumbotron'><div class='col-md-2 text-center'><b>" + data.mblist[i].name + "<b></div>"+
-      					"<div class='col-md-6 text-center'>" +  data.mblist[i].content + "</div><div class='col-md-2 text-center'>" + data.mblist[i].reply_date +"</div>";
+      					"<div class='col-md-6 text-left'>" +  data.mblist[i].content + "</div><div class='col-md-2 text-right'>" + data.mblist[i].reply_date +"</div>";
       					
       					if(user_no == data.mblist[i].user_no){
    	      					values += "<div class='col-md-2 text-right'><a class='btn' type='submit' onclick='meetingCommentDelete("+data.mblist[i].mb_no+","+ data.mblist[i].mbc_no +")'>삭제</a></div>"
@@ -111,6 +117,8 @@
 	}
     
   	$(window).on("load", function() {
+  		
+  	
   		$('#commentInsert').on('keydown', function(e) {
   			var keyCode = e.which;
 
@@ -136,11 +144,14 @@
     <h1 id="community_title" align="center">${meeting.title}</h1><br>
      <div id="detail_ail_div" align="center"> 
     <div id="detail_div" align="center">
-   		
-   		
+   		  		
     	<h5 id="community_name">작성자 : ${meeting.name} 작성날짜:${meeting.upload_date}</h5>
     	<hr id="hr">
-     	${meeting.content}
+     	<p>${meeting.content}</p>
+     	<input type="hidden" id="location" value=${meeting.meeting_location }>
+  				<div id="map" style="width: 600px; height: 400px; margin-left: 50px">
+					<script type="text/javascript" src="/fitnessground/resources/js/community/communityMap.js"></script>
+				</div>	  
         </div>
         <input type="hidden" ${meeting.readcount}/>
     <div>
@@ -178,7 +189,8 @@
         <button class="btn btn-default" type="button" id="commentInsertBtn" onclick="meetingCommentInsert(${meeting.mb_no});">입력</button>
      	
      	</span>
-	</div>	
+	</div>
+	<br>	
 	</c:if>
 	
    <!--댓글 목록-->

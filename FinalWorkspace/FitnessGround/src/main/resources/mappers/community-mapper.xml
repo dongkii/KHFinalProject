@@ -59,15 +59,15 @@
 	
 	<!-- 전체리스트 -->
 	<select id="meetingView" resultType="list" resultMap="MeetingResult">
-		<![CDATA[select * from (select mb_no,name, (substr(title,0,8)||'...') as title, upload_date from tb_meeting_board a join tb_user b on (a.user_no = b.user_no)where 5 >= rownum order by mb_no desc)]]>
+		<![CDATA[select * from (select mb_no,name, (substr(title,0,8)||'..') as title, upload_date from tb_meeting_board a join tb_user b on (a.user_no = b.user_no)where 5 >= rownum order by mb_no desc)]]>
 	</select>
 	
 	<select id="reviewView" resultType="list" resultMap="CommunityResult">
-		<![CDATA[select * from (select cb_no, name, (substr(title,0,8)||'...') as title, upload_date from tb_com_board a join tb_user b on (a.user_no = b.user_no)where 5 >= rownum and board_property =0 order by cb_no desc)]]>
+		<![CDATA[select * from (select cb_no, name, (substr(title,0,8)||'..') as title, upload_date from tb_com_board a join tb_user b on (a.user_no = b.user_no)where 5 >= rownum and board_property =0 order by cb_no desc)]]>
 	</select>
 	
 	<select id="qnaView" resultType="list" resultMap="CommunityResult">
-		<![CDATA[select * from (select cb_no,name, (substr(title,0,8)||'...') as title, upload_date from tb_com_board a join tb_user b on (a.user_no = b.user_no)where 5 >= rownum and board_property =1 order by cb_no desc)]]>
+		<![CDATA[select * from (select cb_no,name, (substr(title,0,8)||'..') as title, upload_date from tb_com_board a join tb_user b on (a.user_no = b.user_no)where 5 >= rownum and board_property =1 order by cb_no desc)]]>
 	</select>
 	
 	
@@ -79,9 +79,7 @@
 	
 	<!--  운동같이해요 게시판 메인 -->
 	<select id="meetingListView" resultType="list" resultMap="MeetingResult">
-		<![CDATA[select * from(select rownum as rnum, c.* from (select a.*,b.name from tb_meeting_board a 
-			join tb_user b on(a.user_no=b.user_no) order by a.mb_no desc) c
-			) where rnum >=#{startRow} and rnum <=#{endRow}]]>
+		<![CDATA[select * from(select rownum as rnum, name,a.* from mb_view a join tb_user b on(a.user_no = b.user_no))where rnum >=#{startRow} and rnum <=#{endRow}]]>
 	</select>
 	
 	<!--  운동같이해요 제목 검색 -->
@@ -222,9 +220,8 @@
 	<!-- ======================================qna게시판====================================================== -->
 	<!--  qna 게시판 메인 -->
 	<select id="qnaListView" resultType="list" resultMap="CommunityResult">
-		<![CDATA[select * from(select rownum as rnum, c.* from (select a.*,b.name from tb_com_board a 
-			join tb_user b on(a.user_no=b.user_no) where board_property=1 order by a.cb_no desc) c
-			) where rnum >=#{startRow} and rnum <=#{endRow}]]>
+		<![CDATA[select * from(select rownum as rnum, name,a.* from cb_view a join tb_user b on(a.user_no = b.user_no)where board_property = 1)
+				 where rnum >=#{startRow} and rnum <=#{endRow}]]>
 	</select>
 	
 	<!--  qna 제목 검색 -->
@@ -297,9 +294,8 @@
  	<!-- 리뷰게시판 메인 -->
 	<select id="reviewListView" resultType="list" resultMap="CommunityResult">
 		<![CDATA[
-			select * from(select rownum as rnum, c.* from (select a.*,b.name from tb_com_board a 
-			join tb_user b on(a.user_no=b.user_no) where board_property=0 order by a.cb_no desc) c
-			) where rnum >=#{startRow} and rnum <=#{endRow}
+			select * from(select rownum as rnum, name,a.* from cb_view a join tb_user b on(a.user_no = b.user_no)where board_property = 0)
+				 where rnum >=#{startRow} and rnum <=#{endRow}
 		]]>
 	</select>
 	
@@ -387,8 +383,6 @@
 	<insert id="communityCommentInsert" parameterType="CommunityComment" flushCache="true" statementType="PREPARED">
 	   <![CDATA[insert into tb_cb_comment values (cbc_seq.nextval,#{cb_no},#{user_no},#{content},sysdate)]]>
 	</insert>
-	
-
 	<!-- 삭제  -->
 	<delete id="communityCommentDelete" parameterType="_int">
 		<![CDATA[delete from tb_cb_comment where cbc_no= #{cbc_no}]]>

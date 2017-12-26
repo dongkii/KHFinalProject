@@ -155,6 +155,7 @@
         <button class="btn btn-default" type="button" id="commentInsertBtn" onclick="loginCheck();">입력</button>
      	</span>
 	</div>	
+	<br>
 </c:if>
 <c:if test="${sessionScope.user!=null}">
  	<div id="communityCommentInsert" class="input-group" >

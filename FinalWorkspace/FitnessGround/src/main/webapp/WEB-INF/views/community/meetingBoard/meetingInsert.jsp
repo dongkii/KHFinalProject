@@ -23,24 +23,6 @@ div#div_head {
 	padding-left: 10%;
 }
 
-form#editor_form {
-	padding-left: 10%;
-	padding-right: 10%;
-}
-
-button#write {
-	color:black;
-	width: 60pt;
-	height: 30pt;
-	font-size: 10pt;
-}
-
-
-input#title{
-height:30pt;
-width:250pt;
-font-size:10pt;
-}
 
 textarea#editor1 {
 	cols: 80;
@@ -64,6 +46,10 @@ textarea#editor1 {
 	</div>
 </div>
 
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=vWkJuuK8gXcwBG8Rijlh&submodules=geocoder">	
+</script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#list").on("click", function(e) { //목록으로
@@ -77,16 +63,16 @@ textarea#editor1 {
 </script>
 
 <br>
+<div class="container">
 <h1 align="center">운동같이해요</h1>
 <br>
-<div class="container">
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<form id="editor_form" name='meeting' method="post" action="meetingInsert.do">
+		<form name='meeting' method="post" action="meetingInsert.do">
 			<input name="user_no" type="hidden" value="${sessionScope.user.user_no }" />
 			<div class="form-group">
-				<p>제목<input class="input-group input-group-lg" id="title" name="title" type="text" placeholder="제목" /></p>
-				<p>모임날짜 &nbsp;<input style="width:100pt;"id="title" name="meeting_date" type="date" /></p>
+				<p>제목<input style="font-size:10pt;" class="input-group input-group-lg" id="title" name="title" type="text" placeholder="제목"/></p>
+				<p>모임날짜 &nbsp;<input style="width:120pt;"id="title" name="meeting_date" type="date" /></p>
 			</div>
 			<div class="form-group">
 				<textarea name="content" id="editor2" placeholder="내용을 입력해주세요.."></textarea>
@@ -94,12 +80,29 @@ textarea#editor1 {
 					CKEDITOR.replace('editor2');
 				</script>
 				<br>
-				<button type="submit" class="btn btn_primary btn-lg pull-right" name="업로드" id="write">작성</button>
-				<a href="#this" class="btn" id="list">목록</a>
+				  <div class="col-lg-6">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for..." id="address">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" id="submit">Go!</button>
+      </span>
+    </div>
+  </div>
+</div>
+
+				<div id="map" style="width: 600px; height: 400px; margin-left: 50px">
+					<script type="text/javascript" src="/fitnessground/resources/js/community/communityMap.js"></script>
+				</div>
+				<br>
+				<a type="submit" class="btn btn-primary btn-lg pull-right margin-left-20" name="업로드">작성</a>
+				<a hrefs="#this" class="btn btn-primary btn-lg pull-right margin-right-20" id="list">목록</a>
 			</div>
 		</form>
+		
 		</div>
+		
 	</div>
+
 </div>
 <br>
 <br>
