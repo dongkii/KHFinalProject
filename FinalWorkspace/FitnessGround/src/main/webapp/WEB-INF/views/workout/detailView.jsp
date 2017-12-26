@@ -276,7 +276,7 @@
                alert("추천을 취소 하셨습니다.\n MyPage - 운동 스케줄에서 해당 게시물이 삭제됩니다.");
             }else if(userLoginCheck!=0 && checkLikeTable==0 && user_level!=0){ //사업자,관리자
             	alert("게시물을 추천하셨습니다");
-            }else if(userLoginCheck!=0 && checkLikeTable==1 &&user_level==0){
+            }else if(userLoginCheck!=0 && checkLikeTable==1 &&user_level!=0){
             	alert("추천을 취소 하셨습니다.");
             }
          },
