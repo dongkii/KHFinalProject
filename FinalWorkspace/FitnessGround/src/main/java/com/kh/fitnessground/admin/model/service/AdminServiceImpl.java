@@ -12,6 +12,7 @@ import com.kh.fitnessground.community.model.vo.MeetingBoard;
 import com.kh.fitnessground.gym.model.vo.GymQnABoard;
 import com.kh.fitnessground.user.model.dao.UserDao;
 import com.kh.fitnessground.user.model.vo.User;
+import com.kh.fitnessground.workout.commentlike.vo.Like;
 import com.kh.fitnessground.workout.health.model.vo.Health;
 
 @Service("adminService")
@@ -208,6 +209,18 @@ public class AdminServiceImpl  implements AdminService{
 	@Override
 	public int getTodayCount(Visit visit) {
 		return adminDao.getTodayCount(visit);
+	}
+
+
+	@Override
+	public User userDetail(User u) {
+		return adminDao.userDetail(u);
+	}
+
+
+	@Override
+	public Like likeDetail(Like l) {
+		return adminDao.likeDetail(l);
 	}
 
 

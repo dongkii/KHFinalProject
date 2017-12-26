@@ -24,6 +24,11 @@
 		]]>
 	</select><!-- 좋아요 테이블 객체 select -->
 	
+	<select id="likeDetail" resultType="Like" resultMap="resultLike" parameterType="_int">
+		<![CDATA[
+			select * from tb_like where user_no=#{user_no}
+		]]>
+	</select>
 	
 	<insert id="insertLike" parameterType="Like" flushCache="true" statementType="PREPARED" useGeneratedKeys="true">
 		<![CDATA[

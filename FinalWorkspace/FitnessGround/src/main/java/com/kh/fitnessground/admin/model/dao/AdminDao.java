@@ -12,6 +12,7 @@ import com.kh.fitnessground.community.model.vo.CommunityBoard;
 import com.kh.fitnessground.community.model.vo.MeetingBoard;
 import com.kh.fitnessground.gym.model.vo.GymQnABoard;
 import com.kh.fitnessground.user.model.vo.User;
+import com.kh.fitnessground.workout.commentlike.vo.Like;
 import com.kh.fitnessground.workout.health.model.vo.Health;
 import com.kh.fitnessground.workout.yoga.model.vo.Yoga;
 
@@ -175,6 +176,14 @@ public class AdminDao {
 	public int getTodayCount(Visit visit) {
 		int todayCount = sqlSession.selectOne("visit.todayCount", visit);
 		return todayCount;
+	}
+
+	public User userDetail(User u) {
+		return sqlSession.selectOne("user.userDetail", u);
+	}
+
+	public Like likeDetail(Like l) {
+		return sqlSession.selectOne("like.likeDetail", l);
 	}
 
 

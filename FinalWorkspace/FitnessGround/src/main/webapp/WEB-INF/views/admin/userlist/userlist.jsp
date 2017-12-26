@@ -141,7 +141,7 @@
 										</c:choose> 
 										
 											<td align="center">${status.count }</td>
-											<td align="center">${item.email }</td>
+											<td align="center"><a href="userDetail.do?user_no=${item.user_no }">${item.email }</a></td>
 											<td align="center">${item.name }</td>
 											<td align="center">${item.nickname }</td>
 											<td align="center">${item.phone }</td>

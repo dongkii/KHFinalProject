@@ -7,6 +7,7 @@ import com.kh.fitnessground.community.model.vo.CommunityBoard;
 import com.kh.fitnessground.community.model.vo.MeetingBoard;
 import com.kh.fitnessground.gym.model.vo.GymQnABoard;
 import com.kh.fitnessground.user.model.vo.User;
+import com.kh.fitnessground.workout.commentlike.vo.Like;
 import com.kh.fitnessground.workout.health.model.vo.Health;
 
 public interface AdminService {
@@ -96,6 +97,12 @@ public interface AdminService {
 	int getTotalCount(Visit visit);
 
 	int getTodayCount(Visit visit);
+
+
+	User userDetail(User u);
+
+
+	Like likeDetail(Like l);
 
 
 
