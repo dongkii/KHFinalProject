@@ -386,7 +386,7 @@ public class UserController {
 			cEndPage = cStartPage + limit - 1;
 			if(cMaxPage < cEndPage) cEndPage = cMaxPage;
 			Collections.sort(temp);
-			if(noSPage.getEndRow()-1 > temp.size()) noSPage.setEndRow(temp.size());
+			if(noSPage.getEndRow()-1 >= temp.size()) noSPage.setEndRow(temp.size());
 			for(int i=noSPage.getStartRow()-1; i<=noSPage.getEndRow()-1; i++)
 				cmList.add(temp.get(i));
 		} 
@@ -399,7 +399,7 @@ public class UserController {
 			cEndPage = cStartPage + limit - 1;
 			if(cMaxPage < cEndPage) cEndPage = cMaxPage;
 			Collections.sort(temp);
-			if(page.getEndRow()-1 > temp.size()) page.setEndRow(temp.size());
+			if(page.getEndRow()-1 >= temp.size()) page.setEndRow(temp.size());
 			for(int i=page.getStartRow()-1; i<=page.getEndRow()-1; i++)
 				cmList.add(temp.get(i));
 			// 문의하기 전체 목록

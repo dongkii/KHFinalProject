@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <style>
-	.modal-content {height:700px;}
+	#gymQModalC {height:700px;}
 	#gymQnATitle {font-size:20pt; padding-bottom:20px; padding-top:20px;}
 	#gymQnAForm {padding:10px;}
 	th {width:120px;}
@@ -13,7 +13,7 @@
 
 <div class="modal modal-center fade" id="gymQnaInsertModal" style="z-index:100;">
 	<div class="modal-dialog modal-center modal-lg">
-		<div class="modal-content">
+		<div class="modal-content" id="gymQModalC">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>	
@@ -21,7 +21,8 @@
 				<div id="gymQnATitle"></div>
 				<form action="gymQnAInsert.do" id="gymQnAForm" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="sender" value="${sessionScope.user.user_no}">
-					<input type="hidden" name="receiver" value="dd">
+					<input type="hidden" name="receiver" value="">
+					<input type="hidden" name="gym_no" value="">
 					<table>
 						<tr>
 							<th>Title</th>
@@ -44,7 +45,7 @@
 					</table>
 					<table>
 						<tr><td colspan="3" align="right" style="font-size:10pt; padding-bottom:20px;">최대 3개의 파일을 첨부하실 수 있습니다.</td></tr>
-						<tr><td id="insertBt" colspan="3" align="right"><button id="gymQSendBt" class="btn btn-default" onclick="gymQnAInsert();">Send</button></td></tr>
+						<tr><td id="insertBt" colspan="3" align="right"><button id="gymQSendBt" class="btn btn-default" onclick="return gymQnAInsert();">Send</button></td></tr>
 					</table>
 				</form>
 			</div>
@@ -71,6 +72,7 @@
 	function gymQnaInsertModal(gym_name, gym_no) {
 		$('#gymQnATitle').html(gym_name+'에 문의');
 		$("input[name=receiver]").val(gym_no);
+		$("input[name=gym_no]").val(gym_no);
 		$("#gymQnaInsertModal").show();
 		$("#gymQnaInsertModal").modal();
 	}
