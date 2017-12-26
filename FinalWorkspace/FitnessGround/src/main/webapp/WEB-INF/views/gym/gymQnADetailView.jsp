@@ -1,113 +1,120 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:import url="../include/common/head.jsp" />
-<link rel="stylesheet" href="/fitnessground/resources/css/gym/gymQnA.css" />	
-<c:import url="../include/common/headend.jsp" />
+<style>
+	#gymQModalC {height:700px; padding:10px;}
+	#gymQnATitle {font-size:20pt; padding-bottom:20px; padding-top:20px;}
+	th {width:120px;}
+	td {padding-left:20px;}
+	#fileDiv button, #fileDiv a {width:80%;}
+	#gymQSendBt {width:100%;}
+</style>
 
-<c:if test="${ sessionScope.user == null }">
-	<script type="text/javascript">
-			$(function (){
-				alert("로그인이 필요합니다.");
-				location.href="main.do";
-			});
-		</script>
-</c:if>
-
-<div id="page-wrapper">
-	<!-- Header -->
-	<div id="mypage_header">
-        <!-- Nav -->
-		<c:import url="../include/main/nav.jsp" />
-		<c:import url="../user/login.jsp"/>
-		<c:import url="../user/findidpwd.jsp"/>
-		<c:import url="../user/register.jsp"/>
+<div class="modal modal-center fade" id="gymQnaDetailModal" style="z-index:100;">
+	<div class="modal-dialog modal-center modal-lg">
+		<div class="modal-content" id="gymQModalC">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>	
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">
+				<div id="gymQnATitle"></div>
+				<input type="hidden" name="sender" value="${sessionScope.user.user_no}">
+				<input type="hidden" name="receiver" value="">
+				<input type="hidden" name="gym_no" value="">
+				<table>
+					<tr>
+						<th>Title : </th>
+						<td colspan="2" style="padding-top:20px;" id="qDetailTitle"></td>
+					</tr>
+					<tr>
+						<th>Date : </th>
+						<td colspan="2" style="padding-top:20px;" id="qDetailDate"></td>
+					</tr>
+					<tr>
+						<th>Content : </th>
+						<td colspan="2" style="padding-top:20px; height:300px;" id="qDetailContent">
+							<textarea rows="13" class="form-control" id="readContent" name="content" readonly></textarea>
+						</td>
+					</tr>
+				</table>
+				<table>
+					<tr id="file">
+						<th>Files : </th>
+						<td colspan="2">없음</td>
+					</tr>
+					<tr>
+						<td colspan="3" id="gymQDBt" align="right" style="padding-top:5%;"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
 	</div>
 </div>
 
-<div class="col-md-offset-2 col-md-8 hidden-xs hidden-sm hidden-md visible-lg" id="gymQDetailTitle">${board.title}</div>
-<div class="col-md-offset-2 col-md-8 hidden-xs hidden-sm hidden-md visible-lg" id="gymQDetailContent">
-	<c:if test="${board.gym_name eq null}">
-		<div>문의자 &nbsp; ${board.name} &nbsp; · &nbsp; 관리자 &nbsp; · &nbsp; ${board.write_date}</div>
-	</c:if>
-	<c:if test="${board.gym_name ne null}">
-		<div>문의자 &nbsp; ${board.name} &nbsp; · &nbsp; 헬스장 &nbsp; ${board.gym_name} &nbsp; · &nbsp; ${board.write_date}</div>
-	</c:if>
-	<div id="boardContent">${board.content}</div>
-	<table>
-		<tr id="file"><th style="width:100px; font-weight:bold;">첨부파일</th>
-		<c:choose>
-		<c:when test="${!empty originalFileNames}">
-				<td>
-				<c:forEach var="originalFileName" items="${originalFileNames}" varStatus="st">
-					<a href="gymQnAFDown.do?bnum=${board.q_no}&filename=${originalFileName}" name="file">${originalFileName}</a>
-					<c:if test="${st.index ne no-1}">,&nbsp; &nbsp; &nbsp;</c:if>
-				</c:forEach>
-				</td>
-		</c:when>
-		<c:otherwise>
-				<td>없음</td>
-		</c:otherwise>
-		</c:choose>
-		</tr>
-		<tr>
-			<td colspan="2" align="right">
-			<c:if test="${sessionScope.user.user_no eq board.sender}">
-				<button class="btn btn-danger" onclick="location.href='gymQnADel.do?q_no=${board.q_no}&userno=${sessionScope.user.user_no}'">삭제</button>
-				<button class="btn btn-primary" onclick="location.href='gymQnAUpAndAnswerView.do?q_no=${board.q_no}&mode=1'">수정</button>
-			</c:if>
-			<c:if test="${sessionScope.user.user_no eq board.receiver}">
-			<c:if test="${board.response_state eq 0}">
-				<button class="btn btn-default" onclick="location.href='gymQnAUpAndAnswerView.do?q_no=${board.q_no}&mode=2'">답변</button>
-			</c:if></c:if>
-			</td>
-		</tr>
-	</table>
-</div>
+<script type="text/javascript" src="/fitnessground/resources/js/gym/gymQnA.js"></script>
+<script type="text/javascript">
+	function gymQnaDetailModal(q_no) {
+		/* $('#gymQnATitle').html(gym_name+'에 문의');
+		$("input[name=receiver]").val(gym_no);
+		$("input[name=gym_no]").val(gym_no); */
+		$.ajax({
+	         url:"gymQnaDetailView.do",
+	         dataType:"json",
+	         type:"post",
+	         data : {"q_no" : q_no},
+	         success:function(data){
+	         	var board = data.board;
+	         	var files = data.originalFileNames;
 
-<!-- 모바일 -->
-<div class="col-sm-12 visible-xs visible-sm visible-md hidden-lg" id="gymQDetailTitleSm">${board.title}</div>
-<div class="col-sm-12 visible-xs visible-sm visible-md hidden-lg" id="gymQDetailContentSm">
-	<c:if test="${board.gym_name eq null}">
-		<div>문의자 &nbsp; ${board.name} &nbsp; · &nbsp; 관리자 </div>
-		<div>작성일 &nbsp; ${board.write_date}</div>
-	</c:if>
-	<c:if test="${board.gym_name ne null}">
-		<div>문의자 &nbsp; ${board.name} &nbsp; · &nbsp; 헬스장 &nbsp; ${board.gym_name}</div>
-		<div>작성일 &nbsp; ${board.write_date}</div>
-	</c:if>
-	<div id="boardContent">${board.content}</div>
-	<table>
-		<tr id="file"><th style="width:100px; font-weight:bold;">첨부파일</th>
-		<c:choose>
-		<c:when test="${!empty originalFileNames}">
-				<td>
-				<c:forEach var="originalFileName" items="${originalFileNames}" varStatus="st">
-					<a href="gymQnAFDown.do?bnum=${board.q_no}&filename=${originalFileName}" name="file">${originalFileName}</a>
-					<c:if test="${st.index ne no-1}">,&nbsp; &nbsp; &nbsp;</c:if>
-				</c:forEach>
-				</td>
-		</c:when>
-		<c:otherwise>
-				<td>없음</td>
-		</c:otherwise>
-		</c:choose>
-		</tr>
-		<tr>
-			<td colspan="2" align="right">
-			<c:if test="${sessionScope.user.user_no eq board.sender}">
-				<button class="btn btn-danger" onclick="location.href='gymQnADel.do?q_no=${board.q_no}&userno=${sessionScope.user.user_no}'">삭제</button>
-				<button class="btn btn-primary" onclick="location.href='gymQnAUpAndAnswerView.do?q_no=${board.q_no}&mode=1'">수정</button>
-			</c:if>
-			<c:if test="${sessionScope.user.user_no eq board.receiver}">
-			<c:if test="${board.response_state eq 0}">
-				<button class="btn btn-default" onclick="location.href='gymQnAUpAndAnswerView.do?q_no=${board.q_no}&mode=2'">답변</button>
-			</c:if></c:if>
-			</td>
-		</tr>
-	</table>
-</div>
-
-
-<c:import url="../include/main/footer.jsp" />
-<c:import url="../include/common/end.jsp" />
+	         	$('#qDetailTitle').html(board.title);
+	         	$('#qDetailDate').html(board.stringWrite_date);
+	         	/* $('#qDetailContent').html(board.content);
+	         	$('#qDetailContent').html($('#qDetailContent').html().replace(/<br\s?\/?>/g,"\n")); */
+	         	$('#readContent').html(board.content);
+	         	$('#readContent').val($('#readContent').html().replace(/<br\s?\/?>/g,"\n"));
+	         	$('#qDetailSender').html(board.name);
+	         	if(board.gym_name == "") {
+	         		if(board.q_level==0) $('#gymQnATitle').html('관리자에 문의');
+	         		else if(board.q_level==1) $('#gymQnATitle').html('답변');
+	         	}
+	         	else {
+	         		if(board.q_level==0) $('#gymQnATitle').html(board.gym_name+"에 문의");
+	         		else if(board.q_level==1) $('#gymQnATitle').html("답변");
+	         	}
+	         	var fileOut = "";
+	         	if(files != null) {
+		         	for(var i=0; i<files.length; i++) {
+		         		if(i==files.length-1) fileOut += "<a href='gymQnAFDown.do?bnum="+board.q_no+"&filename="+files[i]+"' name='file'>"+files[i]+"</a>";
+		         		else fileOut += "<a href='gymQnAFDown.do?bnum="+board.q_no+"&filename="+files[i]+"' name='file'>"+files[i]+"</a>" + ", ";
+		         	}
+	         	} else {
+	         		fileOut="첨부 파일 없음";
+	         	}
+	         	$('#file td').html(fileOut);
+	         	
+				var user_no = ${sessionScope.user.user_no};
+				var bt = "";
+				var del = "gymQnADel.do?q_no=" + board.q_no + "&userno=" + user_no;
+				var update = "javascript:gymQnaUpAndAnswerModal('" + board.q_no + "','1')";
+				var answer = "javascript:gymQnaUpAndAnswerModal('" + board.q_no + "','2')";
+				if(board.sender == user_no) {
+					bt += '<button class="btn btn-danger" onclick="location.href=' + '\'' + del + '\'' + '">삭제</button>'
+						+ '<a class="btn btn-primary" href="' + update + '" style="margin-left:10px;">수정</a>'; 
+				}
+				if(board.receiver == user_no) {
+					if(board.response_state == 0) 
+						bt += '<a class="btn btn-default" href="' + answer + '" style="margin-left:10px;">답변</a>'; 
+				}
+				$('#gymQDBt').html(bt);
+	         },
+	         error: function(request, status, errorData){
+	            alert("error code : " + request.status + "\n"
+	                  + "message : " + request.responseText + "\n"
+	                  + "error : " + errorData);
+	         }
+	      });
+		
+		$("#gymQnaDetailModal").show();
+		$("#gymQnaDetailModal").modal();
+	}
+</script>

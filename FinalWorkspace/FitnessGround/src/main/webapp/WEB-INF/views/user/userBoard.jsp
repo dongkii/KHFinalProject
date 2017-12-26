@@ -4,6 +4,8 @@
 	<c:import url="../include/common/head.jsp" />
 	<link rel="stylesheet" href="/fitnessground/resources/css/user/mypage.css" />
     <c:import url="../include/common/headend.jsp" />
+	<c:import url="/WEB-INF/views/gym/gymQnADetailView.jsp"/>
+<c:import url="/WEB-INF/views/gym/gymQnAUpAndAnswer.jsp"/>	
 
 	<script type="text/javascript">
 		$(function(){
@@ -103,12 +105,9 @@
 					<c:choose>
 						<c:when test="${!empty qlist}">
 							<c:forEach items="${qlist}" var="q" varStatus="st">
-								<c:url var="detail" value="gymQnaDetailView.do">
-									<c:param name="q_no" value="${q.q_no}"/>
-								</c:url>
 								<tr>
 								  <td>${q.q_no}</td>
-								  <td><a href="${detail}">${q.title}</a></td>
+								  <td><a href="javascript:gymQnaDetailModal('${q.q_no}')">${q.title}</a></td>
 								  <td>${q.write_date}</td>
 								</tr>
 							</c:forEach>

@@ -18,6 +18,7 @@ public class GymQnABoard {
 	private String name;
 	private int user_no;
 	private String gym_name;
+	private String stringWrite_date;
 	
 	public GymQnABoard() {
 		super();
@@ -25,7 +26,7 @@ public class GymQnABoard {
 
 	public GymQnABoard(int q_no, String sender, String receiver, String title, String content, String original_filename,
 			String rename_filename, Date write_date, int q_level, int ref_no, int response_state, String email,
-			String name, int user_no, String gym_name) {
+			String name, int user_no, String gym_name, String stringWrite_date) {
 		super();
 		this.q_no = q_no;
 		this.sender = sender;
@@ -42,6 +43,16 @@ public class GymQnABoard {
 		this.name = name;
 		this.user_no = user_no;
 		this.gym_name = gym_name;
+		this.stringWrite_date = stringWrite_date;
+	}
+
+	
+	public String getStringWrite_date() {
+		return stringWrite_date;
+	}
+
+	public void setStringWrite_date(String stringWrite_date) {
+		this.stringWrite_date = stringWrite_date;
 	}
 
 	public int getQ_no() {

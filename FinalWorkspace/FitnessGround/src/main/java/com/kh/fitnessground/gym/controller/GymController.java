@@ -39,6 +39,7 @@ import com.kh.fitnessground.gym.model.vo.GymQnABoard;
 import com.kh.fitnessground.gym.model.vo.GymSchedule;
 import com.kh.fitnessground.gym.model.vo.NaverMap;
 import com.kh.fitnessground.gym.model.vo.PublicGym;
+import com.kh.fitnessground.workout.health.model.vo.Health;
 
 import oracle.sql.DATE;
 
@@ -412,18 +413,11 @@ public class GymController {
 			return mv;
 		}
 		
-	// 헬스장 문의하기 뷰 이동
-	@RequestMapping(value="/gymQnaView.do")
-	public ModelAndView gymQnAViewMethod(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("gym/gymQnAInsertView");
-		mv.addObject("gymName", request.getParameter("name"));
-		mv.addObject("gymNo", request.getParameter("no"));
-		return mv; 
-	}
 	// 헬스장 문의하기 등록
 	@RequestMapping(value="/gymQnAInsert.do")
-	public ModelAndView gymQnAInsertMethod(GymQnABoard b, HttpServletRequest request) throws Exception {
-		ModelAndView mv = new ModelAndView("main");
+	public ModelAndView gymQnAInsertMethod(Gym gym, GymQnABoard b, HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("gym/detailgym");
+		mv.addObject("gym", gymService.selectOne(gym));
 		
 		List<Map<String, Object>> list = gymFileUtils.parseInsertFileInfo(request);
 		String originalFileName = "";
@@ -436,13 +430,10 @@ public class GymController {
 			b.setOriginal_filename(originalFileName);
 			b.setRename_filename(renameFileName);
 		}
-		if(request.getParameter("mode") != null)
-			gymService.insertGymQnABoard(b, Integer.parseInt(request.getParameter("mode")));
-		else
-			gymService.insertGymQnABoard(b, 2);
+		gymService.insertGymQnABoard(b, 2);
 		return mv; 
 	}
-	// 헬스장 문의하기 디테일 뷰 이동
+	// 헬스장 문의하기 디테일 뷰 ajax
 	@RequestMapping(value="/gymQnaDetailView.do")
 	public ModelAndView gymQnADetailViewMethod(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("gym/gymQnADetailView");
@@ -456,6 +447,7 @@ public class GymController {
 			mv.addObject("originalFileNames", originalFileNames);
 		}
 		mv.addObject("board", b);
+		mv.setViewName("jsonView");
 		return mv; 
 	}
 	// 헬스장 문의하기 디테일 뷰 파일 다운
@@ -486,40 +478,36 @@ public class GymController {
 		ModelAndView mv = new ModelAndView("redirect:/userboard.do?userno="+request.getParameter("userno"));
 		int q_no = Integer.parseInt(request.getParameter("q_no"));
 		GymQnABoard b = gymService.selectGymQnABoard(q_no);
+		// 파일 삭제
+		String fileNames = b.getRename_filename();
+		if(fileNames!=null) {
+			String fileName[] = fileNames.split(",");
+			System.out.println(fileName);
+			if(fileName != null) {
+				for(int i=0; i<fileName.length; i++) {
+					File file = new File(request.getSession().getServletContext().getRealPath("/resources/files/gym/"+fileName[i]));
+					if(file.exists()) file.delete();
+				}
+			}
+		}
+		// 게시글 삭제
 		gymService.deleteGymQnABoard(q_no);
-		if(b.getQ_level() == 1) {
+		if(b.getQ_level() == 1) { // 답변을 삭제할 경우, 원글의 답변여부 상태 변경
 			gymService.updateGymQnABoardResponse(b.getRef_no(), 0);
 		}
-		return mv; 
-	}
-	// 헬스장 문의하기 게시글 수정 또는 답변 뷰 이동
-	@RequestMapping(value="/gymQnAUpAndAnswerView.do")
-	public ModelAndView gymQnAUpViewMethod(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("gym/gymQnAUpAndAnswer");
-		GymQnABoard b = gymService.selectGymQnABoard(Integer.parseInt(request.getParameter("q_no")));
-		String originalFileName = b.getOriginal_filename();
-		String[] originalFileNames;
-		if(originalFileName!=null) {
-			originalFileNames = originalFileName.split(",");
-			int[] index = new int[originalFileNames.length];
-			for(int i=0; i<index.length; i++) index[i] = i;
-			mv.addObject("originalFileNames", originalFileNames);
-		}
-		mv.addObject("board", b);
-		mv.addObject("mode", request.getParameter("mode"));
 		return mv; 
 	}
 	// 헬스장 문의하기 게시글 수정
 	@RequestMapping(value="/gymQnAUpdate.do")
 	public ModelAndView gymQnAUpdateMethod(GymQnABoard b, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("redirect:/userboard.do?userno="+b.getSender());
+		ModelAndView mv = new ModelAndView("redirect:/userboard.do?userno="+request.getParameter("userno"));
 		gymService.updateGymQnABoard(b);
 		return mv; 
 	}
 	// 헬스장 문의하기 게시글 답변
 	@RequestMapping(value="/gymQnAAnswer.do")
 	public ModelAndView gymQnAAnswerMethod(GymQnABoard b, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("redirect:/userboard.do?userno="+b.getSender());
+		ModelAndView mv = new ModelAndView("redirect:/userboard.do?userno="+request.getParameter("userno"));
 		gymService.insertGymQnABoardAnswer(b);
 		gymService.updateGymQnABoardResponse(b.getRef_no(), 1);
 		return mv; 

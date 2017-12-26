@@ -57,12 +57,30 @@ function ckWordLen(obj, maxByte) {
 }
 
 function gymQnAInsert() {
+	var filename = $('#file');
+	if(filename!=null) {
+		for(var i=0; i<filename.length; i++){
+			if(filename[i].value.indexOf("&") > 0) {
+				alert("파일명에 '&' 문자가 포함되어 있는 파일은 첨부하실 수 없습니다.");
+				return false;
+			}
+		}
+	} 
 	$("#gymQnAForm").submit();
-	// ajax로 바꾸기
 }
-function gymQnAUpdate() {
-	$("#gymQnAForm").attr("action", "gymQnAUpdate.do").submit();
+function gymQnAUpdate(user_no) {
+	alert(user_no);
+	$("#gymQnAUAForm").attr("action", "gymQnAUpdate.do?userno=" + user_no).submit();
 }
-function gymQnAAnswer() {
-	$("#gymQnAForm").attr("action", "gymQnAAnswer.do").submit();
+function gymQnAAnswer(user_no) {
+	var filename = $('#file');
+	if(filename!=null) {
+		for(var i=0; i<filename.length; i++){
+			if(filename[i].value.indexOf("&") > 0) {
+				alert("파일명에 '&' 문자가 포함되어 있는 파일은 첨부하실 수 없습니다.");
+				return false;
+			}
+		}
+	} 
+	$("#gymQnAUAForm").attr("action", "gymQnAAnswer.do?userno=" + user_no).submit();
 }

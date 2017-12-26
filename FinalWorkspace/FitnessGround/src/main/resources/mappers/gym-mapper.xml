@@ -20,6 +20,7 @@
 		<result property="name" column="name" />
 		<result property="user_no" column="user_no" />
 		<result property="gym_name" column="gym_name" />
+		<result property="stringWrite_date" column="stringWrite_date" />
 	</resultMap>
 	
 	<resultMap id="resultBusinessRequest" type="BusinessRequest">
@@ -344,7 +345,8 @@
 	</insert>
 	<select id="selectGymQnABoard" parameterType="_int" resultMap="resultGymQnABoard" resultType="list">
 		<![CDATA[ 
-			select * from tb_qna q
+			select q_no, sender, receiver, title, content, original_filename, rename_filename, TO_CHAR(TO_DATE(write_date), 'yyyy/mm/dd') as stringWrite_date, 
+			q_level, ref_no, response_state, email, name, u.user_no as user_no, gym_name from tb_qna q
 			join tb_user u on (q.sender = u.user_no) 
 			left join tb_gym using (gym_no) 
 			where q_no=#{q_no}
