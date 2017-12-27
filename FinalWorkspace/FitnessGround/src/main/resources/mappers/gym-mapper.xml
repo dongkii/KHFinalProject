@@ -148,6 +148,12 @@
 		<![CDATA[ 
 		select count(*) from tb_gym where approval_state = #{level}
 		]]>
+	</select>	
+	
+	<select id="gymCount" parameterType="_int" resultType="_int">
+		<![CDATA[ 
+		select count(*) from tb_gym where approval_state = #{receiver}
+		]]>
 	</select>
 	
 	<select id="QnaMessage" parameterType="_int" resultType="_int">

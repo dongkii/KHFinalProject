@@ -100,10 +100,10 @@ $( document ).ready(function() {
 												</c:when>
 												<c:when test="${item.response_state==1}">
 
-													<td><button type="submit" class="btn btn-info"
-															onclick="qnaModify(${item.q_no});">수정</button>
+													<td><button type="submit" class="btn btn-primary"
+															onclick="qnaModify(${item.q_no});">완료</button><%-- 
 															<button type="submit"  class="btn btn-success"
-															onclick="qnaConfirm(${item.q_no});">확인</button></td>
+															onclick="qnaConfirm(${item.q_no});">확인</button></td> --%>
 												</c:when>
 
 											</c:choose>
@@ -197,8 +197,7 @@ $( document ).ready(function() {
      </div>
       	
   </div>
-			<div class="card-footer small text-muted">Updated yesterday at
-				11:59 PM</div>
+			<div class="card-footer small text-muted"><h4>Total Message : ${message }개</h4></div>
 
 		</div>
 		<!-- /.container-fluid-->

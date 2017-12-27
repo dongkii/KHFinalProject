@@ -166,8 +166,7 @@
 						</table>
 					</div>
 				</div>
-				<div class="card-footer small text-muted">Updated yesterday at
-					11:59 PM</div>
+				<div class="card-footer small text-muted"><h4>대기중인 헬스장 : ${gymrequest }개</h4><br><h4>승인된 헬스장 : ${count }개</h4></div>
 			
 		</div>
 		<!-- /.container-fluid-->

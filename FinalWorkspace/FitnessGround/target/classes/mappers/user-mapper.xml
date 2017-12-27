@@ -66,6 +66,25 @@
 		
 	</select>
 	
+	<select id="totalUser" parameterType="_int" resultType="_int">
+		<![CDATA[
+			select count(*) 
+			from tb_user 
+			where user_level = #{level} 
+		]]>
+		
+	</select>
+	
+	<select id="totalBusiness" parameterType="_int" resultType="_int">
+		<![CDATA[
+			select count(*) 
+			from tb_user 
+			where user_level = #{receiver} 
+		]]>
+		
+	</select>
+	
+	
 	<select id="userDetail" parameterType="User" resultType="User" resultMap="resultUser">
 		<![CDATA[
 			select * 

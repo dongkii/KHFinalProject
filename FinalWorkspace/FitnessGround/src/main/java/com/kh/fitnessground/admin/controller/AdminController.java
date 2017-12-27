@@ -95,10 +95,6 @@ public class AdminController {
 		mv.addObject("gymRlist", gymRlist);
 		mv.addObject("qnalist", qnalist);
 		
-		/*System.out.println("등록요청 수 :" + request);
-		System.out.println("등록요청gymRlist : " + gymRlist);
-		System.out.println("문의 수 :" + message);
-		System.out.println("문의요청list : " + qnalist);*/
 		return mv;
 	}
 
@@ -150,16 +146,19 @@ public class AdminController {
 
 		int gymrequest = adminService.RequestCount(level);// 헬스장등록요청 갯수 승인상태가 0 인것만 (미승인=0/승인=1)
 		int message = adminService.Message(receiver);// 관리자에게 온 문의 갯수 리시버가 1(관리자user_no) 이고, 응답 상태가 0 인것만(미응답=0/응답=1)
-
+		int total = adminService.totalUser(level); //총 일반회원수 
 		ArrayList<User> gymRlist = adminService.GymRequest(level);// 헬스장 요청 정보 최신순 3개만리스트로 불러오기 승인상태 0인것만
 		ArrayList<GymQnABoard> qnalist = adminService.GymQnABoard(receiver);//메세지 요청 최신3개 미응답이고 리시버가 1인 것만 리스트로 불러오기																		
 		ArrayList<User> list = adminService.userlist(level);
+		
+		
 		System.out.println("회원 정보 : " +list);
 		mv.addObject("gymrequest", gymrequest);
 		mv.addObject("message", message);
 		mv.addObject("gymRlist", gymRlist);
 		mv.addObject("qnalist", qnalist);
 		mv.addObject("list", list);
+		mv.addObject("total", total);
 
 		return mv;
 	}
@@ -174,6 +173,7 @@ public class AdminController {
 
 		int gymrequest = adminService.RequestCount(level);
 		int message = adminService.Message(receiver);
+		int total = adminService.totalbusiness(receiver);
 
 		ArrayList<User> gymRlist = adminService.GymRequest(level);
 		ArrayList<GymQnABoard> qnalist = adminService.GymQnABoard(receiver);
@@ -184,6 +184,7 @@ public class AdminController {
 		mv.addObject("gymRlist", gymRlist);
 		mv.addObject("qnalist", qnalist);
 		mv.addObject("list", list);
+		mv.addObject("total", total);
 
 		return mv;
 	}
@@ -198,6 +199,7 @@ public class AdminController {
 
 		int gymrequest = adminService.RequestCount(level);
 		int message = adminService.Message(receiver);
+		int count = adminService.gymCount(receiver);
 
 		ArrayList<User> gymRlist = adminService.GymRequest(level);
 		ArrayList<GymQnABoard> qnalist = adminService.GymQnABoard(receiver);
@@ -208,6 +210,7 @@ public class AdminController {
 		mv.addObject("gymRlist", gymRlist);
 		mv.addObject("qnalist", qnalist);
 		mv.addObject("list", list);
+		mv.addObject("count", count);
 
 		return mv;
 	}
@@ -222,6 +225,7 @@ public class AdminController {
 
 		int gymrequest = adminService.RequestCount(level);
 		int message = adminService.Message(receiver);
+		int boardCount = adminService.boardCount();
 
 		ArrayList<User> gymRlist = adminService.GymRequest(level);
 		ArrayList<GymQnABoard> qnalist = adminService.GymQnABoard(receiver);
@@ -232,6 +236,7 @@ public class AdminController {
 		mv.addObject("gymRlist", gymRlist);
 		mv.addObject("qnalist", qnalist);
 		mv.addObject("list", list);
+		mv.addObject("boardCount", boardCount);
 
 		return mv;
 	}
@@ -246,6 +251,7 @@ public class AdminController {
 
 		int gymrequest = adminService.RequestCount(level);
 		int message = adminService.Message(receiver);
+		int qnaCount = adminService.qnaCount();
 
 		ArrayList<User> gymRlist = adminService.GymRequest(level);
 		ArrayList<GymQnABoard> qnalist = adminService.GymQnABoard(receiver);
@@ -256,6 +262,7 @@ public class AdminController {
 		mv.addObject("gymRlist", gymRlist);
 		mv.addObject("qnalist", qnalist);
 		mv.addObject("list", list);
+		mv.addObject("qnaCount", qnaCount);
 
 		return mv;
 	}
@@ -270,6 +277,7 @@ public class AdminController {
 
 		int gymrequest = adminService.RequestCount(level);
 		int message = adminService.Message(receiver);
+		int reviewCount = adminService.reviewCount();
 
 		ArrayList<User> gymRlist = adminService.GymRequest(level);
 		ArrayList<GymQnABoard> qnalist = adminService.GymQnABoard(receiver);
@@ -280,6 +288,7 @@ public class AdminController {
 		mv.addObject("gymRlist", gymRlist);
 		mv.addObject("qnalist", qnalist);
 		mv.addObject("list", list);
+		mv.addObject("reviewCount", reviewCount);
 		return mv;
 	}
 

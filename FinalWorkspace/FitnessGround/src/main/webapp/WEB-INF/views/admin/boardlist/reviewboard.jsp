@@ -194,8 +194,7 @@ function reviewDelete(cb_no){
       	
   </div>
   
-				<div class="card-footer small text-muted">Updated yesterday at
-					11:59 PM</div>
+				<div class="card-footer small text-muted"><h4>Total Review : ${reviewCount }개</h4></div>
 			
 		</div>
 		<!-- /.container-fluid-->

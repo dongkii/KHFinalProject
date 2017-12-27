@@ -224,6 +224,42 @@ public class AdminServiceImpl  implements AdminService{
 	}
 
 
+	@Override
+	public int totalUser(int level) {
+		return adminDao.totalUser(level);
+	}
+
+
+	@Override
+	public int totalbusiness(int receiver) {
+		return adminDao.totalBusiness(receiver);
+	}
+
+
+	@Override
+	public int gymCount(int receiver) {
+		return adminDao.gymCount(receiver);
+	}
+
+
+	@Override
+	public int boardCount() {
+		return adminDao.boardCount();
+	}
+
+
+	@Override
+	public int qnaCount() {
+		return adminDao.qnaCount();
+	}
+
+
+	@Override
+	public int reviewCount() {
+		return adminDao.reviewCount();
+	}
+
+
 
 
 

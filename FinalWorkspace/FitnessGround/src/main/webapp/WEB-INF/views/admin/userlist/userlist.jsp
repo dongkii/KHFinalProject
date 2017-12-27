@@ -113,7 +113,7 @@
 				<div class="card-body">
 					<div class="table-responsive">
 						<form name="userForm">
-							<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
+							<table class="table table-bordered table-hover" id="dataTable" width="100%"	cellspacing="0">
 								<thead>
 									<tr align="center">
 										<th>Index</th>
@@ -128,18 +128,18 @@
 								<tbody>
 
 									<c:forEach var="item" items="${list }" varStatus="status">
-										 <c:choose>
-											<c:when test="${item.user_state==0 && item.delete_date eq null}">
-												<tr id="inactive">
-											</c:when>
-											<c:when test="${item.user_state==1 && item.delete_date eq null}">
-												<tr id="Activation">
+										  <c:choose>
+										 	<c:when test="${item.user_state==0 && item.delete_date eq null}">
+												<tr class="p-3 mb-2 bg-success text-white">
+											</c:when> 
+										    <c:when test="${item.user_state==1 && item.delete_date eq null}">
+												<tr class="p-3 mb-2 bg-warning text-white">
 											</c:when>
 											<c:when test="${item.user_state==0 || item.user_state==1 && item.delete_date != null }">
-												<tr id="secession">
+												<tr class="p-3 mb-2 bg-secondary text-white">
 											</c:when>
 										</c:choose> 
-										
+										 
 											<td align="center">${status.count }</td>
 											<td align="center"><a href="userDetail.do?user_no=${item.user_no }">${item.email }</a></td>
 											<td align="center">${item.name }</td>
@@ -181,8 +181,7 @@
 				</div>
 				
   
-				<div class="card-footer small text-muted">Updated yesterday at
-					11:59 PM</div>
+				<div class="card-footer small text-muted"><h4>Total :  ${total }명</h4></div>
 			
 		</div>
 		<!-- /.container-fluid-->

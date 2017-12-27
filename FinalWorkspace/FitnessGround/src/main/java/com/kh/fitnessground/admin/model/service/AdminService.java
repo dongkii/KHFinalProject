@@ -105,6 +105,24 @@ public interface AdminService {
 	Like likeDetail(Like l);
 
 
+	int totalUser(int level);
+
+
+	int totalbusiness(int receiver);
+
+
+	int gymCount(int receiver);
+
+
+	int boardCount();
+
+
+	int qnaCount();
+
+
+	int reviewCount();
+
+
 
 
 

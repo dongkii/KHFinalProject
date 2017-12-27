@@ -186,6 +186,36 @@ public class AdminDao {
 		return sqlSession.selectOne("like.likeDetail", l);
 	}
 
+	public int totalUser(int level) {
+		int total = sqlSession.selectOne("user.totalUser", level);
+		return total;
+	}
+
+	public int totalBusiness(int receiver) {
+		int total = sqlSession.selectOne("user.totalBusiness", receiver);
+		return total;
+	}
+
+	public int gymCount(int receiver) {
+		int count = sqlSession.selectOne("gym.gymCount", receiver);
+		return count;
+	}
+
+	public int boardCount() {
+		int count = sqlSession.selectOne("community.getMeetingListCount");
+		return count;
+	}
+
+	public int qnaCount() {
+		int count = sqlSession.selectOne("community.getQnAListCount");
+		return count;
+	}
+
+	public int reviewCount() {
+		int count = sqlSession.selectOne("community.getReviewListCount");
+		return count;
+	}
+
 
 
 	
