@@ -202,3 +202,36 @@ $(document).ready(function(){
 	function adminpage(){
 		location.href="adminbusinessRequestlist.do";
 	}
+	
+	function reviewinsert(gym_no){
+		var content = $("textfd").val();
+		var user_no = $("user-no").val();
+		var queryString = { "gym_no": gym_no, "content": content, "user_no": user_no };
+		$.ajax({
+			url: "reviewinsert.do",
+			data: queryString,
+			type: "post",
+			dataType: "json",
+			success: function(data){
+				/*reviewselect(gym_no);*/
+				alert("리뷰등록");
+			}
+		});
+	}
+	
+	function reviewselect(gym_no){
+		var queryString = { "gym_no": gym_no };
+		$.ajax({
+			url: "selectreview.do",
+			data: queryString,
+			type: "post",
+			dataType: "json",
+			success: function(data){
+				var values = '';
+			}
+		});
+	}
+	
+	function reviewupdate(gc_no){
+		
+	}

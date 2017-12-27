@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 
 <c:import url="../include/common/head.jsp" />
+	
 <c:import url="/WEB-INF/views/gym/gymQnAInsertView.jsp"/>
 
 <style type="text/css">
@@ -146,7 +147,33 @@
 		left: 5vw;
 		z-index: 10;
 	}
+	
+	.label-default{
+		font-size: 100%;
+		margin-top: 15px;
+	}
+	
+	.label-danger{
+		font-size: 100%;
+		margin-top: 15px;
+	}
+	
+	#textfd {
+		width: 90%;
+		font-size: 0.8rem;
+		border-radius: 5px 5px;
+		height: 4.5vh;
+		margin-top: 10px;
+		padding-left: 7px;
+	}
+	
+	#reviewlist{
+		height: 380px;
+	}
 </style>
+
+<link rel="stylesheet" href="/fitnessground/resources/css/gym/theme.css" />
+<link rel="stylesheet" href="/fitnessground/resources/css/gym/star-rating.css" />
 
 <c:import url="../include/common/headend.jsp" />
 
@@ -179,7 +206,7 @@
 			      <li class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="#" onclick="return scrollmove(1);"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;정보</a></li>
 			      <li class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="#" onclick="return scrollmove(2);"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;일정</a></li>
 			      <li class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="#" onclick="return scrollmove(3);"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;위치</a></li>
-			      <li class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="#" onclick="return scrollmove(4);"><i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;후기</a></li>
+			      <li class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href="#" onclick="return scrollmove(4);"><i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;한줄평</a></li>
 			    </ul>
 			 </div>
 		</nav>
@@ -301,7 +328,16 @@
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0px;" id="comment">
 					<!-- 헬스장 댓글부분 -->
-					헬스장 댓글부분
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="reviewlist">
+						등록된 한줄평이 없습니다.
+					</div>
+					<hr>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="insertreview">
+						<input type="hidden" value="${ sessionScope.user.user_no }" id="user-no">
+						<input id="input-21e" value="0" type="text" class="rating" data-min=0 data-max=5 data-step=0.5 data-size="xs" title="">
+						<input type="text" placeholder=" 한줄평을 입력하세요." id="textfd">
+						<button class="btn btn-primary" onclick="reviewinsert(${gym.gym_no})">등록</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -310,6 +346,7 @@
 
 <script type="text/javascript" src="/fitnessground/resources/js/gym/detailgym.js"></script>  
 <script type="text/javascript" src="/fitnessground/resources/js/gym/gymdetailcalendar.js"></script>
+<script type="text/javascript" src="/fitnessground/resources/js/gym/star-rating.js"></script>
 	
 <c:import url="../include/main/footer.jsp" />
 

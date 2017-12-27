@@ -216,16 +216,7 @@ public class GymController {
 		return mv;
 	}
 	
-	// gymreview
-	@RequestMapping(value="reviewwindow.do")
-	public ModelAndView reviewWindow() // 리뷰 등록 화면 호출
-	{
-		ModelAndView mv = new ModelAndView();
-		
-		return mv;
-	}
-	
-	@RequestMapping(value="enrollreview.do")
+	@RequestMapping(value="/reviewinsert.do")
 	public ModelAndView enrollReview() // 리뷰 등록
 	{
 		ModelAndView mv = new ModelAndView();
