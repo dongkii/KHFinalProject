@@ -2,7 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
     <c:import url="./include/common/head.jsp" />
-	<link rel="stylesheet" href="/fitnessground/resources/css/workout/workout.css"/>
+	<link rel="stylesheet" href="/fitnessground/resources/css/workout/workout.css" />
+	<link rel="stylesheet" href="/fitnessground/resources/css/common/main.css" />
     <c:import url="include/common/headend.jsp" />
 
     <div id="page-wrapper">
@@ -31,9 +32,7 @@
         <!-- Carousel -->
         <section class="carousel">	<!-- 캐러셀  -->
             <div class="reel">
-            	<div id="view_video">
             	
-            	</div>
             </div>
         </section>
 
@@ -120,44 +119,87 @@
        				var jsonStr = JSON.stringify(result);
        				var json = JSON.parse(jsonStr);
        			          	
-       				var title;
-						var url;
-						var content;
-											   						
+       			/* 	var title;
+					var url;
+					var content;	 */										   						
 						
        				
        				for(var i in json.list){
        					var no = json.list[i].v_no;
        					console.log(decodeURIComponent(json.list[i].url));
+       					
        					if(decodeURIComponent(json.list[i].category1) == "헬스"){ //네이버
-       						
-       						values +=	'<article><div>' +
+       						console.log("i 값 : " + i);
+       						values =	'<article>' +
            	                '<a href="javascript:detailView('
            	                    		+json.list[i].v_no + ',\''+ decodeURIComponent(json.list[i].category1) + '\',' + '\'' + decodeURIComponent(json.list[i].category2).replace(/\+/g,' ') +'\');" class="image featured"><img src="' +decodeURIComponent(json.list[i].url) + '" alt=""/></a>'+
            	                '<header>'+
-           	                    '<h3><a id = "v-title" href="javascript:detailView('
+           	                    '<h4><a id = "v-title" href="javascript:detailView('
            	                    		+json.list[i].v_no + ',\''+ decodeURIComponent(json.list[i].category1) + '\',' + '\'' + decodeURIComponent(json.list[i].category2).replace(/\+/g,' ') +'\');">'
            	                    +decodeURIComponent(json.list[i].title).replace(/\+/g," ") + 
-           	                    '</a></h3>'+
+           	                    '</a></h4>'+
            	                '</header>'+
-           	            	'</div></article>'
+           	            	'</article>'
            	            	console.log(values);
-           	            	$("#view_video").html(values);
+           	            	
+           	            	$("").append(values);
+           	            	
        					}else{ //유튜브
        						console.log("유튜브 들어옴");
        						
-       						title = decodeURIComponent(json.list[i].title).replace(/\+/g," ");
+       				/* 		title = decodeURIComponent(json.list[i].title).replace(/\+/g," ");
        						vid = decodeURIComponent(json.list[i].url);
        						content = decodeURIComponent(json.list[i].title).replace(/\+/g," ");
        						
        						var category1 = decodeURIComponent(json.list[i].category1);
        						var category2 = decodeURIComponent(json.list[i].category2).replace(/\+/g,' ');
-       						var v_no = json.list[i].v_no;
+       						var v_no = json.list[i].v_no; */
        						
-       						getYoutubeThumbnail(title,vid,content,category1,category2,v_no);
-       			
+       						//getYoutubeThumbnail(title,vid,content,category1,category2,v_no);
+       						
+       						(function(title,vid,content,category1,category2,v_no){
+       							
+           						title = decodeURIComponent(json.list[i].title).replace(/\+/g," ");
+           						vid = decodeURIComponent(json.list[i].url);
+           						content = decodeURIComponent(json.list[i].title).replace(/\+/g," ");
+           						category1 = decodeURIComponent(json.list[i].category1);
+           						category2 = decodeURIComponent(json.list[i].category2).replace(/\+/g,' ');
+           						v_no = json.list[i].v_no;
+           						
+           						var thumbnail;
+           			    		var value = "";
+           			    		
+           			    		$.get("https://www.googleapis.com/youtube/v3/videos", {
+           							part : 'snippet',
+           							maxResults : 50,
+           							id : vid,
+           							key : 'AIzaSyACiHNLQp0NoZLhAx6u2JbtMGjCp3STK3A'
+           						}, function(data) {
+           							
+           							$.each(data.items, function(i, item) {
+           								 thumbnail = item.snippet.thumbnails.medium.url;
+           								 var j =0;
+           								 value =	'<article>' +
+           			    	                '<a href="javascript:detailView('
+           			    	                    		+ v_no + ',\''+ category1 + '\',' + '\'' + category2+'\');" class="image featured"><img src="' + thumbnail + '" alt="" /></a>'+
+           			    	                '<header>'+
+           			    	                    '<h4><a id = "v-title" href="javascript:detailView('
+           			    	                    		+ v_no + ',\''+ category1 + '\',' + '\'' + category2 +'\');">'
+           			    	                    + title.substring(0,15).concat("...") + 
+           			    	                    '</a></h4>'+
+           			    	                '</header>'+
+           			    	            	'</article>'
+           			    	            	console.log("j : " + j + "value " + value);
+           			    	            	j++;
+           			    	            	$(".reel").append(value);
+           								 
+           								
+           							});
+           						});
+           						
+       						}());
                	            	
-       					}
+       					}//else 문 끝
        						
        				}//for문 끝      					
        			
@@ -174,10 +216,11 @@
 	});	
     
     
-    	function getYoutubeThumbnail(title,vid,content,category1,category2,v_no){
-    		    		
+    /* 	function getYoutubeThumbnail(title,vid,content,category1,category2,v_no){
+    		console.log("메서드 실행");
     		var thumbnail;
     		var value = "";
+    		
     		$.get("https://www.googleapis.com/youtube/v3/videos", {
 				part : 'snippet',
 				maxResults : 50,
@@ -187,8 +230,8 @@
 				
 				$.each(data.items, function(i, item) {
 					 thumbnail = item.snippet.thumbnails.medium.url;
-					
-					 value +=	'<article><div>' +
+					 var j =0;
+					 value =	'<article><div>' +
     	                '<a href="javascript:detailView('
     	                    		+ v_no + ',\''+ category1 + '\',' + '\'' + category2+'\');" class="image featured"><img src="' + thumbnail + '" alt="" /></a>'+
     	                '<header>'+
@@ -198,13 +241,16 @@
     	                    '</a></h3>'+
     	                '</header>'+
     	            	'</div></article>'
-    	            	
+    	            	console.log("j : " + j + "value " + value);
+    	            	j++;
     	            	$("#view_video").append(value);
 					 
 					
 				});
 			});
-    	}
+    		
+    		
+    	} */
     
     
    				
@@ -212,5 +258,4 @@
 	</script>
 
     <c:import url="./include/main/footer.jsp" />
-
     <c:import url="./include/common/end.jsp" />
