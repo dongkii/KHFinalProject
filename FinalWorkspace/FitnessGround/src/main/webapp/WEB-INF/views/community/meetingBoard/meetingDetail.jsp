@@ -21,8 +21,11 @@
     padding-top:10pt;
     }
     hr#hr{
-    height:1pt;
+    height:3pt;
     background-color:#BDBDBD;
+    }
+    div#meetingCommentList{
+    font-size:12pt;
     }
  
     </style>
@@ -44,6 +47,9 @@
 		</div>
     </div>
        
+   <script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=vWkJuuK8gXcwBG8Rijlh&submodules=geocoder">	
+   </script>
    
     <script type="text/javascript">
     function loginCheck(){
@@ -67,7 +73,7 @@
    					 {
    					  	
    					 	values += "<div class='jumbotron'><div class='col-md-2 text-center'><b>" + data.mblist[i].name + "<b></div>"+
-      					"<div class='col-md-6 text-center'>" +  data.mblist[i].content + "</div><div class='col-md-2 text-center'>" + data.mblist[i].reply_date +"</div>";
+      					"<div class='col-md-6 text-left'>" +  data.mblist[i].content + "</div><div class='col-md-2 text-right'>" + data.mblist[i].reply_date +"</div>";
       					
       					if(user_no == data.mblist[i].user_no){
    	      					values += "<div class='col-md-2 text-right'><a class='btn' type='submit' onclick='meetingCommentDelete("+data.mblist[i].mb_no+","+ data.mblist[i].mbc_no +")'>삭제</a></div>"
@@ -111,6 +117,8 @@
 	}
     
   	$(window).on("load", function() {
+  		
+  	
   		$('#commentInsert').on('keydown', function(e) {
   			var keyCode = e.which;
 
@@ -132,15 +140,30 @@
 	
      <div class="container">
      <input type="hidden" id="user_no" value="${sessionScope.user.user_no}">
+    <br><br>
+    <div class="row">
+    	<div class=".col-md-4 margin-left-60" style="font-size:30pt">
+    	${meeting.title}
+    	</div>
+    	<div class=".col-md-4" style="font-size:12pt">
+    	 |  운동같이해요
+    	</div>	
+    	<div class=".col-md-4 pull-right" style="font-size:12pt">
+    	${meeting.upload_date}
+    	</div>	
+    </div>
+    <hr id="hr">
     <br>
-    <h1 id="community_title" align="center">${meeting.title}</h1><br>
      <div id="detail_ail_div" align="center"> 
-    <div id="detail_div" align="center">
-   		
-   		
-    	<h5 id="community_name">작성자 : ${meeting.name} 작성날짜:${meeting.upload_date}</h5>
-    	<hr id="hr">
-     	${meeting.content}
+    <div align="center">
+    	<p>${meeting.content}</p>
+     	<input type="hidden" id="location" value=${meeting.meeting_location }>
+     		<div>
+     			<p>모임장소 : ${meeting.meeting_location }</p>
+     			<div id="map" style="width: 400px; height: 300px; margin-left: 50px">
+					<script type="text/javascript" src="/fitnessground/resources/js/community/communityMap.js"></script>
+				</div>
+			</div>		  
         </div>
         <input type="hidden" ${meeting.readcount}/>
     <div>
@@ -178,7 +201,8 @@
         <button class="btn btn-default" type="button" id="commentInsertBtn" onclick="meetingCommentInsert(${meeting.mb_no});">입력</button>
      	
      	</span>
-	</div>	
+	</div>
+	<br>	
 	</c:if>
 	
    <!--댓글 목록-->

@@ -54,7 +54,7 @@ public class CommunityBoardController {
 		List<MeetingBoard> list = communityBoardService.meetingListView(currentPage, limit, searchOption, searchKey);
 		System.out.println("list : " + list);
 		Map<String, Object> map = new HashMap<String, Object>();
-		int listCount = communityBoardService.getMeetingListCount();
+		int listCount = communityBoardService.getMeetingListCount(searchOption, searchKey);
 
 		int maxPage = (int) ((double) listCount / limit + 0.9);
 
@@ -91,7 +91,7 @@ public class CommunityBoardController {
 		List<MeetingBoard> list = communityBoardService.meetingListView(currentPage, limit, searchOption, searchKey);
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		int listCount = communityBoardService.getMeetingListCount();
+		int listCount = communityBoardService.getMeetingListCount(searchOption, searchKey);
 
 		int maxPage = (int) ((double) listCount / limit + 0.9);
 
@@ -119,6 +119,7 @@ public class CommunityBoardController {
 			jmb.put("user_no", mb.getUser_no());
 			jmb.put("title", mb.getTitle());
 			jmb.put("content", mb.getContent());
+			jmb.put("meeting_location", mb.getMeeting_location());
 			jmb.put("meeting_date", mb.getMeeting_date().toString());
 			jmb.put("upload_date", mb.getUpload_date().toString());
 			jmb.put("readcount", mb.getReadcount());
@@ -215,7 +216,7 @@ public class CommunityBoardController {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		// 갯수
-		int listCount = communityBoardService.getQnAListCount();
+		int listCount = communityBoardService.getQnAListCount(searchOption, searchKey);
 
 		int maxPage = (int) ((double) listCount / limit + 0.9);
 
@@ -253,7 +254,7 @@ public class CommunityBoardController {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		int listCount = communityBoardService.getQnAListCount();
+		int listCount = communityBoardService.getQnAListCount(searchOption, searchKey);
 
 		int maxPage = (int) ((double) listCount / limit + 0.9);
 
@@ -374,7 +375,7 @@ public class CommunityBoardController {
 		List<CommunityBoard> list = communityBoardService.reviewListView(currentPage, limit, searchOption, searchKey);
 		Map<String, Object> map = new HashMap<String, Object>();
 		// 갯수
-		int listCount = communityBoardService.getReviewListCount();
+		int listCount = communityBoardService.getReviewListCount(searchOption, searchKey);
 
 		int maxPage = (int) ((double) listCount / limit + 0.9);
 
@@ -412,7 +413,7 @@ public class CommunityBoardController {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		int listCount = communityBoardService.getReviewListCount();
+		int listCount = communityBoardService.getReviewListCount(searchOption, searchKey);
 
 		int maxPage = (int) ((double) listCount / limit + 0.9);
 

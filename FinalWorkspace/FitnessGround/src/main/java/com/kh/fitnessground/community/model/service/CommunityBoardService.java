@@ -37,7 +37,7 @@ public interface CommunityBoardService {
 			//디테일
 			MeetingBoard meetingDetail(int no);
 			//게시글 갯수
-			int getMeetingListCount();
+			int getMeetingListCount(String searchOption, String searchKey);
 		//운동같이해요 게시판 댓글
 			//목록
 			List<MeetingComment> meetingCommentList(int mb_no);
@@ -61,7 +61,7 @@ public interface CommunityBoardService {
 				//디테일
 				CommunityBoard reviewDetail(int no);
 				//게시글 갯수
-				int getReviewListCount();
+				int getReviewListCount(String searchOption, String searchKey);
 			
 		//qna 게시판
 				//게시글 조회수
@@ -79,7 +79,7 @@ public interface CommunityBoardService {
 					//디테일
 					CommunityBoard qnaDetail(int no);
 					//게시글 갯수
-					int getQnAListCount();
+					int getQnAListCount(String searchOption, String searchKey);
 		//커뮤니티 게시판 댓글	
 					//목록
 					List<CommunityComment> communityCommentList(int cb_no);

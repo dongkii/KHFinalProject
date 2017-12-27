@@ -64,6 +64,11 @@ textarea#editor1 {
 	</div>
 </div>
 
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=vWkJuuK8gXcwBG8Rijlh&submodules=geocoder">	
+</script>
+
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#list").on("click", function(e) { //목록으로
@@ -77,6 +82,7 @@ textarea#editor1 {
 </script>
 
 <br>
+<div class="container">
 <h1 align="center">운동같이해요</h1>
 <br>
 <div id="all_div">
@@ -88,9 +94,7 @@ textarea#editor1 {
 			<div id="div_head">
 				<p>
 					제목
-					<input name="title" type="text" placeholder="${meeting.title}" />
-				</p>
-				<p>파일첨부
+					<input name="title" type="text" value="${meeting.title}" />
 				</p>
 				<p>모임날짜<input name="meeting_date" type="date" value="${meeting.meeting_date}"/>
 				 </p>
@@ -102,12 +106,27 @@ textarea#editor1 {
 				<script>
 					CKEDITOR.replace('editor1');
 				</script>
+				<br>
+				<div class="col-lg-6 col-md-4 col-sm-4 col-xs-4">
+						
+						<p>모임장소<input type="text" class="form-group" name="meeting_location" id="address" value="${meeting.meeting_location }"/></p>
+								
+								<button class="btn btn-default" type="button" id="submit">검색</button>
+						
+						
+					</div>
+				<div id="map" style="width: 600px; height: 400px;">
+					<script type="text/javascript" src="/fitnessground/resources/js/community/communityMap.js"></script>
+				</div>
 				<input type="submit" name="업로드" value="작성하기" id="write">
+				<br>
+				
 		</form>
 	</div>
 	<br>
 </div>
 </div>
+
 <br>
 <br>
 

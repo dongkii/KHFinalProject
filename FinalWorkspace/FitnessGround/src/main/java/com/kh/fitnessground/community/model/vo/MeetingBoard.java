@@ -9,34 +9,28 @@ public class MeetingBoard {
 	private String name; // 작성자명
 	private String title; // 게시글 제목
 	private String content; // 게시글 내용
+	private String meeting_location; //모임장소
 	private Date meeting_date; // 모임날짜
 	private Date upload_date; // 작성일자
 	private int readcount; // 조회수
 	private String email;
-
+	
 	public MeetingBoard() {
 		super();
 	}
 
-	public MeetingBoard(int mb_no, int user_no, String name, String title, String content, Date meeting_date,
-			Date upload_date, int readcount, String email) {
+	public MeetingBoard(int mb_no, int user_no, String name, String title, String content, String meeting_location,
+			Date meeting_date, Date upload_date, int readcount, String email) {
 		super();
 		this.mb_no = mb_no;
 		this.user_no = user_no;
 		this.name = name;
 		this.title = title;
 		this.content = content;
+		this.meeting_location = meeting_location;
 		this.meeting_date = meeting_date;
 		this.upload_date = upload_date;
 		this.readcount = readcount;
-		this.email = email;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
 		this.email = email;
 	}
 
@@ -80,6 +74,14 @@ public class MeetingBoard {
 		this.content = content;
 	}
 
+	public String getMeeting_location() {
+		return meeting_location;
+	}
+
+	public void setMeeting_location(String meeting_location) {
+		this.meeting_location = meeting_location;
+	}
+
 	public Date getMeeting_date() {
 		return meeting_date;
 	}
@@ -104,11 +106,20 @@ public class MeetingBoard {
 		this.readcount = readcount;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
 		return "MeetingBoard [mb_no=" + mb_no + ", user_no=" + user_no + ", name=" + name + ", title=" + title
-				+ ", content=" + content + ", meeting_date=" + meeting_date + ", upload_date=" + upload_date
-				+ ", readcount=" + readcount + "]";
+				+ ", content=" + content + ", meeting_location=" + meeting_location + ", meeting_date=" + meeting_date
+				+ ", upload_date=" + upload_date + ", readcount=" + readcount + ", email=" + email + "]";
 	}
+
 
 }

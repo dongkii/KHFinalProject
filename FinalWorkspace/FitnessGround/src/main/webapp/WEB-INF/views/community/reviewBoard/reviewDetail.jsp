@@ -10,8 +10,9 @@
 	font-family: 'Nanum Pen Script', cursive;
 	font-size: 20pt;
 	}
-    h1{
-    font-size: 30pt;
+    hr#hr{
+    height:3pt;
+    background-color:#BDBDBD;
     }
     div#detail_all_div{
     padding: 5%;
@@ -19,6 +20,9 @@
     div#detail_div{
     border: 1px solid;
     border-color: #BDBDBD;
+    }
+     div#communityCommentList{
+    font-size:12pt;
     }
     </style>
 	
@@ -122,25 +126,36 @@
 	
      <div class="container">
      <input type="hidden" id="user_no" value="${sessionScope.user.user_no}">
-    <br>
-    <h1 align="center">${community.title}</h1>
-   <div id="detail_ail_div"> 
-    <div id="detail_div">
-    	<div>
-
+    <br><br><br>
+    
+   <div class="row">
+    	<div class=".col-md-4 margin-left-60" style="font-size:30pt">
+		    ${community.title}
     	</div>
-     	<p align="center">${community.name}</p>
+    	<div class=".col-md-4" style="font-size:12pt">
+    	 |  리뷰
+    	</div>	
+    	<div class=".col-md-4 pull-right" style="font-size:12pt">
+    	${community.upload_date}
+    	</div>	
+    </div>
+    <hr id="hr">
+   <div id="detail_ail_div"> 
+    <div>
+      	<p align="center">${community.name}</p>
      	<p>${community.content}</p>
         </div>
    <input type="hidden" value="${community.readcount}"/>
     <div>
    </div> 
+   <div align="center">
    <c:if test="${sessionScope.user.user_no eq community.user_no}">
    <a href="reviewUpdate.do?no=${community.cb_no}" class="btn">수정</a>
    <a href="reviewDelete.do?no=${community.cb_no}" class="btn">삭제</a>
    </c:if>
    <a href="review.do" class="btn">목록</a>
   </div>
+ </div> 
     <!-- =========================댓글 쓰는 공간================================== -->
     <!--  댓글  -->
     <cbody>
@@ -154,6 +169,7 @@
         <button class="btn btn-default" type="button" id="commentInsertBtn" onclick="loginCheck();">입력</button>
      	</span>
 	</div>	
+	<br>
  </c:if>
  <c:if test="${sessionScope.user!=null}">
  	<div id="communityCommentInsert" class="input-group" >
@@ -163,12 +179,14 @@
         <button class="btn btn-default" type="button" id="commentInsertBtn" onclick="communityCommentInsert(${community.cb_no});">입력</button>
      	</span>
 	</div>	
+	<br>
  </c:if>	
    <!--댓글 목록-->
    <div id="communityCommentList">
    	<script type="text/javascript">
    		communityCommentList("${community.cb_no}");
    	</script>    
+   	
    </div>   
    </div>   
   <cbody>  
