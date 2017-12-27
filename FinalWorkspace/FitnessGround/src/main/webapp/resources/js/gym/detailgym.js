@@ -204,8 +204,10 @@ $(document).ready(function(){
 	}
 	
 	function reviewinsert(gym_no){
-		var content = $("textfd").val();
-		var user_no = $("user-no").val();
+		var content = $("#textfd").val();
+		var rating = $(".label-danger").text();
+		console.log(rating);
+		var user_no = $("#user-no").val();
 		var queryString = { "gym_no": gym_no, "content": content, "user_no": user_no };
 		$.ajax({
 			url: "reviewinsert.do",

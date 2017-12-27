@@ -35,6 +35,7 @@ import com.kh.fitnessground.common.util.GymImageUtils;
 import com.kh.fitnessground.community.model.vo.MeetingBoard;
 import com.kh.fitnessground.gym.model.service.GymService;
 import com.kh.fitnessground.gym.model.vo.Gym;
+import com.kh.fitnessground.gym.model.vo.GymComment;
 import com.kh.fitnessground.gym.model.vo.GymQnABoard;
 import com.kh.fitnessground.gym.model.vo.GymSchedule;
 import com.kh.fitnessground.gym.model.vo.NaverMap;
@@ -216,14 +217,15 @@ public class GymController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/reviewinsert.do")
-	public ModelAndView enrollReview() // 리뷰 등록
-	{
+	// 리뷰 등록
+	@RequestMapping(value="/reviewinsert.do", method=RequestMethod.POST)
+	public void enrollReview(GymComment gc, HttpServletRequest request, HttpServletResponse response){
 		ModelAndView mv = new ModelAndView();
-		
-		return mv;
+		System.out.println(gc);
+		gymService.InserReview(gc);
 	}
 	
+	// 리뷰 수정
 	@RequestMapping(value="updatereview.do")
 	public ModelAndView updateReview()
 	{
@@ -232,11 +234,14 @@ public class GymController {
 		return mv;
 	}
 	
+	//리뷰 삭제
 	@RequestMapping(value="deletereviw.do")
 	public void deleteReview()
 	{
 		
 	}
+	
+	//리뷰 셀렉
 	
 	// findgym
 		@RequestMapping(value = "findgym.do")

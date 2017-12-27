@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.fitnessground.gym.model.dao.GymDao;
 import com.kh.fitnessground.gym.model.vo.Gym;
+import com.kh.fitnessground.gym.model.vo.GymComment;
 import com.kh.fitnessground.gym.model.vo.GymQnABoard;
 import com.kh.fitnessground.gym.model.vo.GymReview;
 import com.kh.fitnessground.gym.model.vo.GymSchedule;
@@ -32,26 +33,6 @@ public class GymServiceImpl implements GymService{
 	@Override
 	public int getListCount() {
 		return gymDao.getListCount();
-	}
-
-	@Override
-	public ArrayList<GymReview> selectList(int limit) {
-		return gymDao.selectList(limit);
-	}
-
-	@Override
-	public int enrollReview(GymReview gymreview) {
-		return gymDao.enrollReview(gymreview);
-	}
-
-	@Override
-	public int deleteReview(int gcno) {
-		return gymDao.deleteReview(gcno);
-	} 
-
-	@Override
-	public int updateReview(int gcno, GymReview gymreview) {
-		return gymDao.updateReview(gcno,gymreview);
 	}
 
 	@Override
@@ -194,5 +175,10 @@ HashMap<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("maxLng", nmap.getMaxLng());
 		
 		return gymDao.publicMapList(parameters);
+	}
+
+	@Override
+	public void InserReview(GymComment gc) {
+		gymDao.InsertReview(gc);
 	}
 }

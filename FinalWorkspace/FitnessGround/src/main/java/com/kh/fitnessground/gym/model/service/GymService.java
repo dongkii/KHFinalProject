@@ -3,8 +3,8 @@ package com.kh.fitnessground.gym.model.service;
 import java.util.ArrayList;
 
 import com.kh.fitnessground.gym.model.vo.Gym;
+import com.kh.fitnessground.gym.model.vo.GymComment;
 import com.kh.fitnessground.gym.model.vo.GymQnABoard;
-import com.kh.fitnessground.gym.model.vo.GymReview;
 import com.kh.fitnessground.gym.model.vo.GymSchedule;
 import com.kh.fitnessground.gym.model.vo.NaverMap;
 import com.kh.fitnessground.gym.model.vo.PublicGym;
@@ -17,18 +17,10 @@ public interface GymService {
 		
 		// 게시글 개수
 		int getListCount();
-		// 목록 가져오기
-		ArrayList<GymReview> selectList(int limit);
 		
 		// 헬스장 목록 가져오기
 		ArrayList<Gym> healthList(int currentPage, int limit);
 	//	ArrayList<Gym> healthList();
-		//등록
-		int enrollReview(GymReview gymreview);
-		//삭제
-		int deleteReview(int gcno);
-			//수정
-		int updateReview(int gcno, GymReview gymreview);
 		
 		int getPublicListCount();
 		
@@ -73,4 +65,6 @@ public interface GymService {
 		
 		void updategymimg(Gym gym);
 		ArrayList<PublicGym> publicMaplist(NaverMap nmap);
+		
+		void InserReview(GymComment gc);
 }

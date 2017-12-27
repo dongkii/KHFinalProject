@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.fitnessground.gym.model.vo.Gym;
+import com.kh.fitnessground.gym.model.vo.GymComment;
 import com.kh.fitnessground.gym.model.vo.GymQnABoard;
 import com.kh.fitnessground.gym.model.vo.GymReview;
 import com.kh.fitnessground.gym.model.vo.GymSchedule;
@@ -157,6 +158,10 @@ public class GymDao {
 		System.out.println(parameters);
 		System.out.println(list);
 		return new ArrayList<PublicGym>(list) ;
+	}
+
+	public void InsertReview(GymComment gc) {
+		sqlSession.insert("gymcomment.insertreivew", gc);
 	}
 
 	
