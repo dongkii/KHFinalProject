@@ -89,10 +89,18 @@ public class CommunityBoardDao {
 		return meeting;
 	}
 
-	public int getMeetingListCount() {
-		
-		return sqlSession.selectOne("community.getMeetingListCount");
-		
+	public int getMeetingListCount(String searchOption, String searchKey) {
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("searchOption", searchOption);
+		map.put("searchKey", "%" + searchKey + "%");
+		if(searchOption.equals("title")){
+			return sqlSession.selectOne("community.getMeetingTitleCount", map);
+		}else if(searchOption.equals("name")){
+		return sqlSession.selectOne("community.getMeetingNameCount", map);
+		}else if(searchOption.equals("content")){
+			return sqlSession.selectOne("community.getMeetingContentCount", map);
+		}else
+			return sqlSession.selectOne("community.getMeetingListCount", map);
 	}
 
 	
@@ -153,8 +161,18 @@ public class CommunityBoardDao {
 		return community;
 	}
 	
-	public int getReviewListCount() {
-		return sqlSession.selectOne("community.getReviewListCount");
+	public int getReviewListCount(String searchOption, String searchKey) {
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("searchOption", searchOption);
+		map.put("searchKey", "%" + searchKey + "%");
+		if(searchOption.equals("title")){
+			return sqlSession.selectOne("community.getReviewTitleCount", map);
+		}else if(searchOption.equals("name")){
+		return sqlSession.selectOne("community.getReviewNameCount", map);
+		}else if(searchOption.equals("content")){
+			return sqlSession.selectOne("community.getReviewContentCount", map);
+		}else
+			return sqlSession.selectOne("community.getReviewListCount", map);
 	}
 
 	//qna 게시판--------------------------------------------------------------------------------------
@@ -206,9 +224,18 @@ public class CommunityBoardDao {
 	}
 	
 	
-	public int getQnAListCount() {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("community.getQnAListCount");
+	public int getQnAListCount(String searchOption, String searchKey) {
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("searchOption", searchOption);
+		map.put("searchKey", "%" + searchKey + "%");
+		if(searchOption.equals("title")){
+			return sqlSession.selectOne("community.getQnATitleCount", map);
+		}else if(searchOption.equals("name")){
+		return sqlSession.selectOne("community.getQnANameCount", map);
+		}else if(searchOption.equals("content")){
+			return sqlSession.selectOne("community.getQnAContentCount", map);
+		}else
+			return sqlSession.selectOne("community.getQnAListCount", map);
 	}
 
 	//qna 게시판 댓글--------------------------------------------------------------------------------------------------

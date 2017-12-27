@@ -21,7 +21,7 @@
     padding-top:10pt;
     }
     hr#hr{
-    height:1pt;
+    height:3pt;
     background-color:#BDBDBD;
     }
     div#meetingCommentList{
@@ -140,18 +140,30 @@
 	
      <div class="container">
      <input type="hidden" id="user_no" value="${sessionScope.user.user_no}">
+    <br><br>
+    <div class="row">
+    	<div class=".col-md-4 margin-left-60" style="font-size:30pt">
+    	${meeting.title}
+    	</div>
+    	<div class=".col-md-4" style="font-size:12pt">
+    	 |  운동같이해요
+    	</div>	
+    	<div class=".col-md-4 pull-right" style="font-size:12pt">
+    	${meeting.upload_date}
+    	</div>	
+    </div>
+    <hr id="hr">
     <br>
-    <h1 id="community_title" align="center">${meeting.title}</h1><br>
      <div id="detail_ail_div" align="center"> 
-    <div id="detail_div" align="center">
-   		  		
-    	<h5 id="community_name">작성자 : ${meeting.name} 작성날짜:${meeting.upload_date}</h5>
-    	<hr id="hr">
-     	<p>${meeting.content}</p>
+    <div align="center">
+    	<p>${meeting.content}</p>
      	<input type="hidden" id="location" value=${meeting.meeting_location }>
-  				<div id="map" style="width: 600px; height: 400px; margin-left: 50px">
+     		<div>
+     			<p>모임장소 : ${meeting.meeting_location }</p>
+     			<div id="map" style="width: 400px; height: 300px; margin-left: 50px">
 					<script type="text/javascript" src="/fitnessground/resources/js/community/communityMap.js"></script>
-				</div>	  
+				</div>
+			</div>		  
         </div>
         <input type="hidden" ${meeting.readcount}/>
     <div>

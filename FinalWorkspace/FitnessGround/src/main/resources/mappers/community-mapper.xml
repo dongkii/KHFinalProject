@@ -10,6 +10,7 @@
 		<result property="name" column="NAME" />
 		<result property="title" column="TITLE" />
 		<result property="content" column="CONTENT" />
+		<result property="meeting_location" column="MEETING_LOCATION" />
 		<result property="meeting_date" column="MEETING_DATE" jdbcType="DATE" javaType="java.sql.Date"/>
 		<result property="upload_date" column="UPLOAD_DATE" jdbcType="DATE" javaType="java.sql.Date"/>
 		<result property="readcount" column="READCOUNT" />
@@ -116,23 +117,23 @@
 	</select>
 	
 	<!-- 게시글 내용 개수 -->
-	<select id="getMeetingContentListCount" resultType="_int" parameterType="_int">
+	<select id="getMeetingContentCount" resultType="_int" parameterType="hashmap">
 		<![CDATA[
-			select count(*) from tb_meeting_board where content like #{content}
+			select count(*) from tb_meeting_board where content like #{searchKey}
 		]]>
 	</select>
 	
 	<!-- 게시글 이름 개수 -->
-	<select id="getMeetingNameListCount" resultType="_int" parameterType="_int">
+	<select id="getMeetingNameCount" resultType="_int" parameterType="hashmap">
 		<![CDATA[
-			select count(*) from tb_meeting_board where content like #{content}
+			select count(*) from tb_meeting_board where name like #{searchKey}
 		]]>
 	</select>
 	
 	<!-- 게시글 제목 개수 -->
-	<select id="getMeetingTitleListCount" resultType="_int" parameterType="String">
+	<select id="getMeetingTitleCount" resultType="_int" parameterType="hashmap">
 		<![CDATA[
-			select count(*) from tb_meeting_board where content like #{content}
+			select count(*) from tb_meeting_board where title like #{searchKey}
 		]]>
 	</select>
 
@@ -144,7 +145,7 @@
 	<!-- 운동같이해요글쓰기 -->	
 	<insert id="insertMeeting" parameterType="Meeting" flushCache="true"
 		statementType="PREPARED" useGeneratedKeys="true" >
-		<![CDATA[insert into tb_meeting_board values(mb_seq.nextval,#{user_no},#{title},#{content},#{meeting_date},default,default)]]>
+		<![CDATA[insert into tb_meeting_board values(mb_seq.nextval,#{user_no},#{title},#{content},#{meeting_location},#{meeting_date},default,default)]]>
 	</insert>
 	
 	<!-- 운동같이해요삭제 -->
@@ -158,7 +159,7 @@
 	</select> 
 	<!-- 운동같이해요 수정 -->
 	<update id="updateMeetingPage" parameterType="Meeting" >
-	<![CDATA[update tb_meeting_board set content = #{content}, title = #{title}, meeting_date = #{meeting_date} where mb_no=#{mb_no}]]>
+	<![CDATA[update tb_meeting_board set content = #{content}, title = #{title}, meeting_location = #{meeting_location}, meeting_date = #{meeting_date} where mb_no=#{mb_no}]]>
 	</update> 
 	
 	<!--  운동같이해요 검색기능 -->
@@ -256,6 +257,27 @@
 		]]>
 	</select>
 	
+	<!-- 게시글 내용 개수 -->
+	<select id="getQnAContentCount" resultType="_int" parameterType="hashmap">
+		<![CDATA[
+			select count(*) from tb_com_board where content like #{searchKey}
+		]]>
+	</select>
+	
+	<!-- 게시글 이름 개수 -->
+	<select id="getQnANameCount" resultType="_int" parameterType="hashmap">
+		<![CDATA[
+			select count(*) from tb_com_board where name like #{searchKey}
+		]]>
+	</select>
+	
+	<!-- 게시글 제목 개수 -->
+	<select id="getQnATitleCount" resultType="_int" parameterType="hashmap">
+		<![CDATA[
+			select count(*) from tb_com_board where title like #{searchKey}
+		]]>
+	</select>
+	
 	<!--  qna 게시판 글쓰기 -->
 	<insert id="insertQnA" parameterType="Community" flushCache="true"
 		statementType="PREPARED" useGeneratedKeys="true" >
@@ -329,6 +351,27 @@
 	<select id="getReviewListCount" resultType="_int" parameterType="_int">
 		<![CDATA[
 			select count(*) from tb_com_board where board_property =0
+		]]>
+	</select>
+	
+	<!-- 게시글 내용 개수 -->
+	<select id="getReviewContentCount" resultType="_int" parameterType="hashmap">
+		<![CDATA[
+			select count(*) from tb_com_board where content like #{searchKey}
+		]]>
+	</select>
+	
+	<!-- 게시글 이름 개수 -->
+	<select id="getReviewNameCount" resultType="_int" parameterType="hashmap">
+		<![CDATA[
+			select count(*) from tb_com_board where name like #{searchKey}
+		]]>
+	</select>
+	
+	<!-- 게시글 제목 개수 -->
+	<select id="getReviewTitleCount" resultType="_int" parameterType="hashmap">
+		<![CDATA[
+			select count(*) from tb_com_board where title like #{searchKey}
 		]]>
 	</select>
 	

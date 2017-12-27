@@ -87,9 +87,9 @@ public class CommunityBoardServiceImpl implements CommunityBoardService {
 	}
 
 	@Override
-	public int getMeetingListCount() {
+	public int getMeetingListCount(String searchOption, String searchKey) {
 		
-		return communityBoardDao.getMeetingListCount();
+		return communityBoardDao.getMeetingListCount(searchOption,searchKey);
 	}
 	
 	//운동같이해요 게시판 댓글 ------------------------------------------------------------------------
@@ -148,9 +148,9 @@ public class CommunityBoardServiceImpl implements CommunityBoardService {
 	}
 	
 	@Override
-	public int getReviewListCount() {
+	public int getReviewListCount(String searchOption, String searchKey) {
 		
-		return communityBoardDao.getReviewListCount();
+		return communityBoardDao.getReviewListCount(searchOption, searchKey);
 	}
 			
 	//qna 게시판---------------------------------------------------------------------------------------------------------
@@ -194,9 +194,9 @@ public class CommunityBoardServiceImpl implements CommunityBoardService {
 	}
 	
 	@Override
-	public int getQnAListCount() {
+	public int getQnAListCount(String searchOption, String searchKey) {
 		
-		return communityBoardDao.getQnAListCount();
+		return communityBoardDao.getQnAListCount(searchOption, searchKey);
 	}
 	//==============================================댓글==================================================
 
