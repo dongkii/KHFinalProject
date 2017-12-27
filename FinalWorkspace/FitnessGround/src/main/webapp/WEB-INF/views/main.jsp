@@ -107,7 +107,7 @@
        		console.log("if문 실행");
         
       	 	var values="";
-        
+      	 	
       	 	$.ajax({
        			url:'mainVideoList.do',
        			type:'post',
