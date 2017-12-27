@@ -185,7 +185,7 @@
            			    	                '<header>'+
            			    	                    '<h4><a id = "v-title" href="javascript:detailView('
            			    	                    		+ v_no + ',\''+ category1 + '\',' + '\'' + category2 +'\');">'
-           			    	                    + title.substring(0,15).concat("...") + 
+           			    	                    + title.substring(0,30).concat("...") + 
            			    	                    '</a></h4>'+
            			    	                '</header>'+
            			    	            	'</article>'

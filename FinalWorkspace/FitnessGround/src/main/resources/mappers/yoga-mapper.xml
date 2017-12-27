@@ -17,7 +17,7 @@
 	<select id="selectAllYList" resultType="list" resultMap="yogaResult">
 		<![CDATA[
 		select v_no, title, content, category1, category2, url, readcount from (select rownum, v_no, title, content, category1, category2, url, readcount 
-		from (select * from tb_video_board where category1 = '요가' order by readcount desc) where rownum <6)
+		from (select * from tb_video_board where category1 = '요가' order by readcount desc) where rownum <9)
 		]]>
 	</select>
 	
@@ -25,7 +25,7 @@
 	<select id="selectAllPList" resultType="list" resultMap="yogaResult">
 		<![CDATA[
 		select v_no, title, content, category1, category2, url, readcount from (select rownum, v_no, title, content, category1, category2, url, readcount 
-		from (select * from tb_video_board where category1 = '필라테스' order by readcount desc) where rownum <6)
+		from (select * from tb_video_board where category1 = '필라테스' order by readcount desc) where rownum <9)
 		]]>
 	</select>
 	
