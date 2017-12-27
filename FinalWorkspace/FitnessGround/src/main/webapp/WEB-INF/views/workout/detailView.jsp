@@ -64,12 +64,13 @@
    }   
 
    function detailView(v_no,category1,category2, mypageStat){   //모달창 띄우는 메서드
-      $("#detailView").show();
+      
+	  $("#detailView").show();
       $("#detailView").modal();
-      console.log(v_no);
-      console.log(category1);
-      console.log(category2);
       $("input[name=mypageStat]").val(mypageStat);
+      
+      
+      
       
       selectComment(v_no); //댓글
       var comment = '<input type="text" id="reply-input" placeholder="댓글을 입력하세요">' +
@@ -107,16 +108,18 @@
       }
       
       
+   
+   }
+   
+   function viewVideo(v_no){ //모달창에서 영상 띄워주는 메서드 (조회수, 제목, 설명 ,좋아요 누르는부분)
+      var user_no = $("#user_no").val();
+   
       /*댓글 엔터키 입력*/
       $("#reply-input").keydown(function(key){
          if(key.keyCode==13){
             insertComment(v_no);
          }
       })
-   }
-   
-   function viewVideo(v_no){ //모달창에서 영상 띄워주는 메서드 (조회수, 제목, 설명 ,좋아요 누르는부분)
-      var user_no = $("#user_no").val();
             
       $.ajax({
          url:"detail.do",

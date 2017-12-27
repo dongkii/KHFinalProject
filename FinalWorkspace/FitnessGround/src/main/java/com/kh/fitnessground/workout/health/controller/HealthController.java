@@ -396,7 +396,7 @@ public class HealthController {
 		for(int i=0; i<list.size();i++){	//뽑아온 리스트중에 헬스가 있으면
 			if(list.get(i).getCategory1().equals("헬스")){
 				keyarr.add(list.get(i).getTitle().replaceAll(" ", ""));
-				
+				System.out.println("i번째 : " + i);
 				  for(int k=0;k<keyarr.size();k++) {
 			        		
 				        try {
@@ -458,6 +458,7 @@ public class HealthController {
 			
 		}
 		
+		System.out.println("리스트 : " + list);
 		
 		/* view로 내보내기 */
 		JSONObject sendJson = new JSONObject();
@@ -480,6 +481,8 @@ public class HealthController {
 			jhealth.put("readcount", h.getReadcount());
 			
 			jarr.add(jhealth);
+			
+			
 			
 		}
 		

@@ -2511,6 +2511,7 @@ input[type="search"] {
 			height: 12em;
 			margin-top: -6em;
 			cursor: pointer;
+			
 		}
 
 			.carousel .forward:before, .carousel .backward:before {
@@ -2611,6 +2612,7 @@ input[type="search"] {
 			.carousel article p {
 				text-align: center;
 			}
+			
 
 /* Wide */
 
