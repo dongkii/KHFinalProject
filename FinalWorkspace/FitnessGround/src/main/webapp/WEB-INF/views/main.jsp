@@ -31,7 +31,16 @@
         <!-- Carousel -->
         <section class="carousel">	<!-- 캐러셀  -->
             <div class="reel">
-            	
+            	<article id="1"></article>
+            	<article id="2"></article>
+            	<article id="3"></article>
+            	<article id="4"></article>
+            	<article id="5"></article>
+            	<article id="6"></article>
+            	<article id="7"></article>
+            	<article id="8"></article>
+            	<article id="9"></article>
+            	<article id="10"></article>
             </div>
         </section>
 
@@ -84,11 +93,11 @@
 				</div>
 				<div class="explanation">
 					
-				<span>BMI란 ? 체질량 지수(體質量指數, Body Mass Index)로서  비만도를 측정하는 지수입니다.</span>
-					<span>BMI is a useful measurement for most people over 18 years old. 
-					But it is only an estimate and it doesn’t take into account age, ethnicity, gender and body composition. 
-					We recommend you also check your waist measurement and other risk factors.Speak to your doctor, 
-					an Accredited Practising Dietitian or a health practitioner about your weight.</span>
+				<span>BMI란  체질량 지수(體質量指數, Body Mass Index)로서  비만도를 측정하는 지수입니다.</span><br>
+					<span>BMI는 18세 이상의 성인들을 측정하기에 적합하지만, 나이나 성별 등 개인 차를 고려하지 않기 때문에 완전히 정확한 신체 측정이라고 보기는 어렵습니다.
+					정확한 측정을 위해서는 허리둘레 등 다른 방법도 함께 체크해야 합니다. 헬스트레이너, 의사 등과 상의해보세요.
+				</span>
+				<span>꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥</span>
 				</div>
                 <a href="bmi.do" class="btn btn-primary" id="bmi-btn">나의 BMI지수 확인하기</a>
             </section>
@@ -155,7 +164,7 @@
        					
        					if(decodeURIComponent(json.list[i].category1) == "헬스"){ //네이버
        						console.log("i 값 : " + i);
-       						values =	'<article>' +
+       						values =	
            	                '<a href="javascript:detailView('
            	                    		+json.list[i].v_no + ',\''+ decodeURIComponent(json.list[i].category1) + '\',' + '\'' + decodeURIComponent(json.list[i].category2).replace(/\+/g,' ') +'\');" class="image featured"><img src="' +decodeURIComponent(json.list[i].url) + '" alt=""/></a>'+
            	                '<header>'+
@@ -163,11 +172,11 @@
            	                    		+json.list[i].v_no + ',\''+ decodeURIComponent(json.list[i].category1) + '\',' + '\'' + decodeURIComponent(json.list[i].category2).replace(/\+/g,' ') +'\');">'
            	                    +decodeURIComponent(json.list[i].title).replace(/\+/g," ") + 
            	                    '</a></h4>'+
-           	                '</header>'+
-           	            	'</article>'
+           	                '</header>';
+           	            	
            	            	console.log(values);
            	            	
-           	            	$(".reel").append(values);
+           	            	$("#"+i).append(values);
            	            	
        					}else{ //유튜브
        						console.log("유튜브 들어옴");
@@ -179,8 +188,8 @@
        						var category1 = decodeURIComponent(json.list[i].category1);
        						var category2 = decodeURIComponent(json.list[i].category2).replace(/\+/g,' ');
        						var v_no = json.list[i].v_no; 
-       						
-       						getYoutubeThumbnail(title,vid,content,category1,category2,v_no);
+       						var rank= i;
+       						getYoutubeThumbnail(title,vid,content,category1,category2,v_no,rank);
        						
        					
        					}//else 문 끝
@@ -200,7 +209,7 @@
 	});	
     
     
-     	function getYoutubeThumbnail(title,vid,content,category1,category2,v_no){
+     	function getYoutubeThumbnail(title,vid,content,category1,category2,v_no,rank){
     		console.log("메서드 실행");
     		var thumbnail;
     		var value = "";
@@ -218,7 +227,7 @@
 					
 					 thumbnail = item.snippet.thumbnails.medium.url;
 					
-					 value =	'<article><div>' +
+					 value =	'<div>' +
     	                '<a href="javascript:detailView('
     	                    		+ v_no + ',\''+ category1 + '\',' + '\'' + category2+'\');" class="image featured"><img src="' + thumbnail + '" alt="" /></a>'+
     	                '<header>'+
@@ -227,9 +236,9 @@
     	                    + title.substring(0,18).concat("...") + 
     	                    '</a></h4>'+
     	                '</header>'+
-    	            	'</div></article>'
+    	            	'</div>'
     	            	
-    	            	$(".reel").append(value);
+    	            	$("#"+rank).append(value);
     	            	console.log(value);
     	            						
 				});

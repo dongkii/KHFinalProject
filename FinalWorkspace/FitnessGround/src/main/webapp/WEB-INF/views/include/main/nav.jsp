@@ -5,8 +5,9 @@
 <c:import url="/WEB-INF/views/user/profileEdit.jsp"/>
 
 <nav id="nav" style="height:85px;">
+	
 	<ul>
-		<li><a href="main.do">Home</a></li>
+		<li><a href="main.do">HOME</a></li>
 		<li><a href="healthMain.do">운동법</a>
 			<ul>
 				<li><a href="healthMain.do">헬스</a></li>
