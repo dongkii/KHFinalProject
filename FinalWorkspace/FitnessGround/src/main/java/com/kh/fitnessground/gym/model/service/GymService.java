@@ -69,4 +69,6 @@ public interface GymService {
 		void InserReview(GymComment gc);
 		
 		ArrayList<GymComment> SelectReview(GymComment gc);
+		
+		String selectadminQnAResponseQNo(int q_no);
 }

@@ -185,4 +185,8 @@ HashMap<String, Object> parameters = new HashMap<String, Object>();
 	public ArrayList<GymComment> SelectReview(GymComment gc) {
 		return gymDao.SelectReview(gc);
 	}
+	
+	public String selectadminQnAResponseQNo(int q_no) {
+		return gymDao.selectadminQnAResponseQNo(q_no);
+	}
 }

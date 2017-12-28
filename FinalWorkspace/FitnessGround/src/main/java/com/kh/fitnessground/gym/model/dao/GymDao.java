@@ -147,6 +147,10 @@ public class GymDao {
 		List<GymComment> list = sqlSession.selectList("gymcomment.selectreview", gc);
 		return new ArrayList<GymComment>(list);
 	}
+	
+	public String selectadminQnAResponseQNo(int q_no) {
+		return sqlSession.selectOne("gym.selectadminQnAResponseQNo",q_no);
+	}
 
 	
 }
