@@ -275,7 +275,7 @@ function category(category2){
 				var duration; 
 				var thumbnail;
 				var timeid = '#v-time'+no;
-				//console.log("timeid outside"+timeid);
+				console.log("유툽 시간 가져오기 시작");
 				
 				//이번에도 순서문제. $.get이하가 for문을 다 돌고나서 실행되어버림....api호출이늦어서인가,, 
 					$.get("https://www.googleapis.com/youtube/v3/videos", {
@@ -322,11 +322,12 @@ function category(category2){
 							
 						/* 	console.log("t:"+timeid); */
 							$(timeid).append(duration);
+							console.log("겟 함수 실행");
 						});
 						
 		
 					});
-				
+					console.log("유툽 시간 가져오기 끝")
 					$.get("https://www.googleapis.com/youtube/v3/videos", {
 						part : 'snippet',
 						maxResults : 50,
