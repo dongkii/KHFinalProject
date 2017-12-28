@@ -3,9 +3,9 @@
 
 <style>
 	#gymQModalC {height:700px;}
-	#gymQnATitle {font-size:20pt; padding-bottom:20px; padding-top:20px;}
+	#gymQnATitle {font-size:20pt;padding-bottom:10px; font-weight:bold; color:black;}
 	#gymQnAForm {padding:10px;}
-	th {width:120px;}
+	th {width:120px; font-weight:bold;}
 	td {padding-left:20px;}
 	#fileDiv button, #fileDiv a {width:80%;}
 	#gymQSendBt {width:100%;}
@@ -14,11 +14,13 @@
 <div class="modal modal-center fade" id="gymQnaInsertModal" style="z-index:100;">
 	<div class="modal-dialog modal-center modal-lg">
 		<div class="modal-content" id="gymQModalC">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>	
+			<div class="modal-header" align="top">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>	
+				<h4 id="gymQnATitle" class="modal-title" align="center"></h4>
+			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">
-				<div id="gymQnATitle"></div>
 				<form action="gymQnAInsert.do" id="gymQnAForm" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="sender" value="${sessionScope.user.user_no}">
 					<input type="hidden" name="receiver" value="">
@@ -40,7 +42,7 @@
 						<tr>
 							<th>Files</th>
 							<td><input type="file" class="form-control" id="file" name="file_0" style='width:100%'></td>
-							<td align='right'><button class="btn btn-default" onclick="return fn_addFile();">파일추가</button></td>
+							<td align='right'><button class="btn btn-default" onclick="return fn_addFile();" style="border:none"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i></button></td>
 						</tr>
 					</table>
 					<table>

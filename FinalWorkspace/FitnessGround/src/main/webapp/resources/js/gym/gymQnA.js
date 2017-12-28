@@ -4,7 +4,7 @@ function fn_addFile(){
 	if(gfv_count<1) {gfv_count=1;}
 	if(gfv_count<3) {
 		var str = "<tr><th></th><td><input type='file' class='form-control' id='file' name='file_"+(gfv_count++)+"' style='width:100%'></td>"
-				+ "<td align='right'><a class='btn btn-danger' href='#this' style='text-decoration:none;' id='delete' name='delete'>삭제</a></td></tr>";
+				+ "<td align='right'><a class='btn btn-default' href='#this' style='text-decoration:none;border:none;' id='delete' name='delete'><i class='fa fa-minus-square fa-2x' aria-hidden='true'></i></a></td></tr>";
 		$("#fileDiv").append(str);
 		$("a[name='delete']").on("click", function(e){ //삭제 버튼
 			e.preventDefault();
@@ -15,7 +15,7 @@ function fn_addFile(){
 }
 function fn_addFileSm(){
 	var str = "<tr><td><input type='file' class='form-control' id='file' name='file_"+(gfv_count++)+"' style='width:100%'></td>"
-			+ "<td align='right'><a class='btn btn-danger' href='#this' style='text-decoration:none;' id='delete' name='delete'>삭제</a></td></tr>";
+			+ "<td align='right'><a class='btn btn-default' href='#this' style='text-decoration:none;border:none;' id='delete' name='delete'><i class='fa fa-minus-square fa-2x' aria-hidden='true'></i></a></td></tr>";
 	$("#fileDivSm").append(str);
 	$("a[name='delete']").on("click", function(e){ //삭제 버튼
 		e.preventDefault();

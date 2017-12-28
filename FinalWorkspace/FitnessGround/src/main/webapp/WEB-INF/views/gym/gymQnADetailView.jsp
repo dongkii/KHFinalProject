@@ -2,22 +2,31 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <style>
-	#gymQModalC {height:700px; padding:10px;}
-	#gymQnATitle {font-size:20pt; padding-bottom:20px; padding-top:20px;}
-	th {width:120px;}
+	#gymQModalC {height:640px; padding:10px;}
+	#gymQnATitle {font-size:20pt; padding-bottom:10px; font-weight:bold; color:black;}
+	th {width:120px; font-weight:bold;}
 	td {padding-left:20px;}
 	#fileDiv button, #fileDiv a {width:80%;}
 	#gymQSendBt {width:100%;}
+	#readContent{
+		font-size:14pt; padding:15px;
+		max-height: 270px;
+		overflow: hidden;
+		overflow-y: auto;
+	}
 </style>
 
 <div class="modal modal-center fade" id="gymQnaDetailModal" style="z-index:100;">
 	<div class="modal-dialog modal-center modal-lg">
 		<div class="modal-content" id="gymQModalC">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>	
+			<div class="modal-header" align="top">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>	
+				<h4 id="gymQnATitle" class="modal-title" align="center"></h4>
+			</div>
+			
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">
-				<div id="gymQnATitle"></div>
 				<input type="hidden" name="sender" value="${sessionScope.user.user_no}">
 				<input type="hidden" name="receiver" value="">
 				<input type="hidden" name="gym_no" value="">
@@ -43,10 +52,11 @@
 						<th>Files : </th>
 						<td colspan="2">없음</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td colspan="3" id="gymQDBt" align="right" style="padding-top:5%;"></td>
-					</tr>
+					</tr> -->
 				</table>
+				<div class="modal-footer" id="gymQDBt" align="right"></div>
 			</div>
 		</div>
 	</div>
@@ -99,12 +109,12 @@
 				var update = "javascript:gymQnaUpAndAnswerModal('" + board.q_no + "','1')";
 				var answer = "javascript:gymQnaUpAndAnswerModal('" + board.q_no + "','2')";
 				if(board.sender == user_no) {
-					bt += '<button class="btn btn-danger" onclick="location.href=' + '\'' + del + '\'' + '">삭제</button>'
-						+ '<a class="btn btn-primary" href="' + update + '" style="margin-left:10px;">수정</a>'; 
+					bt += '<button class="btn btn-default" onclick="location.href=' + '\'' + del + '\'' + '"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>'
+						+ '<a class="btn btn-default" href="' + update + '" style="margin-left:10px;"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>'; 
 				}
 				if(board.receiver == user_no) {
 					if(board.response_state == 0) 
-						bt += '<a class="btn btn-default" href="' + answer + '" style="margin-left:10px;">답변</a>'; 
+						bt += '<a class="btn btn-default" href="' + answer + '" style="margin-left:10px;"><i class="fa fa-envelope fa-2x" aria-hidden="true"></i></a>'; 
 				}
 				$('#gymQDBt').html(bt);
 	         },

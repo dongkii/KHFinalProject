@@ -475,7 +475,11 @@ public class GymController {
 	// 헬스장 문의하기 게시글 삭제
 	@RequestMapping(value="/gymQnADel.do")
 	public ModelAndView gymQnADeleteMethod(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("redirect:/userboard.do?userno="+request.getParameter("userno"));
+		ModelAndView mv = null;
+		if(request.getParameter("mode")!=null && request.getParameter("mode").equals("admin"))
+			mv = new ModelAndView("redirect:/adminQuestionBoard.do");
+		else
+			mv = new ModelAndView("redirect:/userboard.do?userno="+request.getParameter("userno"));
 		int q_no = Integer.parseInt(request.getParameter("q_no"));
 		GymQnABoard b = gymService.selectGymQnABoard(q_no);
 		// 파일 삭제
