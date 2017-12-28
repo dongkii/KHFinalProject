@@ -2,17 +2,10 @@
     pageEncoding="UTF-8"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<style>
-	#uSchedule-content {
-		height:180px; 
-		width:600px;
-	}
-</style>
-
 <!-- Modal -->
   <div class="modal fade" id="userScheduleDetail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md" id="">
-      <div class="modal-content" id="uSchedule-content">
+    <div class="modal-dialog modal-md" id="workout-dialog">
+      <div class="modal-content" id="workout-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">x
           </button>
@@ -28,8 +21,8 @@
   </div>
   
   <div class="modal fade" id="userScheduleInput" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md" id="">
-      <div class="modal-content" id="uSchedule-content">
+    <div class="modal-dialog modal-md" id="workout-dialog">
+      <div class="modal-content" id="workout-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">x
           </button>

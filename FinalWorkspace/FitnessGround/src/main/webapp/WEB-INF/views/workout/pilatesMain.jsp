@@ -75,7 +75,9 @@
 					<div class="srch_sb_cnt">
 						<input type="text" name="searchKeyWord" id="title-search" class="sech_txt_inpt"
 							placeholder="제목으로 검색" onkeydown="javascript: if(event.keyCode==13){titleSearch();}">
-						<a href="javascript: titleSearch();" class="btn btn-primary" id="srch-btn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></a>
+						<button class="srch_btn" onclick="titleSearch();">
+							<i class="fa fa-search" aria-hidden="true"></i>
+						</button>
 					</div>
 				</div>
 				

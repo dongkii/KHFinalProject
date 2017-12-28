@@ -40,8 +40,7 @@
 			overflow: hidden;
 		}
 	</style>
-<link rel="stylesheet" href="/fitnessground/resources/css/community/template.css">	
-<link rel="stylesheet" href="/fitnessground/resources/css/community/community.css">		
+<link rel="stylesheet" href="/fitnessground/resources/css/community/template.css">		
 		
 		<c:import url="../../include/common/headend.jsp" />
 	    
@@ -155,137 +154,138 @@
 		
 	<br><br>
 	<div class="container">
-	<h1 class="" align="center" style="font-size: 1.8rem;">운동같이해요</h1>
+	<h1 class="" align="center">운동같이해요</h1>
 	<br>
 	
 	<div class="row">
 	<div class="col-md-4 col-sm-4 col-xs-12">
-	<a class="btn btn-info button-size margin-left-10" id="selected-btn" onclick="meetingPage();">운동같이해요</a>
+	<a class="btn btn-primary button-size margin-left-10" onclick="meetingPage();">운동같이해요</a>
 	</div>
 	<div class="col-md-4 col-sm-4 col-xs-12">
-	<a class="btn btn-primary button-size margin-left-10" id="tab-btn" onclick="reviewPage();">후기</a>
+	<a class="btn btn-primary button-size margin-left-10" onclick="reviewPage();">후기</a>
 	</div>
 	<div class="col-md-4 col-sm-4 col-xs-12">
-	<a class="btn btn-primary button-size margin-left-10" id="tab-btn" onclick="qnaPage();">Q & A</a>
+	<a class="btn btn-primary button-size margin-left-10" onclick="qnaPage();">Q & A</a>
 	</div>
 	</div>
 	
+		<div class="row">
+			<form class="form-inline" name="form1" role="form" action="meeting.do" method="post">
+		  <div class="form-group">
+		  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+   		 <span>
+			<select class="btn btn-default" style="width:80;" name="searchOption">
+				<option value="title"<c:out value="${map.searchOption == 'title'?'selected':''}"/>>제목</option>
+				<option value="name"<c:out value="${map.searchOption == 'name'?'selected':''}"/>>이름</option>
+				<option value="content"<c:out value="${map.searchOption == 'content'?'selected':''}"/>>내용</option>
+			</select>
+		</span>
+		</div>
+  	</div>
+  				<div class="form-group">
+   					<input type="text" class="form-control" name ="searchKey"  value="${map.searchKey}" placeholder="Search for..">
+				 </div>
+ 			<span>
+		  		<a class="btn btn-primary" type="submit">검색</a>
+			</span>
+	</form>
+			
+			</div>
 			<div class="row">			
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="board-info">
-					<h1 class="margin-left-10" id="count">&nbsp;총 ${meeting.listCount}개의 게시물</h1>
-					<form class="form-inline" name="form1" role="form" action="meeting.do" method="post">
-					  <div class="form-group">
-					  	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-				   		 	<span>
-								<select class="btn btn-default" style="width:80;" name="searchOption">
-									<option value="title"<c:out value="${map.searchOption == 'title'?'selected':''}"/>>제목</option>
-									<option value="name"<c:out value="${map.searchOption == 'name'?'selected':''}"/>>이름</option>
-									<option value="content"<c:out value="${map.searchOption == 'content'?'selected':''}"/>>내용</option>
-								</select>
-							</span>
-						</div>
-			  			</div>
-			  				<div class="form-group">
-			   					<input type="text" class="form-control" name ="searchKey"  value="${map.searchKey}" placeholder="Search for..">
-							 </div>
-			 			<span>
-					  		<a class="btn btn-default" id="srch-btn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></a>
-						</span>
-					</form>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<c:if test="${sessionScope.user==null}">
+					<h1 class="margin-left-10">게시물 갯수:${meeting.listCount}개<a class="btn btn-primary pull-right margin-right-20" onclick="loginCheck();">글쓰기</a></h1><br>
+					</c:if>
+					<c:if test="${sessionScope.user.name != null }">
+					<h1 class="margin-left-10">게시물 갯수:${meeting.listCount}개<a href="meetingInsert.do" class="btn btn-primary pull-right margin-right-20">글쓰기</a></h1><br>			
+					</c:if>
 			</div>	
 			
 		</div>
 	
 	
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<table id="community_table">
-			  <thead>
-			  		<colgroup>
-						<col width="10%"/>
-						<col width="*%"/>
-						<col width="10%"/>
-						<col width="15%"/>
-						<col width="15%"/>
-						<col width="10%"/>
-					</colgroup>
-			    <tr>
-			      <th>번호</th>
-			      <th>제목</th>
-			      <th>글쓴이</th>
-			      <th>모임날짜</th>
-			      <th>작성일</th>
-			      <th>조회수</th>
-			    </tr>
-			  
-			  <tbody id="meetinglist">
-				<c:forEach items="${meeting.list }" var="cm"> 
-			    <tr>
-			      <td>${cm.mb_no}</td>
-			      <td style="text-align: left;padding-left: 30px;color:black;"><a href="meetingDetail.do?no=${cm.mb_no}">${cm.title}</a></td>
-			      <td>${cm.name}</td>
-			      <td>${cm.meeting_date}</td>
-			      <td>${cm.upload_date}</td>
-			      <td>${cm.readcount}</td>
-			    </tr>
-			   </c:forEach>
-			  </tbody>
-			</table>
-			<div id="paging">
-			<nav>
-				  <ul class="pagination" id="meetingpaging">
-				    
-				    <c:if test="${meeting.currentPage <= 1}">
-				    <li class="disabled">
-				      <a href="#" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
-				    </li>
-				    </c:if>
-				    
-				    <c:if test="${meeting.currentPage > 1}">
-				    <li>
-				      <a href="javascript:meetingLoadList(${meeting.currentPage - 1})" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
-				    </li>
-				    </c:if>
-				    
-				    <c:forEach var="i" begin="${meeting.startPage}" end="${meeting.endPage}" step="1">
-				    <c:if test="${meeting.currentPage eq i}">
-				    	<li class="disabled"><a href="#">${i}</a></li>
-				    </c:if>
-				    
-				    <c:if test="${meeting.currentPage ne i}">
-				    	<li><a href='javascript:meetingLoadList(${i})'>${i}</a></li>
-				    </c:if>
-				    
-				    </c:forEach>
-				    
-				    <c:if test="${meeting.currentPage >= meeting.maxPage}">
-				     <li class="disabled">
-				    <a href="#" aria-label="Next">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
-				       </li>
-				    </c:if>
-				    
-				    <c:if test="${meeting.currentPage < meeting.maxPage}">
-				     <li>
-				    <a href='javascript:meetingLoadList(${meeting.currentPage + 1})' aria-label="Next">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
-				       </li>
-				    </c:if>
-				 </ul>
-				  <c:if test="${sessionScope.user==null}">
-					<a class="btn btn-primary pull-right margin-right-20" id="write" onclick="loginCheck();">글쓰기</a>
-					</c:if>
-					<c:if test="${sessionScope.user.name != null }">
-					<a href="meetingInsert.do" class="btn btn-primary pull-right margin-right-20" id="write">글쓰기</a>			
-				</c:if>
-			</nav>
-		</div>
-		
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<table id="community_table">
+	  <thead>
+	  		<colgroup>
+				<col width="10%"/>
+				<col width="*%"/>
+				<col width="10%"/>
+				<col width="15%"/>
+				<col width="15%"/>
+				<col width="10%"/>
+			</colgroup>
+	    <tr>
+	      <th>번호</th>
+	      <th>제목</th>
+	      <th>글쓴이</th>
+	      <th>모임날짜</th>
+	      <th>작성일</th>
+	      <th>조회수</th>
+	    </tr>
+	  
+	  <tbody id="meetinglist">
+		<c:forEach items="${meeting.list }" var="cm"> 
+	    <tr>
+	      <td>${cm.mb_no}</td>
+	      <td><a href="meetingDetail.do?no=${cm.mb_no}">${cm.title}</a></td>
+	      <td>${cm.name}</td>
+	      <td>${cm.meeting_date}</td>
+	      <td>${cm.upload_date}</td>
+	      <td>${cm.readcount}</td>
+	    </tr>
+	   </c:forEach>
+	  </tbody>
+	</table>
+	<div id="paging">
+	<nav>
+  <ul class="pagination" id="meetingpaging">
+    
+    <c:if test="${meeting.currentPage <= 1}">
+    <li class="disabled">
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    </c:if>
+    
+    <c:if test="${meeting.currentPage > 1}">
+    <li>
+      <a href="javascript:meetingLoadList(${meeting.currentPage - 1})" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    </c:if>
+    
+    <c:forEach var="i" begin="${meeting.startPage}" end="${meeting.endPage}" step="1">
+    <c:if test="${meeting.currentPage eq i}">
+    	<li class="disabled"><a href="#">${i}</a></li>
+    </c:if>
+    
+    <c:if test="${meeting.currentPage ne i}">
+    	<li><a href='javascript:meetingLoadList(${i})'>${i}</a></li>
+    </c:if>
+    
+    </c:forEach>
+    
+    <c:if test="${meeting.currentPage >= meeting.maxPage}">
+     <li class="disabled">
+    <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+       </li>
+    </c:if>
+    
+    <c:if test="${meeting.currentPage < meeting.maxPage}">
+     <li>
+    <a href='javascript:meetingLoadList(${meeting.currentPage + 1})' aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+       </li>
+    </c:if>
+ </ul>
+</nav>
+</div>
 	</div>
 </div>	
 	

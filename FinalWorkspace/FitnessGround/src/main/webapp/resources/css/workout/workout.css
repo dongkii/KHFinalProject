@@ -309,6 +309,7 @@ body{
 	color: rgba(2, 45, 65, 0.71);
 }
 /* 검색바 */
+
 #v-srch{
 	width: 300px;
 	height: 30px;
@@ -401,19 +402,9 @@ body{
 }
 /*검색바*/	
 .srch_wrpr{
-	width: 30vw;
-	margin-left: 54vw;
+	width: 40vw;
+	margin-left: 43vw;
 	margin-top: 5vh;
-	font-size: 0.8rem;
-}
-#srch-btn{
-	height: 4.1vh;
-	margin-bottom: 8;
-} 
-#title-search{
-	    height: 4vh;
-    border-radius: 3px;
-    border: 1px solid lightgray;
 }
 	
 }
@@ -471,7 +462,13 @@ ul{
     top: 19vh;
     left: 13vw;
 }
-
+.srch_btn{
+	position: absolute;
+    top: 18vh;
+    left: 80vw;
+    height: 30px;
+    width: 30px;
+}
 .tab-list>li {
     float: left;
     margin: 0 1vw;

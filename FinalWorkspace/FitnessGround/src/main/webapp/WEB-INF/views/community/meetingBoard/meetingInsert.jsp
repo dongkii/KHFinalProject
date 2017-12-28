@@ -31,7 +31,7 @@ textarea#editor1 {
 </style>
 
 <c:import url="../../include/common/headend.jsp" />
-<link rel="stylesheet" href="/fitnessground/resources/css/community/communitywrite.css">		
+
 <script src="//cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
 
 <div id="page-wrapper">
@@ -64,16 +64,16 @@ textarea#editor1 {
 
 <br>
 <div class="container">
-<h1 id="title">운동같이해요-글쓰기</h1><br>
-<div class="margin-vert-20" id="insert-wrapper">
+<h1 align="center">운동같이해요</h1><br>
+<div class="margin-vert-20" style="border : 1px solid black;">
 <br>
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<form name='meeting' method="post" action="meetingInsert.do">
 			<input name="user_no" type="hidden" value="${sessionScope.user.user_no }" />
 			<div class="form-group">
-				<p>제목<input style="font-size:10pt;" class="input-group input-group-lg" name="title" type="text" placeholder="제목을 입력하세요"/></p>
-				<p>모임날짜 &nbsp;<input style="width:120pt;border-radius:3px;"  name="meeting_date" type="date" /></p>
+				<p>제목<input style="font-size:10pt;" class="input-group input-group-lg" name="title" type="text" placeholder="제목"/></p>
+				<p>모임날짜 &nbsp;<input style="width:120pt;"  name="meeting_date" type="date" /></p>
 			</div>
 			<div class="form-group">
 				<textarea name="content" id="editor2" placeholder="내용을 입력해주세요.."></textarea>
@@ -83,22 +83,22 @@ textarea#editor1 {
 				<br>
 	
 </div>
-				<div class="meeting-place">
+				<div class="col-lg-6 col-md-4 col-sm-4 col-xs-4">
 						
-						<p>모임장소</p><input type="text" class="form-group form-inline" name="meeting_location" id="address"/>
+						<p>모임장소<input type="text" class="form-group" name="meeting_location" id="address"/></p>
 								
-								<button class="btn btn-primary" type="button" id="submit">검색</button>
+								<button class="btn btn-default" type="button" id="submit">검색</button>
 						
 						
-				</div>
+					</div>
 				<div id="map" style="width: 600px; height: 400px;">
 					<script type="text/javascript" src="/fitnessground/resources/js/community/communityMap.js"></script>
 				</div>
 		
 				<br>
-				<input type="submit" name="업로드" value="작성하기" id="submit-btn" class="btn btn-primary">
+				<input type="submit" name="업로드" value="작성하기" class="btn btn-primary">
 				
-				<a href="#this" class="pull-right margin-right-20" id="list">목록으로</a>
+				<a href="#this" class="btn btn-primary btn-lg pull-left margin-right-20" id="list">목록</a>
 		
 			</form>
 		</div>

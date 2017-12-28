@@ -532,9 +532,9 @@ public class AdminController {
 	}*/
 		
 	// footer 관리자에게 문의 보내기
-	@RequestMapping(value="/adminQnAInsert.do", method={RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value="/adminQnAInsert.do", method=RequestMethod.POST)
 	public ModelAndView userUpdateMethod(GymQnABoard b, ModelAndView mv, HttpServletRequest request) {
-		gymService.insertGymQnABoard(b, 1);
+		gymService.insertGymQnABoard(b, 2);
 		mv.setViewName("jsonView");
 		return mv; 
 	}

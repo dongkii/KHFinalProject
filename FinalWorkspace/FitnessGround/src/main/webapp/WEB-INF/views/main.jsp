@@ -107,7 +107,7 @@
        		console.log("if문 실행");
         
       	 	var values="";
-      	 	
+        
       	 	$.ajax({
        			url:'mainVideoList.do',
        			type:'post',
@@ -185,7 +185,7 @@
            			    	                '<header>'+
            			    	                    '<h4><a id = "v-title" href="javascript:detailView('
            			    	                    		+ v_no + ',\''+ category1 + '\',' + '\'' + category2 +'\');">'
-           			    	                    + title.substring(0,30).concat("...") + 
+           			    	                    + title.substring(0,15).concat("...") + 
            			    	                    '</a></h4>'+
            			    	                '</header>'+
            			    	            	'</article>'

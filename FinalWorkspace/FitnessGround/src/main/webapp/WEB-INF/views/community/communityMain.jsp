@@ -4,7 +4,16 @@
 com.kh.fitnessground.community.model.vo.CommunityBoard, java.sql.Date, java.util.ArrayList"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:import url="../include/common/head.jsp" />
-<link rel="stylesheet" href="/fitnessground/resources/css/community/community.css">
+<style type="text/css">
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+h1#community_title {
+	font-family: 'Jeju Gothic';
+	font-size: 30pt;
+	font-weight: bold;
+	color: black;
+}
+</style>
 <link rel="stylesheet" href="/fitnessground/resources/css/community/template.css">
 <c:import url="../include/common/headend.jsp" />
 <div id="page-wrapper">
@@ -30,74 +39,74 @@ com.kh.fitnessground.community.model.vo.CommunityBoard, java.sql.Date, java.util
 	}
 </script>
 
-<div class="container margin-top-60" id="comm-container">
+<div class="container margin-top-60">
 	<div class="row">
 		<h1 id=community_title>커뮤니티</h1>
 	</div>
-	<div class="row" style="padding-left: 2vw;">
-		<div class="col-md-4 col-sm-4 col-xs-12" id="boardback">
+	<div class="row">
+		<div class="col-md-4 col-sm-4 col-xs-12">
 			<div>
-			<p id="p_title">&nbsp;&nbsp;운동같이해요&nbsp;><a class="pull-right" style="font-weight:100;" id="more" onclick="meetingPage();">더보기&nbsp;</a></p>
+			<p>운동같이해요<a class="btn btn-primary pull-right" onclick="meetingPage();">더보기</a></p>
 			</div>
-			<hr class="titlehr">
+			<hr class="aaaaaa">
 			<div class="padding-hori-10">
 					<table>
 						<colgroup>
-							<col width="8%" />
+							<col width="25%" />
 							<col width="40%" />
-							<%-- <col width="35%" /> --%>
+							<col width="35%" />
 						</colgroup>
 						<c:forEach items="${mlist}" var="mb">
-						<tr style="font-size:10pt; color:#022D41">
+						<tr style="font-size:8pt; color:black">
 							<td>${mb.name}<hr class="aaaaaa"></td>
-							<td><a id="a_title" href="meetingDetail.do?no=${mb.mb_no}">${mb.title}</a><hr class="aaaaaa"></td>
-							<%-- <td>${mb.upload_date}<hr class="aaaaaa"></td> --%>							
+							<td><a href="meetingDetail.do?no=${mb.mb_no}">${mb.title}</a><hr class="aaaaaa"></td>
+							<td>${mb.upload_date}<hr class="aaaaaa"></td>							
 						</tr>								
 						</c:forEach>				
 					</table>
 			</div>
 		</div>
-		<div class="col-md-4 col-sm-4 col-xs-12" id="boardback">
+		<div class="col-md-4 col-sm-4 col-xs-12">
 			<div>
-			<p id="p_title">&nbsp;&nbsp;리뷰&nbsp;>
-			<a class="pull-right" style="font-weight:100;" id="more" onclick="reviewPage();">더보기&nbsp;</a></p>
+			<p>리뷰
+			<a class="btn btn-primary pull-right" onclick="reviewPage();">더보기</a></p>
 			</div>		
-			<hr class="titlehr">	
+			<hr class="aaaaaa">	
 			<div class="padding-hori-10">
 				<table id="detail_table">
 					<colgroup>
-						<col width="8%" />
+						<col width="25%" />
 						<col width="40%" />
-						<%-- <col width="35%" /> --%>
+						<col width="35%" />
 					</colgroup>
 					<c:forEach items="${rlist }" var="rb">
-					<tr style="font-size:10pt; color:#022D41">
+					<tr style="font-size:8pt; color:black">
 						<td>${rb.name}<hr class="aaaaaa"></td>
-						<td><a id="a_title" href="reviewDetail.do?no=${rb.cb_no}">${rb.title} </a><hr class="aaaaaa"></td>
-						<%-- <td>${rb.upload_date}<hr class="aaaaaa"></td> --%>
+						<td><a href="reviewDetail.do?no=${rb.cb_no}">${rb.title} </a><hr class="aaaaaa"></td>
+						<td>${rb.upload_date}<hr class="aaaaaa"></td>
 					</tr>
 					</c:forEach>
 				</table>	
 			</div>
 		</div>
-		<div class="col-md-4 col-sm-4 col-xs-12" id="boardback">
+		<div class="col-md-4 col-sm-4 col-xs-12">
 			<div>
-			<p id="p_title">&nbsp;&nbsp;Q & A&nbsp;＞
-			<a class="pull-right" style="font-weight:100;" id="more" onclick="qnaPage();">더보기&nbsp;</a></p>
+			<p>Q & A
+			<a class="btn btn-primary pull-right" onclick="qnaPage();">더보기</a></p>
 			</div>
-			<hr class="titlehr">
+			<hr class="aaaaaa">
 			<div class="padding-hori-10">
 				<table id="detail_table">
 				<colgroup>
-					<col width="8%" />
+					<col width="25%" />
 					<col width="40%" />
-					<%-- <col width="35%" /> --%>
+					<col width="35%" />
 				</colgroup>
 				<c:forEach items="${qlist }" var="qb">
-					<tr style="font-size:10pt; color:#022D41">
+					<tr style="font-size:8pt; color:black">
 						<td>${qb.name}<hr class="aaaaaa"></td>
 						<td><a id="a_title" href="qnaDetail.do?no=${qb.cb_no}">	${qb.title}</a><hr class="aaaaaa"></td>
-						<%-- <td>${qb.upload_date}<hr class="aaaaaa"></td> --%>
+						<td>${qb.upload_date}<hr class="aaaaaa"></td>
 					</tr>
 				</c:forEach>
 				</table>
