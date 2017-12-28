@@ -234,6 +234,7 @@ $(document).ready(function(){
 	
 	function reviewselect(){
 		var gym_no = $("#jsgym_no").val();
+		var user_no = $("#user-no").val();
 		var queryString = { "gym_no": gym_no };
 		$.ajax({
 			url: "selectreview.do",
@@ -242,47 +243,63 @@ $(document).ready(function(){
 			dataType: "json",
 			success: function(data){
 				var values = '';
-				for(var i = 0; i < data.gc.length; i++){
-					var result = data.gc[i].str_rating;
-					var mod = result % 1;
-					var star = '';
-					var t = 0;
-					var hr = '';
-					result =  Math.floor(result);
-					for(var j = 0; j < result; j ++){
-						star += '<i class="fa fa-star" aria-hidden="true"></i>';
-						t++;
+				if( data.gc.length == 0 ){
+					values += '등록된 한줄평이 없습니다.';
+				} else {
+					for(var i = 0; i < data.gc.length; i++){
+						var result = data.gc[i].str_rating;
+						var mod = result % 1;
+						var star = '';
+						var t = 0;
+						var hr = '';
+						result =  Math.floor(result);
+						for(var j = 0; j < result; j ++){
+							star += '<i class="fa fa-star" aria-hidden="true"></i>';
+							t++;
+						}
+						if (mod > 0){
+							star += '<i class="fa fa-star-half-o" aria-hidden="true"></i>';
+							t++;
+						}
+						for(var z = t; z < 5; z++){
+							star += '<i class="fa fa-star-o" aria-hidden="true"></i>';
+						}
+						if(i == 0){
+							hr = '';
+						} else {
+							hr = '<hr>';
+						}
+						values += '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="reviewOne">' +
+							hr +
+							'<div id="rvnickname" class="col-lg-1 col-md-1 col-sm-2 col-xs-3">' + data.gc[i].nickname + '</div>' +
+							'<div id="rvcontent" class="col-lg-7" col-md-11 col-sm-10 col-xs-9>' + data.gc[i].content + '</div>' +
+							'<div id="rvetc" class="col-lg-4 col-md-12 col-sm-12 col-xs-12">' + 
+							'<span id="rvstar">' + star + '</span>' +
+							'<span id="rvrating">' + data.gc[i].str_rating + '</span>&nbsp|&nbsp' + 
+							'<span id="rvdate">' + data.gc[i].str_date + '</span>';
+						if( user_no == data.gc[i].user_no ){
+							values += '&nbsp&nbsp<a href="javascript:deletereview(' + data.gc[i].gc_no + ')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+						}
+						values += '</div>' +
+								'</div>';
 					}
-					if (mod > 0){
-						star += '<i class="fa fa-star-half-o" aria-hidden="true"></i>';
-						t++;
-					}
-					for(var z = t; z < 5; z++){
-						star += '<i class="fa fa-star-o" aria-hidden="true"></i>';
-					}
-					if(i == 0){
-						hr = '';
-					} else {
-						hr = '<hr>';
-					}
-					values += '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="reviewOne">' +
-						hr +
-						'<div id="rvnickname" class="col-lg-1 col-md-1 col-sm-2 col-xs-3">' + data.gc[i].nickname + '</div>' +
-						'<div id="rvcontent" class="col-lg-7" col-md-11 col-sm-10 col-xs-9>' + data.gc[i].content + '</div>' +
-						'<div id="rvetc" class="col-lg-4 col-md-12 col-sm-12 col-xs-12">' + 
-						'<span id="rvstar">' + star + '</span>' +
-						'<span id="rvrating">' + data.gc[i].str_rating + '</span>&nbsp|&nbsp' +  
-						'<span id="rvdate">' + data.gc[i].str_date + '</span>' +
-						'&nbsp&nbsp<a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp&nbsp<a href="#"><i class="fa fa-times" aria-hidden="true"></i></a></div>' +
-						/*'<div>' + data.gc[i].content + '</div>' +*/
-						'</div>';
 				}
-				$("#reviewlist").html(values);
+					$("#reviewlist").html(values);
 			}
 		});
 	}
 	
-	function reviewupdate(gc_no){
-		
-		
+	function deletereview(gc_no){
+		var queryString = { "gc_no": gc_no };
+		$.ajax({
+			url: "deletereview.do",
+			data: queryString,
+			type: "post",
+			dataType: "json",
+			async: false,
+			success: function(data){
+				reviewselect();
+				alert("한줄평이 삭제되었습니다.");
+			}
+		});
 	}

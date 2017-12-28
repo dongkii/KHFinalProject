@@ -228,20 +228,13 @@ public class GymController {
 		return mv;
 	}
 	
-	// 리뷰 수정
-	@RequestMapping(value="updatereview.do")
-	public ModelAndView updateReview()
-	{
-		ModelAndView mv = new ModelAndView();
-		
-		return mv;
-	}
-	
 	//리뷰 삭제
-	@RequestMapping(value="deletereviw.do")
-	public void deleteReview()
-	{
-		
+	@RequestMapping(value="/deletereview.do", method=RequestMethod.POST)
+	public ModelAndView deleteReview(GymComment gc, HttpServletRequest request, HttpServletResponse response){
+		ModelAndView mv = new ModelAndView();
+		gymService.deleteReview(gc);
+		mv.setViewName("jsonView");
+		return mv;
 	}
 	
 	//리뷰 셀렉

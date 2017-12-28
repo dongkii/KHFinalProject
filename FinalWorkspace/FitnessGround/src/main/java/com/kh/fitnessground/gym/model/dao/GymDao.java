@@ -152,5 +152,9 @@ public class GymDao {
 		return sqlSession.selectOne("gym.selectadminQnAResponseQNo",q_no);
 	}
 
+	public void deleteReview(GymComment gc) {
+		sqlSession.delete("gymcomment.deletereview",gc);		
+	}
+
 	
 }

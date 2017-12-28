@@ -27,7 +27,15 @@
 			from tb_gym_comment
 			join tb_user using(user_no)
 			where gym_no = #{gym_no}
+			order by gc_no desc
 		]]>
 	</select>
+	
+	<delete id="deletereview" parameterType="GymComment" flushCache="true" statementType="PREPARED">
+		<![CDATA[
+			delete from tb_gym_comment
+			where gc_no = #{gc_no}
+		]]>
+	</delete>
 	
 </mapper>

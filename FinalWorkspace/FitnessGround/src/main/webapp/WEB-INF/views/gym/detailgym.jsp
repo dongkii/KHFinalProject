@@ -366,10 +366,6 @@
 					  <li class="list-group-item" id="list-item2">
 					  	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="reviewlist">
 							등록된 한줄평이 없습니다.
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="reviewOne">
-								<div>user11 | 2017-12-28 | *****  <a href="#">수정</a> <a href="#">삭제</a></div>
-								<div>내용</div>
-							</div>
 						</div>
 					  </li>
 					</ul>

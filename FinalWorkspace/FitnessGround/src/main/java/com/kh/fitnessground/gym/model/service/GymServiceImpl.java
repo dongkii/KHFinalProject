@@ -189,4 +189,9 @@ HashMap<String, Object> parameters = new HashMap<String, Object>();
 	public String selectadminQnAResponseQNo(int q_no) {
 		return gymDao.selectadminQnAResponseQNo(q_no);
 	}
+
+	@Override
+	public void deleteReview(GymComment gc) {
+		gymDao.deleteReview(gc);
+	}
 }
