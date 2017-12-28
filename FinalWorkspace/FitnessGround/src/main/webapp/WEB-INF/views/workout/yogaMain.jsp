@@ -41,6 +41,7 @@
 					<li><a href="homeTraning.do"><span>맨몸운동</span></a></li>
 				</ul>
 			</div>
+			
 		</div>
 	</div>
 	<!-- // tab-list -->
@@ -50,7 +51,7 @@
 		<div class="wrap">
 			<div class="tab-wrap" id="press-cate">
 				<ul class="tab-list">
-					<li id="tab-li"><a href="javascript: category('빈야사')">빈야사<span id="count">(${count1})</span></a></li>
+					<li id="tab-li"><a href="javascript: category('빈야사')" class="t-bottom t-md" data-tooltip="동작과 동작이 물흐르듯 연결이 되는, 연속적으로 움직이는 요가입니다.">빈야사<span id="count">(${count1})</span></a></li>
 					<li id="vertical-bar"><span>|</span></li>
 					<li id="tab-li"><a href="javascript: category('다이어트')">다이어트<span id="count">(${count2})</span></a></li>
 					<li id="vertical-bar"><span>|</span></li>
@@ -60,7 +61,6 @@
 					<li id="vertical-bar"><span>|</span></li>
 					<li id="tab-li"><a href="javascript: category('초보자')">초보자<span id="count">(${count5})</span></a></li>
 				</ul>
-
 			</div>
 			<div class="sort-area">
 				<div id="select-div">
@@ -72,8 +72,8 @@
 				
 				</div>
 				<!-- animated 검색바 -->
-			
-				<div class="srch_wrpr">
+				<span id="head-title">Yoga 전체 인기동영상</span>
+				<div class="srch_wrpr" id="main-wrpr">
 					<div class="srch_sb_cnt">
 						<input type="text" name="searchKeyWord" id="title-search" class="sech_txt_inpt"
 							placeholder="제목으로 검색" onkeydown="javascript: if(event.keyCode==13){titleSearch();}">
@@ -167,12 +167,12 @@
 	<!-- 동영상 리스트 view -->
 	<div class="workout-videos">
 		<c:if test="${empty list }">	<!-- 제목 검색 리스트 없을때 -->
-			<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" id="search-count"> '${keyWord}' 검색 갯수: ${searchCount }</div>
+			<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" id="search-count"> '${keyWord}' 검색 개수: ${searchCount }</div>
 		</c:if>
 	
 		<c:if test="${!empty list}">		
 			<c:if test="${!empty keyWord}">
-				<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" id="search-count"> '${keyWord}' 검색 갯수 : ${searchCount }</div>
+				<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" id="search-count"> '${keyWord}' 검색 개수 : ${searchCount }</div>
 			</c:if>
 		
 			<c:forEach items="${list}" var="y" varStatus="st">
@@ -201,8 +201,10 @@
 <script type="text/javascript">
 //category별 ajax로 동영상 가져오기 
 function category(category2){
-	var category = category2;
+	$('#head-title').hide();
+	$('#main-wrpr').css('margin-top','3.4vh');
 	
+	var category = category2;
 	var values = "<input type='hidden' id='selectCate' value=" + category2 + ">"
 	
 	$("#hidecate").html(values);

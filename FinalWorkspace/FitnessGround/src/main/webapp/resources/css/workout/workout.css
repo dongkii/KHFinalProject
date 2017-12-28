@@ -13,7 +13,93 @@ height: 50px; width: 50px; background: #B2D7E6; -webkit-border-radius: 8px; bord
 /* ie 스크롤바 */
 html {scrollbar-3dLight-Color: #efefef; scrollbar-arrow-color: #dfdfdf; scrollbar-base-color: #efefef; scrollbar-Face-Color: #dfdfdf; scrollbar-Track-Color: #efefef; scrollbar-DarkShadow-Color: #efefef; scrollbar-Highlight-Color: #efefef; scrollbar-Shadow-Color: #efefef}
 
+/* tooltip */
 
+[data-tooltip] {
+  cursor: pointer;
+  position: relative;
+}
+[data-tooltip]:before, [data-tooltip]:after {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.15s cubic-bezier(0.5, 1, 0.25, 1);
+  z-index: 1;
+}
+[data-tooltip]:before {
+  padding: 5px;
+  width: 200px;
+  border-radius: 3px;
+  background: #022D41;
+  color: #fff;
+  content: attr(data-tooltip);
+  text-align: left;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.2;
+}
+[data-tooltip]:after {
+  border: 8px solid transparent;
+  width: 0;
+  content: "";
+  font-size: 0;
+  line-height: 0;
+}
+[data-tooltip]:hover:before, [data-tooltip]:hover:after {
+  visibility: visible;
+  opacity: 1;
+}
+[data-tooltip].t-xl:before {
+  width: 200px;
+}
+[data-tooltip].t-lg:before {
+  width: 170px;
+}
+[data-tooltip].t-md:before {
+  width: 300px;
+}
+[data-tooltip].t-sm:before {
+  width: 110px;
+}
+[data-tooltip].t-xs:before {
+  width: 80px;
+}
+[data-tooltip].t-top:before {
+  bottom: 100%;
+  left: 50%;
+  margin-bottom: 5px;
+  transform: translateX(-50%);
+}
+[data-tooltip].t-bottom:before {
+  top: 100%;
+  left: 50%;
+  margin-top: 5px;
+  transform: translateX(-50%);
+}
+[data-tooltip].t-bottom:after {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom: 8px solid #000;
+  border-top: none;
+}
+[data-tooltip].t-bottom:hover:before, [data-tooltip].t-bottom:hover:after {
+  transform: translateX(-50%) translateY(5px);
+}
+#head-title{
+	margin-left: 6vw;
+    margin-top: 5vh;
+    display: inline-block;
+    font-size: 1.4rem;
+    color: black;
+}
+#main-wrpr{
+	margin-top: -4vh;
+}
+#title-search{
+	font-size: 1rem;
+}
 /* layout */
 body{
 	background: #ffffff !important;
@@ -199,6 +285,7 @@ body{
     margin: 0 1px;
     padding-left: 1vw;
     border-left: 2px solid transparent;
+    text-align: left !important;
 }
 #workout-content{
 	height: 85vh;
@@ -249,8 +336,11 @@ body{
 #read_count{
 	float: right;
 }
-#reply-hr{
+hr#reply-hr{
 	margin: 0.5vh 0;
+}
+.rep-hr{
+	margin-bottom: 0 !important;
 }
 #reply-writer{
 	color: #022d41;
@@ -407,7 +497,7 @@ body{
 	font-size: 0.8rem;
 }
 #srch-btn{
-	height: 4.1vh;
+	height: 3.9vh;
 	margin-bottom: 8;
 } 
 #title-search{
@@ -415,8 +505,9 @@ body{
     border-radius: 3px;
     border: 1px solid lightgray;
 }
+
 	
-}
+} /*desktop code ends*/
 
 	
 /*Mobile*/
