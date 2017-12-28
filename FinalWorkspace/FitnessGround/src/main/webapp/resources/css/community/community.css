@@ -1,0 +1,144 @@
+@charset "UTF-8";
+/*공통 */
+#comm-container{
+	height: 85vh; /*스크롤 해야 footer보이게 */
+}
+/*Community main */
+h1#community_title{
+	font-size: 30pt;
+	font-weight: bold;
+	color: black;
+	padding-bottom: 20px;
+}
+
+
+#boardback{
+	background: white;
+	padding: 15px 13px;
+	width: 380;
+	height: 370;
+    margin: 5px 5px;
+}
+.titlehr{
+	margin: 3px 0;
+	border-top: 1.8px solid #11A6B7;
+	margin-bottom: 10px;
+}
+.aaaaaa{
+	margin: 5px 0;
+}
+#more{
+	font-size: 0.9rem;
+	color: #545454;
+	cursor: pointer;
+	font-weight: light;
+}
+#a_title{
+	font-weight: 600;
+	color: black;
+}
+#p_title{
+	color:#11A6B7;
+	margin-bottom:10px;
+	font-weight:600;
+}
+/*community Boards 목록 */
+
+#reviewpaging, #meetingpaging, #qnapaging{
+	margin-left: 34vw;
+}
+#count{
+	display: inline-block;
+	font-size: 1rem;
+}
+.form-inline{
+	display: inline-block;
+	margin-left: 43vw;
+}
+#board-info{
+	margin-bottom: 10px;
+}
+#write{
+	display: inline-block;
+}
+#selected-btn{
+	font-size: 1.2rem;
+	background: #11A6B7;
+	border-color: #11A6B7;
+}
+#tab-btn{
+	font-size: 1.2rem;
+	background: white;
+	color: #022D41;
+	border-color: lightgray;
+}
+/*detail view */
+
+#board-wrapper{
+	background: white;
+	padding: 15px 40px;
+    margin-top: 2vh;
+    margin-bottom:5vh;
+}
+#detail-title{
+	margin-top: 8vh;
+	margin-left: 2vw;
+	font-size: 1.8rem;
+	color: #022D41;
+}
+#title-hr{
+	height: 2pt;
+	background-color: #022D41;
+}
+hr#hr{
+    height:1pt;
+    background-color:lightgray;
+}
+#detail-info{
+	float: right;
+	padding: 0 7px;
+	padding-top: 48px;
+}
+#detail_ail_div{
+	margin-left: 2vw;
+    margin-right: 2vw;
+}
+#comment-area{
+	background: #fafafa;
+}
+#reply{
+	
+}
+.texts-name{
+	display: inline-block;
+	margin: 1vh 1vw;
+	width: 4vw;
+	margin-left: 2vw;
+}
+.texts-content{
+	display: inline-block;
+	margin: 1vh 1vw;
+	width: 50vw;
+}
+.texts-date{
+	display: inline-block;
+	margin: 1vh 1vw;
+	width: 6vw;
+}
+.texts-del{
+	display: inline-block;
+	margin: 1vh 1vw;
+	width: 1vw;
+}
+#meetingCommentInsert, #communityCommentInsert{
+	margin: 1vw 1vw;
+}
+#commentInsert, #commentInsertBtn{
+	margin-top: 2vh;
+}
+#community-contents{
+	margin-bottom: 8vh;
+}
+#srch-btn{
+	padding: 1.1vh;
+}

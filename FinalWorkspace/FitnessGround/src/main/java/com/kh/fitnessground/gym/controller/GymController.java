@@ -446,7 +446,7 @@ public class GymController {
 		mv.setViewName("jsonView");
 		return mv; 
 	}
-	// 헬스장 문의하기 디테일 뷰 파일 다운
+	// 헬스장 문의하기 파일 다운
 	@RequestMapping(value = "/gymQnAFDown.do")
 	public void downloadFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		GymQnABoard board =  gymService.selectGymQnABoard(Integer.parseInt(request.getParameter("bnum")));
@@ -495,17 +495,40 @@ public class GymController {
 	}
 	// 헬스장 문의하기 게시글 수정
 	@RequestMapping(value="/gymQnAUpdate.do")
-	public ModelAndView gymQnAUpdateMethod(GymQnABoard b, HttpServletRequest request) {
+	public ModelAndView gymQnAUpdateMethod(GymQnABoard b, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/userboard.do?userno="+request.getParameter("userno"));
+		List<Map<String, Object>> list = gymFileUtils.parseInsertFileInfo(request);
+		String originalFileName = "";
+		String renameFileName = "";
+		for(int i = 0; i < list.size(); i++) {
+			originalFileName += list.get(i).get("original_fileName")+",";
+			renameFileName += list.get(i).get("rename_fileName")+",";
+		}
+		if(originalFileName != "" || !originalFileName.equals("")) {
+			b.setOriginal_filename(originalFileName);
+			b.setRename_filename(renameFileName);
+		}
 		gymService.updateGymQnABoard(b);
 		return mv; 
 	}
 	// 헬스장 문의하기 게시글 답변
 	@RequestMapping(value="/gymQnAAnswer.do")
-	public ModelAndView gymQnAAnswerMethod(GymQnABoard b, HttpServletRequest request) {
+	public ModelAndView gymQnAAnswerMethod(GymQnABoard b, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/userboard.do?userno="+request.getParameter("userno"));
+		List<Map<String, Object>> list = gymFileUtils.parseInsertFileInfo(request);
+		String originalFileName = "";
+		String renameFileName = "";
+		for(int i = 0; i < list.size(); i++) {
+			originalFileName += list.get(i).get("original_fileName")+",";
+			renameFileName += list.get(i).get("rename_fileName")+",";
+		}
+		if(originalFileName != "" || !originalFileName.equals("")) {
+			b.setOriginal_filename(originalFileName);
+			b.setRename_filename(renameFileName);
+		}
 		gymService.insertGymQnABoardAnswer(b);
-		gymService.updateGymQnABoardResponse(b.getRef_no(), 1);
+		gymService.updateGymQnABoardResponse(b.getQ_no(), 1);		// 답변완료된 게시글
+		gymService.updateGymQnABoardResponse(b.getRef_no(), 1);		// 답글 모두 응답여부 1로 바꿈
 		return mv; 
 	}
 	

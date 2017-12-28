@@ -34,10 +34,12 @@ p a:hover {
 }
 #footerQnaContent table td {
 	align:center !important;
+	margin-left:0px !important;
+	padding-left:0px !important;
 }
 #footerQnaContent table td input, #footerQnaContent table td textarea, #footerQnaContent table button {
 	width:100%;
-	background:#022D41;
+	background:#022D41 !important;
 	color:white;
 	border:1px solid white;
 }

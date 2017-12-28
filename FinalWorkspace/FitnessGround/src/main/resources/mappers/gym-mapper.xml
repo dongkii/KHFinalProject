@@ -368,6 +368,9 @@
 		<![CDATA[
 		update tb_qna  
 	    set content=#{content}, title=#{title}
+		]]>
+		<if test="original_filename != null">, original_filename=#{original_filename}, rename_filename=#{rename_filename} </if>
+		<![CDATA[
 		where q_no = #{q_no}
 		]]>
 	</update>
