@@ -3,7 +3,6 @@
 
     <c:import url="./include/common/head.jsp" />
 	<link rel="stylesheet" href="/fitnessground/resources/css/workout/workout.css" />
-	<link rel="stylesheet" href="/fitnessground/resources/css/common/main.css" />
     <c:import url="include/common/headend.jsp" />
 
     <div id="page-wrapper">
@@ -97,8 +96,7 @@
     </div>
     
     <script type="text/javascript">
-	$(function(){
-		
+	$(function(){		
 		
 		var user_level = ${sessionScope.user.user_level} //일반회원
 		console.log(user_level);
@@ -111,6 +109,7 @@
       	 	$.ajax({
        			url:'mainVideoList.do',
        			type:'post',
+       			async:false,
        			success:function(result){
 
        				console.log('ajax 호출 성공');
@@ -119,10 +118,10 @@
        				var jsonStr = JSON.stringify(result);
        				var json = JSON.parse(jsonStr);
        			          	
-       			/* 	var title;
+       			 	var title;
 					var url;
-					var content;	 */										   						
-						
+					var content;	 									   						
+					
        				
        				for(var i in json.list){
        					var no = json.list[i].v_no;
@@ -142,63 +141,22 @@
            	            	'</article>'
            	            	console.log(values);
            	            	
-           	            	$("").append(values);
+           	            	$(".reel").append(values);
            	            	
        					}else{ //유튜브
        						console.log("유튜브 들어옴");
        						
-       				/* 		title = decodeURIComponent(json.list[i].title).replace(/\+/g," ");
+       					title = decodeURIComponent(json.list[i].title).replace(/\+/g," ");
        						vid = decodeURIComponent(json.list[i].url);
        						content = decodeURIComponent(json.list[i].title).replace(/\+/g," ");
        						
        						var category1 = decodeURIComponent(json.list[i].category1);
        						var category2 = decodeURIComponent(json.list[i].category2).replace(/\+/g,' ');
-       						var v_no = json.list[i].v_no; */
+       						var v_no = json.list[i].v_no; 
        						
-       						//getYoutubeThumbnail(title,vid,content,category1,category2,v_no);
+       						getYoutubeThumbnail(title,vid,content,category1,category2,v_no);
        						
-       						(function(title,vid,content,category1,category2,v_no){
-       							
-           						title = decodeURIComponent(json.list[i].title).replace(/\+/g," ");
-           						vid = decodeURIComponent(json.list[i].url);
-           						content = decodeURIComponent(json.list[i].title).replace(/\+/g," ");
-           						category1 = decodeURIComponent(json.list[i].category1);
-           						category2 = decodeURIComponent(json.list[i].category2).replace(/\+/g,' ');
-           						v_no = json.list[i].v_no;
-           						
-           						var thumbnail;
-           			    		var value = "";
-           			    		
-           			    		$.get("https://www.googleapis.com/youtube/v3/videos", {
-           							part : 'snippet',
-           							maxResults : 50,
-           							id : vid,
-           							key : 'AIzaSyACiHNLQp0NoZLhAx6u2JbtMGjCp3STK3A'
-           						}, function(data) {
-           							
-           							$.each(data.items, function(i, item) {
-           								 thumbnail = item.snippet.thumbnails.medium.url;
-           								 var j =0;
-           								 value =	'<article>' +
-           			    	                '<a href="javascript:detailView('
-           			    	                    		+ v_no + ',\''+ category1 + '\',' + '\'' + category2+'\');" class="image featured"><img src="' + thumbnail + '" alt="" /></a>'+
-           			    	                '<header>'+
-           			    	                    '<h4><a id = "v-title" href="javascript:detailView('
-           			    	                    		+ v_no + ',\''+ category1 + '\',' + '\'' + category2 +'\');">'
-           			    	                    + title.substring(0,30).concat("...") + 
-           			    	                    '</a></h4>'+
-           			    	                '</header>'+
-           			    	            	'</article>'
-           			    	            	console.log("j : " + j + "value " + value);
-           			    	            	j++;
-           			    	            	$(".reel").append(value);
-           								 
-           								
-           							});
-           						});
-           						
-       						}());
-               	            	
+       					
        					}//else 문 끝
        						
        				}//for문 끝      					
@@ -216,7 +174,7 @@
 	});	
     
     
-    /* 	function getYoutubeThumbnail(title,vid,content,category1,category2,v_no){
+     	function getYoutubeThumbnail(title,vid,content,category1,category2,v_no){
     		console.log("메서드 실행");
     		var thumbnail;
     		var value = "";
@@ -225,33 +183,35 @@
 				part : 'snippet',
 				maxResults : 50,
 				id : vid,
-				key : 'AIzaSyACiHNLQp0NoZLhAx6u2JbtMGjCp3STK3A'
+				key : 'AIzaSyACiHNLQp0NoZLhAx6u2JbtMGjCp3STK3A',
+				async:false,
 			}, function(data) {
-				
+
 				$.each(data.items, function(i, item) {
+					console.log("data.items : " + data.items);
+					
 					 thumbnail = item.snippet.thumbnails.medium.url;
-					 var j =0;
+					
 					 value =	'<article><div>' +
     	                '<a href="javascript:detailView('
     	                    		+ v_no + ',\''+ category1 + '\',' + '\'' + category2+'\');" class="image featured"><img src="' + thumbnail + '" alt="" /></a>'+
     	                '<header>'+
-    	                    '<h3><a id = "v-title" href="javascript:detailView('
+    	                    '<h4><a id = "v-title" href="javascript:detailView('
     	                    		+ v_no + ',\''+ category1 + '\',' + '\'' + category2 +'\');">'
     	                    + title.substring(0,18).concat("...") + 
-    	                    '</a></h3>'+
+    	                    '</a></h4>'+
     	                '</header>'+
     	            	'</div></article>'
-    	            	console.log("j : " + j + "value " + value);
-    	            	j++;
-    	            	$("#view_video").append(value);
-					 
-					
+    	            	
+    	            	$(".reel").append(value);
+    	            	console.log(value);
+    	            						
 				});
 			});
+    		console.log("메서드 끝");
     		
-    		
-    	} */
-    
+    		   		
+    	}    
     
    				
     
