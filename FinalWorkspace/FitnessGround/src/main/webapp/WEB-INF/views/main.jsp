@@ -52,43 +52,69 @@
         </div>
 
         <!-- Features -->
-        <div class="wrapper style1">
+        <div class="wrapper style1" id="bmi-wrapper">
 
             <section id="features" class="container special">
                 <header>
-                    <h2>커뮤니티</h2>
-                    <p>Ipsum volutpat consectetur orci metus consequat imperdiet duis integer semper magna.</p>
+                    <h2>BMI 측정기</h2>
+                    <p>당신의 체질량지수를 측정해보세요 .</p>
                 </header>
-                <div class="row">
-                    <article class="4u 12u(mobile) special">
-                        <a href="#" class="image featured"><img src="/fitnessground/resources/images/pic07.jpg" alt="" /></a>
-                        <header>
-                            <h3><a href="#">Gravida aliquam penatibus</a></h3>
-                        </header>
-                        <p>
-                            Amet nullam fringilla nibh nulla convallis tique ante proin sociis accumsan lobortis. Auctor etiam porttitor phasellus tempus cubilia ultrices tempor sagittis. Nisl fermentum consequat integer interdum.
-                        </p>
-                    </article>
-                    <article class="4u 12u(mobile) special">
-                        <a href="#" class="image featured"><img src="/fitnessground/resources/images/pic08.jpg" alt="" /></a>
-                        <header>
-                            <h3><a href="#">Sed quis rhoncus placerat</a></h3>
-                        </header>
-                        <p>
-                            Amet nullam fringilla nibh nulla convallis tique ante proin sociis accumsan lobortis. Auctor etiam porttitor phasellus tempus cubilia ultrices tempor sagittis. Nisl fermentum consequat integer interdum.
-                        </p>
-                    </article>
-                    <article class="4u 12u(mobile) special">
-                        <a href="#" class="image featured"><img src="/fitnessground/resources/images/pic09.jpg" alt="" /></a>
-                        <header>
-                            <h3><a href="#">Magna laoreet et aliquam</a></h3>
-                        </header>
-                        <p>
-                            Amet nullam fringilla nibh nulla convallis tique ante proin sociis accumsan lobortis. Auctor etiam porttitor phasellus tempus cubilia ultrices tempor sagittis. Nisl fermentum consequat integer interdum.
-                        </p>
-                    </article>
-                </div>
+                <div class="sliders">
+                	<div class="gender">
+                		<span>성별:</span>
+                		<div id="gender">
+	                		<label class="radio-inline">
+							  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1"> 남
+							</label>
+							<label class="radio-inline">
+							  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2"> 여
+							</label>
+						</div>
+                	</div>
+	                <div class="range-slider">
+	                <p>키(cm):</p>
+					  <input class="range-slider__range" type="range" value="170" min="130" max="200">
+					  <span class="range-slider__value">0</span>
+					</div>
+					
+					<div class="range-slider">
+					 <p>몸무게(kg):</p>
+					  <input class="range-slider__range" type="range" value="65" min="30" max="150" step="5">
+					  <span class="range-slider__value">0</span>
+					</div>
+				</div>
+				<div class="explanation">
+					
+				<span>BMI란 ? 체질량 지수(體質量指數, Body Mass Index)로서  비만도를 측정하는 지수입니다.</span>
+					<span>BMI is a useful measurement for most people over 18 years old. 
+					But it is only an estimate and it doesn’t take into account age, ethnicity, gender and body composition. 
+					We recommend you also check your waist measurement and other risk factors.Speak to your doctor, 
+					an Accredited Practising Dietitian or a health practitioner about your weight.</span>
+				</div>
+                <a href="bmi.do" class="btn btn-primary" id="bmi-btn">나의 BMI지수 확인하기</a>
             </section>
+            
+            <script>
+            var rangeSlider = function(){
+            	  var slider = $('.range-slider'),
+            	      range = $('.range-slider__range'),
+            	      value = $('.range-slider__value');
+            	    
+            	  slider.each(function(){
+
+            	    value.each(function(){
+            	      var value = $(this).prev().attr('value');
+            	      $(this).html(value);
+            	    });
+
+            	    range.on('input', function(){
+            	      $(this).next(value).html(this.value);
+            	    });
+            	  });
+            	};
+
+            	rangeSlider();
+            </script>
 
         </div>
 
