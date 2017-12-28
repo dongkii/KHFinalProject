@@ -140,12 +140,7 @@ public class GymDao {
 	}
 
 	public void InsertReview(GymComment gc) {
-		sqlSession.insert("gymcomment.insertreview", gc);
-	}
-
-	public ArrayList<GymComment> SelectReview(GymComment gc) {
-		List<GymComment> list = sqlSession.selectList("gymcomment.selectreview", gc);
-		return new ArrayList<GymComment>(list);
+		sqlSession.insert("gymcomment.insertreivew", gc);
 	}
 
 	

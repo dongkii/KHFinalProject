@@ -67,6 +67,4 @@ public interface GymService {
 		ArrayList<PublicGym> publicMaplist(NaverMap nmap);
 		
 		void InserReview(GymComment gc);
-		
-		ArrayList<GymComment> SelectReview(GymComment gc);
 }

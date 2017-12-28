@@ -25,7 +25,7 @@
 <script type="text/javascript" src="/fitnessground/resources/js/gym/gymmap.js"></script>
 
 <script type="text/javascript">
-	/* $(function(){
+	$(function(){
 		var mode = ${mode};
 		if(mode == 1) {
 			$('#health').addClass('active');
@@ -39,7 +39,7 @@
 			$('#healthTab').removeClass('active');
 		}
 		//$('#myPageBar nav ul #uBoard').addClass('activeMenu');	
-	});	 */
+	});	
 	
 	function loadGymList(page) {
 		$.ajax({

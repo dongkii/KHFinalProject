@@ -219,11 +219,10 @@ public class GymController {
 	
 	// 리뷰 등록
 	@RequestMapping(value="/reviewinsert.do", method=RequestMethod.POST)
-	public ModelAndView enrollReview(GymComment gc, HttpServletRequest request, HttpServletResponse response){
+	public void enrollReview(GymComment gc, HttpServletRequest request, HttpServletResponse response){
 		ModelAndView mv = new ModelAndView();
+		System.out.println(gc);
 		gymService.InserReview(gc);
-		mv.setViewName("jsonView");
-		return mv;
 	}
 	
 	// 리뷰 수정
@@ -243,14 +242,6 @@ public class GymController {
 	}
 	
 	//리뷰 셀렉
-	@RequestMapping(value="/selectreview.do", method=RequestMethod.POST)
-	public ModelAndView selectReview(GymComment gc, HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView();
-		ArrayList<GymComment> agc = gymService.SelectReview(gc);
-		mv.addObject("gc", agc);
-		mv.setViewName("jsonView");
-		return mv;
-	}
 	
 	// findgym
 		@RequestMapping(value = "findgym.do")
