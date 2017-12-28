@@ -220,7 +220,7 @@
 									});
 
 							// Init.
-							$window.load(function() {
+							setTimeout(function() {
 
 								reelWidth = $reel[0].scrollWidth;
 
@@ -252,7 +252,7 @@
 									$t._update();
 								}).trigger('resize');
 
-							});
+							},1000);
 
 						});
 
