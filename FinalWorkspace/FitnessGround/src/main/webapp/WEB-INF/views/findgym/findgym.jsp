@@ -25,22 +25,24 @@
 <script type="text/javascript" src="/fitnessground/resources/js/gym/gymmap.js"></script>
 
 <script type="text/javascript">
-	/* $(function(){
-		var mode = ${mode};
-		if(mode == 1) {
-			$('#health').addClass('active');
-			$('#public').removeClass('active');
-			$('#healthTab').addClass('active');
-			$('#publicTab').removeClass('active');
-		} else if(mode == 2) {
-			$('#public').addClass('active');
-			$('#health').removeClass('active');
-			$('#publicTab').addClass('active');
-			$('#healthTab').removeClass('active');
-		}
-		//$('#myPageBar nav ul #uBoard').addClass('activeMenu');	
-	});	 */
-	
+ $(function(){
+var mode = ${mode};
+if(mode == 1) {
+	$('#health').addClass('active');
+	$('#public').removeClass('active');
+	$('#healthTab').addClass('active');
+	$('#publicTab').removeClass('active');
+} else if(mode == 2) {
+	$('#public').addClass('active');
+	$('#health').removeClass('active');
+	$('#publicTab').addClass('active');
+	$('#healthTab').removeClass('active');
+}
+$('#myPageBar nav ul #uBoard').addClass('activeMenu');	
+});	
+</script>
+
+<script type="text/javascript">
 	function loadGymList(page) {
 		$.ajax({
 			url:"findhealth.do",
@@ -93,8 +95,6 @@
 					valuesPaging+="<li><a href='javascript:loadGymList(" + (data.currentPage + 1) + ")' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
 				}
 				$("#healthpaging").html(valuesPaging);
-				
-				
 				
 				},			
 			error : function(request, status, errorData){

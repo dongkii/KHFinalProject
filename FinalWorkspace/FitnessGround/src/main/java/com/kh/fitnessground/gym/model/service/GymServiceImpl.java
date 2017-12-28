@@ -194,4 +194,10 @@ HashMap<String, Object> parameters = new HashMap<String, Object>();
 	public void deleteReview(GymComment gc) {
 		gymDao.deleteReview(gc);
 	}
+	
+	@Override
+	public ArrayList<Gym> healthMapList() {
+		
+		return gymDao.healthMapList();
+	}
 }

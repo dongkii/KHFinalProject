@@ -581,5 +581,29 @@ public class GymController {
 		return mv;
 	}
 
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="healthmap.do")
+	@ResponseBody
+	public ModelAndView healthMap(ModelAndView mv)
+	{
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<Gym> list = gymService.healthMapList();
+		JSONArray jar = new JSONArray();
+		
+		for(Gym gym : list)
+		{
+			JSONObject jlist = new JSONObject();
+			jlist.put("location", gym.getLocation());
+			jlist.put("title",gym.getGym_name());
+			jlist.put("tel", gym.getTel());
+			jar.add(jlist);
+		}
+		map.put("healthlist", jar);
+		mv.addAllObjects(map);
+		mv.setViewName("jsonView");
+		System.out.println("healthlist: " + map);
+		return mv;
+	}
 
 }

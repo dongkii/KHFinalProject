@@ -73,4 +73,6 @@ public interface GymService {
 		String selectadminQnAResponseQNo(int q_no);
 		
 		void deleteReview(GymComment gc);
+		
+		ArrayList<Gym> healthMapList();
 }
