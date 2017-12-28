@@ -4,7 +4,7 @@
 
 <c:import url="../include/common/head.jsp" />
 <link rel="stylesheet" href="/fitnessground/resources/css/findgym/findgym.css" />
-<%-- <div id="page-wrapper">
+<div id="page-wrapper">
 	<!-- Header -->
 	<div id="mypage_header">
 		<c:import url="../user/login.jsp" />
@@ -12,7 +12,8 @@
 		<c:import url="../user/register.jsp" />
 		<c:import url="../include/main/nav.jsp" />
 	</div>
-</div> --%>
+</div>
+
 <div id="mypage_header">
 	<!-- Nav -->
 	<c:import url="../include/main/nav.jsp"/>
@@ -39,6 +40,7 @@
 		}
 		//$('#myPageBar nav ul #uBoard').addClass('activeMenu');	
 	});	
+	
 	function loadGymList(page) {
 		$.ajax({
 			url:"findhealth.do",
@@ -219,10 +221,9 @@
 										</div>
 										</c:forEach>
 										</div>
-									</c:forEach>
 								</div>
-							</div>
-							<div id="paging">
+							
+				<div id="paging">
 					<nav>
 						<ul class="pagination" id="healthpaging">
 						 <!-- 페이지 번호 처리 -->
@@ -258,8 +259,8 @@
  						</c:if>
 						</ul>
 					</nav>
+				</div><!-- paging -->
 				</div>
-						</div>
 						<!-- 공공 체육 시설 -->
 						<div role="tabpanel" class="tab-pane" id="public">
 							<div class="row">
@@ -285,6 +286,7 @@
 									</c:forEach>								
 								</div>
 							</div>
+							
 							<div id="paging">
 								<nav>
 									<ul class="pagination" id="publicpaging">
@@ -315,11 +317,13 @@
 										</c:if>
 									</ul>
 								</nav>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>		
+							</div><!-- paging -->
+						</div><!-- tab panel public -->
+					</div><!-- tab panel -->
+					</div> <!-- tab content -->
+				</div><!-- row -->
+			</div> <!-- col-md-4 -->
+			
 			<div class="col-md-8 ">
 			<div id="map">
 				<script type="text/javascript" src="/fitnessground/resources/js/gym/gymmap.js"></script>
