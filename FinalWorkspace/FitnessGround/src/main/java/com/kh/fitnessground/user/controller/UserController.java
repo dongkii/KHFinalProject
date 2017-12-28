@@ -475,5 +475,18 @@ public class UserController {
 		String content = (String)job.get("content");
 		userService.updateUserSchedule(s_no, content);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
-	}	
+	}
+	// BMI 측정
+	@RequestMapping(value="/bmi.do")
+	public ModelAndView bmiCalculate(HttpServletRequest request) {
+		int weight = Integer.parseInt(request.getParameter("weight"));
+		System.out.println("???weight"+weight);
+		int height = Integer.parseInt(request.getParameter("height"));
+		System.out.println((height*height));
+		int bmi = weight*10000/(height*height);
+		System.out.println(bmi);
+		ModelAndView mv = new ModelAndView("main");
+		mv.addObject("bmi", bmi);
+		return mv; 
+	}
 }

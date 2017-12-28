@@ -13,7 +13,7 @@
             <c:import url="include/main/maininner.jsp" />
 			
             <!-- Nav -->
-            <c:import url="include/main/nav.jsp" />
+            <c:import url="include/main/mainnav.jsp" />
             
             <c:import url="user/login.jsp"/>
 			<c:import url="user/findidpwd.jsp"/>
@@ -81,13 +81,13 @@
                 	</div>
 	                <div class="range-slider">
 	                <p>키(cm):</p>
-					  <input class="range-slider__range" type="range" value="170" min="130" max="200">
+					  <input class="range-slider__range" type="range" value="170" min="130" max="200" id="height">
 					  <span class="range-slider__value">0</span>
 					</div>
 					
 					<div class="range-slider">
 					 <p>몸무게(kg):</p>
-					  <input class="range-slider__range" type="range" value="65" min="30" max="150" step="5">
+					  <input class="range-slider__range" type="range" value="65" min="30" max="150" step="5" id="weight">
 					  <span class="range-slider__value">0</span>
 					</div>
 				</div>
@@ -99,10 +99,18 @@
 				</span>
 				<span>꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥꾸엥엥엥</span>
 				</div>
-                <a href="bmi.do" class="btn btn-primary" id="bmi-btn">나의 BMI지수 확인하기</a>
+                <a href="javascript: bmiCal();" class="btn btn-primary" id="bmi-btn">나의 BMI지수 확인하기</a>
             </section>
             
-            <script>
+            <script type="text/javascript">
+            function bmiCal(){
+            	console.log("weight:"+$('#weight').val());
+            	location.href="bmi.do?weight="+$('#weight').val()+"&height="+$('#height').val();
+            	/* var values="<span>"+${bmi}+"</span>";
+            	$(".explanation").html(values); */
+            	//ajax로 바꾸거나(vo생성?ㅠ) 다른방법...
+            }
+            
             var rangeSlider = function(){
             	  var slider = $('.range-slider'),
             	      range = $('.range-slider__range'),
