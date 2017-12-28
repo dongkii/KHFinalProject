@@ -22,20 +22,66 @@
 <script type="text/javascript">
 $( document ).ready(function() {
 	$('#qnaResponse').on('show.bs.modal', function (event) {
-		  var button = $(event.relatedTarget)
-		  var sender = button.data('sender')
-		  var qno = button.data('qno')
+		 var button = $(event.relatedTarget);
+		 var sender = button.data('sender');
+		 var qno = button.data('qno');
+		 var title = "[ 답변 ] " + button.data('title');
 		  
-		  console.log("sender: "+sender+", qno: "+qno);
+		 console.log("sender: "+sender+", qno: "+qno);
 		  
-		  var modal = $(this)
+		 var modal = $(this);
 		 
-		 $('#responseQ_no').val(qno)
-		  modal.find('#receiver').val(sender)
-		 
-		});
+		 $('#editor1').val("");
+		 var div = '<br><table class="col-md-10 col-md-offset-1" style="margin-bottom:20px;">'
+				 +'<tr class="col-md-12"><th style="width:60px;">제목</th>'
+				 +'<td align="right"><input class="form-control" id="response_title" style="width:100%;" name="title" type="text"/></td>'
+				 +'</tr></table><textarea name="content" id="editor1" placeholder="내용을 입력해주세요.."></textarea>';
+		 $('#insert_all_div').html(div+'<script>CKEDITOR.replace("editor1");<'+'/script>');
+		 $('#responseQ_no').val(qno);
+		 $('#response_title').val(title);
+		 modal.find('#receiver').val(sender);
+	});
+	var index = ${status.count};
+	var name = '#originContent_'+index;
 });
 
+function qnaModify(q_no) {
+	$.ajax({
+        url:"adminQnAResponseQNo.do",
+        dataType:"json",
+        type:"post",
+        data : {"q_no" : q_no},
+        success:function(data){
+        	$('#mResponseQ_no').val(data);
+        	$.ajax({
+                 url:"gymQnaDetailView.do",
+                 dataType:"json",
+                 type:"post",
+                 data : {"q_no" : data},
+                 success:function(result){
+                 	var board = result.board;
+                 	$('#mResponse_div').html('<table class="col-md-10 col-md-offset-1" style="margin-bottom:20px;margin-top:20px;">'
+                 							+'<tr class="col-md-12"><th style="width:60px;">제목</th>	<td align="right">'
+                 							+'<input class="form-control" id="mResponse_title" style="width:100%;" name="title" type="text"/>'
+                 							+'</td></tr></table><textarea name="content" id="mResponse_content"></textarea>');
+                 	var div = $('#mResponse_div').html() + "<script>CKEDITOR.replace('mResponse_content');<"+"/script>";
+                 	$('#mResponse_div').html(div);
+                 	$('#mResponse_title').val(board.title);
+                 	$('#mResponse_content').val(board.content);
+                 	
+                 },
+                 error: function(request, status, errorData){
+                    alert("error code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + errorData);
+                 }
+            });
+        },
+        error: function(request, status, errorData){
+           alert("error code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + errorData);
+        }
+    });
+	$("#qnaResponseModify").show();
+	$("#qnaResponseModify").modal();
+}
 
 </script>
 
@@ -96,14 +142,11 @@ $( document ).ready(function() {
 												<c:when test="${item.response_state==0}">
 
 													<td>
-													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#qnaResponse" data-sender="${item.sender }" data-qno="${item.q_no}">답변</button></td>
+													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#qnaResponse" data-title="${item.title}" data-sender="${item.sender}" data-qno="${item.q_no}">답변</button></td>
 												</c:when>
 												<c:when test="${item.response_state==1}">
 
-													<td><button type="submit" class="btn btn-primary"
-															onclick="qnaModify(${item.q_no});">완료</button><%-- 
-															<button type="submit"  class="btn btn-success"
-															onclick="qnaConfirm(${item.q_no});">확인</button></td> --%>
+													<td><button type="submit" class="btn btn-primary" onclick="qnaModify(${item.q_no});">완료</button>
 												</c:when>
 
 											</c:choose>
@@ -123,11 +166,12 @@ $( document ).ready(function() {
 													<p align="right">Sender : ${item.name }</p>
 													<p align="right">Email : ${item.email }</p>
 													<p align="right">Date : ${item.write_date}</p><hr>
-													<p>Content : ${item.content}</p>
-													
-													
-													
-													
+													<p id="originContent_${status.count}">Content<br><br>${item.content}</p>
+													<script>
+														var index = ${status.count};
+														var name = '#originContent_'+index;
+														$(name).html($(name).html().replace(/<br\s?\/?>/g,"\n").replace(/\n/gi,"<br/>"));
+													</script>
 													</div>
      											<!-- Footer -->
 													<div class="modal-footer" >
@@ -164,22 +208,14 @@ $( document ).ready(function() {
         	<input type="hidden" id="receiver" name="receiver" value="">
         	<input type="hidden" id="sender" name="sender" value="${sessionScope.user.user_no }">
         	
-				<div id="insert_all_div" style="border: 1px solid;">
-				<br>
-					
-						
-							<div id="div_head">
-								<p>
-									제목
-							<input name="title" type="text" placeholder="제목을 입력해주세요."/>
-								</p>				
-							</div>
-							
-				<textarea name="content" id="editor1" placeholder="내용을 입력해주세요.."></textarea>
-				<script>
-					CKEDITOR.replace('editor1');
-				</script>
-				
+				<div id="insert_all_div" style="border: 1px solid;" class="col-md-12"><br>
+					<table class="col-md-10 col-md-offset-1" style="margin-bottom:20px;">
+						<tr class="col-md-12">
+							<th style="width:60px;">제목</th>
+							<td align="right"><input class="form-control" id="response_title" style="width:100%;" name="title" type="text"/></td>
+						</tr>
+					</table>				
+					<textarea name="content" id="editor1" placeholder="내용을 입력해주세요.."></textarea>
 				</div>
 											
 		  </div>
@@ -197,6 +233,29 @@ $( document ).ready(function() {
      </div>
       	
   </div>
+  
+  <div class="modal fade" id="qnaResponseModify" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" id="workout-dialog">
+      <div class="modal-content" id="workout-content">
+        <div class="modal-header">  
+          <h2 class="modal-title" id="GymQnABoard" color="red"style="color: black">문의글 답변 수정 </h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+        </div>
+        <form id="register_form" name="mboard" method="post" action="gymQnAUpdate.do?mode=admin" enctype="multipart/form-data">
+        	<div class="modal-body">
+        	<input type="hidden" id="mResponseQ_no" name="q_no" value="">
+				<div id="mResponse_div" style="border: 1px solid;" class="col-md-12"><br>
+				</div>
+		  </div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary" >Modify</button>
+      			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      		</div>
+      </form>
+	  </div>
+     </div>
+  </div>
+  
 			<div class="card-footer small text-muted"><h4>Total Message : ${message }개</h4></div>
 
 		</div>
@@ -210,4 +269,5 @@ $( document ).ready(function() {
 		
 		</div>
 	</div>
+	
 	<c:import url="common/end.jsp" />

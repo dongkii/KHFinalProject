@@ -1,6 +1,7 @@
 package com.kh.fitnessground.admin.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -148,8 +149,8 @@ public class AdminDao {
 		return rlist;
 	}
 
-	public int qnaResponse(GymQnABoard gqboard) {
-		int result = sqlSession.insert("gym.adminQnAResponse", gqboard);
+	public int qnaResponse(HashMap<String, Object> parameters) {
+		int result = sqlSession.insert("gym.adminQnAResponse", parameters);
 		return result;
 	}
 

@@ -120,11 +120,11 @@
 		]]>
 	</select>
 	
-	<insert id="adminQnAResponse" parameterType="GymQnABoard" flushCache="true"
+	<insert id="adminQnAResponse" parameterType="hashmap" flushCache="true"
 		statementType="PREPARED" useGeneratedKeys="true" >
 		<![CDATA[
 			insert into tb_qna
-			values (qna_seq.nextval, #{sender}, #{receiver},null, #{title}, #{content}, null, null, default, default, qna_seq.nextval, 1)
+			values (qna_seq.nextval, #{board.sender}, #{board.receiver},null, #{board.title}, #{board.content}, null, null, default, 1, #{responseQ_no}, 1)
 		]]>
 	</insert>	
 
@@ -374,6 +374,13 @@
 		where q_no = #{q_no}
 		]]>
 	</update>
+	<select id="selectadminQnAResponseQNo" parameterType="_int" resultType="string">
+		<![CDATA[ 
+			select q_no
+			from tb_qna
+			where ref_no=#{q_no} and q_level=1
+		]]>
+	</select>
 	<insert id="insertGymQnABoardAnswer" parameterType="GymQnABoard" flushCache="true"
 		statementType="PREPARED" useGeneratedKeys="true" >
 		<![CDATA[

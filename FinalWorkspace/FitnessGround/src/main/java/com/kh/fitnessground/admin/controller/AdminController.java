@@ -481,7 +481,7 @@ public class AdminController {
 		System.out.println("response_state 바꿔야할 q_no(답변된 q_no): " +responseQ_no);
 		System.out.println("gqboard : "+gqboard);
 		adminService.qnaBoardUpdate(responseQ_no);
-		int result = adminService.qnaResponse(gqboard);
+		int result = adminService.qnaResponse(gqboard, responseQ_no);
 		if(result>0){
 			return "redirect:adminQuestionBoard.do";
 		}else{

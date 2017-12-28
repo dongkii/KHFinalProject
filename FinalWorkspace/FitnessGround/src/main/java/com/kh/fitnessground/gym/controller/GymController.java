@@ -1,6 +1,8 @@
 package com.kh.fitnessground.gym.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.ParseException;
@@ -505,7 +507,11 @@ public class GymController {
 	// 헬스장 문의하기 게시글 수정
 	@RequestMapping(value="/gymQnAUpdate.do")
 	public ModelAndView gymQnAUpdateMethod(GymQnABoard b, HttpServletRequest request) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/userboard.do?userno="+request.getParameter("userno"));
+		ModelAndView mv = null;
+		if(request.getParameter("mode")!=null && request.getParameter("mode").equals("admin"))
+			mv = new ModelAndView("redirect:/adminQuestionBoard.do");
+		else
+			mv = new ModelAndView("redirect:/userboard.do?userno="+request.getParameter("userno"));
 		List<Map<String, Object>> list = gymFileUtils.parseInsertFileInfo(request);
 		String originalFileName = "";
 		String renameFileName = "";
@@ -539,6 +545,16 @@ public class GymController {
 		gymService.updateGymQnABoardResponse(b.getQ_no(), 1);		// 답변완료된 게시글
 		gymService.updateGymQnABoardResponse(b.getRef_no(), 1);		// 답글 모두 응답여부 1로 바꿈
 		return mv; 
+	}
+	// 관리자 답변 글 번호 조회
+	@RequestMapping(value="/adminQnAResponseQNo.do")
+	public void adminQnAResponseQNoMethod(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		String responseQ_no = gymService.selectadminQnAResponseQNo(Integer.parseInt(request.getParameter("q_no")));
+		out.append(responseQ_no);
+		out.flush();
+		out.close();
 	}
 	
 
