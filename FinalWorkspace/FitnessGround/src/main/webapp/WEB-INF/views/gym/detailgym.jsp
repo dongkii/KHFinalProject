@@ -168,7 +168,40 @@
 	}
 	
 	#reviewlist{
+		max-height: 380px;
 		height: 380px;
+		overflow: hidden;
+		overflow-y: auto;
+		padding-top: 15px;
+		padding-bottom: 20px;
+	} 
+	
+	#reviewOne {
+		padding-left: 0px;
+		font-size: 15pt;
+	}
+	
+	#rvetc {
+		float: right;
+	}
+	
+	#rvstar > i {
+		color: #fde16d;
+		border-color: #aaaaaa;
+		font-size: 1.5rem;
+	}
+	
+	#rvrating {
+		color: #fe424d;
+		font-weight: bold;
+		margin: 0 0.5vw;
+	}
+	#rvdate {
+		font-size: 1rem;
+	}
+	#rvnickname {
+		color: #022d41;
+		font-weight: bold;
 	}
 </style>
 
@@ -328,9 +361,19 @@
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0px;" id="comment">
 					<!-- 헬스장 댓글부분 -->
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="reviewlist">
-						등록된 한줄평이 없습니다.
-					</div>
+					<ul class="list-group">
+					  <li class="list-group-item" id="list-item1"><h4><i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;&nbsp;한줄평</h4></li>
+					  <li class="list-group-item" id="list-item2">
+					  	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="reviewlist">
+							등록된 한줄평이 없습니다.
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="reviewOne">
+								<div>user11 | 2017-12-28 | *****  <a href="#">수정</a> <a href="#">삭제</a></div>
+								<div>내용</div>
+							</div>
+						</div>
+					  </li>
+					</ul>
+					
 					<hr>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="insertreview">
 						<input type="hidden" value="${ sessionScope.user.user_no }" id="user-no">

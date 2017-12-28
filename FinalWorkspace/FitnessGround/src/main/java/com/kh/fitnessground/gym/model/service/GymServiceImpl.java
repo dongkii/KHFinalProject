@@ -180,4 +180,9 @@ HashMap<String, Object> parameters = new HashMap<String, Object>();
 	public void InserReview(GymComment gc) {
 		gymDao.InsertReview(gc);
 	}
+
+	@Override
+	public ArrayList<GymComment> SelectReview(GymComment gc) {
+		return gymDao.SelectReview(gc);
+	}
 }
