@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gymcomment">
+
+	<resultMap id="resultGymComment" type="GymComment">
+		<id property="gc_no" column="gc_no"/>
+		<result property="gym_no" column="gym_no" />
+		<result property="content" column="content"/>
+		<result property="rating" column="rating"/>
+		<result property="user_no" column="user_no"/>
+		<result property="upload_date" column="upload_date"/>		
+	</resultMap>
+	
+	<insert id="insertreview" parameterType="GymComment" flushCache="true"
+		statementType="PREPARED" useGeneratedKeys="true">
+		<![CDATA[
+			insert into tb_gym_comment
+			values (gc_seq.nextval, #{gym_no}, #{content}, #{rating}, #{user_no}, default)
+		]]>
+	</insert>
+	
+	<select id="selectreview" parameterType="GymComment" resultMap="resultGymComment" resultType="list">
+		<![CDATA[
+			select gc_no, gym_no, content, to_char(rating, '0.0') as str_rating , user_no, to_char(upload_date, 'yyyy-mm-dd') as "str_date", nickname
+			from tb_gym_comment
+			join tb_user using(user_no)
+			where gym_no = #{gym_no}
+		]]>
+	</select>
+	
+</mapper>
