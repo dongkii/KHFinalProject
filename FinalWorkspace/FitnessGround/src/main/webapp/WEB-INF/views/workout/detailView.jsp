@@ -180,7 +180,7 @@
             console.log(data.commentList);
             //스크롤 바로 수정 해야함
             for(var i =0; i<data.commentList.length;i++){
-               values += "<hr id='reply-hr'><span id='reply-writer'>" + data.commentList[i].name + "</span><span id='reply-content'>" + data.commentList[i].content + "</span><span id='reply-date'>"+ data.commentList[i].stringReplyDate + "</span>"
+               values += "<hr id='reply-hr' class='rep-hr'><span id='reply-writer'>" + data.commentList[i].name + "</span><span id='reply-content'>" + data.commentList[i].content + "</span><span id='reply-date'>"+ data.commentList[i].stringReplyDate + "</span>"
                
                if(user_no==data.commentList[i].user_no){ //내가 쓴 댓글 삭제
                   

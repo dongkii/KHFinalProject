@@ -5,6 +5,7 @@
  */
 
 
+/*others*/
 (function($) {
 
 	var settings = {

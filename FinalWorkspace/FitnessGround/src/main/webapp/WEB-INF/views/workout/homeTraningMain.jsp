@@ -96,8 +96,8 @@
 					</select> -->
 				</div> 
 				<!-- animated 검색바 -->
-				
-				<div class="srch_wrpr">
+				<span id="head-title">맨몸운동 전체 인기동영상</span>
+				<div class="srch_wrpr" id="main-wrpr">
 					<div class="srch_sb_cnt">
 						<input type="text" name="searchKeyWord" id="title-search" class="sech_txt_inpt"
 							placeholder="제목으로 검색" onkeydown="javascript: if(event.keyCode==13){titleSearch();}">
@@ -193,12 +193,12 @@
 	<div class="workout-videos">
 				
 		<c:if test="${empty list }">	<!-- 제목 검색 리스트 없을때 -->
-			<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" id="search-count"> '${keyWord}' 검색 갯수: ${searchCount }</div>
+			<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" id="search-count"> '${keyWord}' 검색 개수: ${searchCount }</div>
 		</c:if>
 		
 		<c:if test="${!empty list}">
 			<c:if test="${!empty keyWord}">
-				<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" id="search-count"> '${keyWord}' 검색 갯수 : ${searchCount }</div>
+				<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" id="search-count"> '${keyWord}' 검색 개수 : ${searchCount }</div>
 			</c:if>
 			
 			<c:forEach items="${list}" var="ht" varStatus="st">
@@ -229,7 +229,8 @@
 function category(category2){
 	var category1 = "맨몸운동";
 	var category2 = category2;
-	
+	$('#head-title').hide();
+	$('#main-wrpr').css('margin-top','3.4vh');
 	var values = "<input type='hidden' id='selectCate' value=" + category2 + ">"
 	
 	$("#hidecate").html(values);
