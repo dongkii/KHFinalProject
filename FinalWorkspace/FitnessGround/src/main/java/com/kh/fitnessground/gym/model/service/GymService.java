@@ -73,4 +73,5 @@ public interface GymService {
 		
 		void updategymimg(Gym gym);
 		ArrayList<PublicGym> publicMaplist(NaverMap nmap);
+		String selectadminQnAResponseQNo(int q_no);
 }

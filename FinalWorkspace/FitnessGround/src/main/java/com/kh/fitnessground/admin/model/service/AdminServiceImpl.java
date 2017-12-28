@@ -1,6 +1,7 @@
 package com.kh.fitnessground.admin.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -175,8 +176,11 @@ public class AdminServiceImpl  implements AdminService{
 
 
 	@Override
-	public int qnaResponse(GymQnABoard gqboard) {
-		return adminDao.qnaResponse(gqboard);
+	public int qnaResponse(GymQnABoard gqboard, int responseQ_no) {
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("responseQ_no", responseQ_no);
+		parameters.put("board", gqboard);
+		return adminDao.qnaResponse(parameters);
 	}
 
 

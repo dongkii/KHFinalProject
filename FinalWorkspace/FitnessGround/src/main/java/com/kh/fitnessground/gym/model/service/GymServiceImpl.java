@@ -195,4 +195,9 @@ HashMap<String, Object> parameters = new HashMap<String, Object>();
 		
 		return gymDao.publicMapList(parameters);
 	}
+
+	@Override
+	public String selectadminQnAResponseQNo(int q_no) {
+		return gymDao.selectadminQnAResponseQNo(q_no);
+	}
 }

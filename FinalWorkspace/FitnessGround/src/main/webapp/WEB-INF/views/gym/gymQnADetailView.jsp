@@ -33,7 +33,8 @@
 					<tr>
 						<th>Content : </th>
 						<td colspan="2" style="padding-top:20px; height:300px;" id="qDetailContent">
-							<textarea rows="13" class="form-control" id="readContent" name="content" readonly></textarea>
+							<div class="form-control" id="readContent" style="height:300px;"></div>
+							<!-- <textarea rows="13" class="form-control" id="readContent" name="content" readonly></textarea> -->
 						</td>
 					</tr>
 				</table>
@@ -71,7 +72,7 @@
 	         	/* $('#qDetailContent').html(board.content);
 	         	$('#qDetailContent').html($('#qDetailContent').html().replace(/<br\s?\/?>/g,"\n")); */
 	         	$('#readContent').html(board.content);
-	         	$('#readContent').val($('#readContent').html().replace(/<br\s?\/?>/g,"\n"));
+	         	$('#readContent').html($('#readContent').html().replace(/<br\s?\/?>/g,"\n").replace(/\n/gi,"<br/>"));
 	         	$('#qDetailSender').html(board.name);
 	         	if(board.gym_name == "") {
 	         		if(board.q_level==0) $('#gymQnATitle').html('관리자에 문의');

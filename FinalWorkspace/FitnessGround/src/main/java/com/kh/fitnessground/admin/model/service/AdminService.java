@@ -83,7 +83,7 @@ public interface AdminService {
 	ArrayList<CommunityBoard> reviewListView();
 
 
-	int qnaResponse(GymQnABoard gqboard);
+	int qnaResponse(GymQnABoard gqboard, int responseQ_no);
 
 
 	Object qnaBoardUpdate(int responseQ_no);

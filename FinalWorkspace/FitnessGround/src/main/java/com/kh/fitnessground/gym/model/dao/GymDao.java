@@ -159,5 +159,9 @@ public class GymDao {
 		return new ArrayList<PublicGym>(list) ;
 	}
 
+	public String selectadminQnAResponseQNo(int q_no) {
+		return sqlSession.selectOne("gym.selectadminQnAResponseQNo",q_no);
+	}
+
 	
 }
