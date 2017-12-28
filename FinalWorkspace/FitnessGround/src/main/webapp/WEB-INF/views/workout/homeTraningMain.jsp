@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="/fitnessground/resources/css/common/login.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	</head>
-	<body class="homepage">
+	<body class="homepage" id="page-top">
 	
 	<!-- java script 파일 로드 -->
 	<script type="text/javascript" src="/fitnessground/resources/js/jquery-3.2.1.js"></script>
@@ -101,12 +101,8 @@
 					<div class="srch_sb_cnt">
 						<input type="text" name="searchKeyWord" id="title-search" class="sech_txt_inpt"
 							placeholder="제목으로 검색" onkeydown="javascript: if(event.keyCode==13){titleSearch();}">
-						<button class="srch_btn" onclick="titleSearch();">
-							<i class="fa fa-search" aria-hidden="true"></i>
-						</button>
-						
+						<a href="javascript: titleSearch();" class="btn btn-primary" id="srch-btn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></a>
 					</div>
-				
 				</div>
 							
 				

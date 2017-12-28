@@ -38,7 +38,8 @@
 			overflow: hidden;
 		}
 	</style>
-<link rel="stylesheet" href="/fitnessground/resources/css/community/template.css">		
+<link rel="stylesheet" href="/fitnessground/resources/css/community/template.css">	
+<link rel="stylesheet" href="/fitnessground/resources/css/community/community.css">		
 	
 	<c:import url="../../include/common/headend.jsp" />
     
@@ -154,52 +155,43 @@
 	</script>
 	
 <br><br>
-<div class="container">
-<h1 align="center">Q & A</h1>
+<div class="container" id="comm-container">
+<h1 align="center" style="
+    font-size: 1.8rem;">Q & A</h1>
 <br>
 <div class="row">
 	<div class="col-md-4 col-sm-4 col-xs-12">
-	<a class="btn btn-primary button-size margin-left-10" onclick="meetingPage();">운동같이해요</a>
+	<a class="btn btn-primary button-size margin-left-10" id="tab-btn" onclick="meetingPage();">운동같이해요</a>
 	</div>
 	<div class="col-md-4 col-sm-4 col-xs-12">
-	<a class="btn btn-primary button-size margin-left-10" onclick="reviewPage();">후기</a>
+	<a class="btn btn-primary button-size margin-left-10" id="tab-btn" onclick="reviewPage();">후기</a>
 	</div>
 	<div class="col-md-4 col-sm-4 col-xs-12">
-	<a class="btn btn-primary button-size margin-left-10" onclick="qnaPage();">Q & A</a>
+	<a class="btn btn-primary button-size margin-left-10" id="selected-btn" onclick="qnaPage();">Q & A</a>
 	</div>
 	</div>
-<br>
-
-			<div class="row">
-			<form class="form-inline" name="form1" role="form" action="qna.do" method="post">
-		  <div class="form-group">
-		  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-   		 <span>
-			<select class="btn btn-default" style="width:80;" name="searchOption">
-				<option value="title"<c:out value="${map.searchOption == 'title'?'selected':''}"/>>제목</option>
-				<option value="name"<c:out value="${map.searchOption == 'name'?'selected':''}"/>>이름</option>
-				<option value="content"<c:out value="${map.searchOption == 'content'?'selected':''}"/>>내용</option>
-			</select>
-		</span>
-		</div>
-  	</div>
-  				<div class="form-group">
-   					<input type="text" class="form-control" name ="searchKey"  value="${map.searchKey}" placeholder="Search for..">
-				 </div>
- 			<span>
-		  		<a class="btn btn-primary" type="submit">검색</a>
-			</span>
-	</form>
-			
-			</div>
-			<div class="row">			
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<c:if test="${sessionScope.user==null}">
-					<h1 class="margin-left-10">게시물 갯수:${qna.listCount}개<a class="btn btn-primary pull-right margin-right-20" onclick="loginCheck();">글쓰기</a></h1><br>
-					</c:if>
-					<c:if test="${sessionScope.user.name != null }">
-					<h1 class="margin-left-10">게시물 갯수:${qna.listCount}개<a href="qnaInsert.do" class="btn btn-primary pull-right margin-right-20">글쓰기</a></h1><br>			
-					</c:if>
+		<div class="row">			
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="board-info">
+					<h1 class="margin-left-10" id="count">&nbsp;총 ${qna.listCount}개의 게시물</h1>
+					<form class="form-inline" name="form1" role="form" action="qna.do" method="post">
+						<div class="form-group">
+							  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+					   		 <span>
+								<select class="btn btn-default" style="width:80;" name="searchOption">
+									<option value="title"<c:out value="${map.searchOption == 'title'?'selected':''}"/>>제목</option>
+									<option value="name"<c:out value="${map.searchOption == 'name'?'selected':''}"/>>이름</option>
+									<option value="content"<c:out value="${map.searchOption == 'content'?'selected':''}"/>>내용</option>
+								</select>
+							</span>
+							</div>
+					  	</div>
+			  				<div class="form-group">
+			   					<input type="text" class="form-control" name ="searchKey"  value="${map.searchKey}" placeholder="Search for..">
+							 </div>
+			 			<span>
+					  		<a class="btn btn-default" id="srch-btn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></a>
+						</span>
+					</form>
 			</div>	
 			
 		</div>
@@ -228,7 +220,7 @@
 		<c:if test="${cm.board_property == 1}">
     <tr>
       <td>${cm.cb_no}</td>
-      <td><a href="qnaDetail.do?no=${cm.cb_no}">${cm.title}</a>
+      <td style="text-align: left;padding-left: 30px;color:black;"><a href="qnaDetail.do?no=${cm.cb_no}">${cm.title}</a>
       </td>
       <td>${cm.name}</td>
       <td>${cm.upload_date}</td>
@@ -287,6 +279,12 @@
        </li>
     </c:if>
  </ul>
+ <c:if test="${sessionScope.user==null}">
+<a class="btn btn-primary pull-right margin-right-20" onclick="loginCheck();">글쓰기</a>
+</c:if>
+<c:if test="${sessionScope.user.name != null }">
+<a href="qnaInsert.do" class="btn btn-primary pull-right margin-right-20">글쓰기</a>			
+</c:if>
 </nav>
 </div>
 </div>

@@ -69,11 +69,10 @@ function gymQnAInsert() {
 	$("#gymQnAForm").submit();
 }
 function gymQnAUpdate(user_no) {
-	alert(user_no);
 	$("#gymQnAUAForm").attr("action", "gymQnAUpdate.do?userno=" + user_no).submit();
 }
 function gymQnAAnswer(user_no) {
-	var filename = $('#file');
+	/*var filename = $('#file');
 	if(filename!=null) {
 		for(var i=0; i<filename.length; i++){
 			if(filename[i].value.indexOf("&") > 0) {
@@ -81,6 +80,6 @@ function gymQnAAnswer(user_no) {
 				return false;
 			}
 		}
-	} 
+	} */
 	$("#gymQnAUAForm").attr("action", "gymQnAAnswer.do?userno=" + user_no).submit();
 }
