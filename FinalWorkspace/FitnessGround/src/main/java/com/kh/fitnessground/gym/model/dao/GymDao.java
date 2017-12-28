@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import com.kh.fitnessground.gym.model.vo.Gym;
 import com.kh.fitnessground.gym.model.vo.GymComment;
 import com.kh.fitnessground.gym.model.vo.GymQnABoard;
-import com.kh.fitnessground.gym.model.vo.GymReview;
 import com.kh.fitnessground.gym.model.vo.GymSchedule;
 import com.kh.fitnessground.gym.model.vo.PublicGym;
 
@@ -36,26 +35,6 @@ public class GymDao {
 	public int getListCount() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("gym.selectGymCount");
-	}
-
-	public ArrayList<GymReview> selectList(int limit) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public int enrollReview(GymReview gymreview) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int deleteReview(int gcno) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int updateReview(int gcno, GymReview gymreview) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	public ArrayList<Gym> healthList(HashMap<String, Object> parameters) { 
