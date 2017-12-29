@@ -36,6 +36,7 @@ import com.kh.fitnessground.community.model.vo.CommunityAndMeeting;
 import com.kh.fitnessground.gym.model.vo.GymQnABoard;
 import com.kh.fitnessground.gym.model.vo.GymQnABoardPage;
 import com.kh.fitnessground.user.model.service.UserService;
+import com.kh.fitnessground.user.model.vo.Person;
 import com.kh.fitnessground.user.model.vo.User;
 import com.kh.fitnessground.user.model.vo.UserSchedule;
 
@@ -478,15 +479,16 @@ public class UserController {
 	}
 	// BMI 측정
 	@RequestMapping(value="/bmi.do")
-	public ModelAndView bmiCalculate(HttpServletRequest request) {
-		int weight = Integer.parseInt(request.getParameter("weight"));
-		System.out.println("???weight"+weight);
-		int height = Integer.parseInt(request.getParameter("height"));
-		System.out.println((height*height));
-		int bmi = weight*10000/(height*height);
+	public ModelAndView bmiCalculate(Person person, HttpServletRequest request) {
+		int weight = person.getWeight();
+		int height = person.getHeight();
+		double bmi = Math.round(weight*10000*100/(height*height))/100.0;
+		
 		System.out.println(bmi);
 		ModelAndView mv = new ModelAndView("main");
 		mv.addObject("bmi", bmi);
+		mv.setViewName("jsonView");
+		
 		return mv; 
 	}
 }

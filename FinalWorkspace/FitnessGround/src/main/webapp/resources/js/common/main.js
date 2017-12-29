@@ -6,6 +6,9 @@
 
 
 /*others*/
+
+
+
 (function($) {
 
 	var settings = {
