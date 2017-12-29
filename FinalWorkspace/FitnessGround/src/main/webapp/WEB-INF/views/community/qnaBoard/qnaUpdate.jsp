@@ -16,31 +16,13 @@ div#all_div {
 }
 
 div#insert_all_div {
-	border: 1px solid;
+	border: 1px solid gray;
 }
 
 div#div_head {
 	padding-left: 10%;
 }
 
-form#editor_form {
-	padding-left: 10%;
-	padding-right: 10%;
-}
-
-a#write {
-	left: 47%;
-	width: 30pt;
-	height: 30pt;
-	font-size: 12pt;
-}
-
-a#list {
-	left: 47%;
-	width: 30pt;
-	height: 30pt;
-	font-size: 12pt;
-}
 
 textarea#editor1 {
 	cols: 80;
@@ -49,7 +31,7 @@ textarea#editor1 {
 </style>
 
 <c:import url="../../include/common/headend.jsp" />
-
+<link rel="stylesheet" href="/fitnessground/resources/css/community/communitywrite.css">
 <script src="//cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
 
 <div id="page-wrapper">
@@ -77,40 +59,32 @@ textarea#editor1 {
 </script>
 
 <br>
-<h1 align="center">Q & A</h1>
+<div class="container">
+<h1 id="title">Q & A-수정</h1>
+<div class="margin-vert-20" id="insert-wrapper">
 <br>
-<div id="all_div">
-	<div id="insert_all_div">
-		<br>
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<form id="editor_form" name='qna' method="post" action="qnaUpdate.do">
 			<input name="user_no" type="hidden" value="${sessionScope.user.user_no }" />
 			<input name="cb_no" type="hidden" value="${community.cb_no}"/>
-			<div id="div_head">
-				<p>
-					제목
-					<input name="title" type="text" placeholder="${community.title}" />
-				</p>
-				<p>파일첨부
-				</p>
+			<div class="form-group">
+				<p>제목<input style="font-size:10pt;" class="input-group input-group-lg" name="title" type="text" value="${community.title}" /></p>
 			</div>
-
+	<div class="form-group">
 				<textarea name="content" id="editor1">
 				${community.content}
 				</textarea>
 				<script>
 					CKEDITOR.replace('editor1');
 				</script>
-				<input type="submit" name="업로드" value="작성하기" id="write">
+			<br>	
+				<input type="submit" name="업로드" value="작성하기" id="submit-btn" class="btn btn-primary">
 		</form>
 	</div>
 	<br>
 </div>
 </div>
-<br>
-<br>
-
-<a align="center" href="#this" class="btn" id="list">목록</a>
-<br>
 <br>
 <br>
 

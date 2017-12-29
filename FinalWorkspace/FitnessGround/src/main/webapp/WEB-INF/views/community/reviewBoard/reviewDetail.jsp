@@ -140,6 +140,13 @@
 		    <div id="community-contents">
 		     	<p>${community.content}</p>
 		    </div>
+		    <div align="right">
+					   <c:if test="${sessionScope.user.user_no eq community.user_no}">
+					   <a href="reviewUpdate.do?no=${community.cb_no}" class="btn">수정</a>
+					   <a href="reviewDelete.do?no=${community.cb_no}" class="btn">삭제</a>
+					   </c:if>
+					   <a href="review.do" class="btn">목록</a>
+					</div> 
 		   <input type="hidden" value="${community.readcount}"/>
 		    <div>
 		   </div> 
@@ -178,14 +185,7 @@
 					   	
 				   </div>   
 				   </div>  
-				   <div align="right">
-					   <c:if test="${sessionScope.user.user_no eq community.user_no}">
-					   <a href="reviewUpdate.do?no=${community.cb_no}" class="btn">수정</a>
-					   <a href="reviewDelete.do?no=${community.cb_no}" class="btn">삭제</a>
-					   </c:if>
-					   <a href="review.do" class="btn">목록</a>
-					</div> 
-			   </div>
+				  </div>
 			   </div>
 			  <cbody>  
        

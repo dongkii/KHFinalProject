@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 
 <c:import url="../../include/common/head.jsp" />
 
@@ -16,31 +16,13 @@ div#all_div {
 }
 
 div#insert_all_div {
-	border: 1px solid;
+	border: 1px solid gray;
 }
 
 div#div_head {
 	padding-left: 10%;
 }
 
-form#editor_form {
-	padding-left: 10%;
-	padding-right: 10%;
-}
-
-a#write {
-	left: 47%;
-	width: 30pt;
-	height: 30pt;
-	font-size: 12pt;
-}
-
-a#list {
-	left: 47%;
-	width: 30pt;
-	height: 30pt;
-	font-size: 12pt;
-}
 
 textarea#editor1 {
 	cols: 80;
@@ -49,7 +31,7 @@ textarea#editor1 {
 </style>
 
 <c:import url="../../include/common/headend.jsp" />
-
+<link rel="stylesheet" href="/fitnessground/resources/css/community/communitywrite.css">		
 <script src="//cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
 
 <div id="page-wrapper">
@@ -64,7 +46,6 @@ textarea#editor1 {
 	</div>
 </div>
 
-
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#list").on("click", function(e) { //목록으로
@@ -78,45 +59,39 @@ textarea#editor1 {
 </script>
 
 <br>
-<h1 align="center">후기</h1>
+<div class="container">
+<h1 id="title">운동후기-글쓰기</h1><br>
+<div class="margin-vert-20" id="insert-wrapper">
 <br>
-<div id="all_div">
-	<div id="insert_all_div">
-		<br>
-		<form id="editor_form" name='review' method="post" action="reviewInsert.do">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<form name='review' method="post" action="reviewInsert.do">
 			<input name="user_no" type="hidden" value="${sessionScope.user.user_no }" />
-			<div id="div_head">
-				<p>
-					제목
-					<input name="title" type="text" placeholder="제목을 입력해주세요." />
-				</p>
-				<p>파일첨부</p>
-				
+			<div class="form-group">
+				<p>제목<input style="font-size:10pt;" class="input-group input-group-lg" name="title" type="text" placeholder="제목을 입력하세요"/></p>
 			</div>
-			<div>
-
-				<textarea name="content" id="editor1" placeholder="내용을 입력해주세요.."></textarea>
+			<div class="form-group">
+				<textarea name="content" id="editor2" placeholder="내용을 입력해주세요.."></textarea>
 				<script>
-					CKEDITOR.replace('editor1');
+					CKEDITOR.replace('editor2');
 				</script>
-				<input type="submit" name="업로드" value="작성하기" id="write">
-		</form>
+				<br>
+	
+</div>
+				<br>
+				<input type="submit" name="업로드" value="작성하기" id="submit-btn" class="btn btn-primary">
+				
+				<a href="#this" class="pull-right margin-right-20" id="list">목록으로</a>
+		
+			</form>
+		</div>
+		</div>
 	</div>
-	<br>
-</div>
-</div>
-<br>
-<br>
+	</div>
 
-<a align="center" href="#this" class="btn" id="list">목록</a>
+
 <br>
 <br>
 <br>
-
-
-
-
-
-
 <c:import url="../../include/main/footer.jsp" />
 <c:import url="../../include/common/end.jsp" />

@@ -143,7 +143,7 @@
 		    	${meeting.title}
 		    	</div>
 		    	<div id="detail-info" style="font-size:12pt">
-		    	 | ${meeting.user_no } <!-- 작성자이름으로바꿔 ㅎㅎ -->
+		    	 | ${meeting.name }
 		    	</div>	
 		    	<div id="detail-info" style="font-size:12pt">
 		    	${meeting.upload_date}
@@ -154,7 +154,7 @@
 		     <div id="detail_ail_div" align="center"> 
 			    <div align="center">
 			    	<div id="community-contents">
-				     	<p>${community.content}</p>
+				     	<p>${meeting.content}</p>
 				    </div>
 			     	<input type="hidden" id="location" value=${meeting.meeting_location }>
 			     		<div>
@@ -162,8 +162,16 @@
 			     			<div id="map" style="width: 400px; height: 300px; margin-left: 50px">
 								<script type="text/javascript" src="/fitnessground/resources/js/community/communityMap.js"></script>
 							</div>
-						</div>		  
+						</div>	
+							  
 			        </div>
+			        <div align="right">
+				   <c:if test="${sessionScope.user.user_no eq meeting.user_no}">
+				   <a href="meetingUpdate.do?no=${meeting.mb_no}" class="btn">수정</a>
+				   <a href="meetingDelete.do?no=${meeting.mb_no}" class="btn">삭제</a>
+				   </c:if>
+				   <a href="meeting.do" class="btn">목록</a><br>
+			   </div>
 			        <input type="hidden" ${meeting.readcount}/>
 			   
 		    </div>
@@ -205,14 +213,7 @@
 					   	</script>    
 					   </div>  
 					</div> 
-					<div align="right">
-				   <c:if test="${sessionScope.user.user_no eq meeting.user_no}">
-				   <a href="meetingUpdate.do?no=${meeting.mb_no}" class="btn">수정</a>
-				   <a href="meetingDelete.do?no=${meeting.mb_no}" class="btn">삭제</a>
-				   </c:if>
-				   <a href="meeting.do" class="btn">목록</a><br>
-			   </div>
-			   		</div>  
+				</div>  
 			   		
 			   </div>  
   			</cbody> 

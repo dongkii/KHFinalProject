@@ -223,6 +223,7 @@ CREATE TABLE TB_MEETING_BOARD(
   USER_NO NUMBER,
   TITLE VARCHAR2(200) NOT NULL,
   CONTENT VARCHAR2(4000) NOT NULL,
+  MEETING_LOCATION VARCHAR2(100),
   MEETING_DATE DATE,
   UPLOAD_DATE DATE DEFAULT SYSDATE,
   READCOUNT NUMBER DEFAULT 0
@@ -231,6 +232,7 @@ COMMENT ON COLUMN TB_MEETING_BOARD.MB_NO IS '운동모임 게시글 번호';
 COMMENT ON COLUMN TB_MEETING_BOARD.USER_NO IS '작성자';
 COMMENT ON COLUMN TB_MEETING_BOARD.TITLE IS '게시글 제목';
 COMMENT ON COLUMN TB_MEETING_BOARD.CONTENT IS '게시글 내용';
+COMMENT ON COLUMN TB_MEETING_BOARD.MEETING_LOCATION IS '모임장소';
 COMMENT ON COLUMN TB_MEETING_BOARD.MEETING_DATE IS '모임날짜';
 COMMENT ON COLUMN TB_MEETING_BOARD.UPLOAD_DATE IS '작성일자';
 COMMENT ON COLUMN TB_MEETING_BOARD.READCOUNT IS '조회수';
@@ -564,20 +566,20 @@ PROMPT TB_VISIT 샘플데이터 입력끝!
 -- 커뮤니티 샘플 데이터
 PROMPT 커뮤니티 샘플데이터 입력중..
 INSERT INTO TB_MEETING_BOARD
-VALUES(mb_seq.nextval,2,'금강산 같이 타실분 구해요','이번 12월 11일날 눈이 많이 온다고들 하네요.. 그때 산 한번 타고 싶은데 같이 타실분 있나요?',
+VALUES(mb_seq.nextval,2,'금강산 같이 타실분 구해요','이번 12월 11일날 눈이 많이 온다고들 하네요.. 그때 산 한번 타고 싶은데 같이 타실분 있나요?','구로',
         '2017/12/21',default,0);
 INSERT INTO TB_MEETING_BOARD
-VALUES(mb_seq.nextval,2,'새벽에 같이 운동 하실분','저녁에 운동하다 지금은 가게 직원이 없어서 운동도못한지 삼주쨰.. 새벽이라도 하고 싶네요.. 새벽에 시청 같이 도실분 있나요??',
+VALUES(mb_seq.nextval,2,'새벽에 같이 운동 하실분','저녁에 운동하다 지금은 가게 직원이 없어서 운동도못한지 삼주쨰.. 새벽이라도 하고 싶네요.. 새벽에 시청 같이 도실분 있나요??','안산',
         '2017/12/21',default,0);
 INSERT INTO TB_MEETING_BOARD
-VALUES(mb_seq.nextval,3,'구로 부천 같이 운동하실분(일요일만)','원래 월~토 운동했는데 앞으로 일~금 운동으로 바꾸려고 합니다. 일요일에 서울이나 부천에서 멀지 않을 곳으로 일권 끊고 운동 다닐까 하는데 같이 하실분 있었으면 해서요~~ 파트너 운동은 경험없고 혼자 조용히 운동하는편인데 커뮤티니에 운동모임 하시는분들 보면 여러면에서 좋아보이네요 주변에 운동하는 사람들이 없어서..ㅎㅎ',
+VALUES(mb_seq.nextval,3,'구로 부천 같이 운동하실분(일요일만)','원래 월~토 운동했는데 앞으로 일~금 운동으로 바꾸려고 합니다. 일요일에 서울이나 부천에서 멀지 않을 곳으로 일권 끊고 운동 다닐까 하는데 같이 하실분 있었으면 해서요~~ 파트너 운동은 경험없고 혼자 조용히 운동하는편인데 커뮤티니에 운동모임 하시는분들 보면 여러면에서 좋아보이네요 주변에 운동하는 사람들이 없어서..ㅎㅎ','부천',
         '2017/12/21',default,0);
 INSERT INTO TB_MEETING_BOARD
-VALUES(mb_seq.nextval,2,'같이 운동하실분','달리기, 걷기, 줄넘기 등.. 같이 운동하실분 계실까요??',
+VALUES(mb_seq.nextval,2,'같이 운동하실분','달리기, 걷기, 줄넘기 등.. 같이 운동하실분 계실까요??','천안',
          '2017/12/21',default,0);
 INSERT INTO TB_MEETING_BOARD
-VALUES(mb_seq.nextval,3,'같이 탁구나 운동 하실분 찾아요','제 주위에는 운동을 너무 싫어하네요 ㅠㅠ 혼자 신천걷고 뛰는게 싫증이..ㅋㅋ 혹 탁구나 배드민턴 등 아님 신천도 좋지만 .. 무튼 같이 운동하실분 찾아봅니다.! 참고로 저는 수성구 살아요',
-         '2017/12/21',default,0);        
+VALUES(mb_seq.nextval,3,'같이 탁구나 운동 하실분 찾아요','제 주위에는 운동을 너무 싫어하네요 ㅠㅠ 혼자 신천걷고 뛰는게 싫증이..ㅋㅋ 혹 탁구나 배드민턴 등 아님 신천도 좋지만 .. 무튼 같이 운동하실분 찾아봅니다.! 참고로 저는 수성구 살아요','서울',
+         '2017/12/21',default,0);       
 
 INSERT INTO TB_COM_BOARD
 VALUES(cb_seq.nextval,2,'붕어운동 기구 솔직후기!!','평소 허리디스크가 있어서 운동도 많이하고 있는편인데 티비보다 홈쇼핑에서 붕어운동기구를 봤어요 보다보니

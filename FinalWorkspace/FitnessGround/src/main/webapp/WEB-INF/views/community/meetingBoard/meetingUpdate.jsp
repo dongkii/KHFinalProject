@@ -16,31 +16,13 @@ div#all_div {
 }
 
 div#insert_all_div {
-	border: 1px solid;
+	border: 1px solid gray;
 }
 
 div#div_head {
 	padding-left: 10%;
 }
 
-form#editor_form {
-	padding-left: 10%;
-	padding-right: 10%;
-}
-
-a#write {
-	left: 47%;
-	width: 30pt;
-	height: 30pt;
-	font-size: 12pt;
-}
-
-a#list {
-	left: 47%;
-	width: 30pt;
-	height: 30pt;
-	font-size: 12pt;
-}
 
 textarea#editor1 {
 	cols: 80;
@@ -49,7 +31,7 @@ textarea#editor1 {
 </style>
 
 <c:import url="../../include/common/headend.jsp" />
-
+<link rel="stylesheet" href="/fitnessground/resources/css/community/communitywrite.css">
 <script src="//cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
 
 <div id="page-wrapper">
@@ -83,42 +65,41 @@ textarea#editor1 {
 
 <br>
 <div class="container">
-<h1 align="center">운동같이해요</h1>
+<h1 id="title">운동같이해요-수정</h1>
+<div class="margin-vert-20" id="insert-wrapper">
 <br>
-<div id="all_div">
-	<div id="insert_all_div">
-		<br>
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<form id="editor_form" name='meeting' method="post" action="meetingUpdate.do">
 			<input name="user_no" type="hidden" value="${sessionScope.user.user_no }" />
 			<input name="mb_no" type="hidden" value="${meeting.mb_no}"/>
-			<div id="div_head">
-				<p>
-					제목
-					<input name="title" type="text" value="${meeting.title}" />
-				</p>
-				<p>모임날짜<input name="meeting_date" type="date" value="${meeting.meeting_date}"/>
-				 </p>
+			<div class="form-group">
+				<p>제목<input style="font-size:10pt;" class="input-group input-group-lg" name="title" type="text" value="${meeting.title}"/></p>
+				<p>모임날짜 &nbsp;<input style="width:130pt;border-radius:3px;"  name="meeting_date" type="date" value="${meeting.meeting_date}" /></p>
 			</div>
-
+			<div class="form-group">
 				<textarea name="content" id="editor1">
 				${meeting.content}
 				</textarea>
 				<script>
 					CKEDITOR.replace('editor1');
 				</script>
+			</div>
+		
 				<br>
-				<div class="col-lg-6 col-md-4 col-sm-4 col-xs-4">
-						
-						<p>모임장소<input type="text" class="form-group" name="meeting_location" id="address" value="${meeting.meeting_location }"/></p>
-								
-								<button class="btn btn-default" type="button" id="submit">검색</button>
-						
-						
+					<div class="meeting-place">
+					<p>모임장소</p><input type="text" class="form-group form-inline" name="meeting_location" id="address" value="${meeting.meeting_location }"/>
+					<button class="btn btn-primary" type="button" id="submit">검색</button>
 					</div>
+								
+					
+
 				<div id="map" style="width: 600px; height: 400px;">
 					<script type="text/javascript" src="/fitnessground/resources/js/community/communityMap.js"></script>
 				</div>
-				<input type="submit" name="업로드" value="작성하기" id="write">
+				<br>
+				<input type="submit" name="업로드" value="작성하기" id="submit-btn" class="btn btn-primary">
+				<a align="center" href="#this" class="btn" id="list">목록</a>
 				<br>
 				
 		</form>
@@ -126,11 +107,12 @@ textarea#editor1 {
 	<br>
 </div>
 </div>
+</div>
 
 <br>
 <br>
 
-<a align="center" href="#this" class="btn" id="list">목록</a>
+
 <br>
 <br>
 <br>
