@@ -254,7 +254,7 @@ public class GymController {
 			int currentPage = 1;
 			int pcurrentPage = 1;
 			
-			int limit = 5;
+			int limit = 3;
 			Map<String, Object> map = new HashMap<String, Object>();
 			int listCount = gymService.getListCount(); // 헬스장
 			int plistCount = gymService.getPublicListCount(); // 공공시설
@@ -306,7 +306,7 @@ public class GymController {
 		public ModelAndView findHealth(ModelAndView mv, @RequestParam("page") int page) {
 
 			int currentPage = page;
-			int limit = 5;
+			int limit = 3;
 			Map<String, Object> map = new HashMap<String, Object>();
 
 			int listCount = gymService.getListCount();
@@ -364,7 +364,7 @@ public class GymController {
 		{
 			int currentPage = page;
 			
-			int limit = 5;
+			int limit = 3;
 			Map<String, Object> map = new HashMap<String, Object>();
 
 			int listCount = gymService.getPublicListCount();
