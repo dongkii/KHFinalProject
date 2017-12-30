@@ -452,4 +452,9 @@
    		]]>
    </select>
 	
+	<select id="healthMapList" resultType="list" parameterType="hashmap" resultMap="resultGymRequest">
+   	<![CDATA[
+   		select * from tb_gym where approval_state = 1
+   	]]>
+   </select>
 </mapper>

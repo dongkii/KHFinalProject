@@ -155,6 +155,12 @@ public class GymDao {
 	public void deleteReview(GymComment gc) {
 		sqlSession.delete("gymcomment.deletereview",gc);		
 	}
+	
+	public ArrayList<Gym> healthMapList() {
+		List<Gym> list = sqlSession.selectList("gym.healthMapList");
+		
+		return (ArrayList<Gym>) list; 
+	}
 
 	
 }
