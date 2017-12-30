@@ -60,15 +60,15 @@
 	
 	<!-- 전체리스트 -->
 	<select id="meetingView" resultType="list" resultMap="MeetingResult">
-		<![CDATA[select * from (select mb_no,name, (substr(title,0,22)||'..') as title, upload_date from tb_meeting_board a join tb_user b on (a.user_no = b.user_no)where 8 >= rownum order by mb_no desc)]]>
+		<![CDATA[select * from (select mb_no,name, (substr(title,0,22)||'..') as title, upload_date from tb_meeting_board a join tb_user b on (a.user_no = b.user_no)where 7 >= rownum order by mb_no desc)]]>
 	</select>
 	
 	<select id="reviewView" resultType="list" resultMap="CommunityResult">
-		<![CDATA[select * from (select cb_no, name, (substr(title,0,22)||'..') as title, upload_date from tb_com_board a join tb_user b on (a.user_no = b.user_no)where 8 >= rownum and board_property =0 order by cb_no desc)]]>
+		<![CDATA[select * from (select cb_no, name, (substr(title,0,22)||'..') as title, upload_date from tb_com_board a join tb_user b on (a.user_no = b.user_no)where 7 >= rownum and board_property =0 order by cb_no desc)]]>
 	</select>
 	
 	<select id="qnaView" resultType="list" resultMap="CommunityResult">
-		<![CDATA[select * from (select cb_no,name, (substr(title,0,22)||'..') as title, upload_date from tb_com_board a join tb_user b on (a.user_no = b.user_no)where 8 >= rownum and board_property =1 order by cb_no desc)]]>
+		<![CDATA[select * from (select cb_no,name, (substr(title,0,22)||'..') as title, upload_date from tb_com_board a join tb_user b on (a.user_no = b.user_no)where 7 >= rownum and board_property =1 order by cb_no desc)]]>
 	</select>
 	
 	
