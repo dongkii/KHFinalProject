@@ -38,6 +38,7 @@
         <!-- Carousel -->
         <section class="carousel">	<!-- 캐러셀  -->
             <div class="reel">
+            	<article id="0"></article>
             	<article id="1"></article>
             	<article id="2"></article>
             	<article id="3"></article>
@@ -47,7 +48,6 @@
             	<article id="7"></article>
             	<article id="8"></article>
             	<article id="9"></article>
-            	<article id="10"></article>
             </div>
         </section>
 
