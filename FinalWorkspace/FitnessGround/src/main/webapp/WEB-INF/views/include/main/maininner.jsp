@@ -7,7 +7,7 @@
 			FitnessGround
 		</h1>
 		<hr />
-		<p>Watch workout videos, find your gym and communicate with people! </p>
+		<p id="sub-title">즐겁게 운동을 시작하세요!</p>
 	</header>
 	<footer>
 		<a href="#banner" class="button circled scrolly" id="start-btn">Start</a>

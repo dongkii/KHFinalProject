@@ -4,7 +4,14 @@
     <c:import url="./include/common/head.jsp" />
 	<link rel="stylesheet" href="/fitnessground/resources/css/workout/workout.css" />
     <c:import url="include/common/headend.jsp" />
+	<script>
+	$(document).ready(function(){
 
+ 		if ($(window).width()<500){
+ 		$('#start-btn').hide();
+ 		}
+ 	});
+	</script>
     <div id="page-wrapper">
         <!-- Header -->
         <div id="header">
@@ -13,7 +20,7 @@
             <c:import url="include/main/maininner.jsp" />
 			
             <!-- Nav -->
-            <c:import url="include/main/nav.jsp" />
+            <c:import url="include/main/mainnav.jsp" />
             
             <c:import url="user/login.jsp"/>
 			<c:import url="user/findidpwd.jsp"/>
@@ -31,7 +38,16 @@
         <!-- Carousel -->
         <section class="carousel">	<!-- 캐러셀  -->
             <div class="reel">
-            	
+            	<article id="1"></article>
+            	<article id="2"></article>
+            	<article id="3"></article>
+            	<article id="4"></article>
+            	<article id="5"></article>
+            	<article id="6"></article>
+            	<article id="7"></article>
+            	<article id="8"></article>
+            	<article id="9"></article>
+            	<article id="10"></article>
             </div>
         </section>
 
@@ -59,7 +75,7 @@
                     <p>당신의 체질량지수를 측정해보세요 .</p>
                 </header>
                 <div class="sliders">
-                	<div class="gender">
+                	<!-- <div class="gender">
                 		<span>성별:</span>
                 		<div id="gender">
 	                		<label class="radio-inline">
@@ -69,31 +85,93 @@
 							  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2"> 여
 							</label>
 						</div>
-                	</div>
+                	</div> -->
 	                <div class="range-slider">
 	                <p>키(cm):</p>
-					  <input class="range-slider__range" type="range" value="170" min="130" max="200">
+					  <input class="range-slider__range" type="range" value="170" min="130" max="200" id="height">
 					  <span class="range-slider__value">0</span>
 					</div>
 					
 					<div class="range-slider">
 					 <p>몸무게(kg):</p>
-					  <input class="range-slider__range" type="range" value="65" min="30" max="150" step="5">
+					  <input class="range-slider__range" type="range" value="65" min="30" max="150" step="5" id="weight">
 					  <span class="range-slider__value">0</span>
 					</div>
 				</div>
 				<div class="explanation">
 					
-				<span>BMI란 ? 체질량 지수(體質量指數, Body Mass Index)로서  비만도를 측정하는 지수입니다.</span>
-					<span>BMI is a useful measurement for most people over 18 years old. 
-					But it is only an estimate and it doesn’t take into account age, ethnicity, gender and body composition. 
-					We recommend you also check your waist measurement and other risk factors.Speak to your doctor, 
-					an Accredited Practising Dietitian or a health practitioner about your weight.</span>
+				<span>BMI란  체질량 지수(體質量指數, Body Mass Index)로서  비만도를 측정하는 지수입니다.</span><br>
+					<span>BMI는 18세 이상의 성인들을 측정하기에 적합하지만, 나이나 성별 등 개인 차를 고려하지 않기 때문에 완전히 정확한 신체 측정이라고 보기는 어렵습니다.
+					정확한 측정을 위해서는 허리둘레, 체지방률까지 함께 측정할 것을 권장합니다. 헬스트레이너, 의사 등과 상의해보세요.
+				</span>
 				</div>
-                <a href="bmi.do" class="btn btn-primary" id="bmi-btn">나의 BMI지수 확인하기</a>
+                <a href="javascript: bmiCal();" class="btn btn-primary" id="bmi-btn">나의 BMI지수 확인하기</a>
             </section>
             
-            <script>
+            <script type="text/javascript">
+            function bmiCal(){
+            	var weight = $('#weight').val();
+            	var height = $('#height').val();
+            	var queryString = { "weight": weight, "height":height };
+            	$.ajax({
+            		url: 'bmi.do',
+            		data : queryString,
+            		type : "post",
+            		dataType: "json",
+            		async: false,
+                   success : function(result){
+                	   var yourbmi = result.bmi;
+                	   var result;
+                	   var indication;
+                	   var expl;
+         			  if(yourbmi<18.5){
+         				  indication = ((yourbmi-7.5)*17/11)*0.94;
+         				  result = "저체중입니다(BMI 18.5이하)";
+         				  expl = "";
+         			  }else if(yourbmi<24.9){
+         				  indication= (((yourbmi-18.5)*(55-17)/6.4)+17)*0.94;
+         				  result = "정상체중입니다(BMI 18.5 ~ 24.9)";
+         				 expl = "건강한 몸을 위해 꾸준히 운동해주세요 :)"
+         			  }else if(yourbmi<30){
+         				  indication= (((yourbmi-25)*(83-55)/5)+55)*0.94;
+         				  result = "과체중입니다(BMI 25 ~ 30)";
+         				 expl = "건강한 몸을 위해 운동을 시작하세요! :)"
+         			  }else{
+         				  indication= (((yourbmi-30)*(100-83)/58.8)+83)*0.94;
+         				  result = "비만입니다(BMI 30 이상)";
+         				 expl = "지금 바로 운동을 시작하세요! :)"
+         			  }
+                	   $('.explanation').html('<div class="bmi-num"><a class="t-top t-md" data-toggle="tooltip" data-placement="top" title="'+yourbmi+'"></a></div>');
+                	   $('.explanation').append('<div id="resultbar"><div id="bmi_underweight" class="__part is_underweight">'+
+							'<span class="__indicator  bmiResult  js_bmi_indicator" data-min="7" data-max="18.5" style="left: 149.565%;"></span>'+
+							'<span class="__section-name  is_large">저체중</span>'+
+							'</div><div id="bmi_normal" class="__part is_normal is_active">'+
+							'<span class="__indicator  bmiResult  js_bmi_indicator" data-min="18.5" data-max="25" style="left: 87.6923%;"></span>'+
+							'<span class="__section-name">건강해요<i class="fa fa-smile-o"></i></span>'+
+						'</div><div id="bmi_overweight" class="__part is_overweight">'+
+							'<span class="__indicator  bmiResult  js_bmi_indicator" data-min="25" data-max="30" style="left: -16%;"></span>'+
+						'<span class="__section-name  is_large">과체중</span>'+
+						'</div><div id="bmi_obese" class="__part is_obese">'+
+							'<span class="__indicator  bmiResult  js_bmi_indicator" data-min="30" data-max="88" style="left: -10%;"></span>'+
+							'<span class="__section-name  is_large">비만</span>'+
+							'</div><div class="result"><p id="result">'+result+'</p><span>'+expl+'</span></div></div>');
+                	  
+                		 $(function () { 
+                			  $('[data-toggle="tooltip"]').tooltip({trigger: 'manual'}).tooltip('show');
+                			  
+                			  $('.tooltip').css("margin-left",indication+"%");
+                			  
+                			});  
+                
+                   },
+                   error : function(request, status, errorData){
+                       alert("error code : " + request.status + "\n"
+                             + "message : " + request.responseText
+                             + "\n" + "error : " + errorData);
+                    }
+            	});
+            }
+            
             var rangeSlider = function(){
             	  var slider = $('.range-slider'),
             	      range = $('.range-slider__range'),
@@ -155,7 +233,7 @@
        					
        					if(decodeURIComponent(json.list[i].category1) == "헬스"){ //네이버
        						console.log("i 값 : " + i);
-       						values =	'<article>' +
+       						values =	
            	                '<a href="javascript:detailView('
            	                    		+json.list[i].v_no + ',\''+ decodeURIComponent(json.list[i].category1) + '\',' + '\'' + decodeURIComponent(json.list[i].category2).replace(/\+/g,' ') +'\');" class="image featured"><img src="' +decodeURIComponent(json.list[i].url) + '" alt=""/></a>'+
            	                '<header>'+
@@ -163,11 +241,11 @@
            	                    		+json.list[i].v_no + ',\''+ decodeURIComponent(json.list[i].category1) + '\',' + '\'' + decodeURIComponent(json.list[i].category2).replace(/\+/g,' ') +'\');">'
            	                    +decodeURIComponent(json.list[i].title).replace(/\+/g," ") + 
            	                    '</a></h4>'+
-           	                '</header>'+
-           	            	'</article>'
+           	                '</header>';
+           	            	
            	            	console.log(values);
            	            	
-           	            	$(".reel").append(values);
+           	            	$("#"+i).append(values);
            	            	
        					}else{ //유튜브
        						console.log("유튜브 들어옴");
@@ -179,8 +257,8 @@
        						var category1 = decodeURIComponent(json.list[i].category1);
        						var category2 = decodeURIComponent(json.list[i].category2).replace(/\+/g,' ');
        						var v_no = json.list[i].v_no; 
-       						
-       						getYoutubeThumbnail(title,vid,content,category1,category2,v_no);
+       						var rank= i;
+       						getYoutubeThumbnail(title,vid,content,category1,category2,v_no,rank);
        						
        					
        					}//else 문 끝
@@ -200,7 +278,7 @@
 	});	
     
     
-     	function getYoutubeThumbnail(title,vid,content,category1,category2,v_no){
+     	function getYoutubeThumbnail(title,vid,content,category1,category2,v_no,rank){
     		console.log("메서드 실행");
     		var thumbnail;
     		var value = "";
@@ -218,7 +296,7 @@
 					
 					 thumbnail = item.snippet.thumbnails.medium.url;
 					
-					 value =	'<article><div>' +
+					 value =	'<div>' +
     	                '<a href="javascript:detailView('
     	                    		+ v_no + ',\''+ category1 + '\',' + '\'' + category2+'\');" class="image featured"><img src="' + thumbnail + '" alt="" /></a>'+
     	                '<header>'+
@@ -227,9 +305,9 @@
     	                    + title.substring(0,18).concat("...") + 
     	                    '</a></h4>'+
     	                '</header>'+
-    	            	'</div></article>'
+    	            	'</div>'
     	            	
-    	            	$(".reel").append(value);
+    	            	$("#"+rank).append(value);
     	            	console.log(value);
     	            						
 				});
@@ -238,8 +316,7 @@
     		
     		   		
     	}    
-    
-   				
+	
     
 	</script>
 

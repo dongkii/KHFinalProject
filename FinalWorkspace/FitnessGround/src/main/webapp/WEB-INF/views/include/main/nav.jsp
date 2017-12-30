@@ -4,9 +4,10 @@
 
 <c:import url="/WEB-INF/views/user/profileEdit.jsp"/>
 
-<nav id="nav" style="height:85px;">
+<nav id="nav">
+	
 	<ul>
-		<li><a href="main.do">Home</a></li>
+		<li><a href="main.do"><img src="/fitnessground/resources/images/blacklogo.png" id="blacklogo"></a></li>
 		<li><a href="healthMain.do">운동법</a>
 			<ul>
 				<li><a href="healthMain.do">헬스</a></li>
@@ -36,7 +37,7 @@
 			</ul>
 		</li>
 		<c:if test="${ sessionScope.user == null}">
-			<li><a href="javascript:login()">로그인</a></li>
+			<li id="login-li"><a href="javascript:login()">로그인</a></li>
 		</c:if>
 		<c:if test="${ sessionScope.user != null}">
 			<li><a href="mypage.do?userno=${sessionScope.user.user_no}">${sessionScope.user.name }님</a>

@@ -10,7 +10,8 @@ $('body.fixed-nav .navbar-sidenav, body.fixed-nav .sidenav-toggler, body.fixed-n
 // Scroll to top button appear
 $(document).scroll(function() {
   var scrollDistance = $(this).scrollTop();
-  if (scrollDistance > 10) {
+  var width = $(window).width();
+  if (scrollDistance > 10 && width>800) {
     $('.scroll-to-top').fadeIn();
   } else {
     $('.scroll-to-top').fadeOut();
