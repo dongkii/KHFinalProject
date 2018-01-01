@@ -53,7 +53,7 @@ $( document ).ready(function() {
 
 		 $('#responseQ_no').val(qno);
 		 $('#insert_all_div').html('<br><table class="col-md-10 col-md-offset-1" style="margin-bottom:20px;">'
-				 +'<tr class="col-md-12"><th style="width:60px;">제목</th>'
+				 +'<tr class="col-md-12"><th style="width:100px;">Title : </th>'
 				 +'<td align="right"><input class="form-control" id="response_title" style="width:100%;" name="title" type="text"/></td>'
 				 +'</tr></table><textarea name="content" id="editor1" placeholder="내용을 입력해주세요.."></textarea>');
 		 var div = $('#insert_all_div').html() + "<script>CKEDITOR.replace('editor1');<"+"/script>";
@@ -80,7 +80,7 @@ function qnaModify(q_no) {
                  success:function(result){
                  	var board = result.board;
                  	$('#mResponse_div').html('<table class="col-md-10 col-md-offset-1" style="margin-bottom:20px;margin-top:20px;">'
-                 							+'<tr class="col-md-12"><th style="width:60px;">제목</th>	<td align="right">'
+                 							+'<tr class="col-md-12"><th style="width:100px;">Title : </th>	<td align="right">'
                  							+'<input class="form-control" id="mResponse_title" style="width:100%;" name="title" type="text"/>'
                  							+'</td></tr></table><textarea name="content" id="mResponse_content"></textarea>');
                  	var div = $('#mResponse_div').html() + "<script>CKEDITOR.replace('mResponse_content');<"+"/script>";

@@ -22,6 +22,16 @@
 				$('#liC').parent().addClass('in');
 				$('#liQ').parent().removeClass('in');
 			});
+			
+			var option = $('#option').val();
+			var comOk = $('#comOk').val();
+			if(comOk == "ok") {
+				if(option == "" || option == null) $("#category2").val("All").prop("selected", true);
+				else $("#category2").val(option).prop("selected", true);
+			} else {
+				if(option == "" || option == null) $("#category1").val("All").prop("selected", true);
+				else $("#category1").val(option).prop("selected", true);
+			}
 		});	
 		
 		function qSearch() {
@@ -29,6 +39,33 @@
 		}
 		function cSearch() {
 			location.href="userBoardSearch.do?searchKeyword="+$('input[name="searchCKeyword"]').val()+"&userno="+${sessionScope.user.user_no}+"&com=ok";
+		}
+		function selectList(mode) {
+			var selectValue = "";
+			if(mode=="q") selectValue = $("#category1 option:selected").val();
+			else if(mode=="com") selectValue = $("#category2 option:selected").val();
+			var userno = ${sessionScope.user.user_no};
+			if(selectValue == "All") {
+				if(mode=="com")	location.href = "userboard.do?userno="+userno+"&com=ok";
+				else if(mode=="q") location.href = "userboard.do?userno="+userno;
+			}
+			else {
+				var queryString = "selectValue="+selectValue+"&userno="+userno+"&mode="+mode;
+				location.href = "userboardSelectCategory.do?"+queryString;
+				/* var queryString = {"selectValue":selectValue,"userno":userno,"mode":mode};
+				$.ajax({
+					url: "userboardSelectCategory.do",
+					data: queryString,
+					type:"post",
+					dataType:"json",
+					async:false,
+					success:function(result){
+					},
+					error : function(request, status, errorData){
+				          alert("error code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + errorData);
+				    }
+				}); */
+			}
 		}
 	 </script>	
 
@@ -69,13 +106,15 @@
 						</c:if>
 					  	<c:if test="${com eq 'ok'}">
 					  	<li><a id="liQ" href="#qna" aria-controls="qna" role="tab" data-toggle="tab" style="padding-top:10px; padding-bottom:10px;">문의내역</a></li>
-					  	<li class="in"><a id="liC" href="#community" aria-controls="community" role="tab" data-toggle="tab" style="padding-top:10px; padding-bottom:10px;">커뮤니티_게시글</a></li>
+					  	<li class="in"><a id="liC" href="#community" aria-controls="community" role="tab" data-toggle="tab" style="padding-top:10px; padding-bottom:10px;">커뮤니티</a></li>
 					  	</c:if>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<!-- Tab panes -->
+		<input type="hidden" value="${selectOption}" id="option">
+		<input type="hidden" value="${com}" id="comOk">
 		<div class="container tab-content col-md-offset-1" style="margin-top:0px;">
 			<c:if test="${com eq 'no'}">
 			<div role="tabpanel" class="tab-pane fade in active" id="qna">
@@ -98,7 +137,16 @@
 						</th>
 					</tr>
 					<tr style="font-weight:bold;">
-					  <th style="width:15%;">Index</th>
+					  <th style="width:15%;">
+						<select name="category1" id="category1" onchange="selectList('q');" style="background:#f5f5f5;">
+							<option value="All">All</option>
+							<option value="Q질문">Q 질문</option>
+							<option value="Q미답변">Q 미답변</option>
+							<option value="Q답변완료">Q 답변완료</option>
+							<option value="A답변받음">A 답변받음</option>
+							<option value="A답변완료">A 답변완료</option>
+						</select>
+					  </th>
 					  <th style="width:60%;">Title</th>
 					  <th style="width:25%;">Date</th>
 					</tr>
@@ -106,7 +154,19 @@
 						<c:when test="${!empty qlist}">
 							<c:forEach items="${qlist}" var="q" varStatus="st">
 								<tr>
-								  <td>${q.q_no}</td>
+								  <td>
+								  	<c:if test="${q.q_level eq 0}">Q 
+								  		<c:if test="${q.receiver eq sessionScope.user.user_no}"> 
+								  			<c:if test="${q.response_state eq 0}"> 미답변</c:if>
+								  			<c:if test="${q.response_state eq 1}"> 답변완료</c:if>
+								  		</c:if>
+								  		<c:if test="${q.sender eq sessionScope.user.user_no}"> 질문</c:if>
+								  	</c:if>
+								  	<c:if test="${q.q_level eq 1}">A 
+								  		<c:if test="${q.receiver eq sessionScope.user.user_no}"> 답변받음</c:if>
+								  		<c:if test="${q.sender eq sessionScope.user.user_no}"> 답변완료</c:if>
+								  	</c:if>
+								  </td>
 								  <td><a href="javascript:gymQnaDetailModal('${q.q_no}')">${q.title}</a></td>
 								  <td>${q.write_date}</td>
 								</tr>
@@ -201,7 +261,14 @@
 						</th>
 					</tr>
 					<tr style="font-weight:bold;">
-					  <th style="width:15%;">Category</th>
+					  <th style="width:15%;">
+					  	<select name="category2" id="category2" onchange="selectList('com');" style="background:#f5f5f5;">
+							<option value="All">All</option>
+							<option value="후기">후기</option>
+							<option value="QnA">QnA</option>
+							<option value="운동모임">운동모임</option>
+						</select>
+					  </th>
 					  <th style="width:60%;">Title</th>
 					  <th style="width:25%;">Date</th>
 					</tr>

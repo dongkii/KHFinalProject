@@ -206,4 +206,29 @@ public class UserServiceImpl implements UserService {
 		parameters.put("content", content);
 		userDao.updateuserSchedule(parameters);
 	}
+
+	@Override
+	public int qnABoardSelectedCount(int user_no, String selectValue) {
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("user_no", user_no);
+		parameters.put("selectValue", selectValue);
+		return userDao.qnABoardSelectedCount(parameters);
+	}
+
+	@Override
+	public ArrayList<GymQnABoard> qnABoardSelectedList(GymQnABoardPage qPage, int user_no, String selectValue) {
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("qPage", qPage);
+		parameters.put("user_no", user_no);
+		parameters.put("selectValue", selectValue);
+		return userDao.qnABoardSelectedList(parameters);
+	}
+
+	@Override
+	public ArrayList<CommunityAndMeeting> communityBoardSelectedList(int user_no, String selectValue) {
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("user_no", user_no);
+		parameters.put("selectValue", selectValue);
+		return userDao.communityBoardSelectedList(parameters);
+	}
 }

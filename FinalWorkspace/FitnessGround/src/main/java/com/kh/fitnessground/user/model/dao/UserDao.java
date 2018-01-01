@@ -147,4 +147,18 @@ public class UserDao {
 	public void updateuserSchedule(HashMap<String, Object> parameters) {
 		sqlSession.update("user.updateUSchedule", parameters);
 	}
+
+	public int qnABoardSelectedCount(HashMap<String, Object> parameters) {
+		return sqlSession.selectOne("gym.myPageQnABoardSelectedCount", parameters);
+	}
+
+	public ArrayList<GymQnABoard> qnABoardSelectedList(HashMap<String, Object> parameters) {
+		List<GymQnABoard> list = sqlSession.selectList("gym.myPageQnABoardSelectedList", parameters);
+		return new ArrayList<GymQnABoard>(list);
+	}
+
+	public ArrayList<CommunityAndMeeting> communityBoardSelectedList(HashMap<String, Object> parameters) {
+		List<CommunityAndMeeting> list = sqlSession.selectList("community.myPageCommunitySelectedList", parameters); 
+		return new ArrayList<CommunityAndMeeting>(list);
+	}
 }

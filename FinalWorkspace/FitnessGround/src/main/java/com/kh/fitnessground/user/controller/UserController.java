@@ -354,6 +354,94 @@ public class UserController {
     	
 		return mv; 
 	}
+	// 내 게시글 목록 카테고리별 조회
+	@RequestMapping(value="/userboardSelectCategory.do")
+	public ModelAndView userboardSelectCategoryMethod(HttpServletRequest request) {
+		int user_no = Integer.parseInt(request.getParameter("userno"));
+		int limitq=10, qCurrentPage=1, listCount=0, qMaxPage=0, qStartPage=0, qEndPage=0;
+		int limitc=10, currentPage=1, cListCount=0, cMaxPage=0, cStartPage=0, cEndPage=0;
+		GymQnABoardPage qPage=null, cPage=null;
+		ArrayList<CommunityAndMeeting> temp = null;
+		ArrayList<GymQnABoard> qlist = null;
+		ArrayList<CommunityAndMeeting> cmList = null;
+		String mode = request.getParameter("mode");
+		String selectValue = null;
+		if(mode.equals("q")) {
+			// 문의하기 카테고리별 목록 조회
+			selectValue = request.getParameter("selectValue");
+			listCount = userService.qnABoardSelectedCount(user_no, selectValue);
+			limitq = listCount;
+			qPage = new GymQnABoardPage(qCurrentPage, limitq);
+			qMaxPage = (int) ((double) listCount / limitq + 0.9);
+			qStartPage = ((int) ((double) qCurrentPage / limitq + 0.9) - 1) * limitq + 1;
+			qEndPage = qStartPage + limitq - 1;
+			if (qMaxPage < qEndPage)	qEndPage = qMaxPage;
+			qlist = userService.qnABoardSelectedList(qPage, user_no, selectValue);
+			// 커뮤니티 목록 조회
+			if (request.getParameter("cpage") != null)
+				currentPage = Integer.parseInt(request.getParameter("cpage"));
+			temp = userService.communityBoardList(user_no);
+			temp.addAll(userService.meetingBoardList(user_no));
+			cListCount = temp.size();
+			cPage = new GymQnABoardPage(currentPage, limitc);
+			cMaxPage = (int) ((double) cListCount/limitc + 0.9);
+			cStartPage = ((int) ((double) currentPage/limitc+0.9)-1)*limitc+1;
+			cEndPage = cStartPage + limitc - 1;
+			if(cMaxPage < cEndPage) cEndPage = cMaxPage;
+			Collections.sort(temp);
+			cmList = new ArrayList<CommunityAndMeeting>();
+			if(cPage.getEndRow()-1 > temp.size()) cPage.setEndRow(temp.size());
+			for(int i=cPage.getStartRow()-1; i<=cPage.getEndRow()-1; i++)
+				cmList.add(temp.get(i));
+		} else {
+			// 문의하기 목록 조회
+			if (request.getParameter("qpage") != null)
+				qCurrentPage = Integer.parseInt(request.getParameter("qpage"));
+			listCount = userService.qnABoardCount(user_no);
+			qPage = new GymQnABoardPage(qCurrentPage, limitq);
+			qMaxPage = (int) ((double) listCount / limitq + 0.9);
+			qStartPage = ((int) ((double) qCurrentPage / limitq + 0.9) - 1) * limitq + 1;
+			qEndPage = qStartPage + limitq - 1;
+			if (qMaxPage < qEndPage)	qEndPage = qMaxPage;
+			qlist = userService.qnABoardList(qPage, user_no);
+			// 커뮤니티 카테고리별 목록 조회
+			selectValue = request.getParameter("selectValue");
+			if(selectValue.equals("운동모임")) temp = userService.meetingBoardList(user_no);
+			else temp = userService.communityBoardSelectedList(user_no, selectValue); // 후기 또는 QnA
+			cListCount = temp.size();
+			limitc = cListCount;
+			cPage = new GymQnABoardPage(currentPage, limitc);
+			cMaxPage = (int) ((double) cListCount/limitc + 0.9);
+			cStartPage = ((int) ((double) currentPage/limitc+0.9)-1)*limitc+1;
+			cEndPage = cStartPage + limitc - 1;
+			if(cMaxPage < cEndPage) cEndPage = cMaxPage;
+			Collections.sort(temp);
+			cmList = new ArrayList<CommunityAndMeeting>();
+			if(cPage.getEndRow()-1 > temp.size()) cPage.setEndRow(temp.size());
+			for(int i=cPage.getStartRow()-1; i<=cPage.getEndRow()-1; i++)
+				cmList.add(temp.get(i));
+		}
+		
+		
+		ModelAndView mv = new ModelAndView("user/userBoard");
+		if(mode.equals("com")) mv.addObject("com","ok");
+		else mv.addObject("com","no");
+		if(selectValue != null) mv.addObject("selectOption", selectValue);
+		
+		mv.addObject("qlist", qlist);
+		mv.addObject("qCurrentPage", qCurrentPage);
+    	mv.addObject("qMaxPage", qMaxPage);
+    	mv.addObject("qStartPage", qStartPage);
+    	mv.addObject("qEndPage", qEndPage);
+    	
+    	mv.addObject("clist", cmList);
+    	mv.addObject("currentPage", currentPage);
+    	mv.addObject("cMaxPage", cMaxPage);
+    	mv.addObject("cStartPage", cStartPage);
+    	mv.addObject("cEndPage", cEndPage);
+    	
+		return mv; 
+	}
 	// 내 게시글 검색
 	@RequestMapping(value="/userBoardSearch.do")
 	public ModelAndView userBoardSearchMethod(HttpServletRequest request) {
@@ -424,15 +512,15 @@ public class UserController {
 		
 		mv.addObject("qlist", qlist);
 		mv.addObject("qCurrentPage", currentPage);
-    	mv.addObject("qMaxPage", qMaxPage);
-    	mv.addObject("qStartPage", qStartPage);
-    	mv.addObject("qEndPage", qEndPage);
-    	
-    	mv.addObject("clist", cmList);
-    	mv.addObject("currentPage", currentPage);
-    	mv.addObject("cMaxPage", cMaxPage);
-    	mv.addObject("cStartPage", cStartPage);
-    	mv.addObject("cEndPage", cEndPage);
+	   	mv.addObject("qMaxPage", qMaxPage);
+	   	mv.addObject("qStartPage", qStartPage);
+	   	mv.addObject("qEndPage", qEndPage);
+	   	
+	   	mv.addObject("clist", cmList);
+	   	mv.addObject("currentPage", currentPage);
+	   	mv.addObject("cMaxPage", cMaxPage);
+	   	mv.addObject("cStartPage", cStartPage);
+	   	mv.addObject("cEndPage", cEndPage);
 		
 		return mv; 
 	}

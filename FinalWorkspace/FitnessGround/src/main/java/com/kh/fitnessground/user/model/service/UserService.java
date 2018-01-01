@@ -72,4 +72,10 @@ public interface UserService {
 	void deleteUserSchedule(int s_no);
 
 	void updateUserSchedule(int s_no, String content);
+
+	int qnABoardSelectedCount(int user_no, String selectValue);
+
+	ArrayList<GymQnABoard> qnABoardSelectedList(GymQnABoardPage qPage, int user_no, String selectValue);
+
+	ArrayList<CommunityAndMeeting> communityBoardSelectedList(int user_no, String selectValue);
 }

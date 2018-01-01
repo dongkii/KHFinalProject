@@ -437,6 +437,17 @@
       select * from tb_com_board where user_no=#{user_no}
       ]]>
    </select>
+   <select id="myPageCommunitySelectedList" parameterType="hashmap" resultType="list" resultMap="MyPageCommunity">
+      <![CDATA[
+      select * from tb_com_board where user_no=#{user_no} and
+      ]]>
+      <if test="selectValue.equals('후기')">
+			BOARD_PROPERTY = 0
+	  </if>
+	  <if test="selectValue.equals('QnA')">
+			BOARD_PROPERTY = 1
+	  </if>
+   </select>
    <select id="myPageMeetingList" parameterType="_int" resultType="list" resultMap="MyPageMeeting">
       <![CDATA[
       select * from tb_meeting_board where user_no=#{user_no}

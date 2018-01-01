@@ -10,7 +10,7 @@
 		}
 		function adminQnAInsert() {
 			$.ajax({async : true, 
-			 	type : "post",
+			 	type : "get",
 			 	url : "adminQnAInsert.do",
 			 	dataType : "json",
 			 	data: $("#adminQnAForm").serialize(),

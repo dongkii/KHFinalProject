@@ -195,7 +195,7 @@
 	<select id="myPageQnABoardList" parameterType="hashmap" resultMap="resultGymQnABoard" resultType="list">
 		<![CDATA[ 
 		select * from (
-			select rownum rnum, q_no, sender, receiver, title, content, original_filename, rename_filename, write_date, q_level, ref_no
+			select rownum rnum, q_no, sender, receiver, title, content, original_filename, rename_filename, write_date, q_level, ref_no, response_state
 			from (select * from tb_qna where (sender=#{user_no} or receiver=#{user_no}) order by ref_no desc, q_level asc)
 		) where (rnum>=#{qPage.startRow} and rnum<=#{qPage.endRow})
 		]]>
@@ -204,6 +204,53 @@
 	<select id="myPageQnABoardCount" parameterType="_int" resultType="_int">
 		<![CDATA[ 
 		select count(*) from tb_qna where sender=#{userNo} or receiver=#{userNo}
+		]]>
+	</select>
+	<select id="myPageQnABoardSelectedCount" parameterType="hashmap" resultType="_int">
+		<![CDATA[ 
+		select count(*) from tb_qna where 
+		]]>
+		<if test="selectValue.equals('Q미답변')">
+			q_level=0 and receiver=#{user_no} and response_state=0
+		</if>
+		<if test="selectValue.equals('Q답변완료')">
+			q_level=0 and receiver=#{user_no} and response_state=1
+		</if>
+		<if test="selectValue.equals('Q질문')">
+			q_level=0 and sender=#{user_no}
+		</if>
+		<if test="selectValue.equals('A답변완료')">
+			q_level=1 and sender=#{user_no}
+		</if>
+		<if test="selectValue.equals('A답변받음')">
+			q_level=1 and receiver=#{user_no}
+		</if>
+	</select>
+	
+	<select id="myPageQnABoardSelectedList" parameterType="hashmap" resultMap="resultGymQnABoard" resultType="list">
+		<![CDATA[ 
+		select * from (
+			select rownum rnum, q_no, sender, receiver, title, content, original_filename, rename_filename, write_date, q_level, ref_no, response_state
+			from (select * from tb_qna where 
+		]]>
+		<if test="selectValue.equals('Q미답변')">
+			q_level=0 and receiver=#{user_no} and response_state=0
+		</if>
+		<if test="selectValue.equals('Q답변완료')">
+			q_level=0 and receiver=#{user_no} and response_state=1
+		</if>
+		<if test="selectValue.equals('Q질문')">
+			q_level=0 and sender=#{user_no}
+		</if>
+		<if test="selectValue.equals('A답변완료')">
+			q_level=1 and sender=#{user_no}
+		</if>
+		<if test="selectValue.equals('A답변받음')">
+			q_level=1 and receiver=#{user_no}
+		</if>
+		<![CDATA[ 
+		order by ref_no desc, q_level asc)
+		) where (rnum>=#{qPage.startRow} and rnum<=#{qPage.endRow})
 		]]>
 	</select>
 	
