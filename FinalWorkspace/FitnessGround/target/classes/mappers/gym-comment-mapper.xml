@@ -13,6 +13,26 @@
 		<result property="upload_date" column="upload_date"/>		
 	</resultMap>
 	
+	<resultMap id="resultGymRating" type="GymRating">
+		<result property="gym_no" column="gym_no"/>
+		<result property="gym_name" column="gym_name"/>
+		<result property="location" column="location"/>
+		<result property="register_date" column="register_date"/>
+		<result property="category" column="category"/>
+		<result property="gc_no" column="gc_no"/>
+		<result property="content" column="content"/>
+		<result property="rating" column="rating"/>
+	</resultMap>
+	
+		<select id="GymRatingList" resultMap="resultGymRating" resultType="list">
+		<![CDATA[
+			select *
+			from(select gym_no, round(avg(rating), 1) from tb_gym_comment
+			group by gym_no order by round(avg(rating), 1) desc) join tb_gym using(gym_no) join tb_user using(user_no)
+			where rownum <=5
+		]]>
+	</select>
+	
 	<insert id="insertreview" parameterType="GymComment" flushCache="true"
 		statementType="PREPARED" useGeneratedKeys="true">
 		<![CDATA[

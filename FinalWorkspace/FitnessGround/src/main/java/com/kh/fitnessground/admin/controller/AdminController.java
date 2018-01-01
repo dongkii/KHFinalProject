@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fitnessground.admin.model.service.AdminService;
 import com.kh.fitnessground.admin.model.vo.BusinessRequest;
+import com.kh.fitnessground.admin.model.vo.GymRating;
 import com.kh.fitnessground.admin.model.vo.Visit;
 import com.kh.fitnessground.community.model.service.CommunityBoardService;
 import com.kh.fitnessground.community.model.vo.CommunityBoard;
@@ -74,7 +75,7 @@ public class AdminController {
 		
 		ArrayList<User> gymRlist = adminService.GymRequest(level);// 헬스장 요청 정보 최신순 3개만리스트로 불러오기 승인상태 0인것만
 		ArrayList<GymQnABoard> qnalist = adminService.GymQnABoard(receiver);// 메세지 요청 최신 3개 미응답이고 리시버가 1인 것만 리스트로 불러오기
-
+		ArrayList<GymRating> ratinglist = adminService.GymRating();
 		//방문자수 
 			
 		/*// 총 방문자 수
@@ -89,11 +90,12 @@ public class AdminController {
 		
 		session.setAttribute("total", total);
 		session.setAttribute("today", today);*/
-		
+		System.out.println("ratinglist :" +ratinglist );
 		mv.addObject("gymrequest", gymrequest);
 		mv.addObject("message", message);
 		mv.addObject("gymRlist", gymRlist);
 		mv.addObject("qnalist", qnalist);
+		mv.addObject("ratinglist", ratinglist);
 		
 		return mv;
 	}
