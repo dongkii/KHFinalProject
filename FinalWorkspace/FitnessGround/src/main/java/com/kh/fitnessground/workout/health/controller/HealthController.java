@@ -17,6 +17,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ import com.kh.fitnessground.workout.health.model.vo.Health;
 public class HealthController {
 	@Autowired
 	private HealthService healthService;
+	private static int random = 0;
 	
 	@RequestMapping(value="/healthMain.do")	//메인 페이지 이동
 	public ModelAndView boardListMethod(HttpServletRequest request, HttpServletResponse response){
@@ -49,17 +51,36 @@ public class HealthController {
 	//헬스 (부위별 영상) ajax 
 	@RequestMapping(value="/part.do")	
 	public void selectCategorytListMethod(Health health,HttpServletResponse response) throws IOException{
-	
-		ArrayList<Health> list = healthService.selectWorkoutCategoryList(health);
 		
+		  
+		if(random==3){
+	        random=0;
+	    }
+		System.out.println("random 값 : " + random);
+		ArrayList<Health> list = healthService.selectWorkoutCategoryList(health);
+		System.out.println(health.getCategory2());
 		/* NAVER api code */
-		String clientID="ruv96TRHNK8A6XvNLhkO";
-        String clientSecret = "L2Y9X7t1_5";
+		String clientID=null;
+        String clientSecret = null;
+        //미향, 준일 , 동균 순서 id,pwd
+        String clientIdArr[] = {"ruv96TRHNK8A6XvNLhkO","gW6kXM8gjSemyGCzbFM7","G0XI103VNKmTZuGNcR9G"};
+        String clientSecretArr[] = {"L2Y9X7t1_5","JxqdihRctq","GTG4zI8eUQ"};
+  
+        
+       // int select = (int)(Math.random()*2) + 1;
+        //System.out.println("select : " + select);
+      
+        clientID = clientIdArr[random];
+        clientSecret = clientSecretArr[random];
+                
+        random++;
+        
         ArrayList<String> srcarr = new ArrayList<String>();
         ArrayList<String> keyarr = new ArrayList<String>();
         for(int i=0;i<list.size();i++) {
         	keyarr.add(list.get(i).getTitle().replaceAll(" ", ""));
         }
+        System.out.println("keyarr Size : " + keyarr.size());
         System.out.println(keyarr.toString()); //검색할 동영상 제목들 다 keyarr에 넣어둠
         String query = "";
         String src = "";
@@ -75,9 +96,11 @@ public class HealthController {
 	        try {
 		        URL url = new URL("https://openapi.naver.com/v1/search/encyc.xml?query="+query);
 		        URLConnection urlConn=url.openConnection(); 
+		      
 		        urlConn.setRequestProperty("X-Naver-Client-ID", clientID);
 		        urlConn.setRequestProperty("X-Naver-Client-Secret", clientSecret);
 		        BufferedReader br = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+		        System.out.println("호출 횟수 : " + i);
 		        String data="";
 		        String msg = null;
 		        while((msg = br.readLine())!=null)
@@ -438,7 +461,7 @@ public class HealthController {
 					            		 src = parser.nextText();
 					            		 if(src.contains("muploader")&&j==0) {
 					            			 srcarr.add(src);  //query하나에 썸네일 하나만 srcarr에 담도록 - j가 0일때만 담음  
-					            			 System.out.println("srcarr:"+srcarr.toString());
+					            			 //System.out.println("srcarr:"+srcarr.toString());
 					            			 j++;  
 					            		 }
 					            	 }

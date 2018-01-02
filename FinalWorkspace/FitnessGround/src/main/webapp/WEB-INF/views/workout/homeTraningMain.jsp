@@ -264,7 +264,7 @@ function category(category2){
 	          title = result.htclist[i].title;
 	          vid = result.htclist[i].url;
 	          content = result.htclist[i].content;
-	          var value ="<div class='video'><div id='video-iframe"+no+"'></div><div id='video-info'><div class='time'><span class='video-time' id='v-time"+no+"'></span>"+
+	          var value ="<div class='video'><a href='javascript:detailView("+no+")'><div id='video-iframe"+no+"'></div></a><div id='video-info'><div class='time'><span class='video-time' id='v-time"+no+"'></span>"+
 					"</div><span id='video-text'><a href='javascript:detailView("+no+")'>"+title+"</a></span></div></div>";
 		
 				if(i==0){
@@ -393,7 +393,7 @@ function sortList(){
 		          title = result.list[i].title;
 		          vid = result.list[i].url;
 		          content = result.list[i].content;
-		          var value ="<div class='video'><div id='video-iframe"+no+"'></div><div id='video-info'><div class='time'><span class='video-time' id='v-time"+no+"'></span>"+
+		          var value ="<div class='video'><a href='javascript:detailView("+no+")'><div id='video-iframe"+no+"'></div></a><div id='video-info'><div class='time'><span class='video-time' id='v-time"+no+"'></span>"+
 						"</div><span id='video-text'><a href='javascript:detailView("+no+")'>"+title+"</a></span></div></div>";
 			
 					if(i==0){
