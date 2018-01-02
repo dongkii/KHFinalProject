@@ -11,11 +11,12 @@ public class PublicGym implements java.io.Serializable{
 	private String homepage;
 	private String op_time;
 	private String end_time;
+	private String image;
 	
 	public PublicGym(){}
 
 	public PublicGym(String public_name, String category, String category_public, String location, double lng, double lat,
-			String tel, String homepage, String op_time, String end_time) {
+			String tel, String homepage, String op_time, String end_time, String image) {
 		super();
 		this.public_name = public_name;
 		this.category = category;
@@ -27,6 +28,16 @@ public class PublicGym implements java.io.Serializable{
 		this.homepage = homepage;
 		this.op_time = op_time;
 		this.end_time = end_time;
+		this.image = image;
+	}
+
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public String getPublic_name() {
@@ -109,4 +120,8 @@ public class PublicGym implements java.io.Serializable{
 		this.end_time = end_time;
 	}	
 	
+	@Override
+	public String toString() {
+		return this.public_name + ", " + this.location + ", " + this.image;
+	}
 }

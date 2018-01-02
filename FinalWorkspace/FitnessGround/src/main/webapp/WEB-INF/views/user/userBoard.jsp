@@ -201,7 +201,7 @@
 				    <c:forEach var="p" begin="${qStartPage}" end="${qEndPage}">
 						<c:choose>
 							<c:when test="${qCurrentPage == p}">
-								 <li><a href="#">${p}</a></li>
+								 <li class='disabled'><a href="#">${p}</a></li>
 							</c:when>
 							<c:otherwise>
 								 <li>
@@ -330,7 +330,7 @@
 				    <c:forEach var="p" begin="${cStartPage}" end="${cEndPage}">
 						<c:choose>
 							<c:when test="${currentPage == p}">
-								 <li><a href="#">${p}</a></li>
+								 <li class='disabled'><a href="#">${p}</a></li>
 							</c:when>
 							<c:otherwise>
 								 <li>

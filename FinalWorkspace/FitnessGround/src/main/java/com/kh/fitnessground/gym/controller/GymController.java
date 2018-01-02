@@ -268,8 +268,8 @@ public class GymController {
 			int startPage = (((int) ((double) currentPage / limit + 0.9)) - 1) * limit + 1;
 			int pstartPage = (((int) ((double) pcurrentPage / limit + 0.9)) - 1) * limit + 1;
 			
-			int endPage = startPage + limit - 1;
-			int pendPage = pstartPage + limit - 1;
+			int endPage = startPage + 5 - 1;
+			int pendPage = pstartPage + 5 - 1;
 
 			if (maxPage < endPage)
 				endPage = maxPage;
@@ -316,7 +316,7 @@ public class GymController {
 
 			int startPage = (((int)((double) currentPage / limit + 0.9)) - 1) * limit + 1;
 
-			int endPage = startPage + limit - 1;
+			int endPage = startPage + 5 - 1;
 
 			if (maxPage < endPage)
 				endPage = maxPage;
@@ -375,7 +375,7 @@ public class GymController {
 
 			int startPage = (((int)((double) currentPage / limit + 0.9)) - 1) * limit + 1;
 
-			int endPage = startPage + limit - 1;
+			int endPage = startPage + 5 - 1;
 
 			if (maxPage < endPage)
 				endPage = maxPage;
@@ -402,6 +402,7 @@ public class GymController {
 				jpgym.put("location", publicgym.getLocation());
 				jpgym.put("homepage", publicgym.getHomepage());
 				jpgym.put("tel", publicgym.getTel());
+				jpgym.put("image", publicgym.getImage());
 
 				jar.add(jpgym);
 			}

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:import url="../include/common/head.jsp" />
 <link rel="stylesheet" href="/fitnessground/resources/css/findgym/findgym.css" />
@@ -65,6 +66,7 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 								+ "<div id='thumbnail'>"
 								+ "<a href='#'><img class='img-thumbnail' src='/fitnessground/resources/images/default_image.png' style='height:100px; width:100px;'></a></div></div>";
 					} else {
+						var rename_image = json.gymlist[i].rename_image.split(",");
 						values += "<div id='wrapper'style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;'><div id='health-desc'>"
 								+ "<a href=''javascript: gymclick(\"" 
 										+ json.gymlist[i].gym_no + "\",\""
@@ -77,7 +79,7 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 								+ json.gymlist[i].tel
 								+ "</a></div>"
 								+ "<div id='thumbnail'>"
-								+ "<a href='#'><img class='img-thumbnail' src=" + json.gymlist[i].rename_image + " style='height:100px; width:100px;'></a></div></div>";
+								+ "<a href='#'><img class='img-thumbnail' src=/fitnessground/resources/images/gymimages/" + rename_image[0] + " style='height:100px; width:100px;'></a></div></div>";
 					}
 				}
 				console.log(values);
@@ -87,9 +89,16 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 					valuesPaging += "<li class='disabled'><a href='#' aria-label='Previous'>"
 							+ "<span aria-hidden='true'>&laquo;</span></a></li>";
 				} else {
-					valuesPaging += "<li><a href='javascript:loadGymList("
+					if(data.currentPage-5 >= 1) {
+						valuesPaging += "<li><a href='javascript:loadGymList(" + (data.currentPage - 5)
+						 			 + ")' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
+					} else {
+						valuesPaging  += "<li><a href='javascript:loadGymList(" + (data.startPage)
+			 						  + ")' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
+					}
+					/* valuesPaging += "<li><a href='javascript:loadGymList("
 							+ (data.currentPage - 1)
-							+ ")' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
+							+ ")' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>"; */
 				}
 				for (var i = data.startPage; i <= data.endPage; i++) {
 					if (data.currentPage == i) {
@@ -101,7 +110,14 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 				if (data.currentPage >= data.maxPage) {
 					valuesPaging += "<li class='disabled'><a href='#' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
 				} else {
-					valuesPaging += "<li><a href='javascript:loadGymList(" + (data.currentPage + 1) + ")' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
+					if(data.pcurrentPage+5 <= data.maxPage) {
+						valuesPaging += "<li><a href='javascript:loadGymList(" + (data.currentPage + 5)
+						 			 + ")' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
+					} else {
+						valuesPaging += "<li><a href='javascript:loadGymList(" + (data.maxPage)
+			 			 			 + ")' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
+					}
+					/* valuesPaging += "<li><a href='javascript:loadGymList(" + (data.currentPage + 1) + ")' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>"; */
 				}
 				$("#healthpaging").html(valuesPaging);
 
@@ -130,26 +146,27 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 				var json = JSON.parse(jsonStr);
 				// 리스트 처리
 				var values = "";
-				for ( var i in json.publiclist) {
-					if (json.publiclist[i].tel == null) {
+				for (var i in json.publiclist) {
+					if (json.publiclist[i].image != null) {
 						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;''><div id='public-desc'>"
 								+ "<a href='javascript:publicgymclick(" + json.publiclist[i].public_name + "," + json.publiclist[i].tel + "," + json.publiclist[i].location + ")'><h4 style='font-weight:bold;color:black;'>"
 								+ json.publiclist[i].public_name
 								+ "</h4>"
 								+ json.publiclist[i].location
-								+ "<br>"
-								+ "- </a></div>"
-								+ "<div id='thumbnail'><a href='#'><img class='img-thumbnail' src='/fitnessground/resources/images/default_image.png' style='height:100px; width:100px;'></a></div></div>";
+								+ "<br>Tel : ";
+								if (json.publiclist[i].tel != null) { values += json.publiclist[i].tel }
+								else { values += "없음" }
+						values += "</a></div><div id='thumbnail'><a href='#'><img class='img-thumbnail' src='"+ json.publiclist[i].image + "' style='height:100px; width:100px;'></a></div></div>";
 					} else {
 						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;''><div id='public-desc'>"
-								+ "<a href='javascript:publicgymclick(" + json.publiclist[i].public_name + "," + json.publiclist[i].tel + "," + json.publiclist[i].location + "," + json.publiclist[i].homepage + ")'><h4 style='font-weight:bold;color:black;'>"
-								+ json.publiclist[i].public_name
-								+ "</h4>"
-								+ json.publiclist[i].location
-								+ "<br>"
-								+ json.publiclist[i].tel
-								+ "</a></div>"
-								+ "<div id='thumbnail'><a href='#'><img class='img-thumbnail' src='/fitnessground/resources/images/default_image.png' style='height:100px; width:100px;'></a></div></div>";
+							+ "<a href='javascript:publicgymclick(" + json.publiclist[i].public_name + "," + json.publiclist[i].tel + "," + json.publiclist[i].location + ")'><h4 style='font-weight:bold;color:black;'>"
+							+ json.publiclist[i].public_name
+							+ "</h4>"
+							+ json.publiclist[i].location
+							+ "<br>Tel : ";
+							if (json.publiclist[i].tel != null) { values += json.publiclist[i].tel }
+							else { values += "없음" }
+						values += "</a></div><div id='thumbnail'><a href='#'><img class='img-thumbnail' src='/fitnessground/resources/images/default_image.png' style='height:100px; width:100px;'></a></div></div>";
 					}
 				}
 				$("#publiclist").html(values);
@@ -158,8 +175,15 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 				if (data.pcurrentPage <= 1) {
 					valuesPaging += "<li class='disabled'><a href='#' aria-label='Previous'>" + "<span aria-hidden='true'>&laquo;</span></a></li>";
 				} else {
-					valuesPaging += "<li><a href='javascript:loadPublicList(" + (data.pcurrentPage - 1)
-								 + ")' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
+					/* valuesPaging += "<li><a href='javascript:loadPublicList(" + (data.pcurrentPage - 1)
+					 + ")' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>"; */
+					if(data.pcurrentPage-5 >= 1) {
+						valuesPaging += "<li><a href='javascript:loadPublicList(" + (data.pcurrentPage - 5)
+						 			 + ")' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
+					} else {
+						valuesPaging  += "<li><a href='javascript:loadPublicList(" + (data.pstartPage)
+			 						  + ")' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
+					}
 				}
 				for (var i = data.pstartPage; i <= data.pendPage; i++) {
 					if (data.pcurrentPage == i) {
@@ -171,9 +195,16 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 				if (data.pcurrentPage >= data.pmaxPage) {
 					valuesPaging += "<li class='disabled'><a href='#' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
 				} else {
-					valuesPaging += "<li><a href='javascript:loadPublicList("
-							+ (data.pcurrentPage + 1)
-							+ ")' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
+					/* valuesPaging += "<li><a href='javascript:loadPublicList("
+					+ (data.pcurrentPage + 1)
+					+ ")' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>"; */
+					if(data.pcurrentPage+5 <= data.pmaxPage) {
+						valuesPaging += "<li><a href='javascript:loadPublicList(" + (data.pcurrentPage + 5)
+						 			 + ")' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
+					} else {
+						valuesPaging += "<li><a href='javascript:loadPublicList(" + (data.pmaxPage)
+			 			 			 + ")' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
+					}
 				}
 				$("#publicpaging").html(valuesPaging);
 				setGymlist(map);
@@ -229,7 +260,8 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 													<a href='#'><img class="img-thumbnail" src="/fitnessground/resources/images/default_image.png" style="width: 100px; height: 100px;"></a>
 												</c:if>
 												<c:if test="${not empty glist.rename_image }">
-													<img class="img-thumbnail" src="${glist.rename_image }" style="width: 100px; height: 100px;">
+												<c:set var="rename_image" value="${fn:split(glist.rename_image,',')}" />
+													<img class="img-thumbnail" src="/fitnessground/resources/images/gymimages/${rename_image[0]}" style="width: 100px; height: 100px;">
 												</c:if>
 											</div>
 										</div>
@@ -244,10 +276,17 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 											<li class='disabled'><a href='#' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>
 										</c:if>
 										<c:if test="${gympage.currentPage > 1 }">
-											<input type="hidden" name="page" value="${gympage.currentPage - 1}">
-											<li>
-												<a href='javascript:loadGymList(${gympage.currentPage - 1 })' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a>
-											</li>
+											<c:choose>
+									    	<c:when test="${gympage.currentPage-5 >= 1}">
+									    		<input type="hidden" name="page" value="${gympage.currentPage - 5}">
+												<li>
+													<a href='javascript:loadGymList(${gympage.currentPage - 5})' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a>
+												</li>
+									    	</c:when>
+									    	<c:otherwise>
+									    		<li class='disabled'><a href='javascript:loadGymList(${gympage.startPage})' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>
+									      	</c:otherwise>
+									      	</c:choose>
 										</c:if>
 										<c:forEach var="i" begin="${gympage.startPage }" end="${gympage.endPage }" step="1">
 											<c:if test="${gympage.currentPage eq i }">
@@ -264,8 +303,19 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 											<input type="hidden" name="page" value="${gympage.currentPage }">
 										</c:if>
 										<c:if test="${gympage.currentPage < gympage.maxPage }">
-											<li><a href='javascript:loadGymList(${gympage.currentPage + 1})' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>
-											<input type="hidden" name="page" value="${gympage.currentPage + 1}">
+											<c:choose>
+									    	<c:when test="${gympage.currentPage+5 <= gympage.maxPage}">
+									    		<input type="hidden" name="page" value="${gympage.currentPage + 5}">
+												<li>
+													<a href='javascript:loadGymList(${gympage.currentPage + 5})' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a>
+												</li>
+									    	</c:when>
+									    	<c:otherwise>
+									    		<li class='disabled'>
+									    			<a href='javascript:loadGymList(${gympage.maxPage})' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a>
+									    		</li>
+									      	</c:otherwise>
+									      	</c:choose>
 										</c:if>
 									</ul>
 								</nav>
@@ -281,13 +331,20 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 										<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;'>
 											<div id="public-desc">
 												<a href='javascript:publicgymclick("${plist.public_name }","${plist.tel }","${plist.location }","${plist.homepage }")'>
-													<h4 style="font-weight:bold;color:black;">${plist.public_name }</h4>${plist.location }<br> 
-													<c:if test="${empty plist.tel }">-</c:if> 
+													<h4 style="font-weight:bold;color:black;">${plist.public_name }</h4>${plist.location }<br>Tel : 
+													<c:if test="${empty plist.tel }">없음</c:if> 
 													<c:if test="${not empty plist.tel }">${plist.tel}</c:if>
 												</a>
 											</div>
 											<div id="thumbnail">
-												<a href='#'><img class="img-thumbnail" src="/fitnessground/resources/images/default_image.png" style="height: 100px; width: 100px;"></a>
+												<a href='#'>
+													<c:if test="${plist.image ne null}">
+													<img class="img-thumbnail" src="${plist.image}" style="height: 100px; width: 100px;">
+													</c:if>
+													<c:if test="${plist.image eq null}">
+													<img class="img-thumbnail" src="/fitnessground/resources/images/default_image.png" style="height: 100px; width: 100px;">
+													</c:if>
+												</a>
 											</div>
 										</div>
 									</c:forEach>
@@ -301,8 +358,17 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 											<li class='disabled'><a href='#' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>
 										</c:if>
 										<c:if test="${gympage.pcurrentPage > 1 }">
-											<input type="hidden" name="page" value="${gympage.pcurrentPage - 1}">
-											<li><a href='javascript:loadPublicList(${gympage.pcurrentPage - 1 })' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>
+											<c:choose>
+									    	<c:when test="${gympage.pcurrentPage-5 >= 1}">
+									    		<input type="hidden" name="page" value="${gympage.pcurrentPage - 5}">
+												<li>
+													<a href='javascript:loadPublicList(${gympage.pcurrentPage - 5})' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a>
+												</li>
+									    	</c:when>
+									    	<c:otherwise>
+									    		<li class='disabled'><a href='javascript:loadPublicList(${gympage.startPage})' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>
+									      	</c:otherwise>
+									      	</c:choose>
 										</c:if>
 										<c:forEach var="i" begin="${gympage.pstartPage }" end="${gympage.pendPage }" step="1">
 											<c:if test="${gympage.pcurrentPage eq i }">
@@ -319,7 +385,14 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 											<input type="hidden" name="page" value="${gympage.pcurrentPage }">
 										</c:if>
 										<c:if test="${gympage.pcurrentPage < gympage.pmaxPage }">
-											<li><a href='javascript:loadPublicList(${gympage.pcurrentPage + 1})' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>
+											<c:choose>
+									    	<c:when test="${gympage.pcurrentPage+5 <= gympage.pmaxPage}">
+												<li><a href='javascript:loadPublicList(${gympage.pcurrentPage + 5})' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>
+									    	</c:when>
+									    	<c:otherwise>
+									    		<li><a href='javascript:loadPublicList(${gympage.pmaxPage})' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>
+									      	</c:otherwise>
+									      	</c:choose>
 										</c:if>
 									</ul>
 								</nav>

@@ -316,7 +316,7 @@
 	
 	<select id="selectGymCount" resultType="_int" parameterType="_int">
 		<![CDATA[
-			select count(*) from tb_gym
+			select count(*) from tb_gym where approval_state = 1
 		]]>
 	</select>
 	
