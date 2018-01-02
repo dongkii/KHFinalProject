@@ -235,7 +235,7 @@ public class AdminDao {
 	}
 
 	public ArrayList<GymChart> gymchart() {
-		List<GymChart> list = sqlSession.selectList("gym.gymchart");
+		List<GymChart> list = sqlSession.selectList("health.gymchart");
 		ArrayList<GymChart> gclist = new ArrayList<GymChart>(list);
 		return gclist;
 	}

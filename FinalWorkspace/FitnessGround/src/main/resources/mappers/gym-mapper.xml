@@ -79,12 +79,6 @@
 		<id property="public_count" column="public_count"/>
 	</resultMap>
 	
-	<resultMap id="resultGymChart" type="GymChart">
-		
-		<id property="category" column="category"/>
-		<id property="count" column="count"/>
-		
-	</resultMap>
 	
 	<resultMap id="resultGym" type="Gym">
 		<id property="gym_no" column="gym_no"/>
@@ -127,14 +121,6 @@
 		where rownum <=12
 		]]>
 	</select>
-	
-	
-	<select id="gymchart" resultMap="resultGymChart" resultType="list">
-		<![CDATA[ 
-		select  category,  count(gym_no) count from tb_gym group by category
-		]]>
-	</select>
-	
 	
 	<select id="topGymRequest" parameterType="_int" resultMap="resultBusinessRequest" resultType="list">
 		<![CDATA[ 

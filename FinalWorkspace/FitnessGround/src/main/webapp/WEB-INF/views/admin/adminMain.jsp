@@ -428,13 +428,7 @@
 								<td>${item.category }</td>
 								<td>${item.name }</td>
 								<td>${item.register_date }</td>
-								<td id="td${i }">
-										<!-- <i class="fa fa-star-half-o" aria-hidden="true"></i>
-										<i class="fa fa-star" aria-hidden="true"></i>
-										<i class="fa fa-star-o" aria-hidden="true"></i>
-									 --></div> 
-										
-								</td>
+								<td id="td${i }"></td>
 							</tr>
 							<c:set var="i" value="${ i+1 }"/>
 							</c:forEach>
