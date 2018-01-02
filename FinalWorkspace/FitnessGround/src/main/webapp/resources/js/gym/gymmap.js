@@ -449,43 +449,88 @@ function onLoadHealth(map){
 			var jsonStr = JSON.stringify(data);
 			var json=JSON.parse(jsonStr);
 			console.log("data.healthlist");
-			//console.log(data.healthlist);
+			console.log(data.healthlist);
 			
 			var marker;
 			var infoWindow;
-			for(var i in json.healthlist)
-			{
-				marker = new naver.maps.Marker({
-					map: map,
-					position: changeLatlngToAddress(json.healthlist[i].location),
-					title: json.healthlist[i].title,
-					zIndex: 150,
-					icon:{
-						url: "/fitnessground/resources/images/gym_marker.png",
-						size : new naver.maps.Size(21, 32),
-						origin : new naver.maps.Point(0, 0),
-						anchor : new naver.maps.Point(10, 32)
-					}				
-				});	
-				console.log(json.healthlist[i].location);
-			var contentString = ["<div style='padding:20px;'>"+
-								"<h3><b>" + json.healthlist[i].title + "</b></h3>" +
-								"<p>" + json.healthlist[i].location + "<br><br>"+
-								json.healthlist[i].tel + "</p>"+
-								"</div>"].join("");
 			
-			infoWindow = new naver.maps.InfoWindow({
-				anchorSkew: true,
-				content: contentString
-			});		
 			
-			hmarkers.push(marker);
-			hinfoWindows.push(infoWindow);	
+				for(var i in json.healthlist)
+				{
+					gymno = json.healthlist[i].gym_no;
+					gym_name = json.healthlist[i].gym_name;
+					category = json.healthlist[i].category;
+					tel = json.healthlist[i].tel;
+					phone = json.healthlist[i].phone;
+					
+					result = json.healthlist[i].str_rating;
+					
+					var mod = result % 1;
+					var t = 0;
+					result = Math.floor(result);
+					str_rating = '';
+					
+					marker = new naver.maps.Marker({
+						map: map,
+						position: new naver.maps.LatLng(json.healthlist[i].lat, json.healthlist[i].lng),
+						title: json.healthlist[i].title,
+						zIndex: 150,
+						icon:{
+							url: "/fitnessground/resources/images/gym_marker.png",
+							size : new naver.maps.Size(21, 32),
+							origin : new naver.maps.Point(0, 0),
+							anchor : new naver.maps.Point(10, 32)
+						}				
+					});
+						
+		/*		var contentString = ["<div style='padding:20px;'>"+
+									"<h3><b>" + json.healthlist[i].title + "</b></h3>" +
+									"<p>" + json.healthlist[i].location + "<br><br>"+
+									json.healthlist[i].tel + "</p>"+
+									"</div>"].join("");*/
+					
+					for(var j = 0; j < result; j ++){
+						str_rating += '<i class="fa fa-star" aria-hidden="true"></i>';
+						t++;
+					}
+					if (mod > 0){
+						str_rating += '<i class="fa fa-star-half-o" aria-hidden="true"></i>';
+						t++;
+					}
+					for(var z = t; z < 5; z++){
+						str_rating += '<i class="fa fa-star-o" aria-hidden="true"></i>';
+					}
+					if(json.healthlist[i].str_rating != null)
+						str_rating += '&nbsp;' + json.healthlist[i].str_rating;
+					else str_rating += '&nbsp;' + '0';
+						
+					var contentString = [
+						'<div style="padding:10px;min-width:200px;line-height:150%;">',
+						'<h4 style="margin-top:5px;">' + gym_name + '</h4>' +
+						'<h6><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;' + category + '</h6>' +
+						'<h6><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + tel + '</h6>' +
+						'<h6><span class="glyphicon glyphicon-phone"></span>&nbsp;' + phone + '</h6>' +
+						'<h6>' + str_rating + '</h6>' + 
+						'<h6><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;' + desc + '</h6>' +
+						'<a href="detailgym.do?gym_no=' + gymno + '"><h6>자세히보기</h6></a>' +
+						
+						'<br />', ' ' + json.healthlist[i].location + '<br /></div>'  
+							].join("");
+						
+				
+					
+					infoWindow = new naver.maps.InfoWindow({
+						anchorSkew: true,
+						content: contentString
+					});	
+					
+				hmarkers.push(marker);
+				hinfoWindows.push(infoWindow);	
 			}
 			
 			for(var i = 0, ii=hmarkers.length; i < ii; i++)
 			{
-				naver.maps.Event.addListener(hmarkers[i], 'click', getClickHandler(i));
+				naver.maps.Event.addListener(hmarkers[i], 'click', getClickHandlerHealth(i));
 			}
 			// map.setCenter(location);
 			
@@ -510,32 +555,17 @@ function getClickHandler(seq) { // 클릭 이벤트 핸들러 추가하는 함�
 	};
 }
 
-function getAddress(address)
-{
-	
-	naver.maps.Service.geocode({
-		address : address
-	}, function(status, response) {
-		if (status === naver.maps.Service.Status.ERROR) {
-			return alert('올바른 주소가 아닙니다.');
-		}
+function getClickHandlerHealth(seq) { // 클릭 이벤트 핸들러 추가하는 함수
+	return function(e) {
+		var marker = hmarkers[seq];
+		var infoWindow = hinfoWindows[seq];
 
-		var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명 주소]'
-					: '[지번 주소]', point = new naver.maps.Point(item.point.x, item.point.y);
-
-		infoWindow.setContent(['<div style="padding:10px;min-width:200px;line-height:150%;">',
-				'<h4 style="margin-top:5px;">검색 주소 : '+ response.result.userquery
-				+ '</h4><br />', addrType + ' ' + item.address + '<br />',
-				'&nbsp&nbsp&nbsp -> ' + point.x + ',' + point.y, '</div>' ].join(""));
-		
-		map.setCenter(point);
-		for(var i = 0, ii=markers.length; i < ii; i++)
-		{
-			naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
+		if (infoWindow.getMap()) {
+			infoWindow.close();
+		} else {
+			infoWindow.open(map, marker);
 		}
-		
-		infoWindow.open(map, map.getCenter());
-		});
+	};
 }
 
 function gymclick(gym_no, location){
@@ -586,7 +616,6 @@ function link(homepage){
 	console.log(homepage);
 	window.open("http://"+homepage, '_blank');
 }
-
 
 $(window).on("load", function() {
 	initMap();

@@ -133,7 +133,7 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 				for ( var i in json.publiclist) {
 					if (json.publiclist[i].tel == null) {
 						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;''><div id='public-desc'>"
-								+ "<a href='javascript:publicgymclick(" + jsonpubliclist[i].public_name + "," + json.publiclist[i].tel + "," + json.publiclist[i].location + ")'><h4 style='font-weight:bold;color:black;'>"
+								+ "<a href='javascript:publicgymclick(" + json.publiclist[i].public_name + "," + json.publiclist[i].tel + "," + json.publiclist[i].location + ")'><h4 style='font-weight:bold;color:black;'>"
 								+ json.publiclist[i].public_name
 								+ "</h4>"
 								+ json.publiclist[i].location
@@ -142,7 +142,7 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 								+ "<div id='thumbnail'><a href='#'><img class='img-thumbnail' src='/fitnessground/resources/images/default_image.png' style='height:100px; width:100px;'></a></div></div>";
 					} else {
 						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;''><div id='public-desc'>"
-								+ "<a href='javascript:publicgymclick(" + jsonpubliclist[i].public_name + "," + json.publiclist[i].tel + "," + json.publiclist[i].location + "," + json.publiclist[i].homepage + ")'><h4 style='font-weight:bold;color:black;'>"
+								+ "<a href='javascript:publicgymclick(" + json.publiclist[i].public_name + "," + json.publiclist[i].tel + "," + json.publiclist[i].location + "," + json.publiclist[i].homepage + ")'><h4 style='font-weight:bold;color:black;'>"
 								+ json.publiclist[i].public_name
 								+ "</h4>"
 								+ json.publiclist[i].location
@@ -319,7 +319,7 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 											<input type="hidden" name="page" value="${gympage.pcurrentPage }">
 										</c:if>
 										<c:if test="${gympage.pcurrentPage < gympage.pmaxPage }">
-											<li><a href='javascript:loadPublicList(${gympage.cpurrentPage + 1})' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>
+											<li><a href='javascript:loadPublicList(${gympage.pcurrentPage + 1})' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>
 										</c:if>
 									</ul>
 								</nav>
