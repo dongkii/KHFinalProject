@@ -138,7 +138,7 @@ public class HealthController {
 		         
 		        }catch(Exception e) {
 		        	for(int k=0;k<keyarr.size();k++) {
-	                    srcarr.add("https://www.google.co.kr/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png");
+	                    srcarr.add("/fitnessground/resources/images/health/basic_image.JPG");
 	                 }
 					
 		        }
