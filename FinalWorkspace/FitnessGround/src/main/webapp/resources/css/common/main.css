@@ -73,10 +73,7 @@
 	margin-top: 20;
 }
 
-#bmi-wrapper{
-	height: 86vh;
-	padding-top: 6vh;
-}
+
 .radio-inline{
 	margin-left: 150px !important;
 }
@@ -100,6 +97,10 @@ body {
 	position: absolute;
     top: 132vw;
 	}
+	#bmi-wrapper{
+	height: 86vh;
+	padding-top: 6vh;
+}
 	.range-slider {
 	      margin: 20px 0 0 0%;
 	    margin-bottom: 40px;
@@ -129,15 +130,16 @@ body {
 		font-size: 0.9rem;
 	
 	}
+	#bmi-wrapper{
+	height: 93vh;
+	padding-top: 6vh;
+}
 	.range-slider {
   		width: 82vw;
 	}
 	#bmi-btn{
-		/* margin-left: 24vw;
-	    margin-top: 1vh; */
-	position: absolute;
-    top: 220vh;
-    left: 31vw;
+	margin-left: 24vw;
+	margin-top: 1vh; 
 	}
 	.sliders {
     display: inline-block;
@@ -180,7 +182,8 @@ body {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #2c3e50;
+  background: #FE424D;
+  /* background: #2c3e50; */
   cursor: pointer;
   -webkit-transition: background .15s ease-in-out;
   transition: background .15s ease-in-out;
@@ -196,7 +199,8 @@ body {
   height: 20px;
   border: 0;
   border-radius: 50%;
-  background: #2c3e50;
+   background: #FE424D;
+ /*  background: #2c3e50; */
   cursor: pointer;
   -webkit-transition: background .15s ease-in-out;
   transition: background .15s ease-in-out;
@@ -216,7 +220,8 @@ body {
   line-height: 20px;
   text-align: center;
   border-radius: 3px;
-  background: #2c3e50;
+  /* background: #2c3e50; */
+   background: #022D41;
   padding: 5px 10px;
   margin-left: 8px;
 }
@@ -227,7 +232,8 @@ body {
   width: 0;
   height: 0;
   border-top: 7px solid transparent;
-  border-right: 7px solid #2c3e50;
+  /* border-right: 7px solid #2c3e50; */
+  border-right: 7px solid #022D41;
   border-bottom: 7px solid transparent;
   content: '';
 }
@@ -3169,7 +3175,7 @@ input[type="search"] {
 				top: 0;
 				width: 100%;
 				z-index: 10002;
-				background: #1f1920;
+				background: black;
 				box-shadow: inset 0px -2px 5px 0px rgba(0, 0, 0, 0.25);
 				font-size: 1em;
 			}
@@ -3259,6 +3265,7 @@ input[type="search"] {
 
 			.wrapper {
 				padding: 3em 1em 3em 1em;
+				
 			}
 
 		/* Header */
@@ -3272,7 +3279,7 @@ input[type="search"] {
 					padding-top: 1.5em;
 					padding-left: 1em;
 					padding-right: 1em;
-					margin-left: 3em; /* title 글자크기따라 바꿔야함 ㅠㅠ */
+					margin-left: 1em; /* title 글자크기따라 바꿔야함 ㅠㅠ */
 				}
 
 				#header header > p {
