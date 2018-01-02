@@ -49,7 +49,10 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 				console.log(json);
 				// 리스트 처리
 				var values = "";
+				var image = "";
+
 				for ( var i in json.gymlist) {
+					
 					if (json.gymlist[i].rename_image == null) {
 						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;'><div id='health-desc'>"
 								+ "<a href='javascript: gymclick(\"" 
@@ -77,10 +80,11 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 								+ json.gymlist[i].tel
 								+ "</a></div>"
 								+ "<div id='thumbnail'>"
-								+ "<a href='#'><img class='img-thumbnail' src=" + json.gymlist[i].rename_image + " style='height:100px; width:100px;'></a></div></div>";
+								+ "<a href='#'><img class='img-thumbnail' src='/fitnessground/resources/images/gymimages/" + json.gymlist[i].rename_image + "' style='height:100px; width:100px;'></a></div></div>";
 					}
 				}
-				console.log(values);
+				console.log("json.gymlist[i].rename_image");
+				console.log(json.gymlist[i].rename_image);
 				$("#healthlist").html(values);
 				var valuesPaging = "";
 				if (data.currentPage <= 1) {
@@ -229,7 +233,7 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 													<a href='#'><img class="img-thumbnail" src="/fitnessground/resources/images/default_image.png" style="width: 100px; height: 100px;"></a>
 												</c:if>
 												<c:if test="${not empty glist.rename_image }">
-													<img class="img-thumbnail" src="${glist.rename_image }" style="width: 100px; height: 100px;">
+													<img class="img-thumbnail" src="/fitnessground/resources/images/gymimages/${glist.rename_image }" style="width: 100px; height: 100px;">
 												</c:if>
 											</div>
 										</div>
