@@ -97,13 +97,7 @@ html {scrollbar-3dLight-Color: #efefef; scrollbar-arrow-color: #dfdfdf; scrollba
 [data-tooltip].t-bottom:hover:before, [data-tooltip].t-bottom:hover:after {
   transform: translateX(-50%) translateY(5px);
 }
-#head-title{
-	margin-left: 6vw;
-    margin-top: 5vh;
-    display: inline-block;
-    font-size: 1.4rem;
-    color: black;
-}
+
 #main-wrpr{
 	margin-top: -4vh;
 }
@@ -458,7 +452,13 @@ hr#reply-hr{
 			float:left;
 			margin: 1vh 2vw;
 	}
-
+	#head-title{
+	margin-left: 6vw;
+    margin-top: 5vh;
+    display: inline-block;
+    font-size: 1.4rem;
+    color: black;
+	}
 	/* 카테고리 */
 	ul.tab li{margin:0;padding:0}ul.tab:after,ul.tab:before{content:" ";display:table}ul.tab:after{clear:both}ul.tab>li{float:left}
 	.tab-list{margin:0;padding:0;list-style:none;font-weight:normal;clear:both;position:relative;*zoom:1}
@@ -545,7 +545,7 @@ hr#reply-hr{
 	}
 	.workout-videos{
     position: relative;
-    top: 13vh;
+    top: 25vh;
     left: 14vw;
 }
 	
@@ -580,19 +580,32 @@ ul{
 }
 #press-cate{
 	margin-left: 9vw;
-	
+	margin-top: 2vh;
 }
 #title-search {
     position: relative;
-    top: 13vh;
-    right: 40vw;
-    width: 30vw;
+    top: 4vh;
+    left: 33vw;
+    width: 36vw;
     height: 4vh;
     font-size: 0.9rem;
+}
+#srch-btn{
+	    left: 70vw;
+    position: relative;
 }
 #count{
 	font-size:0.7rem;
 }
+#head-title{
+	margin-top: 2vh;
+    margin-bottom: 2vh;
+    display: inline-block;
+    font-size: 1.4rem;
+    width: 90vw;
+    color: black;
+    text-align: center;
+	}
 /*mobile modal*/
 .modal-header{
 	padding-top:2px;
