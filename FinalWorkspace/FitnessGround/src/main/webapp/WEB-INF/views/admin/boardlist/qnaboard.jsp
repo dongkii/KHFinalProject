@@ -6,6 +6,28 @@
 <c:import url="../common/head.jsp" />
 
 <style type="text/css">
+#modalBodyATag {
+	margin-right:30px;
+	color:black;
+	font-weight:bold;
+	text-decoration:none;
+}
+#modalBodyATag:hover, #modalBodyATag:visited, #modalBodyATag:active {
+	color:black;
+	text-decoration:none;
+}
+#contentDiv {
+	border:1px solid gray;
+	height:250px;
+	border-radius:0.3rem;
+	
+	padding:15px;
+	
+	
+	max-height: 220px;
+	overflow: hidden;
+	overflow-y: auto;
+}
 </style>
 
 
@@ -118,21 +140,21 @@ function qnaDelete(cb_no){
 											<div class="modal-dialog">
 												<div class="modal-content">
 													<!-- header -->
-													<div class="modal-header" align="top">
-														<h4 class="modal-title" align="center">제목 :
+													<div class="modal-header">
+														<h4 class="modal-title" align="center" style="color:black;font-weight:bold;">제목 :
 															${item.title}</h4>
-														<button type="button" class="close" data-dismiss="modal"
-															align="right">x</button>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
 													</div>
 
 													<!-- body -->
 													<div class="modal-body" align="left">
-														<p align="right">작성자 : ${item.name}</p>
-														<p align="right">이메일 : ${item.email }</p>
-														<p align="right">작성일 : ${item.upload_date}</p>
+														<p><a id="modalBodyATag">작성자 :</a> ${item.name}</p>
+														<p><a id="modalBodyATag">이메일 :</a> ${item.email }</p>
+														<p><a id="modalBodyATag">작성일 :</a> ${item.upload_date}</p>
 														<hr>
-														<h4>내용 :</h4>
-														<p>${item.content}</p>
+														<p><a id="modalBodyATag">내용 :</a><br><div id="contentDiv">${item.content}</div></p>
 													</div>
 													<!-- Footer -->
 													<div class="modal-footer"></div>

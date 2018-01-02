@@ -2,6 +2,7 @@ package com.kh.fitnessground.admin.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.fitnessground.admin.model.vo.GymRating;
 import com.kh.fitnessground.admin.model.vo.Visit;
 import com.kh.fitnessground.community.model.vo.CommunityBoard;
 import com.kh.fitnessground.community.model.vo.MeetingBoard;
@@ -121,6 +122,9 @@ public interface AdminService {
 
 
 	int reviewCount();
+
+
+	ArrayList<GymRating> GymRating();
 
 
 

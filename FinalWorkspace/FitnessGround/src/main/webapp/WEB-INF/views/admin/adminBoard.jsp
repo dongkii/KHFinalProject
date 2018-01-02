@@ -19,12 +19,16 @@
 	border:1px solid gray;
 	height:250px;
 	border-radius:0.3rem;
+	
 	padding:15px;
+	
+	
 	max-height: 220px;
 	overflow: hidden;
 	overflow-y: auto;
 }
 </style>
+
 
 <c:import url="common/headend.jsp" />
 	<c:if test="${ sessionScope.user == null }">

@@ -15,7 +15,7 @@ import com.kh.fitnessground.user.model.dao.UserDao;
 import com.kh.fitnessground.user.model.vo.User;
 import com.kh.fitnessground.workout.commentlike.vo.Like;
 import com.kh.fitnessground.workout.health.model.vo.Health;
-
+import com.kh.fitnessground.admin.model.vo.GymRating;
 @Service("adminService")
 public class AdminServiceImpl  implements AdminService{
 
@@ -263,6 +263,11 @@ public class AdminServiceImpl  implements AdminService{
 		return adminDao.reviewCount();
 	}
 
+
+	@Override
+	public ArrayList<GymRating> GymRating() {
+		return adminDao.GymRating();
+	}
 
 
 

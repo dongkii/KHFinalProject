@@ -7,7 +7,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
+import com.kh.fitnessground.admin.model.vo.GymRating;
 import com.kh.fitnessground.admin.model.vo.Visit;
 import com.kh.fitnessground.community.model.vo.CommunityBoard;
 import com.kh.fitnessground.community.model.vo.MeetingBoard;
@@ -215,6 +215,13 @@ public class AdminDao {
 	public int reviewCount() {
 		int count = sqlSession.selectOne("community.getReviewListCount");
 		return count;
+	}
+
+	public ArrayList<GymRating> GymRating() {
+		List<GymRating> list = sqlSession.selectList("gymcomment.GymRatingList");
+		ArrayList<GymRating> rlist = new ArrayList<GymRating>(list);
+		
+		return rlist;
 	}
 
 

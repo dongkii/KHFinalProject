@@ -406,7 +406,7 @@
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
 						<thead>
-							<tr>
+							<tr align="center">
 								<th>Name</th>
 								<th>Location</th>
 								<th>Category</th>
@@ -417,20 +417,26 @@
 						</thead>
 						
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>2</td>
-								<td>3</td>
-								<td>4</td>
-								<td>5</td>
-								<td>6</td>
-								
+						  <c:forEach var="item" items="${ratinglist }" varStatus="status">
+							<tr align="center">
+								<td>${item.gym_name }</td>
+								<td>${item.location }</td>
+								<td>${item.category }</td>
+								<td>${item.name }</td>
+								<td>${item.register_date }</td>
+								<td>
+									<div id="star" >${item.rating }
+										<label for="starRating">별점</label><input type="hidden" id="starRating" value="${item.rating }"/> 
+										
+									</div>
+								</td>
 							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
 			</div>
-			<div class="card-footer small text-muted">음</div>
+			<div class="card-footer small text-muted"></div>
 		</div>
 	</div>
 	<!-- /.container-fluid-->
@@ -443,5 +449,7 @@
 	
 
 </div>
-
+<script type="text/javascript">
+	
+</script>
 <c:import url="common/end.jsp" />
