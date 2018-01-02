@@ -75,4 +75,6 @@ public interface GymService {
 		void deleteReview(GymComment gc);
 		
 		ArrayList<Gym> healthMapList();
+		
+		Gym onegym(Gym gym);
 }

@@ -51,7 +51,11 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 				var values = "";
 				for ( var i in json.gymlist) {
 					if (json.gymlist[i].rename_image == null) {
-						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;'><div id='health-desc'><a href='#'><h4 style='font-weight:bold;color:black;'>"
+						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;'><div id='health-desc'>"
+								+ "<a href='javascript: gymclick(\"" 
+										+ json.gymlist[i].gym_no + "\",\""
+										+ json.gymlist[i].location 
+								+ "\")'><h4 style='font-weight:bold;color:black;'>" 
 								+ json.gymlist[i].gym_name
 								+ "</h4>"
 								+ json.gymlist[i].location
@@ -61,7 +65,11 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 								+ "<div id='thumbnail'>"
 								+ "<a href='#'><img class='img-thumbnail' src='/fitnessground/resources/images/default_image.png' style='height:100px; width:100px;'></a></div></div>";
 					} else {
-						values += "<div id='wrapper'style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;'><div id='health-desc'><a href='#'><h4 style='font-weight:bold;color:black;'>"
+						values += "<div id='wrapper'style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;'><div id='health-desc'>"
+								+ "<a href=''javascript: gymclick(\"" 
+										+ json.gymlist[i].gym_no + "\",\""
+										+ json.gymlist[i].location
+								+ "\")'><h4 style='font-weight:bold;color:black;'>" 
 								+ json.gymlist[i].gym_name
 								+ "</h4>"
 								+ json.gymlist[i].location
@@ -212,7 +220,7 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 									<c:forEach var="glist" items="${gympage.list}">
 										<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;'>
 											<div id="health-desc">
-												<a href='#'><h4 style="font-weight:bold;color:black;">${glist.gym_name}</h4>${glist.location}<br>${glist.tel}</a>
+												<a href='javascript:gymclick("${glist.gym_no}","${glist.location}")'><h4 style="font-weight:bold;color:black;">${glist.gym_name}</h4>${glist.location}<br>${glist.tel}</a>
 											</div>
 											<div id="thumbnail" align="right">
 												<c:if test="${empty glist.rename_image}">

@@ -162,5 +162,9 @@ public class GymDao {
 		return (ArrayList<Gym>) list; 
 	}
 
+	public Gym onegym(Gym gym) {
+		return sqlSession.selectOne("gym.onegym", gym);
+	}
+
 	
 }
