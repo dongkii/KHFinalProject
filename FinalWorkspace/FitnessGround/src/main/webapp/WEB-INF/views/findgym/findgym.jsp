@@ -50,7 +50,10 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 				console.log(json);
 				// 리스트 처리
 				var values = "";
+				var image = "";
+
 				for ( var i in json.gymlist) {
+					
 					if (json.gymlist[i].rename_image == null) {
 						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;'><div id='health-desc'>"
 								+ "<a href='javascript: gymclick(\"" 
@@ -82,7 +85,8 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 								+ "<a href='#'><img class='img-thumbnail' src=/fitnessground/resources/images/gymimages/" + rename_image[0] + " style='height:100px; width:100px;'></a></div></div>";
 					}
 				}
-				console.log(values);
+				console.log("json.gymlist[i].rename_image");
+				console.log(json.gymlist[i].rename_image);
 				$("#healthlist").html(values);
 				var valuesPaging = "";
 				if (data.currentPage <= 1) {

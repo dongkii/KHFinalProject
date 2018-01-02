@@ -89,22 +89,25 @@ COMMENT ON COLUMN TB_USER.USER_STATE IS '유저상태 0=활성화 / 1=비활성�
 -- 헬스장 테이블 생성
 PROMPT CREATING GYM TABLE..
 CREATE TABLE TB_GYM(
-GYM_NO NUMBER CONSTRAINT PK_GYM PRIMARY KEY,
-GYM_NAME VARCHAR2(60) NOT NULL,
-ORIGINAL_IMAGE VARCHAR2(4000),
-RENAME_IMAGE VARCHAR2(4000),
-OP_TIME VARCHAR2(100) NOT NULL,
-TEL VARCHAR2(30) NOT NULL,
-PHONE VARCHAR2(30) NOT NULL,
-PRICE VARCHAR2(500),
-CATEGORY VARCHAR2(100) NOT NULL,
-DESCRIPTION VARCHAR(4000),
-LOCATION VARCHAR2(100) NOT NULL,
-USER_NO NUMBER NOT NULL,
-DELETE_DATE DATE DEFAULT NULL,
-APPROVAL_STATE NUMBER DEFAULT 0,
-REGISTER_DATE DATE DEFAULT SYSDATE
+  GYM_NO NUMBER CONSTRAINT PK_GYM PRIMARY KEY,
+  GYM_NAME VARCHAR2(60) NOT NULL, -- 30에서 60으로 수정
+  ORIGINAL_IMAGE VARCHAR2(4000),
+  RENAME_IMAGE VARCHAR2(4000),
+  OP_TIME VARCHAR2(100) NOT NULL,
+  TEL VARCHAR2(30) NOT NULL,
+  PHONE VARCHAR2(30) NOT NULL,
+  PRICE VARCHAR2(500),
+  CATEGORY VARCHAR2(100) NOT NULL,
+  DESCRIPTION VARCHAR(4000),
+  LOCATION VARCHAR2(100) NOT NULL,
+  USER_NO NUMBER NOT NULL,
+  DELETE_DATE DATE DEFAULT NULL,
+  APPROVAL_STATE NUMBER DEFAULT 0,
+  REGISTER_DATE DATE DEFAULT SYSDATE,
+  LAT NUMBER,
+  LNG NUMBER    
 );
+
 COMMENT ON COLUMN TB_GYM.GYM_NO IS '헬스장번호';
 COMMENT ON COLUMN TB_GYM.GYM_NAME IS '헬스장이름';
 COMMENT ON COLUMN TB_GYM.ORIGINAL_IMAGE IS '원래 이미지 이름';
@@ -120,8 +123,11 @@ COMMENT ON COLUMN TB_GYM.USER_NO IS '사업자 번호';
 COMMENT ON COLUMN TB_GYM.DELETE_DATE IS '삭제 예정일';
 COMMENT ON COLUMN TB_GYM.APPROVAL_STATE IS '헬스장등록 승인여부';
 COMMENT ON COLUMN TB_GYM.REGISTER_DATE IS '헬스장 등록일자';
+COMMENT ON COLUMN TB_GYM.LAT IS '위도';
+COMMENT ON COLUMN TB_GYM.LNG IS '경도';
+
 ALTER TABLE TB_GYM
-ADD CONSTRAINT FK1_GYM FOREIGN KEY(USER_NO) REFERENCES TB_USER;
+  ADD CONSTRAINT FK1_GYM FOREIGN KEY(USER_NO) REFERENCES TB_USER;
 
 -- 헬스장 일정 테이블 생성
 PROMPT CREATING GYM_SCHEDULE TABLE..
@@ -1127,78 +1133,78 @@ PROMPT TB_VIDEO_BOARD 샘플데이터 입력끝!
 
 -- TB_GYM 샘플 데이터
 PROMPT TB_GYM 샘플데이터 입력중..
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE) 
-VALUES (gym_seq.nextval, '뚝이 휘트니스', '뚝이.jpg', 'bcd3c2f0821d4751bc534b6783a00ec4.jpg', '10:00~20:00', '02-123-4567', '010-1234-5678', '개별 문의', '헬스, 요가, 필라테스', NULL, '서울특별시 강남구 역삼동 823-25', 2, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE) 
-VALUES (gym_seq.nextval, '휘트니스피플 대치점', '휘트니스피플.jpg,휘트니스피플 대치점.jpg', 'cb52266c966045d4a78f1d1aca3e89e9.jpg,ece0d577cae74371ad96dc80ceecdb91.jpg', '10:00~20:00', '02-553-3912', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 강남구 대치동 994-9', 2, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE) 
-VALUES (gym_seq.nextval, '휘트니스피플 구의점', '휘트니스피플.jpg,휘트니스피플 구의점2.jpg,휘트니스피플 구의점3.jpg', 'cb52266c966045d4a78f1d1aca3e89e9.jpg,c773241bd8b046b8badfd182f6426c98.jpg,bd54f01e3b244c999d9a138ef2de8517.jpg', '10:00~20:00', '02-2201-3912', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 광진구 자양동 216-9', 2, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '휘트니스피플 홍대점', '휘트니스피플.jpg,c87742ea5f294bc089e7372ceff91832.jpg', 'cb52266c966045d4a78f1d1aca3e89e9.jpg,c87742ea5f294bc089e7372ceff91832.jpg', 'AM 06:00', '02-322-2696', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 이촌동 300-15번지', 2, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, 'KFA스카이휘트니스클럽', 'KFA스카이휘트니스클럽.jpg,KFA스카이휘트니스클럽2.jpg,KFA스카이휘트니스클럽3.jpg', '0af883718acc47ad8cf7d47eefef5e21.jpg,97de5a06aaba4dc9898fbb3338bb2f48.jpg,c4e1574d872d4d9ca27b5d7bfbaa1700.jpg', 'AM 06:00', '02-797-3993', '010-1234-5678', '개별 문의', '피트니스', NULL, '서울특별시 용산구 남영동 127-1번지', 2, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '스카이휘트니스클럽 시흥점', '스카이휘트니스클럽 시흥2.jpg,스카이휘트니스클럽 시흥3.jpg,스카이휘트니스클럽 시흥.jpg', 'c59437b4fa4c4b6e99f4181cf795dd69.jpg,3245f9e08ef64d51bfb86b7785366e64.jpg,db056911354648efa80d80b32b97f60e.jpg', '05:30~00:30', '031-311-8466', '010-1234-5678', '개별 문의', '피트니스', NULL, '경기도 시흥시 대야동 578-3', 2, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '스카이휘트니스클럽 오산점', '스카이휘트니스클럽 오산.jpg', 'd8c1daf75eb14390b4e78290c98b8973.jpg', '06:00~24:00', '031-372-7838', '010-1234-5678', '개별 문의', '피트니스', NULL, '경기도 오산시 오산동 925-5', 2, NULL, DEFAULT);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '태영휘트니스', '태영.jpg', 'b2d33554a8d946feb2a0ca909c6661d8.jpg', '06:00~23:00', '02-306-4966', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 마포구 성산동 157-3', 6, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '태영휘트니스센터', '태영.jpg', 'b2d33554a8d946feb2a0ca909c6661d8.jpg', '06:00~23:00', '031-406-4966', '010-1234-5678', '개별 문의', '헬스', NULL, '경기도 의정부시 의정부동 193-1', 6, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '스포애니 논현역점', '스포애니.jpg,스포애니 논현역점.jpg,스포애니 논현역점2.jpg', '3f8200179a3446978ae6181c55b4fa05.jpg,dcb06c936c3c41d6a71fcf4c5d322b8b.jpg,a78de777093a416d8bade599223dad4a.jpg', '00:00~24:00 24시간 운영', '02-461-8819', '010-1234-5678', '개별 문의', '헬스, 요가', NULL, '서울특별시 강남구 논현동 122-8', 6, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '스포애니 대치동점', '스포애니.jpg,스포애니 논현역점.jpg,스포애니 논현역점2.jpg', '3f8200179a3446978ae6181c55b4fa05.jpg,816064e31f4748d1b85d0a323ab97f2e.jpg,46016d99aba34303aec50417386e54f9.jpg', '00:00~24:00 24시간 운영', '02-552-9618', '010-1234-5678', '개별 문의', '헬스, 요가', NULL, '서울특별시 강남구 대치동 989-2', 6, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '스포애니 신천점', '스포애니.jpg,스포애니 신천점.jpg', '3f8200179a3446978ae6181c55b4fa05.jpg,51f63ed8631347a490423966984c70fe.jpg', '00:00~24:00 24시간 운영', '02-422-9618', '010-1234-5678', '개별 문의', '헬스, 요가', NULL, '서울특별시 송파구 잠실동 181-2', 6, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '와이짐 용산점', '와이짐 용산점.jpg,와이짐 용산점2.jpg', '91832dd8a9514d3aa865ee01423da6f6.jpg,db63df0abbcf444b90ea854622e9ac70.jpg', '06:00~23:00', '02-797-7304', '010-1234-5678', '개별 문의', '헬스장', NULL, '서울특별시 용산구 이촌동 300-18번지', 6, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '와이짐 부천점', '와이짐 부천점.jpg,와이짐 부천점2.jpg', '69d231a053844f9da32afefbf5bd4505.jpg,e50470a9bc4f495c8ec6fc831ab8cc0f.jpg', '06:00~23:00', '032-655-5959', '010-1234-5678', '개별 문의', '헬스장', NULL, '경기도 부천시 송내동 450-3', 6, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE) 
-VALUES (gym_seq.nextval, '우노휘트니스클럽.jpg,우노휘트니스클럽2.jpg', '우노휘트니스클럽.jpg', '9d67bd920b4d40009bb2d0aa0a40b120.jpg,fe23f08fe2af4d2fab12a62ac34bb2a5.jpg', 'AM 06:00', '02-790-6776', '010-1234-5678', '개별 문의', '피트니스', NULL, '서울특별시 용산구 보광동 260-8번지', 7, NULL, DEFAULT);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE) 
-VALUES (gym_seq.nextval, '웰니스짐', '웰니스짐.jpg,웰니스짐2.jpg,웰니스짐3.jpg,웰니스짐4.jpg', '06cf53e6860e4908925401f114052d70.jpg,6a2582b7a1d441b98929f5d5d5a0578c.jpg,9691aee16d194bc7b530daf1bd23869b.jpg,517369831a874da6bded9bfd6b690283.jpg', 'AM 06:00', '02-795-9966', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 이태원동 226-3번지', 7, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '프라이빗 웰니스', '프라이빗웰니스.jpg', 'd73a9db84e7f4b6fb70f71910ced0776.jpg', '06:00~22:00', '02-123-4567', '010-1234-5678', '1개월 5만원', '헬스', NULL, '서울특별시 용산구 한남동 740-1번지', 7, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE) 
-VALUES (gym_seq.nextval, '그랜드 남여헬스클럽', '그랜드헬스.jpg,그랜드헬스2.jpg,그랜드헬스3.jpg', 'd9ad838634e84cd19ec57e9474ce7778.jpg,612667fbdaef4ed88e9a3c68447730a5.jpg,193fd6176dd0490c969185ccc798ceed.jpg', 'AM 06:00', '02-795-5511', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 보광동 216-96번지', 7, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE) 
-VALUES (gym_seq.nextval, '그램 휘트니스', '그램휘트니스.jpg,그램휘트니스2.jpg,그램휘트니스3.jpg,그램휘트니스4.jpg,그램휘트니스5.jpg,그램휘트니스6.jpg', 'd21fd6e6ff5c40988cd7d5e00425809c.jpg,0f182f1f0ee7418ca6e177bb0e2a7fde.jpg,44782edf397d44a9acc36a40aacf693c.jpg,fcd1572cdaee483ead37d1acae9d1d55.jpg,d6fd4509cf394af7aa72ca8c4fd04773.jpg,fdeac5436bea4ff2bbfe5c65d0f7200b.jpg', 'AM 06:00', '02-794-6010', '010-1234-5678', '개별 문의', '피트니스', NULL, '서울특별시 용산구 한남동 657-201번지', 7, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '상떼휘트니스', '상떼휘트니스.jpg', '5a10cc71361d48ee96ab66f4a466aa65.jpg', '06:00~23:00', '02-407-5561', '010-1234-5678', '개별 문의', '피트니스', NULL, '서울특별시 송파구 가락동 80', 7, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '해밀톤 휘트니스센터', '해밀톤.jpg', '286671a4050d411ea09861de659ffbf0.jpg', '06:30~23:00', '02-3786-6375', '010-1234-5678', '개별 문의', '피트니스', NULL, '서울특별시 용산구 이태원동 116-1번지', 7, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '킴스짐헬스클럽', '킴스짐.jpg,킴스짐2.jpg', 'b0ac8b3fb81b4651899b7030c2586717.jpg,0d86064c80274ab884312e7b4134a912.jpg', '06:00~24:00 일요일 휴무', '02-798-8580', '010-1234-5678', '1개월 7만원', '헬스장', NULL, '서울특별시 용산구 이태원동 124-3번지', 7, NULL, DEFAULT);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '워너핏PT스튜디오', '워너핏.jpg', '4be7efd304e740dda724ba15e9d554ba.jpg', '07:00~23:00', '02-792-1031', '010-1234-5678', '[1:1PT] 8회 - 385,000', '피트니스', NULL, '서울특별시 용산구 남영동 61-4번지', 7, NULL, DEFAULT);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, 'H 퍼스널트레이닝', 'h퍼스널.jpg,h퍼스널2.jpg', '0db68ea657cd45ebae6c7c76db8c9951.jpg,d7ee708d6ae545dc8001d35e69a98acd.jpg', '06:00~24:00', '02-123-4567', '070-4530-4566', '개별 문의', '헬스', NULL, '서울특별시 용산구 한남동 79-3번지', 7, NULL, DEFAULT);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '반트짐', '반트짐.jpg', '969ab159c0b14f4b958d8997eaa43d77.jpg', '06:00~23:30 (12:00~13:00 점심시간)', '02-749-9994', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 이촌동 302-52번지', 7, NULL, DEFAULT);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, 'Fit In Cool', '핏인쿨.jpg,핏인쿨2.jpg,핏인쿨3.jpg', 'dabb7a81d0ca45f7bee199afc8768856.jpg,370eb521d421442ea41c2b291313e396.jpg,c06833af975e491290823c12e7ea54c8.jpg', '06:30~22:00', '02-601-0004', '010-2662-0828', '개별 문의', '피트니스', NULL, '서울특별시 용산구 한남동 657-45번지', 7, NULL, DEFAULT);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, 'FIT24CLUB', '핏24.jpg', '1906a559883e478b9197f88fd0c6693b.jpg', '09:00~21:00', '032-203-3330', '010-1234-5678', '개별 문의', '피트니스', NULL, '인천광역시 계양구 계산동 303-2', 7, NULL, DEFAULT);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, 'Beautiful Evolution', '뷰티풀에볼.jpg,뷰티풀에볼2.jpg', 'f17090cacfda4a98ba702d83f6551f47.jpg,c7ebe45a39404b7fb2fe669761097f91.jpg', '10:00~22:00', '02-792-4362', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 보광동 216-88번지', 7, NULL, DEFAULT);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '에스퍼스널트레이닝', '에스퍼스널.jpg', 'fdbc26a4825b4f8eb3bb5da35a9485c5.jpg', '06:00~23:00', '02-797-0324', '010-8226-2647', '개별 문의', '헬스', NULL, '서울특별시 용산구 용산동5가 24-1번지', 7, NULL, DEFAULT);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '레브 트레이닝 스튜디오', '레브3.jpg,레브.jpg,레브2.jpg', '1c387a559d284137a2b4b2ae1c408298.jpg,52584c34c10b4045816c4d659a4e502f.jpg,db004a41faea4eb9ba081bd226baf285.jpg', '09:00~22:30', '02-796-9600', '010-1234-5678', '1개월 8만원', '헬스', NULL, '서울특별시 용산구 한남동 1-307번지', 7, NULL, DEFAULT);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '칼라퍼스널트레이닝', '칼라퍼스널.jpg', 'e603cf73b75b421fb3aec99507fabf4b.jpg', '09:00~23:00', '02-711-4013', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 원효로1가 39-10번지', 7, NULL, DEFAULT);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES(gym_seq.nextval, '퍼펙트바디', '퍼펙트바디2.jpg,퍼펙트바디3.jpg,퍼펙트바디.jpg', '0f4f45206e114ec2887cec94f7e14b5f.jpg,d67276839ab545ebba72a191e7979dfd.jpg,045972f26f5b4c9d908b259b3791a080.jpg',  '06:00~24:00', '031-405-7676', '010-1234-1456',  '개별 문의', '헬스, 요가',  NULL, '경기도 안산시 단원구 선부동 1085', 7, NULL, DEFAULT);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '스포짐 용산점', '스포짐.jpg,스포짐 용산.jpg,스포짐 용산2.jpg', '497842f195b349a9a2c0da0fcc1ad458.jpg,1fd3cc6244b44fab99073a6e6c8bf63c.jpg,9d515b73e015429ab277f8ca705ca3e3.jpg', '06:00~23:30', '02-701-0011', '010-1234-5678', '개별 문의', '헬스, 요가, 필라테스', NULL, '서울특별시 용산구 문배동 40-31번지', 8, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '스포짐 사당점', '스포짐.jpg,스포짐 사당.jpg,스포짐 사당2.jpg,스포짐 사당3.jpg', '497842f195b349a9a2c0da0fcc1ad458.jpg,958a2f6104f7488dbdb967f29f60c44a.jpg,95d94b70f1394eecab881d5ab4f2b202.jpg,e1f20919394c440f9c4a857f919f03f7.jpg', '06:00~23:30', '02-522-1061', '010-1234-5678', '개별 문의', '헬스, 요가, 필라테스', NULL, '서울특별시 관악구 남현동 1061-61', 8, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '스포짐 광화문점', '스포짐.jpg,스포짐 광화문.jpg,스포짐 광화문2.jpg', '497842f195b349a9a2c0da0fcc1ad458.jpg,f62d139d6209457da25b20ff4f54ac89.jpg,e2db98b0d1ad4376bf053145c559280d.jpg', '06:00~23:30', '02-733-0114', '010-1234-5678', '개별 문의', '헬스, 요가, 필라테스', NULL, '서울특별시 종로구 내수동 72', 8, NULL, 1);
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '스포짐 시청점', '스포짐.jpg,스포짐 시청.jpg,스포짐 시청2.jpg', '497842f195b349a9a2c0da0fcc1ad458.jpg,9ca40d92b2a146e8aba5c5153a880d43.jpg,8517ee5132a6496980a6a5e9808bf333.jpg', '06:00~23:30', '02-772-9682', '010-1234-5678', '개별 문의', '헬스, 요가, 필라테스', NULL, '서울특별시 중구 태평로2가 70-5', 8, NULL, DEFAULT);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '뚝이 휘트니스', '뚝이.jpg', 'bcd3c2f0821d4751bc534b6783a00ec4.jpg', '10:00~20:00', '02-123-4567', '010-1234-5678', '개별 문의', '헬스, 요가, 필라테스', NULL, '서울특별시 강남구 역삼동 823-25', 2, NULL, 1, 37.4988793, 127.0327931);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '휘트니스피플 대치점', '휘트니스피플.jpg,휘트니스피플 대치점.jpg', 'cb52266c966045d4a78f1d1aca3e89e9.jpg,ece0d577cae74371ad96dc80ceecdb91.jpg', '10:00~20:00', '02-553-3912', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 강남구 대치동 994-9', 2, NULL, 1, 37.4981556, 127.0683869);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '휘트니스피플 구의점', '휘트니스피플.jpg,휘트니스피플 구의점2.jpg,휘트니스피플 구의점3.jpg', 'cb52266c966045d4a78f1d1aca3e89e9.jpg,c773241bd8b046b8badfd182f6426c98.jpg,bd54f01e3b244c999d9a138ef2de8517.jpg', '10:00~20:00', '02-2201-3912', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 광진구 자양동 216-9', 2, NULL, 1, 37.5365884, 127.0850255);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '휘트니스피플 홍대점', '휘트니스피플.jpg,c87742ea5f294bc089e7372ceff91832.jpg', 'cb52266c966045d4a78f1d1aca3e89e9.jpg,c87742ea5f294bc089e7372ceff91832.jpg', 'AM 06:00', '02-322-2696', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 이촌동 300-15번지', 2, NULL, 1, 37.5184110, 126.9778570);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, 'KFA스카이휘트니스클럽', 'KFA스카이휘트니스클럽.jpg,KFA스카이휘트니스클럽2.jpg,KFA스카이휘트니스클럽3.jpg', '0af883718acc47ad8cf7d47eefef5e21.jpg,97de5a06aaba4dc9898fbb3338bb2f48.jpg,c4e1574d872d4d9ca27b5d7bfbaa1700.jpg', 'AM 06:00', '02-797-3993', '010-1234-5678', '개별 문의', '피트니스', NULL, '서울특별시 용산구 남영동 127-1번지', 2, NULL, 1, 37.5413680, 126.9732950);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '스카이휘트니스클럽 시흥점', '스카이휘트니스클럽 시흥2.jpg,스카이휘트니스클럽 시흥3.jpg,스카이휘트니스클럽 시흥.jpg', 'c59437b4fa4c4b6e99f4181cf795dd69.jpg,3245f9e08ef64d51bfb86b7785366e64.jpg,db056911354648efa80d80b32b97f60e.jpg', '05:30~00:30', '031-311-8466', '010-1234-5678', '개별 문의', '피트니스', NULL, '경기도 시흥시 대야동 578-3', 2, NULL, DEFAULT, 37.4454607, 126.7982006);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '스카이휘트니스클럽 오산점', '스카이휘트니스클럽 오산.jpg', 'd8c1daf75eb14390b4e78290c98b8973.jpg', '06:00~24:00', '031-372-7838', '010-1234-5678', '개별 문의', '피트니스', NULL, '경기도 오산시 오산동 925-5', 2, NULL, DEFAULT, 37.1490543, 127.0748387);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '태영휘트니스', '태영.jpg', 'b2d33554a8d946feb2a0ca909c6661d8.jpg', '06:00~23:00', '02-306-4966', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 마포구 성산동 157-3', 6, NULL, 1, 37.5687653, 126.9057105);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '태영휘트니스센터', '태영.jpg', 'b2d33554a8d946feb2a0ca909c6661d8.jpg', '06:00~23:00', '031-406-4966', '010-1234-5678', '개별 문의', '헬스', NULL, '경기도 의정부시 의정부동 193-1', 6, NULL, 1, 37.74104 ,127.0486183);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '스포애니 논현역점', '스포애니.jpg,스포애니 논현역점.jpg,스포애니 논현역점2.jpg', '3f8200179a3446978ae6181c55b4fa05.jpg,dcb06c936c3c41d6a71fcf4c5d322b8b.jpg,a78de777093a416d8bade599223dad4a.jpg', '00:00~24:00 24시간 운영', '02-461-8819', '010-1234-5678', '개별 문의', '헬스, 요가', NULL, '서울특별시 강남구 논현동 122-8', 6, NULL, DEFAULT, 37.5105454, 127.023544);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '스포애니 대치동점', '스포애니.jpg,스포애니 논현역점.jpg,스포애니 논현역점2.jpg', '3f8200179a3446978ae6181c55b4fa05.jpg,816064e31f4748d1b85d0a323ab97f2e.jpg,46016d99aba34303aec50417386e54f9.jpg', '00:00~24:00 24시간 운영', '02-552-9618', '010-1234-5678', '개별 문의', '헬스, 요가', NULL, '서울특별시 강남구 대치동 989-2', 6, NULL, DEFAULT, 37.4989144, 127.0619629);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '스포애니 신천점', '스포애니.jpg,스포애니 신천점.jpg', '3f8200179a3446978ae6181c55b4fa05.jpg,51f63ed8631347a490423966984c70fe.jpg', '00:00~24:00 24시간 운영', '02-422-9618', '010-1234-5678', '개별 문의', '헬스, 요가', NULL, '서울특별시 송파구 잠실동 181-2', 6, NULL, DEFAULT, 37.5114824, 127.0815068);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '와이짐 용산점', '와이짐 용산점.jpg,와이짐 용산점2.jpg', '91832dd8a9514d3aa865ee01423da6f6.jpg,db63df0abbcf444b90ea854622e9ac70.jpg', '06:00~23:00', '02-797-7304', '010-1234-5678', '개별 문의', '헬스장', NULL, '서울특별시 용산구 이촌동 300-18번지', 6, NULL, 1, 37.5183360, 126.9772320);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '와이짐 부천점', '와이짐 부천점.jpg,와이짐 부천점2.jpg', '69d231a053844f9da32afefbf5bd4505.jpg,e50470a9bc4f495c8ec6fc831ab8cc0f.jpg', '06:00~23:00', '032-655-5959', '010-1234-5678', '개별 문의', '헬스장', NULL, '경기도 부천시 송내동 450-3', 6, NULL, DEFAULT, 37.4790509, 126.7660434);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '우노휘트니스클럽.jpg,우노휘트니스클럽2.jpg', '우노휘트니스클럽.jpg', '9d67bd920b4d40009bb2d0aa0a40b120.jpg,fe23f08fe2af4d2fab12a62ac34bb2a5.jpg', 'AM 06:00', '02-790-6776', '010-1234-5678', '개별 문의', '피트니스', NULL, '서울특별시 용산구 보광동 260-8번지', 7, NULL, DEFAULT, 37.5271280, 127.0002910);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '웰니스짐', '웰니스짐.jpg,웰니스짐2.jpg,웰니스짐3.jpg,웰니스짐4.jpg', '06cf53e6860e4908925401f114052d70.jpg,6a2582b7a1d441b98929f5d5d5a0578c.jpg,9691aee16d194bc7b530daf1bd23869b.jpg,517369831a874da6bded9bfd6b690283.jpg', 'AM 06:00', '02-795-9966', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 이태원동 226-3번지', 7, NULL, DEFAULT, 37.5395130, 126.9912810);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '프라이빗 웰니스', '프라이빗웰니스.jpg', 'd73a9db84e7f4b6fb70f71910ced0776.jpg', '06:00~22:00', '02-123-4567', '010-1234-5678', '1개월 5만원', '헬스', NULL, '서울특별시 용산구 한남동 740-1번지', 7, NULL, DEFAULT, 37.5384010, 127.0013530);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '그랜드 남여헬스클럽', '그랜드헬스.jpg,그랜드헬스2.jpg,그랜드헬스3.jpg', 'd9ad838634e84cd19ec57e9474ce7778.jpg,612667fbdaef4ed88e9a3c68447730a5.jpg,193fd6176dd0490c969185ccc798ceed.jpg', 'AM 06:00', '02-795-5511', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 보광동 216-96번지', 7, NULL, DEFAULT, 37.5258670, 126.9977940);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '그램 휘트니스', '그램휘트니스.jpg,그램휘트니스2.jpg,그램휘트니스3.jpg,그램휘트니스4.jpg,그램휘트니스5.jpg,그램휘트니스6.jpg', 'd21fd6e6ff5c40988cd7d5e00425809c.jpg,0f182f1f0ee7418ca6e177bb0e2a7fde.jpg,44782edf397d44a9acc36a40aacf693c.jpg,fcd1572cdaee483ead37d1acae9d1d55.jpg,d6fd4509cf394af7aa72ca8c4fd04773.jpg,fdeac5436bea4ff2bbfe5c65d0f7200b.jpg', 'AM 06:00', '02-794-6010', '010-1234-5678', '개별 문의', '피트니스', NULL, '서울특별시 용산구 한남동 657-201번지', 7, NULL, DEFAULT, 37.5342770, 127.0061820);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '상떼휘트니스', '상떼휘트니스.jpg', '5a10cc71361d48ee96ab66f4a466aa65.jpg', '06:00~23:00', '02-407-5561', '010-1234-5678', '개별 문의', '피트니스', NULL, '서울특별시 송파구 가락동 80', 7, NULL, DEFAULT, 37.4950438, 127.1204134);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '해밀톤 휘트니스센터', '해밀톤.jpg', '286671a4050d411ea09861de659ffbf0.jpg', '06:30~23:00', '02-3786-6375', '010-1234-5678', '개별 문의', '피트니스', NULL, '서울특별시 용산구 이태원동 116-1번지', 7, NULL, DEFAULT, 37.5350710, 126.9937650);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '킴스짐헬스클럽', '킴스짐.jpg,킴스짐2.jpg', 'b0ac8b3fb81b4651899b7030c2586717.jpg,0d86064c80274ab884312e7b4134a912.jpg', '06:00~24:00 일요일 휴무', '02-798-8580', '010-1234-5678', '1개월 7만원', '헬스장', NULL, '서울특별시 용산구 이태원동 124-3번지', 7, NULL, 1, 37.5350100, 126.9958730);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '워너핏PT스튜디오', '워너핏.jpg', '4be7efd304e740dda724ba15e9d554ba.jpg', '07:00~23:00', '02-792-1031', '010-1234-5678', '[1:1PT] 8회 - 385,000', '피트니스', NULL, '서울특별시 용산구 남영동 61-4번지', 7, NULL, DEFAULT, 37.5434310, 126.9727200);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, 'H 퍼스널트레이닝', 'h퍼스널.jpg,h퍼스널2.jpg', '0db68ea657cd45ebae6c7c76db8c9951.jpg,d7ee708d6ae545dc8001d35e69a98acd.jpg', '06:00~24:00', '02-123-4567', '070-4530-4566', '개별 문의', '헬스', NULL, '서울특별시 용산구 한남동 79-3번지', 7, NULL, DEFAULT, 37.5329960, 127.0064570);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '반트짐', '반트짐.jpg', '969ab159c0b14f4b958d8997eaa43d77.jpg', '06:00~23:30 (12:00~13:00 점심시간)', '02-749-9994', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 이촌동 302-52번지', 7, NULL, 1, 37.5209020, 126.9693340);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, 'Fit In Cool', '핏인쿨.jpg,핏인쿨2.jpg,핏인쿨3.jpg', 'dabb7a81d0ca45f7bee199afc8768856.jpg,370eb521d421442ea41c2b291313e396.jpg,c06833af975e491290823c12e7ea54c8.jpg', '06:30~22:00', '02-601-0004', '010-2662-0828', '개별 문의', '피트니스', NULL, '서울특별시 용산구 한남동 657-45번지', 7, NULL, DEFAULT, 37.5338020, 127.0036230);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, 'FIT24CLUB', '핏24.jpg', '1906a559883e478b9197f88fd0c6693b.jpg', '09:00~21:00', '032-203-3330', '010-1234-5678', '개별 문의', '피트니스', NULL, '인천광역시 계양구 계산동 303-2', 7, NULL, DEFAULT, 37.5372754, 126.729016);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, 'Beautiful Evolution', '뷰티풀에볼.jpg,뷰티풀에볼2.jpg', 'f17090cacfda4a98ba702d83f6551f47.jpg,c7ebe45a39404b7fb2fe669761097f91.jpg', '10:00~22:00', '02-792-4362', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 보광동 216-88번지', 7, NULL, DEFAULT, 37.5258930, 126.9978050);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '에스퍼스널트레이닝', '에스퍼스널.jpg', 'fdbc26a4825b4f8eb3bb5da35a9485c5.jpg', '06:00~23:00', '02-797-0324', '010-8226-2647', '개별 문의', '헬스', NULL, '서울특별시 용산구 용산동5가 24-1번지', 7, NULL, DEFAULT, 37.5232263, 126.973072);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '레브 트레이닝 스튜디오', '레브3.jpg,레브.jpg,레브2.jpg', '1c387a559d284137a2b4b2ae1c408298.jpg,52584c34c10b4045816c4d659a4e502f.jpg,db004a41faea4eb9ba081bd226baf285.jpg', '09:00~22:30', '02-796-9600', '010-1234-5678', '1개월 8만원', '헬스', NULL, '서울특별시 용산구 한남동 1-307번지', 7, NULL, DEFAULT, 37.5336670, 127.0106010);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '칼라퍼스널트레이닝', '칼라퍼스널.jpg', 'e603cf73b75b421fb3aec99507fabf4b.jpg', '09:00~23:00', '02-711-4013', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 원효로1가 39-10번지', 7, NULL, DEFAULT, 37.5406990, 126.9693040);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES(gym_seq.nextval, '퍼펙트바디', '퍼펙트바디2.jpg,퍼펙트바디3.jpg,퍼펙트바디.jpg', '0f4f45206e114ec2887cec94f7e14b5f.jpg,d67276839ab545ebba72a191e7979dfd.jpg,045972f26f5b4c9d908b259b3791a080.jpg',  '06:00~24:00', '031-405-7676', '010-1234-1456',  '개별 문의', '헬스, 요가',  NULL, '경기도 안산시 단원구 선부동 1085', 7, NULL, 1, 37.3399278, 126.8127328);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '스포짐 용산점', '스포짐.jpg,스포짐 용산.jpg,스포짐 용산2.jpg', '497842f195b349a9a2c0da0fcc1ad458.jpg,1fd3cc6244b44fab99073a6e6c8bf63c.jpg,9d515b73e015429ab277f8ca705ca3e3.jpg', '06:00~23:30', '02-701-0011', '010-1234-5678', '개별 문의', '헬스, 요가, 필라테스', NULL, '서울특별시 용산구 문배동 40-31번지', 8, NULL, DEFAULT, 37.5379690, 126.9680460);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '스포짐 사당점', '스포짐.jpg,스포짐 사당.jpg,스포짐 사당2.jpg,스포짐 사당3.jpg', '497842f195b349a9a2c0da0fcc1ad458.jpg,958a2f6104f7488dbdb967f29f60c44a.jpg,95d94b70f1394eecab881d5ab4f2b202.jpg,e1f20919394c440f9c4a857f919f03f7.jpg', '06:00~23:30', '02-522-1061', '010-1234-5678', '개별 문의', '헬스, 요가, 필라테스', NULL, '서울특별시 관악구 남현동 1061-61', 8, NULL, DEFAULT, 37.4741561, 126.9815704);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '스포짐 광화문점', '스포짐.jpg,스포짐 광화문.jpg,스포짐 광화문2.jpg', '497842f195b349a9a2c0da0fcc1ad458.jpg,f62d139d6209457da25b20ff4f54ac89.jpg,e2db98b0d1ad4376bf053145c559280d.jpg', '06:00~23:30', '02-733-0114', '010-1234-5678', '개별 문의', '헬스, 요가, 필라테스', NULL, '서울특별시 종로구 내수동 72', 8, NULL, DEFAULT, 37.5736451, 126.9720155);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE, LAT, LNG) 
+VALUES (gym_seq.nextval, '스포짐 시청점', '스포짐.jpg,스포짐 시청.jpg,스포짐 시청2.jpg', '497842f195b349a9a2c0da0fcc1ad458.jpg,9ca40d92b2a146e8aba5c5153a880d43.jpg,8517ee5132a6496980a6a5e9808bf333.jpg', '06:00~23:30', '02-772-9682', '010-1234-5678', '개별 문의', '헬스, 요가, 필라테스', NULL, '서울특별시 중구 태평로2가 70-5', 8, NULL, DEFAULT, 37.561985, 126.9767395);
 PROMPT TB_GYM 샘플데이터 입력끝!
 
 PROMPT TB_GYM_COMMENT 샘플데이터 입력중..
