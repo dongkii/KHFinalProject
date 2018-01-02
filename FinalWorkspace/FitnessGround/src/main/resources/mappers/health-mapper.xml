@@ -23,6 +23,11 @@
 		<result property="readcount" column="readcount"/>	
 	</resultMap>
 	
+	<resultMap id="resultVideoChart" type="VideoChart">
+		<result property="category1" column="category1"/>
+		<result property="readcount" column="readcount"/>	
+	</resultMap>
+	
 <!-- 	
 	<resultMap id="like" type="Health">
 		<id property="v_no" column="v_no"/>
@@ -124,7 +129,7 @@
 	</select>
 	
 	<!-- 규연이  -->
-	<select id="HealthList" resultType="list" resultMap = "resultWorkOut">
-		select  category1,  sum(readcount) from tb_video_board group by category1
+	<select id="HealthList" resultType="list" resultMap = "resultVideoChart">
+		select  category1,  sum(readcount) readcount from tb_video_board group by category1
 	</select>
 </mapper>

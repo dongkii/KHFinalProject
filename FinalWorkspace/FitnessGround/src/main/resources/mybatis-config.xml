@@ -23,7 +23,10 @@
 		<typeAlias type="com.kh.fitnessground.community.model.vo.MeetingComment" alias="MeetingComment"/>
 		<typeAlias type="com.kh.fitnessground.community.model.vo.CommunityComment" alias="CommunityComment"/>		
 		<typeAlias type="com.kh.fitnessground.admin.model.vo.Visit" alias="Visit"/>
-		<typeAlias type="com.kh.fitnessground.admin.model.vo.GymRating" alias="GymRating"/>
+		<typeAlias type="com.kh.fitnessground.admin.model.vo.GymRating" alias="GymRating"/>		
+		<typeAlias type="com.kh.fitnessground.admin.model.vo.PublicGymChart" alias="PublicGymChart"/>
+		<typeAlias type="com.kh.fitnessground.admin.model.vo.VideoChart" alias="VideoChart"/>		
+		<typeAlias type="com.kh.fitnessground.admin.model.vo.GymChart" alias="GymChart"/>
 		
 		
 	</typeAliases>

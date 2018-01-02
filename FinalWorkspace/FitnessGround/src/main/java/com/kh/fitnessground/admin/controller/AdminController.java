@@ -20,7 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fitnessground.admin.model.service.AdminService;
 import com.kh.fitnessground.admin.model.vo.BusinessRequest;
+import com.kh.fitnessground.admin.model.vo.GymChart;
 import com.kh.fitnessground.admin.model.vo.GymRating;
+import com.kh.fitnessground.admin.model.vo.PublicGymChart;
+import com.kh.fitnessground.admin.model.vo.VideoChart;
 import com.kh.fitnessground.admin.model.vo.Visit;
 import com.kh.fitnessground.community.model.service.CommunityBoardService;
 import com.kh.fitnessground.community.model.vo.CommunityBoard;
@@ -28,6 +31,7 @@ import com.kh.fitnessground.community.model.vo.MeetingBoard;
 import com.kh.fitnessground.gym.model.service.GymService;
 import com.kh.fitnessground.gym.model.vo.Gym;
 import com.kh.fitnessground.gym.model.vo.GymQnABoard;
+import com.kh.fitnessground.gym.model.vo.PublicGym;
 import com.kh.fitnessground.user.model.service.UserService;
 import com.kh.fitnessground.user.model.service.UserServiceImpl;
 import com.kh.fitnessground.user.model.vo.User;
@@ -99,7 +103,18 @@ public class AdminController {
 		
 		return mv;
 	}
-
+	
+	//별점출력
+	@RequestMapping(value="rating.do", method=RequestMethod.POST)
+	public ModelAndView ratingMethod(GymRating gr, HttpServletRequest request, HttpServletResponse response){
+		ModelAndView mv = new ModelAndView("admin/adminMain");
+		
+		ArrayList<GymRating> ratinglist = adminService.GymRating();
+		mv.addObject("gr", ratinglist);
+		mv.setViewName("jsonView");
+		return mv;
+		
+	}
 
 
 	// 관리자 차트뷰 이동
@@ -115,14 +130,20 @@ public class AdminController {
 
 		ArrayList<User> gymRlist = adminService.GymRequest(level);
 		ArrayList<GymQnABoard> qnalist = adminService.GymQnABoard(receiver);
-		ArrayList<Health> hlist = adminService.HealthList();
-
-		System.out.println("조회수별 헬스 조회 : "+hlist);
+		ArrayList<VideoChart> hlist = adminService.HealthList();
+		ArrayList<PublicGymChart> pglist = adminService.publicGymList();
+		ArrayList<GymChart> glist = adminService.gymchart();
+		
+		System.out.println("비디오 차트(VideoChart) 조회수  : "+hlist);
+		System.out.println("지역별 공공시설 갯수(PublicGymChart) 조회 : "+pglist);
+		System.out.println("헬스장 카테고리별(GymChart) 갯수 : "+glist);
 		mv.addObject("gymrequest", gymrequest);
 		mv.addObject("message", message);
 		mv.addObject("gymRlist", gymRlist);
 		mv.addObject("qnalist", qnalist);
 		mv.addObject("hlist",hlist);
+		mv.addObject("pglist", pglist);
+		mv.addObject("glist", glist);
 
 		return mv;
 	}

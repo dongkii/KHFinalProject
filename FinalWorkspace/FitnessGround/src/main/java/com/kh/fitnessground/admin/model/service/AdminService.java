@@ -2,11 +2,15 @@ package com.kh.fitnessground.admin.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.fitnessground.admin.model.vo.GymChart;
 import com.kh.fitnessground.admin.model.vo.GymRating;
+import com.kh.fitnessground.admin.model.vo.PublicGymChart;
+import com.kh.fitnessground.admin.model.vo.VideoChart;
 import com.kh.fitnessground.admin.model.vo.Visit;
 import com.kh.fitnessground.community.model.vo.CommunityBoard;
 import com.kh.fitnessground.community.model.vo.MeetingBoard;
 import com.kh.fitnessground.gym.model.vo.GymQnABoard;
+import com.kh.fitnessground.gym.model.vo.PublicGym;
 import com.kh.fitnessground.user.model.vo.User;
 import com.kh.fitnessground.workout.commentlike.vo.Like;
 import com.kh.fitnessground.workout.health.model.vo.Health;
@@ -90,7 +94,7 @@ public interface AdminService {
 	Object qnaBoardUpdate(int responseQ_no);
 
 
-	ArrayList<Health> HealthList();
+	ArrayList<VideoChart> HealthList();
 
 	int visitCount();
 
@@ -125,6 +129,12 @@ public interface AdminService {
 
 
 	ArrayList<GymRating> GymRating();
+
+
+	ArrayList<PublicGymChart> publicGymList();
+
+
+	ArrayList<GymChart> gymchart();
 
 
 

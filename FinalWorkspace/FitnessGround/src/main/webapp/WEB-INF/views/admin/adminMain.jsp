@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 <c:import url="common/head.jsp" />
 
@@ -399,7 +400,7 @@
 		<!-- Example DataTables Card-->
 		<div class="card mb-3">
 			<div class="card-header">
-				<i class="fa fa-table"></i> 헬스장 별점순
+				<i class="fa fa-table"></i> 고객들 평점이 가장 좋은 헬스장 목록입니다
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
@@ -417,20 +418,25 @@
 						</thead>
 						
 						<tbody>
+						<c:set var="i" value="0"/>
 						  <c:forEach var="item" items="${ratinglist }" varStatus="status">
+						  	<input type="hidden" id="hiderating${ i }" value="${ item.rating }">
+						  	<input type="hidden" id="count" value="${fn:length(ratinglist)} ">
 							<tr align="center">
 								<td>${item.gym_name }</td>
 								<td>${item.location }</td>
 								<td>${item.category }</td>
 								<td>${item.name }</td>
 								<td>${item.register_date }</td>
-								<td>
-									<div id="star" >${item.rating }
-										<label for="starRating">별점</label><input type="hidden" id="starRating" value="${item.rating }"/> 
+								<td id="td${i }">
+										<!-- <i class="fa fa-star-half-o" aria-hidden="true"></i>
+										<i class="fa fa-star" aria-hidden="true"></i>
+										<i class="fa fa-star-o" aria-hidden="true"></i>
+									 --></div> 
 										
-									</div>
 								</td>
 							</tr>
+							<c:set var="i" value="${ i+1 }"/>
 							</c:forEach>
 						</tbody>
 					</table>
@@ -450,6 +456,34 @@
 
 </div>
 <script type="text/javascript">
+$(document).ready(function(){
+	console.log($("#count").val());
+	var count = $("#count").val();
+	for(var i = 0; i <= count; i++){
+		var result = '';
+		result = $("#hiderating" + i + "").val();
+		var mod = result % 1;
+		var star = '';
+		var t = 0;
+		result =  Math.floor(result);
+		for(var j = 0; j < result; j ++){
+			star += '<i class="fa fa-star" aria-hidden="true"></i>';
+			t++;
+		}
+		if (mod > 0){
+			star += '<i class="fa fa-star-half-o" aria-hidden="true"></i>';
+			t++;
+		}
+		for(var z = t; z < 5; z++){
+			star += '<i class="fa fa-star-o" aria-hidden="true"></i>';
+		}
+		
+		result = $("#hiderating" + i + "").val();
+		star += "&nbsp;"+result;
+		
+		$("#td" + i + "").html(star);
+	}
+});
 	
 </script>
 <c:import url="common/end.jsp" />

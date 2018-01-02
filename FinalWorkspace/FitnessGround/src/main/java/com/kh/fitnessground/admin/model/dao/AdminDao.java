@@ -7,7 +7,11 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.kh.fitnessground.admin.model.vo.GymChart;
 import com.kh.fitnessground.admin.model.vo.GymRating;
+import com.kh.fitnessground.admin.model.vo.PublicGymChart;
+import com.kh.fitnessground.admin.model.vo.VideoChart;
 import com.kh.fitnessground.admin.model.vo.Visit;
 import com.kh.fitnessground.community.model.vo.CommunityBoard;
 import com.kh.fitnessground.community.model.vo.MeetingBoard;
@@ -158,9 +162,9 @@ public class AdminDao {
 		return sqlSession.update("gym.qnaBoardUpdate", responseQ_no);
 	}
 
-	public ArrayList<Health> HealthList() {
-		List<Health> list = sqlSession.selectList("health.HealthList");
-		ArrayList<Health> hlist = new ArrayList<Health>(list);
+	public ArrayList<VideoChart> HealthList() {
+		List<VideoChart> list = sqlSession.selectList("health.HealthList");
+		ArrayList<VideoChart> hlist = new ArrayList<VideoChart>(list);
 		
 		return hlist;
 	}
@@ -222,6 +226,18 @@ public class AdminDao {
 		ArrayList<GymRating> rlist = new ArrayList<GymRating>(list);
 		
 		return rlist;
+	}
+
+	public ArrayList<PublicGymChart> publicGymList() {
+		List<PublicGymChart> list = sqlSession.selectList("gym.publicGymList");
+		ArrayList<PublicGymChart> plist = new ArrayList<PublicGymChart>(list);
+		return plist;
+	}
+
+	public ArrayList<GymChart> gymchart() {
+		List<GymChart> list = sqlSession.selectList("gym.gymchart");
+		ArrayList<GymChart> gclist = new ArrayList<GymChart>(list);
+		return gclist;
 	}
 
 

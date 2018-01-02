@@ -73,6 +73,19 @@
 		<id property="end_time" column="end_time"/>
 	</resultMap>
 	
+	<resultMap id="resultPublicGymChart" type="PublicGymChart">
+		
+		<id property="location" column="location"/>
+		<id property="public_count" column="public_count"/>
+	</resultMap>
+	
+	<resultMap id="resultGymChart" type="GymChart">
+		
+		<id property="category" column="category"/>
+		<id property="count" column="count"/>
+		
+	</resultMap>
+	
 	<resultMap id="resultGym" type="Gym">
 		<id property="gym_no" column="gym_no"/>
 		<id property="gym_name" column="gym_name"/>
@@ -103,6 +116,25 @@
 
 		]]>
 	</select>
+	
+	
+	<select id="publicGymList" resultMap="resultPublicGymChart" resultType="list">
+		<![CDATA[ 
+		select *
+   		from   (select  substr(location, 1, 2) location, count(public_name) public_count from tb_public_gym
+		group by substr(location, 1, 2)
+		order by count(public_name) desc)
+		where rownum <=12
+		]]>
+	</select>
+	
+	
+	<select id="gymchart" resultMap="resultGymChart" resultType="list">
+		<![CDATA[ 
+		select  category,  count(gym_no) count from tb_gym group by category
+		]]>
+	</select>
+	
 	
 	<select id="topGymRequest" parameterType="_int" resultMap="resultBusinessRequest" resultType="list">
 		<![CDATA[ 
