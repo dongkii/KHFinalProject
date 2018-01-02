@@ -3,83 +3,75 @@ PROMPT FITNESSGROUND 자료입력시작
 SET FEEDBACK OFF;
 SET DEFINE OFF;
 
--- 유저 테이블
+
+-- 유저 테이블 삭제
 DROP TABLE TB_USER CASCADE CONSTRAINTS;
 PROMPT DROPPING TB_USER TABLE..
-
--- 헬스장 테이블
+-- 헬스장 테이블 삭제
 DROP TABLE TB_GYM CASCADE CONSTRAINTS;
 PROMPT DROPPING TB_GYM TABLE..
-
--- 공공시설 테이블
+-- 공공시설 테이블 삭제
 DROP TABLE TB_PUBLIC_GYM CASCADE CONSTRAINTS;
 PROMPT DROPPING TB_PUBLIC_GYM TABLE..
-
--- 헬스장 일정 테이블
+-- 헬스장 일정 테이블 삭제
 DROP TABLE TB_GYM_SCHEDULE CASCADE CONSTRAINTS;
 PROMPT DROPPING TB_GYM_SCHEDULE TABLE..
-
--- 헬스장 후기 테이블
+-- 헬스장 후기 테이블 삭제
 DROP TABLE TB_GYM_COMMENT CASCADE CONSTRAINTS;
 PROMPT DROPPING TB_GYM_COMMENT TABLE..
-
--- 운동법 동영상 테이블
+-- 운동법 동영상 테이블 삭제
 DROP TABLE TB_VIDEO_BOARD CASCADE CONSTRAINTS;
 PROMPT DROPPING TB_VIDEO_BOARD TABLE..
-
--- 운동법 동영상 댓글 테이블
+-- 운동법 동영상 댓글 테이블 삭제
 DROP TABLE TB_VB_COMMENT CASCADE CONSTRAINTS;
 PROMPT DROPPING TB_VB_COMMENT TABLE..
-
--- 커뮤니티 게시판(운동하자)
+-- 커뮤니티 게시판(운동하자) 삭제
 DROP TABLE TB_MEETING_BOARD CASCADE CONSTRAINTS;
 PROMPT DROPPING TB_MEETING_BOARD TABLE..
-
--- 커뮤니티 게시판 댓글(운동하자)
+-- 커뮤니티 게시판 댓글(운동하자) 삭제
 DROP TABLE TB_MB_COMMENT CASCADE CONSTRAINTS;
 PROMPT DROPPING TB_MB_COMMENT TABLE..
-
--- 커뮤니티 게시판(후기, QNA)
+-- 커뮤니티 게시판(후기, QNA) 삭제
 DROP TABLE TB_COM_BOARD CASCADE CONSTRAINTS;
 PROMPT DROPPING TB_COM_BOARD TABLE..
-
--- 커뮤니티 게시판 댓글(후기, QNA)
+-- 커뮤니티 게시판 댓글(후기, QNA) 삭제
 DROP TABLE TB_CB_COMMENT CASCADE CONSTRAINTS;
 PROMPT DROPPING TB_CB_COMMENT TABLE..
-
--- 마이페이지 스케줄러 테이블
+-- 마이페이지 스케줄러 테이블 삭제
 DROP TABLE TB_MYPAGE_SCHEDULE CASCADE CONSTRAINTS;
 PROMPT DROPPING TB_MYPAGE_SCHEDULE TABLE..
-
--- 문의하기 테이블
+-- 문의하기 테이블 삭제
 DROP TABLE TB_QNA CASCADE CONSTRAINTS;
 PROMPT DROPPING TB_QNA TABLE..
-
--- 좋아요 테이블
+-- 좋아요 테이블 삭제
 DROP TABLE TB_LIKE CASCADE CONSTRAINTS;
 PROMPT DROPPING TB_LIKE TABLE..
-
--- 방문자 테이블
+-- 방문자 테이블 삭제
 DROP TABLE TB_VISIT;
 PROMPT DROPPING TB_VISIT TABLE..
-
+-- 운동모임 뷰 삭제
+DROP VIEW MB_VIEW;
+PROMPT DROPPING MB_VIEW VIEW..
+-- 커뮤니티(리뷰, QNA) 뷰 삭제
+DROP VIEW CB_VIEW;
+PROMPT DROPPING CB_VIEW VIEW..
 
 
 -- 유저 테이블 생성
 PROMPT CREATING USER TABLE..
 CREATE TABLE TB_USER(
-  USER_NO NUMBER CONSTRAINT PK_USER PRIMARY KEY,
-  EMAIL VARCHAR2(30) NOT NULL,
-  PWD VARCHAR2(4000) NOT NULL,
-  NAME VARCHAR2(30) NOT NULL,
-  NICKNAME VARCHAR2(30) NOT NULL,
-  PHONE VARCHAR2(20) NOT NULL,
-  USER_LEVEL NUMBER DEFAULT 0,
-  DELETE_DATE DATE DEFAULT NULL,
-  TMPPWD_TF NUMBER DEFAULT 0,
-  ORIGINAL_IMAGE VARCHAR2(4000),
-  RENAME_IMAGE VARCHAR2(4000),
-  USER_STATE NUMBER DEFAULT 0
+USER_NO NUMBER CONSTRAINT PK_USER PRIMARY KEY,
+EMAIL VARCHAR2(30) NOT NULL,
+PWD VARCHAR2(4000) NOT NULL,
+NAME VARCHAR2(30) NOT NULL,
+NICKNAME VARCHAR2(30) NOT NULL,
+PHONE VARCHAR2(20) NOT NULL,
+USER_LEVEL NUMBER DEFAULT 0,
+DELETE_DATE DATE DEFAULT NULL,
+TMPPWD_TF NUMBER DEFAULT 0,
+ORIGINAL_IMAGE VARCHAR2(4000),
+RENAME_IMAGE VARCHAR2(4000),
+USER_STATE NUMBER DEFAULT 0
 );
 COMMENT ON COLUMN TB_USER.USER_NO IS '유저번호';
 COMMENT ON COLUMN TB_USER.EMAIL IS '이메일';
@@ -94,26 +86,24 @@ COMMENT ON COLUMN TB_USER.ORIGINAL_IMAGE IS '원래 이미지명';
 COMMENT ON COLUMN TB_USER.RENAME_IMAGE IS '바뀐 이미지명';
 COMMENT ON COLUMN TB_USER.USER_STATE IS '유저상태 0=활성화 / 1=비활성화';
 
-
 -- 헬스장 테이블 생성
 PROMPT CREATING GYM TABLE..
 CREATE TABLE TB_GYM(
-  GYM_NO NUMBER CONSTRAINT PK_GYM PRIMARY KEY,
-  GYM_NAME VARCHAR2(60) NOT NULL, -- 30에서 60으로 수정
-  ORIGINAL_IMAGE VARCHAR2(4000),
-  RENAME_IMAGE VARCHAR2(4000),
-  OP_TIME VARCHAR2(100) NOT NULL,
-  TEL VARCHAR2(30) NOT NULL,
-  PHONE VARCHAR2(30) NOT NULL,
-  PRICE VARCHAR2(500),
-  CATEGORY VARCHAR2(100) NOT NULL,
-  DESCRIPTION VARCHAR(4000),
-  LOCATION VARCHAR2(100) NOT NULL,
-  USER_NO NUMBER NOT NULL,
-  DELETE_DATE DATE DEFAULT NULL,
-  APPROVAL_STATE NUMBER DEFAULT 0,
-  REGISTER_DATE DATE DEFAULT SYSDATE
-
+GYM_NO NUMBER CONSTRAINT PK_GYM PRIMARY KEY,
+GYM_NAME VARCHAR2(60) NOT NULL,
+ORIGINAL_IMAGE VARCHAR2(4000),
+RENAME_IMAGE VARCHAR2(4000),
+OP_TIME VARCHAR2(100) NOT NULL,
+TEL VARCHAR2(30) NOT NULL,
+PHONE VARCHAR2(30) NOT NULL,
+PRICE VARCHAR2(500),
+CATEGORY VARCHAR2(100) NOT NULL,
+DESCRIPTION VARCHAR(4000),
+LOCATION VARCHAR2(100) NOT NULL,
+USER_NO NUMBER NOT NULL,
+DELETE_DATE DATE DEFAULT NULL,
+APPROVAL_STATE NUMBER DEFAULT 0,
+REGISTER_DATE DATE DEFAULT SYSDATE
 );
 COMMENT ON COLUMN TB_GYM.GYM_NO IS '헬스장번호';
 COMMENT ON COLUMN TB_GYM.GYM_NAME IS '헬스장이름';
@@ -130,61 +120,55 @@ COMMENT ON COLUMN TB_GYM.USER_NO IS '사업자 번호';
 COMMENT ON COLUMN TB_GYM.DELETE_DATE IS '삭제 예정일';
 COMMENT ON COLUMN TB_GYM.APPROVAL_STATE IS '헬스장등록 승인여부';
 COMMENT ON COLUMN TB_GYM.REGISTER_DATE IS '헬스장 등록일자';
-
 ALTER TABLE TB_GYM
-  ADD CONSTRAINT FK1_GYM FOREIGN KEY(USER_NO) REFERENCES TB_USER;
+ADD CONSTRAINT FK1_GYM FOREIGN KEY(USER_NO) REFERENCES TB_USER;
 
- 
 -- 헬스장 일정 테이블 생성
 PROMPT CREATING GYM_SCHEDULE TABLE..
 CREATE TABLE TB_GYM_SCHEDULE(
-  GS_NO NUMBER CONSTRAINT PK_GS PRIMARY KEY,
-  GYM_NO NUMBER NOT NULL,
-  DAY DATE NOT NULL,
-  SCHEDULE_TIME VARCHAR2(200) NOT NULL,
-  TITLE VARCHAR2(200) NOT NULL
+GS_NO NUMBER CONSTRAINT PK_GS PRIMARY KEY,
+GYM_NO NUMBER NOT NULL,
+DAY DATE NOT NULL,
+SCHEDULE_TIME VARCHAR2(200) NOT NULL,
+TITLE VARCHAR2(200) NOT NULL
 );
 COMMENT ON COLUMN TB_GYM_SCHEDULE.GS_NO IS '헬스장 일정 번호';
 COMMENT ON COLUMN TB_GYM_SCHEDULE.GYM_NO IS '헬스장 번호';
 COMMENT ON COLUMN TB_GYM_SCHEDULE.DAY IS '헬스장 일정날짜';
 COMMENT ON COLUMN TB_GYM_SCHEDULE.SCHEDULE_TIME IS '헬스장 일정시간';
 COMMENT ON COLUMN TB_GYM_SCHEDULE.TITLE IS '헬스장 일정 이름';
-
 ALTER TABLE TB_GYM_SCHEDULE
-  ADD CONSTRAINT FK1_GS FOREIGN KEY(GYM_NO) REFERENCES TB_GYM;
-  
+ADD CONSTRAINT FK1_GS FOREIGN KEY(GYM_NO) REFERENCES TB_GYM;
   
 -- 헬스장 후기 테이블 생성
 PROMPT CREATING GYM_COMMENT TABLE..
 CREATE TABLE TB_GYM_COMMENT(
-  GC_NO NUMBER CONSTRAINT PK_GC PRIMARY KEY,
-  GYM_NO NUMBER NOT NULL,
-  CONTENT VARCHAR2(1000) NOT NULL,
-  RATING NUMBER NOT NULL,
-  USER_NO NUMBER  NOT NULL
+GC_NO NUMBER CONSTRAINT PK_GC PRIMARY KEY,
+GYM_NO NUMBER NOT NULL,
+CONTENT VARCHAR2(1000) NOT NULL,
+RATING NUMBER NOT NULL,
+USER_NO NUMBER  NOT NULL
 );
 COMMENT ON COLUMN TB_GYM_COMMENT.GC_NO IS '헬스장 후기 번호';
 COMMENT ON COLUMN TB_GYM_COMMENT.GYM_NO IS '헬스장 번호';
 COMMENT ON COLUMN TB_GYM_COMMENT.CONTENT IS '헬스장 후기 내용';
 COMMENT ON COLUMN TB_GYM_COMMENT.RATING IS '헬스장 후기 별점';
 COMMENT ON COLUMN TB_GYM_COMMENT.USER_NO IS '작성자';
-
 ALTER TABLE TB_GYM_COMMENT
-  ADD CONSTRAINT FK1_GC FOREIGN KEY(GYM_NO) REFERENCES TB_GYM ON DELETE CASCADE;
+ADD CONSTRAINT FK1_GC FOREIGN KEY(GYM_NO) REFERENCES TB_GYM ON DELETE CASCADE;
 ALTER TABLE TB_GYM_COMMENT
-  ADD CONSTRAINT FK2_GC FOREIGN KEY(USER_NO) REFERENCES TB_USER ON DELETE CASCADE;
-  
+ADD CONSTRAINT FK2_GC FOREIGN KEY(USER_NO) REFERENCES TB_USER ON DELETE CASCADE;
   
 -- 운동법 동영상 테이블 생성
 PROMPT CREATING VIDEO_BOARD TABLE...
 CREATE TABLE TB_VIDEO_BOARD(
-  V_NO NUMBER CONSTRAINT PK_VB PRIMARY KEY,
-  TITLE VARCHAR2(300) NOT NULL,
-  CONTENT VARCHAR2(4000) NOT NULL,
-  CATEGORY1 VARCHAR2(100) NOT NULL,
-  CATEGORY2 VARCHAR2(100) NOT NULL,
-  URL VARCHAR2(4000) NOT NULL,
-  READCOUNT NUMBER DEFAULT 0
+V_NO NUMBER CONSTRAINT PK_VB PRIMARY KEY,
+TITLE VARCHAR2(300) NOT NULL,
+CONTENT VARCHAR2(4000) NOT NULL,
+CATEGORY1 VARCHAR2(100) NOT NULL,
+CATEGORY2 VARCHAR2(100) NOT NULL,
+URL VARCHAR2(4000) NOT NULL,
+READCOUNT NUMBER DEFAULT 0
 );
 COMMENT ON COLUMN TB_VIDEO_BOARD.V_NO IS '운동법 번호';
 COMMENT ON COLUMN TB_VIDEO_BOARD.TITLE IS '운동법 이름';
@@ -194,39 +178,36 @@ COMMENT ON COLUMN TB_VIDEO_BOARD.CATEGORY2 IS '운동법 분류2';
 COMMENT ON COLUMN TB_VIDEO_BOARD.URL IS '동영상 URL';
 COMMENT ON COLUMN TB_VIDEO_BOARD.READCOUNT IS '조회수';
 
-
 -- 운동법 동영상 댓글 테이블 생성
 PROMPT CREATING VB_COMMENT TABLE...
 CREATE TABLE TB_VB_COMMENT(
-  VB_NO NUMBER CONSTRAINT PK_VBC PRIMARY KEY,
-  V_NO NUMBER NOT NULL,
-  USER_NO NUMBER NOT NULL,
-  CONTENT VARCHAR2(1000) NOT NULL,
-  REPLY_DATE DATE DEFAULT SYSDATE
+VB_NO NUMBER CONSTRAINT PK_VBC PRIMARY KEY,
+V_NO NUMBER NOT NULL,
+USER_NO NUMBER NOT NULL,
+CONTENT VARCHAR2(1000) NOT NULL,
+REPLY_DATE DATE DEFAULT SYSDATE
 );
 COMMENT ON COLUMN TB_VB_COMMENT.VB_NO IS '운동법 댓글 번호';
 COMMENT ON COLUMN TB_VB_COMMENT.V_NO IS '운동법 번호';
 COMMENT ON COLUMN TB_VB_COMMENT.USER_NO IS '작성자';
 COMMENT ON COLUMN TB_VB_COMMENT.CONTENT IS '댓글 내용';
 COMMENT ON COLUMN TB_VB_COMMENT.REPLY_DATE IS '작성일자';
-
 ALTER TABLE TB_VB_COMMENT
-  ADD CONSTRAINT FK1_VBC FOREIGN KEY(V_NO) REFERENCES TB_VIDEO_BOARD ON DELETE CASCADE;
+ADD CONSTRAINT FK1_VBC FOREIGN KEY(V_NO) REFERENCES TB_VIDEO_BOARD ON DELETE CASCADE;
 ALTER TABLE TB_VB_COMMENT
-  ADD CONSTRAINT FK2_VBC FOREIGN KEY(USER_NO) REFERENCES TB_USER ON DELETE CASCADE;
-  
+ADD CONSTRAINT FK2_VBC FOREIGN KEY(USER_NO) REFERENCES TB_USER ON DELETE CASCADE;
 
 -- 커뮤니티 게시판(운동모임) 테이블 생성
 PROMPT CREATING MEETING_BOARD TABLE...
 CREATE TABLE TB_MEETING_BOARD(
-  MB_NO NUMBER CONSTRAINT PK_MB PRIMARY KEY,
-  USER_NO NUMBER,
-  TITLE VARCHAR2(200) NOT NULL,
-  CONTENT VARCHAR2(4000) NOT NULL,
-  MEETING_LOCATION VARCHAR2(100),
-  MEETING_DATE DATE,
-  UPLOAD_DATE DATE DEFAULT SYSDATE,
-  READCOUNT NUMBER DEFAULT 0
+MB_NO NUMBER CONSTRAINT PK_MB PRIMARY KEY,
+USER_NO NUMBER,
+TITLE VARCHAR2(200) NOT NULL,
+CONTENT VARCHAR2(4000) NOT NULL,
+MEETING_LOCATION VARCHAR2(100),
+MEETING_DATE DATE,
+UPLOAD_DATE DATE DEFAULT SYSDATE,
+READCOUNT NUMBER DEFAULT 0
 );
 COMMENT ON COLUMN TB_MEETING_BOARD.MB_NO IS '운동모임 게시글 번호';
 COMMENT ON COLUMN TB_MEETING_BOARD.USER_NO IS '작성자';
@@ -236,48 +217,45 @@ COMMENT ON COLUMN TB_MEETING_BOARD.MEETING_LOCATION IS '모임장소';
 COMMENT ON COLUMN TB_MEETING_BOARD.MEETING_DATE IS '모임날짜';
 COMMENT ON COLUMN TB_MEETING_BOARD.UPLOAD_DATE IS '작성일자';
 COMMENT ON COLUMN TB_MEETING_BOARD.READCOUNT IS '조회수';
-
 ALTER TABLE TB_MEETING_BOARD
-  ADD CONSTRAINT FK1_MB FOREIGN KEY(USER_NO) REFERENCES TB_USER;
+ADD CONSTRAINT FK1_MB FOREIGN KEY(USER_NO) REFERENCES TB_USER;
 
---운동모임 뷰 
+-- 커뮤니티 게시판(운동모임) 뷰 생성
+PROMPT CREATING MEETING BOARD VIEW..
 CREATE VIEW MB_VIEW AS 
 SELECT * FROM(SELECT A.*,B.USER_LEVEL,DECODE(B.USER_LEVEL,2,1,1,0,0,0)AS UL 
 FROM TB_MEETING_BOARD A join TB_USER B on(A.USER_NO=B.USER_NO))
 ORDER BY UL DESC, MB_NO DESC; 
-       
-  
+
 -- 커뮤니티 게시판(운동모임) 댓글 테이블 생성
 PROMPT CREATING MB_COMMENT TABLE...
 CREATE TABLE TB_MB_COMMENT(
-  MBC_NO NUMBER CONSTRAINT PK_MBC PRIMARY KEY,
-  MB_NO NUMBER NOT NULL, 
-  CONTENT VARCHAR2(1000) NOT NULL,
-  USER_NO NUMBER NOT NULL,
-  REPLY_DATE DATE DEFAULT SYSDATE
+MBC_NO NUMBER CONSTRAINT PK_MBC PRIMARY KEY,
+MB_NO NUMBER NOT NULL, 
+CONTENT VARCHAR2(1000) NOT NULL,
+USER_NO NUMBER NOT NULL,
+REPLY_DATE DATE DEFAULT SYSDATE
 );
 COMMENT ON COLUMN TB_MB_COMMENT.MBC_NO IS '운동모임 게시판 댓글 번호';
 COMMENT ON COLUMN TB_MB_COMMENT.MB_NO IS '운동모임 게시글 번호';
 COMMENT ON COLUMN TB_MB_COMMENT.CONTENT IS '댓글 내용';
 COMMENT ON COLUMN TB_MB_COMMENT.USER_NO IS '작성자';
 COMMENT ON COLUMN TB_MB_COMMENT.REPLY_DATE IS '작성일자';
-
 ALTER TABLE TB_MB_COMMENT
-  ADD CONSTRAINT FK1_MBC FOREIGN KEY(MB_NO) REFERENCES TB_MEETING_BOARD ON DELETE CASCADE;
+ADD CONSTRAINT FK1_MBC FOREIGN KEY(MB_NO) REFERENCES TB_MEETING_BOARD ON DELETE CASCADE;
 ALTER TABLE TB_MB_COMMENT
-  ADD CONSTRAINT FK2_MBC FOREIGN KEY(USER_NO) REFERENCES TB_USER ON DELETE CASCADE;
-  
+ADD CONSTRAINT FK2_MBC FOREIGN KEY(USER_NO) REFERENCES TB_USER ON DELETE CASCADE;
 
 -- 커뮤니티 게시판(후기,QNA) 테이블 생성
 PROMPT CREATING COM_BOARD TABLE...
 CREATE TABLE TB_COM_BOARD(
-  CB_NO NUMBER CONSTRAINT PK_CB PRIMARY KEY,
-  USER_NO NUMBER,
-  TITLE VARCHAR2(200) NOT NULL,
-  CONTENT VARCHAR2(4000) NOT NULL,
-  BOARD_PROPERTY NUMBER,
-  UPLOAD_DATE DATE DEFAULT SYSDATE,
-  READCOUNT NUMBER DEFAULT 0
+CB_NO NUMBER CONSTRAINT PK_CB PRIMARY KEY,
+USER_NO NUMBER,
+TITLE VARCHAR2(200) NOT NULL,
+CONTENT VARCHAR2(4000) NOT NULL,
+BOARD_PROPERTY NUMBER,
+UPLOAD_DATE DATE DEFAULT SYSDATE,
+READCOUNT NUMBER DEFAULT 0
 );
 COMMENT ON COLUMN TB_COM_BOARD.CB_NO IS '커뮤니티게시글 번호';
 COMMENT ON COLUMN TB_COM_BOARD.USER_NO IS '작성자';
@@ -286,32 +264,30 @@ COMMENT ON COLUMN TB_COM_BOARD.CONTENT IS '게시글 내용';
 COMMENT ON COLUMN TB_COM_BOARD.BOARD_PROPERTY IS '게시판특성 0=후기/1=QNA';
 COMMENT ON COLUMN TB_COM_BOARD.UPLOAD_DATE IS '작성일자';
 COMMENT ON COLUMN TB_COM_BOARD.READCOUNT IS '조회수';
-
 ALTER TABLE TB_COM_BOARD
-  ADD CONSTRAINT FK1_CB FOREIGN KEY(USER_NO) REFERENCES TB_USER;
-
+ADD CONSTRAINT FK1_CB FOREIGN KEY(USER_NO) REFERENCES TB_USER;
 
 -- 커뮤니티 게시판(후기,QNA) 댓글 테이블 생성
 PROMPT CREATING CB_COMMENT TABLE...
 CREATE TABLE TB_CB_COMMENT(
-  CBC_NO NUMBER CONSTRAINT PK_CBC PRIMARY KEY,
-  CB_NO NUMBER NOT NULL,
-  USER_NO NUMBER NOT NULL,
-  CONTENT VARCHAR2(1000) NOT NULL,
-  REPLY_DATE DATE DEFAULT SYSDATE
+CBC_NO NUMBER CONSTRAINT PK_CBC PRIMARY KEY,
+CB_NO NUMBER NOT NULL,
+USER_NO NUMBER NOT NULL,
+CONTENT VARCHAR2(1000) NOT NULL,
+REPLY_DATE DATE DEFAULT SYSDATE
 );
 COMMENT ON COLUMN TB_CB_COMMENT.CBC_NO IS '커뮤니티게시판 댓글 번호';
 COMMENT ON COLUMN TB_CB_COMMENT.CB_NO IS '커뮤니티게시글 번호';
 COMMENT ON COLUMN TB_CB_COMMENT.USER_NO IS '작성자';
 COMMENT ON COLUMN TB_CB_COMMENT.CONTENT IS '댓글 내용';
 COMMENT ON COLUMN TB_CB_COMMENT.REPLY_DATE IS '작성일자';
+ALTER TABLE TB_CB_COMMENT
+ADD CONSTRAINT FK1_CBC FOREIGN KEY(CB_NO) REFERENCES TB_COM_BOARD ON DELETE CASCADE;
+ALTER TABLE TB_CB_COMMENT
+ADD CONSTRAINT FK2_CBC FOREIGN KEY(USER_NO) REFERENCES TB_USER ON DELETE CASCADE;
 
-ALTER TABLE TB_CB_COMMENT
-  ADD CONSTRAINT FK1_CBC FOREIGN KEY(CB_NO) REFERENCES TB_COM_BOARD ON DELETE CASCADE;
-ALTER TABLE TB_CB_COMMENT
-  ADD CONSTRAINT FK2_CBC FOREIGN KEY(USER_NO) REFERENCES TB_USER ON DELETE CASCADE;
- 
---커뮤니티(리뷰, QNA) 뷰 
+--커뮤니티(리뷰, QNA) 뷰
+PROMPT CREATING COMMUNITY VIEW...
 CREATE VIEW CB_VIEW AS 
 SELECT * FROM(SELECT A.*,B.USER_LEVEL,DECODE(B.USER_LEVEL,2,1,1,0,0,0)AS UL 
 FROM TB_COM_BOARD A join TB_USER B on(A.USER_NO=B.USER_NO))
@@ -320,39 +296,37 @@ ORDER BY UL DESC, CB_NO DESC;
 -- 마이페이지 스케줄 테이블 생성
 PROMPT CREATING MYPAGE_SCHEDULE TABLE...
 CREATE TABLE TB_MYPAGE_SCHEDULE(
-  S_NO NUMBER CONSTRAINT PK_MS PRIMARY KEY,
-  V_NO NUMBER,
-  USER_NO NUMBER NOT NULL,
-  CONTENT VARCHAR2(100),
-  UPLOAD_DATE DATE default sysdate NOT NULL
+S_NO NUMBER CONSTRAINT PK_MS PRIMARY KEY,
+V_NO NUMBER,
+USER_NO NUMBER NOT NULL,
+CONTENT VARCHAR2(100),
+UPLOAD_DATE DATE default sysdate NOT NULL
 );
 COMMENT ON COLUMN TB_MYPAGE_SCHEDULE.S_NO IS '마이페이지일정 번호';
 COMMENT ON COLUMN TB_MYPAGE_SCHEDULE.V_NO IS '운동법 번호';
 COMMENT ON COLUMN TB_MYPAGE_SCHEDULE.USER_NO IS '유저번호';
 COMMENT ON COLUMN TB_MYPAGE_SCHEDULE.CONTENT IS '내용';
 COMMENT ON COLUMN TB_MYPAGE_SCHEDULE.UPLOAD_DATE IS '날짜';
-
 ALTER TABLE TB_MYPAGE_SCHEDULE
-  ADD CONSTRAINT FK1_MS FOREIGN KEY(V_NO) REFERENCES TB_VIDEO_BOARD ON DELETE CASCADE;
+ADD CONSTRAINT FK1_MS FOREIGN KEY(V_NO) REFERENCES TB_VIDEO_BOARD ON DELETE CASCADE;
 ALTER TABLE TB_MYPAGE_SCHEDULE
-  ADD CONSTRAINT FK2_MS FOREIGN KEY(USER_NO) REFERENCES TB_USER ON DELETE CASCADE;
-  
+ADD CONSTRAINT FK2_MS FOREIGN KEY(USER_NO) REFERENCES TB_USER ON DELETE CASCADE;
 
 -- 문의하기 테이블 생성
 PROMPT CREATING QNA TABLE...
 CREATE TABLE TB_QNA(
-  Q_NO NUMBER CONSTRAINT PK_Q PRIMARY KEY,
-  SENDER NUMBER NOT NULL,
-  RECEIVER NUMBER NOT NULL,
-  GYM_NO number, 
-  TITLE VARCHAR2(100) NOT NULL,
-  CONTENT VARCHAR2(4000) NOT NULL,
-  ORIGINAL_FILENAME VARCHAR2(4000),
-  RENAME_FILENAME VARCHAR2(4000),
-  WRITE_DATE DATE DEFAULT SYSDATE,
-  Q_LEVEL NUMBER DEFAULT 0,
-  REF_NO NUMBER NOT NULL,
-  RESPONSE_STATE NUMBER DEFAULT 0
+Q_NO NUMBER CONSTRAINT PK_Q PRIMARY KEY,
+SENDER NUMBER NOT NULL,
+RECEIVER NUMBER NOT NULL,
+GYM_NO number, 
+TITLE VARCHAR2(100) NOT NULL,
+CONTENT VARCHAR2(4000) NOT NULL,
+ORIGINAL_FILENAME VARCHAR2(4000),
+RENAME_FILENAME VARCHAR2(4000),
+WRITE_DATE DATE DEFAULT SYSDATE,
+Q_LEVEL NUMBER DEFAULT 0,
+REF_NO NUMBER NOT NULL,
+RESPONSE_STATE NUMBER DEFAULT 0
 );
 COMMENT ON COLUMN TB_QNA.Q_NO IS '문의하기 번호';
 COMMENT ON COLUMN TB_QNA.SENDER IS '보낸이';
@@ -366,52 +340,48 @@ COMMENT ON COLUMN TB_QNA.WRITE_DATE IS '작성일자';
 COMMENT ON COLUMN TB_QNA.Q_LEVEL IS '글레벨';
 COMMENT ON COLUMN TB_QNA.REF_NO IS '참조글번호';
 COMMENT ON COLUMN TB_QNA.RESPONSE_STATE IS '관리자 응답여부(0=미응답/1=응답)';
+ALTER TABLE TB_QNA
+ADD CONSTRAINT FK1_Q FOREIGN KEY(SENDER) REFERENCES TB_USER(USER_NO);
+ALTER TABLE TB_QNA
+ADD CONSTRAINT FK2_Q FOREIGN KEY(RECEIVER) REFERENCES TB_USER(USER_NO);
+ALTER TABLE TB_QNA
+ADD CONSTRAINT FK3_Q FOREIGN KEY(REF_NO) REFERENCES TB_QNA(Q_NO);
+ALTER TABLE TB_QNA
+ADD CONSTRAINT FK4_Q FOREIGN KEY(GYM_NO) REFERENCES TB_GYM(GYM_NO);
 
-ALTER TABLE TB_QNA
-  ADD CONSTRAINT FK1_Q FOREIGN KEY(SENDER) REFERENCES TB_USER(USER_NO);
-ALTER TABLE TB_QNA
-  ADD CONSTRAINT FK2_Q FOREIGN KEY(RECEIVER) REFERENCES TB_USER(USER_NO);
-ALTER TABLE TB_QNA
-  ADD CONSTRAINT FK3_Q FOREIGN KEY(REF_NO) REFERENCES TB_QNA(Q_NO);
-ALTER TABLE TB_QNA
-  ADD CONSTRAINT FK4_Q FOREIGN KEY(GYM_NO) REFERENCES TB_GYM(GYM_NO);
-  
-  
 -- 좋아요 테이블 생성
 PROMPT CREATING LIKE TABLE...
 CREATE TABLE TB_LIKE(
-  V_NO NUMBER NOT NULL,
-  USER_NO NUMBER NOT NULL,
-  CATEGORY1 VARCHAR2(100) NOT NULL,
-  CATEGORY2 VARCHAR2(100) NOT NULL,
-  LIKE_DATE DATE DEFAULT SYSDATE
+V_NO NUMBER NOT NULL,
+USER_NO NUMBER NOT NULL,
+CATEGORY1 VARCHAR2(100) NOT NULL,
+CATEGORY2 VARCHAR2(100) NOT NULL,
+LIKE_DATE DATE DEFAULT SYSDATE
 );
 COMMENT ON COLUMN TB_LIKE.V_NO IS '운동법 번호';
 COMMENT ON COLUMN TB_LIKE.USER_NO IS '좋아요를 누른 회원 번호';
 COMMENT ON COLUMN TB_LIKE.CATEGORY1 IS '운동법 카테고리1';
 COMMENT ON COLUMN TB_LIKE.CATEGORY2 IS '운동법 카테고리2';
 COMMENT ON COLUMN TB_LIKE.LIKE_DATE IS '좋아요를 누른 날짜';
-
 ALTER TABLE TB_LIKE
-  ADD CONSTRAINT FK1_L FOREIGN KEY(V_NO) REFERENCES TB_VIDEO_BOARD;
+ADD CONSTRAINT FK1_L FOREIGN KEY(V_NO) REFERENCES TB_VIDEO_BOARD;
 ALTER TABLE TB_LIKE
-  ADD CONSTRAINT FK2_L FOREIGN KEY(USER_NO) REFERENCES TB_USER;
+ADD CONSTRAINT FK2_L FOREIGN KEY(USER_NO) REFERENCES TB_USER;
 
 -- 공공시설 테이블 생성 --
-  CREATE TABLE TB_PUBLIC_GYM
-   (	
-    PUBLIC_NAME VARCHAR2(500), 
-    CATEGORY VARCHAR2(30), 
-    CATEGORY_PUBLIC VARCHAR2(40), 
-    LOCATION VARCHAR2(500), 
-    LNG NUMBER, 
-    LAT NUMBER, 
-    TEL VARCHAR2(50), 
-    HOMEPAGE VARCHAR2(1024), 
-    OP_TIME VARCHAR2(30), 
-    END_TIME VARCHAR2(30)
-   );
-   
+PROMPT CREATING PUBLIC_GYM TABLE...
+CREATE TABLE TB_PUBLIC_GYM (	
+  PUBLIC_NAME VARCHAR2(500), 
+  CATEGORY VARCHAR2(30), 
+  CATEGORY_PUBLIC VARCHAR2(40), 
+  LOCATION VARCHAR2(500), 
+  LNG NUMBER, 
+  LAT NUMBER, 
+  TEL VARCHAR2(50), 
+  HOMEPAGE VARCHAR2(1024), 
+  OP_TIME VARCHAR2(30), 
+  END_TIME VARCHAR2(30)
+);
 COMMENT ON COLUMN TB_PUBLIC_GYM.PUBLIC_NAME IS '공공시설 이름';
 COMMENT ON COLUMN TB_PUBLIC_GYM.CATEGORY IS '공공시설 분류';
 COMMENT ON COLUMN TB_PUBLIC_GYM.CATEGORY_PUBLIC IS '체육시설 분류';
@@ -426,17 +396,17 @@ COMMENT ON COLUMN TB_PUBLIC_GYM.END_TIME IS '종료 시간';
 ALTER TABLE "TB_PUBLIC_GYM" MODIFY ("PUBLIC_NAME" NOT NULL ENABLE);
 
 -- 방문자 테이블 생성
+PROMPT CREATING VISIT TABLE...
 CREATE TABLE TB_VISIT(  
-  V_DATE DATE
+V_DATE DATE
 );
-
 COMMENT ON COLUMN TB_VISIT.V_DATE IS '방문자 수';
-
 
 
 ------------- 시퀀스 생성 ----------------
 PROMPT SEQUENCE 생성시작..
 -- 유저 시퀀스 --
+PROMPT CREATE USER SEQ..
 DROP SEQUENCE USER_SEQ;
 CREATE SEQUENCE USER_SEQ
 START WITH 1
@@ -446,6 +416,7 @@ NOCACHE
 ORDER;
 
 -- 헬스장 시퀀스 --
+PROMPT CREATE GYM SEQ..
 DROP SEQUENCE GYM_SEQ;
 CREATE SEQUENCE GYM_SEQ
 START WITH 1
@@ -455,6 +426,7 @@ NOCACHE
 ORDER;
 
 -- 헬스장 일정 시퀀스 --
+PROMPT CREATE GYM_SCHEDULE SEQ..
 DROP SEQUENCE GS_SEQ;
 CREATE SEQUENCE GS_SEQ
 START WITH 1
@@ -464,6 +436,7 @@ NOCACHE
 ORDER;
 
 -- 헬스장 후기 시퀀스 --
+PROMPT CREATE GYM_REVIEW(COMMENT) SEQ..
 DROP SEQUENCE GC_SEQ;
 CREATE SEQUENCE GC_SEQ
 START WITH 1
@@ -471,8 +444,9 @@ INCREMENT BY 1
 MAXVALUE 99999
 NOCACHE
 ORDER;
-  
+
 -- 마이페이지 스케줄 시퀀스 --
+PROMPT CREATE USER_SCHEDULE SEQ..
 DROP SEQUENCE MS_SEQ;
 CREATE SEQUENCE MS_SEQ
 START WITH 1
@@ -482,6 +456,7 @@ NOCACHE
 ORDER;
 
 -- 운동법 동영상 시퀀스 --
+PROMPT CREATE VIDEO_BOARD SEQ..
 DROP SEQUENCE VB_SEQ;
 CREATE SEQUENCE VB_SEQ
 START WITH 1
@@ -491,6 +466,7 @@ NOCACHE
 ORDER;
 
 -- 운동법 동영상 댓글 시퀀스 --
+PROMPT CREATE VIDEO_BOARD_COMMENT SEQ..
 DROP SEQUENCE VBC_SEQ;
 CREATE SEQUENCE VBC_SEQ
 START WITH 1
@@ -500,6 +476,7 @@ NOCACHE
 ORDER;
 
 -- 문의하기 시퀀스 --
+PROMPT CREATE QNA SEQ..
 DROP SEQUENCE QNA_SEQ;
 CREATE SEQUENCE QNA_SEQ
 START WITH 1
@@ -509,6 +486,7 @@ NOCACHE
 ORDER;
 
 -- 운동모임 게시판 시퀀스 --
+PROMPT CREATE COMMUNITY_METTING SEQ..
 DROP SEQUENCE MB_SEQ;
 CREATE SEQUENCE MB_SEQ
 START WITH 1
@@ -518,6 +496,7 @@ NOCACHE
 ORDER;
 
 -- 운동모임 게시판 댓글 시퀀스 --
+PROMPT CREATE COMMUNITY_METTING_COMMENT SEQ..
 DROP SEQUENCE MBC_SEQ;
 CREATE SEQUENCE MBC_SEQ
 START WITH 1
@@ -527,6 +506,7 @@ NOCACHE
 ORDER;
 
 -- 커뮤니티 게시판(QNA, 후기) 시퀀스 --
+PROMPT CREATE COMMUNITY_BOARD SEQ..
 DROP SEQUENCE CB_SEQ;
 CREATE SEQUENCE CB_SEQ
 START WITH 1
@@ -536,6 +516,7 @@ NOCACHE
 ORDER;
 
 -- 커뮤니티 게시판(QNA, 후기) 댓글 시퀀스 --
+PROMPT CREATE COMMUNITY_BOARD_COMMENT SEQ..
 DROP SEQUENCE CBC_SEQ;
 CREATE SEQUENCE CBC_SEQ
 START WITH 1
@@ -546,57 +527,62 @@ ORDER;
 PROMPT SEQUENCE 생성 끝...
 -- 시퀀스 생성 종료 --
 
+
 -- 샘플데이터 삽입 --
+-- 유저 샘플 데이터
 PROMPT TB_USER 샘플데이터 입력중..
 INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'ADMIN', '$2a$10$Fr8KsAskrldajwgHTaOvWeMfMhbamOVTQ9.1S2LN9M01g67zzd2im', '관리자', '관리자', '010-8366-3828', 2, NULL, 0, NULL, NULL, 0);
 INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'user11@iei.or.kr', '$2a$10$UWJxBhRjk8rH4CTKattaEOfkcKX20nYKrsImhve/0OLfrRipPRrwG', '양동균', '양뚝', '010-8366-3828', 1, NULL, 0, NULL, NULL, 0);
-INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'wltjs1796@naver.com', '$2a$10$sghg6nmqBwt1d54SlM0ZfubV5NjS1Iur.59X1.2FF09oWZlNqGnty', '윤지선', '지선짱', '010-6243-6597', 0, NULL, 0, 'jisun.jpg', '75050c9c530543c5bfc72094848a251f.jpg', 0);
+INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'wltjs1796@naver.com', '$2a$10$Fr8KsAskrldajwgHTaOvWeMfMhbamOVTQ9.1S2LN9M01g67zzd2im', '윤지선', '지선짱', '010-6243-6597', 0, NULL, 0, 'jisun.jpg', '75050c9c530543c5bfc72094848a251f.jpg', 0);
 INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'dlrbdus02@naver.com', '$2a$10$Xwj2UZ.bbu2RXt2YryO4NOIlnjbo21KVzIgzDCBRGMZIxcQw8Szwe', '일반이규연', '일반이규연', '010-6357-2634', 0, NULL, 0, NULL, NULL, 0);
 INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'vaseline584@naver.com', '$2a$10$wiMg9.PSdH4akf476MvVR.t6iVEY36conMRdJTJohqZtEU9OQyHnO', '또이규연', '또이규연', '010-2122-6374', 0, NULL, 0, NULL, NULL, 0);
 INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'vaseline02@naver.com', '$2a$10$s9FRq3HzDIySGlrlbixbXOntOssZNjPDCQuTtmyVxnISRahwohMhO', '사업자이규연', '사업자이규연', '010-6357-2634', 1, NULL, 0, NULL, NULL, 0);
+INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'jsh@naver.com', '$2a$10$s9FRq3HzDIySGlrlbixbXOntOssZNjPDCQuTtmyVxnISRahwohMhO', '정세화', '사업자정세화', '010-3043-1861', 1, NULL, 0, NULL, NULL, 0);
+INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'kdy@naver.com', '$2a$10$s9FRq3HzDIySGlrlbixbXOntOssZNjPDCQuTtmyVxnISRahwohMhO', '김도영', '사업자도영', '010-7446-0531', 1, NULL, 0, NULL, NULL, 0);
 PROMPT TB_USER 샘플데이터 입력끝!
 
+-- 방문 샘플 데이터
 PROMPT TB_VISIT 샘플데이터 입력중..
 insert into tb_visit values (to_date('10-06-2016', 'MM-dd-yyyy'));
 insert into tb_visit values (to_date('11-07-2017', 'MM-dd-yyyy'));
 insert into tb_visit values (to_date('12-20-2017', 'MM-dd-yyyy'));
 PROMPT TB_VISIT 샘플데이터 입력끝!
 
-
 -- 커뮤니티 샘플 데이터
 PROMPT 커뮤니티 샘플데이터 입력중..
+-- 운동모임
+PROMPT TB_METTING_BOARD 샘플데이터 입력중..
 INSERT INTO TB_MEETING_BOARD
 VALUES(mb_seq.nextval,2,'금강산 같이 타실분 구해요','이번 12월 11일날 눈이 많이 온다고들 하네요.. 그때 산 한번 타고 싶은데 같이 타실분 있나요?','구로',
-        '2017/12/21',default,0);
+      '2017/12/21',default,0);
 INSERT INTO TB_MEETING_BOARD
 VALUES(mb_seq.nextval,2,'새벽에 같이 운동 하실분','저녁에 운동하다 지금은 가게 직원이 없어서 운동도못한지 삼주쨰.. 새벽이라도 하고 싶네요.. 새벽에 시청 같이 도실분 있나요??','안산',
-        '2017/12/21',default,0);
+      '2017/12/21',default,0);
 INSERT INTO TB_MEETING_BOARD
 VALUES(mb_seq.nextval,3,'구로 부천 같이 운동하실분(일요일만)','원래 월~토 운동했는데 앞으로 일~금 운동으로 바꾸려고 합니다. 일요일에 서울이나 부천에서 멀지 않을 곳으로 일권 끊고 운동 다닐까 하는데 같이 하실분 있었으면 해서요~~ 파트너 운동은 경험없고 혼자 조용히 운동하는편인데 커뮤티니에 운동모임 하시는분들 보면 여러면에서 좋아보이네요 주변에 운동하는 사람들이 없어서..ㅎㅎ','부천',
-        '2017/12/21',default,0);
+      '2017/12/21',default,0);
 INSERT INTO TB_MEETING_BOARD
 VALUES(mb_seq.nextval,2,'같이 운동하실분','달리기, 걷기, 줄넘기 등.. 같이 운동하실분 계실까요??','천안',
-         '2017/12/21',default,0);
+       '2017/12/21',default,0);
 INSERT INTO TB_MEETING_BOARD
 VALUES(mb_seq.nextval,3,'같이 탁구나 운동 하실분 찾아요','제 주위에는 운동을 너무 싫어하네요 ㅠㅠ 혼자 신천걷고 뛰는게 싫증이..ㅋㅋ 혹 탁구나 배드민턴 등 아님 신천도 좋지만 .. 무튼 같이 운동하실분 찾아봅니다.! 참고로 저는 수성구 살아요','서울',
-         '2017/12/21',default,0);       
-
+       '2017/12/21',default,0);
+PROMPT TB_METTING_BOARD 샘플데이터 입력끝!
+-- 후기
+PROMPT TB_COM_BOARD (후기) 샘플데이터 입력중..
 INSERT INTO TB_COM_BOARD
 VALUES(cb_seq.nextval,2,'붕어운동 기구 솔직후기!!','평소 허리디스크가 있어서 운동도 많이하고 있는편인데 티비보다 홈쇼핑에서 붕어운동기구를 봤어요 보다보니
 뭔가 혹하는?ㅋㅋ 30만원이 넘어서 가격대가 좀 많이 쎄지만 3일 무료체험이 된다고 하니 일단 질렀어용.. 코어운동이 가능하며 몸의 밸런스를 맞춰준다고하니
 완전 저한테 엄청 필요한것 ㅋㅋㅋㅋ 사용해봤는데 붕어운동 운동기구 사용해보니 허리가 가벼워지는 느낌이 좋았어요',0,sysdate,0);
-
 INSERT INTO TB_COM_BOARD
 VALUES(cb_seq.nextval,2,'승마운동기구후기 뱃살뺐어요!!','뱃살을 빼는데 좋다는 윗몸일으키기부터 요가자세까지..안해본게 없습니다!! 물론 제가 꾸준히 했다면 효과를 봤겠지요..ㅎㅎ
 조금만 힘들면 스스로 만족을 하고 그만두게되는데요..시간을 재어보니 고작 3분??ㅎㅎㅎㅎ 그래서 그냥 포기를 하는게 일수였죠!! 어느날 거울을 보고 안되겠다 싶어 시작한 승마운동기구~~ 뱃살이 조금씩 빠지는걸 보니 계속하게 되더라고요.지금부터 제가 효과 본 승마운동기구후기를 공유할께요!!',0,sysdate,0);
-
 INSERT INTO TB_COM_BOARD
 VALUES(cb_seq.nextval,2,'여자케겔운동기구 사용후기/효과 공개!','사촌 언니가 지난 미즈케어 무료상담 이후 쭉 비공개 프로그램을 진행준입니다. 이는 베리얀3.0이라는
 여자 케겔 운동기루를 이용하는 방법으로서, 본 프로그램의 진행전에 들어가는 무료분석이 상당히 도움이 되는데다 성실하게 실천하기만 한다면 최소 2~3주 이후부터는 효과를 볼 수 있다고 하더군요!',0,sysdate,0);
-
 INSERT INTO TB_COM_BOARD
 VALUES(cb_seq.nextval,3,'다이어트운동으로 호날두다운 남자복근 만들기 ok!','쁜 일상 때문에 남자복근 만들기가 어렵다.만약 이런 분이 계신다면 아니라고 말씀드리고 싶어요.왜냐하면 전 다이어트운동으로 남자복근 만들기 쉽게 하고 있거든요.
- 저도 사실 식스패드를 만나기 전까지만 해도 핑계 대면서 다이어트운동과 남자복근은 꿈도 못 꿨는데! 가만히만 있어도 운동이 되는 식스패드 덕에 아주 흡족해하고 있답니다.',0,sysdate,0);
+저도 사실 식스패드를 만나기 전까지만 해도 핑계 대면서 다이어트운동과 남자복근은 꿈도 못 꿨는데! 가만히만 있어도 운동이 되는 식스패드 덕에 아주 흡족해하고 있답니다.',0,sysdate,0);
 INSERT INTO TB_COM_BOARD
 VALUES(cb_seq.nextval,2,'집에서 간편하게 운동할 수 있다는 기구 질렀어요~ㅎㅎ','이름은 콜라쉐이퍼라고 하는데요! 따로 운동할 필요 없어 가만히 있어도 된다는 말에 홀랑 질러버린~^^
 홈쇼핑 보고 급 질러버렸어요...ㅎ 배송이 빨라서 담날 바로 받아봤네요 간단하게 사용 후기도 적어볼게요 옆에 전원버튼이 있어요
@@ -605,23 +591,24 @@ VALUES(cb_seq.nextval,2,'집에서 간편하게 운동할 수 있다는 기구 �
 INSERT INTO TB_COM_BOARD
 VALUES(cb_seq.nextval,2,'렉스파 운동기구 질렀어요 ㅋㅋ ','티비 홈쇼핑에 나오길래 질러버렸네요~ 렉스파 운동기구 혹 사용하는 맘 계신가요? ㅎㅎ 후기가 궁금~
 신랑이 보너스 탄게 있어서 걍 눈감고 질러버렸거든여~ 날씨는 점점 따뜻해지는데 요놈의 뱃살 빠질생각 안하더라고요~~ㅠㅠ 아휴.집에 오면 큰맘먹고 뱃살이랑 이별준비해야겠네요 ㅎㅎ',0,sysdate,0);
-
+PROMPT TB_COM_BOARD (후기) 샘플데이터 입력끝!
+-- QnA
+PROMPT TB_COM_BOARD (QnA) 샘플데이터 입력중..
 INSERT INTO TB_COM_BOARD
 VALUES(cb_seq.nextval,2,'운동전 식사가 더 좋은가요?','제가 헬스를 시작한지 얼마 안되서요 ㅠㅠ 운동전에 밥을 먹어야할지 운동후에 밥을 먹어야할지 모르겠네요..',1,sysdate,0);
-
-INSERT INTO TB_COM_BOARD
-VALUES(cb_seq.nextval,2,'헬스장 등록건에 대해 궁금해서 여쭈어봅니당..','제가 사업자로 헬스장 등록을 하고 싶은데 뭐 따로 신청해야 하는게 있나요?',1,sysdate,0);
-
 INSERT INTO TB_COM_BOARD
 VALUES(cb_seq.nextval,2,'다이어트 중 궁금한게 있어요..','제가 식단 조절은 안하고 다이어트를 하고 싶은데 최대한 저염식으로요.. 어떤식으로 해야 먹을거 먹으면서 살뺄수 있을까요..',1,sysdate,0);
-
 INSERT INTO TB_COM_BOARD
 VALUES(cb_seq.nextval,2,'제가 처음 운동을 시작하는데..','제가 처음 운동을 시작하는데 어떤 운동을 해야 할지 잘 모르겠어요 ㅠ 어떤 운동부터 시작해야 할까요 ㅠㅠ 저는 쫌 마른편입니다..',1,sysdate,0);
-PROMPT 커뮤니티 샘플데이터 입력끝
+PROMPT TB_COM_BOARD (QnA) 샘플데이터 입력끝!
+PROMPT 커뮤니티 샘플데이터 입력끝!
 
---TB_VIDEO_BOARD (요가)샘플데이터 
---빈야사
+-- TB_VIDEO_BOARD 샘플데이터
 PROMPT TB_VIDEO_BOARD 샘플데이터 입력중..
+-- 요가 샘플데이터 
+PROMPT 요가 샘플데이터 입력중..
+--빈야사
+PROMPT 요가 (빈야사) 샘플데이터 입력중..
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[EVA YOGA]초보자를 위한 빈야사 요가 - 블럭','반갑습니다. 요가 강사 EVA입니다. 초보자분들에게 블럭은 정말 유용한 도구입니다. 하지만 정작 그 쓰임새를 잘 알지 못하시는데요 이번 영상은 블럭을 이용한 가장 기본적인 영상입니다. 이 영상을 바탕으로 블럭을 활용하는데 도움이 되었으면 합니다.','요가','빈야사','03ydrIQxeK4',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[EVA YOGA]애플힙을 위한 강력한 두번째 빈야사 요가 - 난이도가 조금 있어요','반갑습니다. 요가 강사 EVA입니다. 여러분!!!!!! 여러분!!!!!! 하하하....T^T 여러분은 오늘 사시나무 떨듯이 떠는 저를 보게 되실 겁니다. 왜이러지;;; 오늘 이상하게 너무 힘들고 몸이 떨리네요. 촬영시간은 기상 후 3시간 정도 후인데 제가 아무것도 안먹었거든요. 그래서 그런지 오늘은 이상하게 덜덜거리네요. 참고하시면서 봐주시길 바라면서 오늘은 애플힙 영상 두번째로 더 강력한 시퀀스를 준비했습니다. 저번 영상에서 집중도가 조금 떨어진거 같은 느낌을 받아 이번에는 완전 집중을 했습니다. 불탈지도 몰라요. 조심하세요~_~ 그리고 동작 난이도가 조금 있습니다. 힘드신분들은 손을 짚은 상태로 하시면 되요. 영상 해보시면 뭔소린지 아실 겁니다. 그럼 지금 바로 시작합니다.','요가','빈야사','GXECrcR-tDc',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[EVA YOGA]30분 애플힙을 위한 빈야사 요가','반갑습니다. 요가 강사 EVA입니다. 이번 영상은 애플힙을 위한 영상입니다. 제가 시퀀스를 짤때는 힙에 집중해서 만들었는데 찍다보니까 후반부에 생각만치 엉덩이가 불타지 않터라고요. 그러므로!!! 최대한 힙에 집중해서 동작을 하세요. 해보면 아시겠지만 힙에 집중을 하였으나 다른곳에 움직임 역시 넘쳐난다는것을 기억하시면서 지금 바로 시작합니다.','요가','빈야사','BUqB9xoIjLU',0);
@@ -652,7 +639,9 @@ INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[EVA YOGA]강한! 슬림한! �
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[EVA YOGA] 요가 빈야사에 대하여(for 초보자)','반갑습니다. 요가 강사 EVA입니다. 이번에는 빈야사에 대하여 다루어봤습니다. 이미 다른 동영상에서 여러번 소개를 했지만 아직 잘모르시는 분들을 위해 따로 동영상을 준비했습니다. 초보자분들이 차투랑가 단다사나, 업워드페이싱독을 하기엔 무리가 있지요. 그런분들을 위해 쉬운버전의 모디퐈이 차투랑가, 로우코브라 등을 소개합니다.','요가','빈야사','gDI2nKKWFY8',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[EVA YOGA]하누만아사나를 위한 20분 빈야사 요가','반갑습니다. 요가 강사 EVA입니다. 오늘은 하누만아사나를 위한 빈야사를 준비했습니다. 흔히 다리찢기라고 하죠? 차근차근 준비해서 하누만아사나를 완성하는 시퀀스. 블럭만 있으시면 초보자분들도 충분히 도전하실수 있습니다. 자 지금 바로 시작합니다.','요가','빈야사','yGe3bx2qKrA',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[EVA YOGA]튼튼한 척추를 위한 18분 빈야사 요가 ver.2','반갑습니다. 요가 강사 EVA입니다. 저번 시간에 이어 오늘도 튼튼한 척추를 위한 시퀀스를 마련했습니다. 원래는 두개의 시퀀스가 연결된 것인데 인터넷 사정상 길면 업로딩이 잘안되서 하나의 시퀀스를 두개로 만들었습니다. 여러분은 두개를 같이 수련하시면 좋으실겁니다.^^ 준비되셨으면 지금바로 시작하세요.','요가','빈야사','G1l51wugMXw',0);
+PROMPT 요가 (빈야사) 샘플데이터 입력끝!
 --다이어트
+PROMPT 요가 (다이어트) 샘플데이터 입력중..
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'VINYASA YOGA + pilates 1st','VINYASA YOGA + pilates 1st','요가','다이어트','rqKg1UGqBBE',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'vinyasa + physical exercise 2회','vinyasa + physical exercise 2회','요가','다이어트','Ftf2oA-3CYM',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'이유주의 "VINYASA YOGA" 3회 요가를 통한 다이어트 live 방송 by 헬스티비 HTV Healthtv','이유주의 "VINYASA YOGA" 3회 요가를 통한 다이어트 live 방송 by 헬스티비 HTV Healthtv','요가','다이어트','yCeOneYaH_8',0);
@@ -674,7 +663,9 @@ INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'이유주의 "VINYASA YOGA" 18
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'이유주의 "VINYASA YOGA" 22회 요가를 통한 다이어트 live 방송 by헬스티비+','이유주의 "VINYASA YOGA" 22회 요가를 통한 다이어트 live 방송 by헬스티비+헬스tv','요가','다이어트','uaQwJVPAz7c',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'이유주의 "VINYASA YOGA" 21회 요가를 통한 다이어트 live 방송 by헬스티비+','이유주의 "VINYASA YOGA" 21회 요가를 통한 다이어트 live 방송 by헬스티비+헬스tv','요가','다이어트','5XU6b3p4oM8',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'이유주의 "VINYASA YOGA" 20회 요가를 통한 다이어트 live 방송 by헬스티비+','이유주의 "VINYASA YOGA" 20회 요가를 통한 다이어트 live 방송 by헬스티비+헬스tv','요가','다이어트','R8E1YwxIC6g',0);
+PROMPT 요가 (다이어트) 샘플데이터 입력끝!
 --체형교정
+PROMPT 요가 (체형교정) 샘플데이터 입력중..
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'오른어깨와 오른등이 안쪽으로 굽은 분들을 위한 기본동작[김선미 자연치유요가]','김선미원장이 진행하는 치유요가 프로그램, 오른어깨와 오른등이 안쪽으로 굽은 체형을 위한 요가 기본동작 입니다.','요가','체형교정','ywGUVQUogyU',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'오른쪽옆구리를 열어주는 기울기자세[김선미 자연치유요가]','자연치유학박사 김선미원장이 진행하는 치유요가, 오른쪽 옆구리를 열어주는 심화동작입니다.','요가','체형교정','9zx4MsMJNRQ',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'오른쪽 옆구리와 등이 협착된 분들을 위한 치유요가[자연치유요가]','자연치유학박사 김선미원장이 연구 개발한 오른쪽 옆구리와 등이 협착된 분들을 위한 치유요가 동작입니다. 따라하실때는 무리하지마시고 호흡에 유의하면서 꾸준하게 수련하시기 바랍니다.','요가','체형교정','8A9eVbCVVEM',0);
@@ -687,7 +678,9 @@ INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'척추유연성 강화를 위�
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'긴장완화 치유요가[김선미 자연치유요가]','김선미원장이 소개하는 긴장을 완화하여 심신을 안정시켜주는 요가동작, 기울기자세와 전굴자세 입니다. 무리하지마시고 따라하시기바랍니다. 다음카페 김선미요가에 오시면 보다 많은 정보를 공유하실 수 있습니다.http://cafe.daum.net/kimsunmiyoga','요가','체형교정','RG7hBx1QVq4',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'척추유연성 키워주는 고양이자세[김선미 자연치유요가]','김선미원장 동영상레슨 고양이자세 편입니다.다음카페 김선미요가에 오시면 보다 유익한정보를 공유하실수있습니다.','요가','체형교정','uBP9iiVyl9o',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'태양자세[김선미 자연치유요가]','김선미원장 동영상레슨 태양자세 편입니다.다음카페 김선미요가에 오시면 보다 유익한정보를 공유하실수있습니다.','요가','체형교정','4_2zKNfAnJw',0);
+PROMPT 요가 (체형교정) 샘플데이터 입력끝!
 --부위별
+PROMPT 요가 (부위별) 샘플데이터 입력중..
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'스위트바디 -팔뚝 군살을 없애주는 요가, 수건과 함께 ‘뒤로 나란히!’-','스위트바디 -팔뚝 군살을 없애주는 요가, 수건과 함께 ‘뒤로 나란히!’-','요가','부위별','8PrBmhSBIEk',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'스위트바디 -엉덩이의 좌우 균형을 맞추어주는 요가, 독수리 자세-','스위트바디 -엉덩이의 좌우 균형을 맞추어주는 요가, 독수리 자세-','요가','부위별','vwUJMjdqAqQ',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'스위트바디 -틀어진 엉덩이를 교정해주는 요가, 소머리 자세-','스위트바디 -틀어진 엉덩이를 교정해주는 요가, 소머리 자세-','요가','부위별','v8a7gCQdjcQ',0);
@@ -708,7 +701,9 @@ INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'스위트바디 -몸 앞의 �
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'스위트바디 - 아름다운 가슴을 만드는 요가 1, 부장가아사나Bhujangasana-','스위트바디 - 아름다운 가슴을 만드는 요가 1, 부장가아사나Bhujangasana-','요가','부위별','9ceqWowskZo',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'스위트바디 -매끄러운 허벅지를 만드는 요가 3, 런지 플로우Lunge flow-','스위트바디 -매끄러운 허벅지를 만드는 요가 3, 런지 플로우Lunge flow-','요가','부위별','p1OXBt86wcg',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'스위트바디 - 꿀벅지를 만드는 하체 요가, 우따나아사나 플로우Uttanasana flow-','스위트바디 - 꿀벅지를 만드는 하체 요가, 우따나아사나 플로우Uttanasana flow-','요가','부위별','D4hd3XetvVQ',0);
+PROMPT 요가 (부위별) 샘플데이터 입력끝!
 --초보자
+PROMPT 요가 (초보자) 샘플데이터 입력중..
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'#1 초보자를 위한 홈 요가 │ 집에서 하기 좋은 요가 │ 쉬운 요가 │ 앉아서 하는 요가','#1 초보자를 위한 홈 요가 │ 집에서 하기 좋은 요가 │ 쉬운 요가 │ 앉아서 하는 요가','요가','초보자','AlnZDHeqvOU',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'#2 앉아서 하는 요가 │비둘기 자세 │쉬운데 땀나는 요가','#2 앉아서 하는 요가 │비둘기 자세 │쉬운데 땀나는 요가','요가','초보자','aaV2u2kXJTU',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'#3 누워서 하는 코어 강화동작 │ 상하 복부 집중 강화 │초보와 고수가 함께하는 요가','#3 누워서 하는 코어 강화동작 │ 상하 복부 집중 강화 │초보와 고수가 함께하는 요가','요가','초보자','WkR7K3-hdug',0);
@@ -727,9 +722,13 @@ INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'#14 거북목 방지 요가 �
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'#15 │ 소화가 잘되는 요가 │ 답답한 속을 풀어주는 요가 │ 땀이 많이 나는 동작이에요! │ 스트레칭','#15 │ 소화가 잘되는 요가 │ 답답한 속을 풀어주는 요가 │ 땀이 많이 나는 동작이에요! │ 스트레칭','요가','초보자','OOMFKjrox1g',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'#16 | 탄력있는 몸을 만들어주는 밸런스 요가 | 나무자세 | 초보자 맞춤 밸런스 요가 | 15분 요가','#16 | 탄력있는 몸을 만들어주는 밸런스 요가 | 나무자세 | 초보자 맞춤 밸런스 요가 | 15분 요가','요가','초보자','2jBICeGAK6c',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'#17 │ 숄더라인이 아름다워지는 요가 │ 의자를 이용한 요가 │ 구독자 요청! │','#17 │ 숄더라인이 아름다워지는 요가 │ 의자를 이용한 요가 │ 구독자 요청! │','요가','초보자','9iCqqj0Yd4E',0);
+PROMPT 요가 (초보자) 샘플데이터 입력끝!
+PROMPT 요가 샘플데이터 입력끝!
 
---TB_VIDEO_BOARD (필라테스)샘플데이터 
+-- 필라테스 샘플데이터 
+PROMPT 필라테스 입력중..
 --스트레칭
+PROMPT 필라테스 (스트레칭) 샘플데이터 입력중..
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[스트레칭#1]밴드를 이용한 허벅지스트레칭','[스트레칭#1]밴드를 이용한 허벅지스트레칭','필라테스','스트레칭','Vzyty4J9Jw4',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[스트레칭#2]옆구리 군살빼는 홈스트레칭 운동','[스트레칭#2]옆구리 군살빼는 홈스트레칭 운동','필라테스','스트레칭','nGhOjejLBz8',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[스트레칭#3]자기전에하는 척추마사지 홈스트레칭','[스트레칭#3]자기전에하는 척추마사지 홈스트레칭','필라테스','스트레칭','rOG87x5dWOc',0);
@@ -742,7 +741,9 @@ INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'허리디스크 극심한 통�
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'필라테스 초급/5분 기초스트레칭 동영상 ♥Enjoy field exercise','필라테스 초급/5분 기초스트레칭 동영상 ♥Enjoy field exercise','필라테스','스트레칭','5iAYCDxEAcE',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'필라테스 스트레칭 야외운동 영상♥ON PILATES YUNA','필라테스 스트레칭 야외운동 영상♥ON PILATES YUNA','필라테스','스트레칭','CKjG-ONRb0Y',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'필라테스 초급/10분 필수스트레칭 ♥on pilates','필라테스 초급/10분 필수스트레칭 ♥on pilates','필라테스','스트레칭','o3t2LqbwUhM',0);
+PROMPT 필라테스 (스트레칭) 샘플데이터 입력끝!
 --복근집중운동
+PROMPT 필라테스 (복근집중운동) 샘플데이터 입력중..
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'콩필라테스 / 홈트레이닝 / 20MIN / 팔뚝살, 뱃살, 등살 빼기 / 타바타 운동','콩필라테스 / 홈트레이닝 / 20MIN / 팔뚝살, 뱃살, 등살 빼기 / 타바타 운동','필라테스','복근집중운동','BEUqI6w5wsc',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'콩필라테스 / 홈트레이닝 / 15 MIN 복근운동 / 뱃살빼기 / 필라테스 / ABS / CORE / PILATES','콩필라테스 / 홈트레이닝 / 15 MIN 복근운동 / 뱃살빼기 / 필라테스 / ABS / CORE / PILATES','필라테스','복근집중운동','aXuRO4KiL-Y',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'콩필라테스 / 홈트레이닝 / 15MIN 복근 운동 / 뱃살빼기 / 초,중급자 복근 운동 / PILATES / ABS','콩필라테스 / 홈트레이닝 / 15MIN 복근 운동 / 뱃살빼기 / 초,중급자 복근 운동 / PILATES / ABS','필라테스','복근집중운동','FZ-01BtD59Q',0);
@@ -764,7 +765,9 @@ INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'콩필라테스 X 영바디키
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'콩필라테스 X 영바디키 / 복근만들기 / 잘록한 허리라인 만들기 / 전신운동','콩필라테스 X 영바디키 / 복근만들기 / 잘록한 허리라인 만들기 / 전신운동','필라테스','복근집중운동','pPm9wKQ5IJE',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'콩필라테스 / 집에서 11자 복근 만들기!','콩필라테스 / 집에서 11자 복근 만들기!','필라테스','복근집중운동','ftp5i_pMC3g',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'콩필라테스 - 옆구리 살빼기 운동','콩필라테스 - 옆구리 살빼기 운동','필라테스','복근집중운동','5Ol7LRsZRjU',0);
+PROMPT 필라테스 (복근집중운동) 샘플데이터 입력끝!
 --전신운동
+PROMPT 필라테스 (전신운동) 샘플데이터 입력중..
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[한글자막] 17분 마법의 전신 필라테스','[한글자막] 17분 마법의 전신 필라테스','필라테스','전신운동','dIrF5yyTzvI',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'콩필라테스 / 40분 힙업 전신 운동 / 홈트레이닝 / 40MIN WORKOUT / PILATES','콩필라테스 / 40분 힙업 전신 운동 / 홈트레이닝 / 40MIN WORKOUT / PILATES','필라테스','전신운동','l890zFtv0aw',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'콩필라테스 / 홈트레이닝 / 20분 전신운동 / 뱃살 빨리 빼기 / PILATES / FULL BODY WORKOUT','콩필라테스 / 홈트레이닝 / 20분 전신운동 / 뱃살 빨리 빼기 / PILATES / FULL BODY WORKOUT','필라테스','전신운동','-CWCCqjK-KI',0);
@@ -775,7 +778,9 @@ INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'콩필라테스 / 전신 운�
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'콩필라테스 / 전신운동 / 셀룰라이트 없애기 / 뱃살빼기 / 다이어트 성공하기 / 홈트레이닝 / PILATES','콩필라테스 / 전신운동 / 셀룰라이트 없애기 / 뱃살빼기 / 다이어트 성공하기 / 홈트레이닝 / PILATES','필라테스','전신운동','jDv8DmJ45jY',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[필라테스] 이 동작하나면 전신운동 끝!!','[필라테스] 이 동작하나면 전신운동 끝!!','필라테스','전신운동','m3qnE5ZmJiY',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'콩필라테스 / 홈트레이닝 / 40MIN 전신운동 / pilates / workout / full body','콩필라테스 / 홈트레이닝 / 40MIN 전신운동 / pilates / workout / full body','필라테스','전신운동','PjqsBsu0ksI',0);
+PROMPT 필라테스 (전신운동) 샘플데이터 입력끝!
 --하체운동
+PROMPT 필라테스 (하체운동) 샘플데이터 입력중..
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'예쁜다리 만들기 운동-콩필라테스','예쁜다리 만들기 운동-콩필라테스','필라테스','하체운동','QBUkIlyGfJo',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'허벅지 안쪽 살빼기 / 허벅지 뒤쪽 탄력주기 / 애플힙-콩필라테스','허벅지 안쪽 살빼기 / 허벅지 뒤쪽 탄력주기 / 애플힙-콩필라테스','필라테스','하체운동','24sxQ8A8J5Y',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'허벅지 안쪽 살빼기 / 복근운동-콩필라테스','허벅지 안쪽 살빼기 / 복근운동-콩필라테스','필라테스','하체운동','_pXPo_IYULA',0);
@@ -785,10 +790,13 @@ INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'허벅지안쪽살, 옆구리 
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'안쪽 허벅지 살빼기-콩필라테스','안쪽 허벅지 살빼기-콩필라테스','필라테스','하체운동','ct5YX5lBzB4',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'하체지방이여 지구를 떠나거라#1편-콩필라테스','하체지방이여 지구를 떠나거라#1편-콩필라테스','필라테스','하체운동','b_dOS_hheLY',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'콩필라테스 / 홈트레이닝 / 전신 운동 / 탄탄 바디 만들기 / 뱃살 빼기 / 힙업 운동 / PILATES used chair','콩필라테스 / 홈트레이닝 / 전신 운동 / 탄탄 바디 만들기 / 뱃살 빼기 / 힙업 운동 / PILATES used chair','필라테스','하체운동','E2BD5ExpCP8',0);
+PROMPT 필라테스 (하체운동) 샘플데이터 입력끝!
+PROMPT 필라테스 샘플데이터 입력끝!
 
---헬스 네이버 동영상 샘플 데이터 삽입
-PROMPT TB_VIDEO_BOARD 헬스 네이버 샘플데이터 입력중!
+-- 헬스 샘플데이터
+PROMPT 헬스 샘플데이터 입력중..
 -- 가슴 운동
+PROMPT 헬스 (가슴운동) 샘플데이터 입력중..
 insert into tb_video_board values(vb_seq.nextval,'벤치 프레스 - 머신','머신 벤치 프레스는 바벨이 머신에 고정되어 있어서 초보자들도 쉽게 컨트롤할 수 있는 운동방법입니다. 바벨이나 덤벨 벤치 프레스 운동 전에 자세를 교정하고 대흉근의 긴장감을 미리 느껴보는 연습을 하기에는 최적의 운동입니다. 벤치에 앉아 엉덩이와 견갑골을 등받이에 최대한 붙입니다. 허리는 10cm가량 아치형을 만들어줍니다. 바와 전환이 수직이 되는 곳에 손을 위치시킵니다. 발걸이와 바를 동시에 밀어 팔꿈치가 펴진 상태에서 시작합니다. 바가 몸쪽으로 오는 것과 동시에 가슴을 턱 쪽으로 들고 가슴이 압막하는 느낌을 받도록 하면서 바와 가슴이 수평이 될 때까지 내립니다. 바를 겨드랑이 사이에 힘을 준다는 느낌으로 다시 밀어줍니다. 동작을 반복합니다.','헬스','가슴 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=31479A5CD8B2B74D5D6E021DC9E8493B2099^outKey=V128e2483d923e7fcc55066fb526a2c868b1e4b800fa344a8341066fb526a2c868b1e^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'벤치 프레스 - 바벨, 플랫', '바벨 벤치 프레스는 가슴운동을 하는 프리웨이트 운동 중에서 가장 기본이 되는 운동방법입니다. 대흉근의 전체적인 크기를 키워주고 대흉근, 삼각근, 상완삼두근의 참여를 유도해서 강하면서도 균형 있는 상체를 만드는 데 효과적입니다. 벤치에 누워 엉덩이와 견갑골을 등받이에 붙입니다. 허리는 10cm가량 아치형을 만들어줍니다. 어깨 두 배 너비로 바를 잡고 눈이 바벨과 수직이 되도록 합니다. 바를 들어 가슴 중앙과 바가 수직이 되도록 위치시킨 후 팔꿈치를 살짝 구부려 고정시킵니다. 가슴과 바가 자석처럼 서로 만나는 느낌으로 가슴 위쪽 5~10cm까지 저항을 느끼면서 당겨줍니다. 겨드랑이에 힘을 준다는 느낌으로 다시 밀어줍니다. 동작을 반복합니다.','헬스','가슴 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=ABD5295DF4C8FEF06D992BDF3FAC6A9B59F0^outKey=V12927b731d923dec7869d4b48883e32cea9e3a0c31c90033a026d4b48883e32cea9e^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'벤치 프레스 - 덤벨, 플랫', '덤벨 벤치 프레스는 가슴근육 중 중앙과 외측 부 근육 크기를 키우는 운동입니다. 덤벨을 들었을 때 균형을 잡기 위한 근육들을 같이 발달시킬 수 있는 장점이 있습니다. 넓은 가동범위로 대흉근에 더 강한 자극을 줄 수 있어서 강하고 안정된 상체를 만드는 데 가장 효과적인 운동입니다. 벤치에 앉아 덤벨을 들어 가슴 옆에 붙입니다. 벤치에 누우면서 덤벨을 들어 눈높이와 수직이 되도록 만듭니다. 가슴 중앙 부분과 수직이 되게 덤벨을 위치시키면서 팔꿈치를 살짝 구부립니다. 가슴이 양옆으로 늘어나는 느낌을 느끼면서 덤벨이 가슴과 평행이 될 때까지 당깁니다. 겨드랑이에 힘을 준 상태에서 가슴을 모아주는 느낌으로 덤벨을 밀어줍니다. 동작을 반복합니다.','헬스','가슴 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=FEFE68A19375F3E8492399353788887A0D33^outKey=V122b2368e56e71efa9a16ac265f0176e6eccd78b55f7da859ace6ac265f0176e6ecc^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
@@ -801,24 +809,24 @@ insert into tb_video_board values(vb_seq.nextval,'플라이 - 덤벨, 플랫', '
 insert into tb_video_board values(vb_seq.nextval,'풀오버 - 덤벨, 플랫', '덤벨 풀오버는 흉곽을 전체적으로 발달시키기 위한 운동입니다. 대흉근을 운동시키고 전거근을 강화할 뿐 아니라 상완삼두근과 광배근까지 자극하여 흉곽 전체 운동이 됩니다. 짧은 시간 안에 상체 전반을 발달시키는 데 아주 효과적입니다. 벤치에 앉아 두 손으로 덤벨을 포개어 듭니다. 벤치에 누우면서 덤벨을 가슴과 수직이 되게 위치시킵니다. 견갑골과 엉덩이를 최대한 붙이고 허리는 10cm가량 아치형을 만듭니다. 팔꿈치를 바깥쪽으로 살짝 구부려 고정시킨 후 머리 위쪽으로 포물선을 그리면서 양팔이 귀 옆에 오는 지점까지 내려줍니다. 다시 가슴 쪽으로 포물선을 그리면서 원위치시킵니다. 동작을 반복합니다.','헬스','가슴 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=D846B87DFA4386077BBEE77B8BF50C066627^outKey=V122b287dfa4386077bbee77b8bf50c066627c8553c7467f0051ce77b8bf50c066627^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'플라이 - 펙 덱 머신', '머신 펙 덱 플라이는 가슴 중간부 근육의 크기를 키우고 대흉근의 데피니션 곧 근육의 선명도와 스트리레이션 다시 말해 가로로 갈라지는 근육선을 만들기 위한 운동입니다. 운동을 시작하는 초보자들이 집중하기에 좋은 운동이며 정확한 자세로 반복 횟수를 늘리는 것이 가장 중요합니다. 견갑골와 엉덩이를 등받이에 최대한 붙이고 허리는 10cm가량 아치형을 만듭니다. 팔꿈치를 90도 정도 구부려 팔꿈치가 가슴 중앙과 수평이 되도록 하면서 전완을 패드에 밀착시킵니다. 겨드랑이에 힘을 주고 패드를 가슴 안쪽으로 모아줍니다. 저항을 느끼면서 처음 자세로 돌아옵니다. 동작을 반복합니다.','헬스','가슴 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=F29C898A9695B4198D699B4AE236E28DA6E2^outKey=V1280808c7423232834cd4304ca058cc3ad522dcc12ffce36e9204304ca058cc3ad52^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'크로스 오버 - 케이블', '케이블 크로스 오버는 대흉근 중간부와 하부 흉근을 발달시키는 운동입니다. 흉근 중앙부를 자극하여 데피니션 즉 근육의 선명도와 스트리레이션 다시 말해 근육의 줄무늬를 만드는 전문적인 운동입니다. 각도에 따라 구체적으로 세분화할 수 있으며 동작 내내 지속적인 케이블의 저항이 유지되는 장점이 있습니다. 케이블의 양쪽 손잡이를 잡고 기구 중앙에 서서 엉덩이 너비만큼 발을 벌립니다. 무릎과 팔꿈치를 약간 굽히고 상체를 앞으로 살짝 숙여 중심을 잡습니다. 케이블을 잡은 양손이 가슴과 평행선이 되도록 최대한 팔을 벌려줍니다. 겨드랑이에 힘을 주고 가슴 안쪽이 모아지게 하면서 안아주는 느낌으로 손잡이를 당겨줍니다. 가슴 근육이 스트레칭 되는 느낌을 느끼며 다시 서서히 팔을 벌리며 원위치합니다. 동작을 반복합니다.','헬스','가슴 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=35F50E6CA1E13AE236CE8880C6DFA2B1982A^outKey=V1263686c2d50ae3387000d4b5694a46b23bf9aab519f089429120d4b5694a46b23bf^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
-
+PROMPT 헬스 (가슴운동) 샘플데이터 입력끝!
 -- 어깨 운동
+PROMPT 헬스 (어깨운동) 샘플데이터 입력중..
 insert into tb_video_board values(vb_seq.nextval,'숄더 프레스 - 머신', '머신 숄더 프레스는 전면 삼각근과 측면 삼각근을 훈련함으로써 삼각근의 근 볼륨을 키울 수 있는 복합관절 운동입니다. 머신을 이용하기 때문에 동작을 아주 정확하게 실시하는 데 도움이 되고 프리웨이트와 비교해 보다 안전하다는 장점이 있습니다. 머신에 앉아 엉덩이와 어깨를 벤치에 밀착시킵니다. 어깨너비 두 배 정도로 양손을 벌린 상태에서 손바닥이 앞을 향하도록 바를 잡습니다. 손으로 밀지 말고 어깨로 드는 느낌으로 중량을 밀어 올려줍니다. 저항을 느끼면서 서서히 바가 귀와 평행하게 될 때까지 내립니다. 동작을 반복합니다.','헬스','어깨 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=5BF32C0E3A4127086F1A2B4BAD29B44FDF70^outKey=V124c2b2c4ff8348cf846cf9d6590de2d43b1672ad3414bd1c1e9cf9d6590de2d43b1^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'비하인드 넥 프레스 - 스미스 머신', '스미스 머신 비하인드 넥 프레스는 바를 머리 뒤로 넘겨 전면 삼각근을 고립시키고 측면 삼각근과 후면 삼각근을 발달시키기 위해 하는 운동입니다. 고정된 머신에서 안정적으로 운동한다는 점에서 초보자에게 추천할 만한 운동입니다. 보조자의 도움을 받으면 더욱 효과적입니다. 벤치에 앉아 허리, 어깨와 바를 수직으로 맞춥니다. 어깨너비 두 배 정도로 바벨을 잡고 잠금장치를 풀어 바벨을 어깨와 수직이 되게 들어올립니다. 뒷머리를 스치듯이 귀와 평행이 될 때까지 저항을 느끼면서 바를 내립니다. 어깨를 들어올리는 느낌으로 머리 위로 바를 밀어줍니다. 동작을 반복합니다.','헬스','어깨 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=A6A18F4F1582721916D6220AAC8B20039869^outKey=V1255ac6271bc6e0e10ba4f3d181e67d1bf1e26f5e689f76a36c24f3d181e67d1bf1e^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'숄더 프레스 - 바벨', '바벨 숄더 프레스는 전면 삼각근과 측면 삼각근을 훈련하고 신체 전반적인 밀도와 파워를 강화하기 위한 운동입니다. 어깨, 승모근, 등 근육, 척추기립근 등을 발달시켜 몸의 균형을 유지하는 데 도움을 줍니다. 측면 삼각근의 크기를 키워 어깨가 넓어지도록 도움을 주는 중요한 운동입니다. 어깨너비 두 배 정도로 바벨을 잡습니다. 가슴 위쪽으로 바벨을 올립니다. 가슴에서부터 머리 위로 바벨을 들어올립니다. 어깨에 저항을 느끼면서 바가 귀와 평행이 될 때까지 바벨을 내립니다. 가슴에서 머리까지 바벨을 들어올리고 내리는 동작을 반복합니다. 동작을 반복합니다.','헬스','어깨 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=3D41CDCEC3616FF895AE08BA95D58F5A04AF^outKey=V1212cc71f489a4d05e213f89c3c85cae8cab034aca8cc15b3ab13f89c3c85cae8cab^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'비하인드 넥 프레스 - 바벨', '바가 목 뒤로 넘어가도록 동작하여 전면 삼각근만을 고립시켜 선택적으로 자극을 가하는 운동이다. 어깨 관절 운동 범위의 한계점에서 동작하기 때문에 자세의 유지는 쉬우나 그만큼 상해의 위험성이 크다. 스미스 머신 비하인드 넥 프레스에 비해 안정성은 많이 떨어지나 전후 방향의 자극에 추가적으로 저항하게 되어 근육 발달의 효과는 크다.','헬스','어깨 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=E04E71EBE26895EF1BAF285572F2E8ADBC70^outKey=V12671ebe226895ef1baf285572f2e8adbc70d603c638436c14cc285572f2e8adbc70^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
-
 insert into tb_video_board values(vb_seq.nextval,'숄더 프레스 - 덤벨', '삼각근의 전면과 측면의 볼륨과 선명도를 증가시킬 수 있는 운동이다. 바벨 프레스에 비해 어깨의 완전한 가동 범위로 운동할 수 있는 장점이 있다. 전후 또는 좌우 방향의 힘이 추가되어 삼각근의 균형적인 발달을 극대화시킬 수 있다. 하지만 그만큼 컨트롤이 어려워 중량을 많이 다룰 수 없기 때문에 근육 크기 발달에 있어서는 바벨 운동이 더 효과적이다.','헬스','어깨 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=25FBA6789BB6312F6DDE0DFA6DEBDBCA80B1^outKey=V12961b8a7a628438fc83f0b5dbcebab16a42aaf571d850f2e4baf0b5dbcebab16a42^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'아놀드 프레스', '아놀드 슈왈제네거가 고안해낸 삼각근 운동으로 전면 삼각근의 수축으로 시작하여 측면 삼각근 수축으로 동작이 마무리되는 기능 향상 운동이라고 할 수 있다. 넓은 가동 범위로 어깨 전체를 운동할 수 있다.','헬스','어깨 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=CFA67703ABFEB7C3CD917E788E22A210D8B9^outKey=V1212e93b790db437f313b915120ecaa4c9cfe0cd5c7ebd7cb1cbb915120ecaa4c9cf^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
-
 insert into tb_video_board values(vb_seq.nextval,'프런트 레이즈 - 덤벨', '삼각근의 선명도를 높일 수 있는 단관절 운동 중 전면 삼각근을 발달시키기 위한 운동이다. 프레스 동작과 달리 자극시키는 근육의 범위를 제한할 수 있고, 목표 부위의 수축에 집중할 수 있다는 장점이 있다. 낮은 저항에 반응하는 근섬유들을 자극하기 위해 저중량, 고반복으로 실시한다.','헬스','어깨 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=ED92642A367A49F50F3CB72C661A49DA1D0B^outKey=V1259ae82887348a8f058743ee8d8ffac934661f9eb74912a9ea2743ee8d8ffac9346^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'래터럴 레이즈 - 덤벨', '삼각근의 선명도를 높일 수 있는 단관절 운동 중 측면 삼각근을 발달시키기 위한 운동이다. 프레스 동작과 달리 자극시키는 근육의 범위를 제한할 수 있고, 목표 부위 수축에 집중할 수 있다는 장점이 있다. 낮은 저항에 반응하는 근섬유들을 자극하기 위해 저중량, 고반복으로 실시한다. 동작 간 항상 팔꿈치가 손목보다 높게 유지되어야 측면 삼각근의 동원을 최대화할 수 있다.','헬스','어깨 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=7D003D1B8C80E2616ABADEE11D67F75BD088^outKey=V12127ec7615e1374d58b0c4a847e6965a4ed418ddd141c40d0b40c4a847e6965a4ed^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'래터럴 레이즈 - 덤벨, 벤트 오버', '삼각근의 선명도를 높일 수 있는 단관절 운동 중 후면 삼각근을 발달시키기 위한 운동이다. 프레스 동작과 달리 자극시키는 근육의 범위를 제한할 수 있고 목표 부위 수축에 집중할 수 있다는 장점이 있다. 낮은 저항에 반응하는 근섬유들을 자극하기 위해 저중량, 고반복으로 운동한다. 견갑골(날개뼈)이 움직이지 않도록 고정한 상태에서 동작이 이루어져야 후면 삼각근을 최대로 자극할 수 있다.','헬스','어깨 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=419CB9754298C1346CF59B4AE236E28DA6E2^outKey=V1296130f1642d606823dde968239e66eade4f0b76a93088c52a6de968239e66eade4^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'업라이트 로우 - 바벨', '승모근과 전면 및 측면 삼각근을 발달시키는 데 좋은 운동이다. 볼륨을 키우는 프레스 계열의 운동과 선명도를 높이는 레이즈 계열 운동의 중간 타입의 운동으로 볼 수 있다. 그립을 좁게 잡으면 전면 삼각근을 강조하여 어깨와 가슴의 경계를 뚜렷하게 하는 효과가 있고, 바를 넓게 잡게 되면 측면 삼각근의 동원 비율을 좀 더 높일 수 있다.','헬스','어깨 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=F8687F944DF158984AF6BAF69329C2F58BAF^outKey=V12496b29c58aaefa4c9042c104a4cf3f0b5a89a1f1a65f092d7042c104a4cf3f0b5a^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'쉬러그 - 덤벨', '승모근 상부를 발달시키기 위한 운동이다. 승모근은 높은 중량에 반응하여 발달하므로 고중량을 이용해 운동하도록 한다. 어깨너비나 근육에 비해 지나치게 발달하게 되면 산 모양의 어깨를 형성하게 되므로 운동량을 조절할 필요가 있다.','헬스','어깨 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=0A2EF98299C817C17FBD99D13273824B0A59^outKey=V129ca8b66a628553658d625a4546defa8a1d222da58e03f04967625a4546defa8a1d^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'이지 클린', '근육을 강화함과 동시에 유산소 운동 효과까지 볼 수 있는 상체 유산소성 근력 운동이다. 누구나 쉽게 따라 할 수 있는 동작으로, 특히 상체 근력이 약한 분들에게 추천한다. 동작을 반복하여 상체 근력을 전반적으로 늘려준 다음에 상체 부위별 근육 운동을 실시하면 매우 효과적이다.','헬스','어깨 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=A901F66B9555422530C44BB787E326D1CC69^outKey=V125778620b988a76170f5b6d9c178be30775207cba5d1dbe880f5b6d9c178be30775^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
-
---위팔 앞(이두)
+PROMPT 헬스 (어깨운동) 샘플데이터 입력끝!
+-- 윗팔 앞 (이두)
+PROMPT 헬스 (윗팔_앞_이두) 샘플데이터 입력중..
 insert into tb_video_board values(vb_seq.nextval,'컬 프레스 - 덤벨','덤벨 컬과 덤벨 숄더 프레스 운동을 결합한 형태의 운동으로 상완과 어깨근육이 동원되어 이루어지는 복합 운동이다.','헬스','위팔 앞(이두)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=9318662AEB6429EBCE258BCD56F24A4E0B38^outKey=V128a227ff4281278b0258388fad0cec37a19b0a824a70038275a8388fad0cec37a19^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'컬 - 덤벨, 인클라인','경사진 벤치에 누워서 실시하는 운동이다. 상완이두근의 위쪽 부위를 더욱 자극하고 선명도를 발달시키는 데 효과적인 운동이다.','헬스','위팔 앞(이두)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=C378A335B1AA4B9ECE0320B7933A170CBA14^outKey=V127735cba2d47f67accaea4c9675785b57f08507cbc18f649267ea4c9675785b57f0^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'컬 - 바벨','대표적인 상완이두근 운동으로 선 자세에서 스트레이트 바 또는 이지바(ez-bar)를 이용해서 실시할 수도 있다. 상완이두근의 근육의 크기를 증가시키는 데 효과적이다.','헬스','위팔 앞(이두)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=2FE3D84C332CB41A76DB64038139B1DA06D8^outKey=V129867197d22050fc81064baedd96bed6a22deb3d8c28abfc14964baedd96bed6a22^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
@@ -830,8 +838,9 @@ insert into tb_video_board values(vb_seq.nextval,'콘센트레이션 컬 - 덤�
 insert into tb_video_board values(vb_seq.nextval,'컬 - 케이블','케이블의 저항이 운동 시작 지점과 끝 지점까지 지속적으로 전해져 상완이두근의 근긴장을 유지하게 함으로서 더욱 큰 운동의 효과를 볼 수 있다. 더불어 다른 상완이두근 운동에 비해 선명도를 강화시킬 수 있다.','헬스','위팔 앞(이두)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=DCDCE03E364285DEE13207E7A73015357CFF^outKey=V128a21061324b9d5b4ad828627e38ca11429f7d81a8460b55fd1828627e38ca11429^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'컬 - 이지 바','직선 형태의 바(bar)에 비해 손목에 가해지는 부담이 적다. 따라서 무거운 중량을 들 때에도 무리 없이 조금 더 집중할 수 있으며, 상완이두근의 크기와 근력 증진에 효과적이다.','헬스','위팔 앞(이두)(이두)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=7FF666D77BBEA60936728DCC24F4535C9BC3^outKey=V122a2c5a8ef3e2261e489dd4d454c53821e10caba961a2eed2cb9dd4d454c53821e1^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'컬 - 밴드','상완이두근의 근력을 강화하고 크기를 키워주는 대표적인 팔 운동이다. 선 자세로 실시하기 때문에 동작 범위 전체에 걸쳐 상완이두근을 강하게 자극할 수 있다. 탄력 있는 팔 라인을 만들고 싶다면 소위 ‘팔뚝’이라고 부르는 팔 뒤쪽만이 아니라 팔 앞쪽도 함께 근력을 키워줘야 효과적이다. 밴드를 이용한 이 동작은 근력이 약한 여성들이 비교적 쉽게 탄력 있는 팔라인을 만들 수 있도록 도와준다.','헬스','위팔 앞(이두)(이두)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=268D8A89C5AA5DFF5F2C1AB575D276BEF723^outKey=V127fcc3fa253517775a509a50cb4c302d8f96e8a9ea36463d5c409a50cb4c302d8f9^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
-
---위팔 뒤(삼두)
+PROMPT 헬스 (윗팔_앞_이두) 샘플데이터 입력끝!
+-- 윗팔 뒤 (삼두)
+PROMPT 헬스 (윗팔_뒤_삼두) 샘플데이터 입력중..
 insert into tb_video_board values(vb_seq.nextval,'트라이셉스 익스텐션 - 바벨,라잉','팔 뒤쪽 상완삼두근의 근력을 증가시키고 삼두근의 안쪽 모양을 선명하게 만들어주는 운동이다. 상완삼두근의 전체적인 근매스 증대에 효과적이기 때문에 정확한 자세로 운동해야 한다.','헬스','위팔 뒤(삼두)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=2FA8E80A7681CDDF3A7FB640F66FCC68C3BB^outKey=V129679d31432486791b4141b435665847e883f145bb4df175aab141b435665847e88^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'트라이셉스 익스텐션 - 덤벨,라잉','팔 뒤쪽 상완삼두근의 근력을 증가시키는 운동으로 삼두근의 안쪽 모양을 선명하게 만들어준다. 고중량보다는 자신에게 맞는 중량을 설정하여 정확한 자세로 반복적으로 실시한다.','헬스','위팔 뒤(삼두)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=551B6C1DF48CEC9AB28CE1BA3B0B8A0CB96C^outKey=V1274a365d2b206357d48dc00affc85ae5e03b180f41baf657a7cdc00affc85ae5e03^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'트라이셉스 익스텐션 - 덤벨, 오버헤드','상완삼두근 중 특히 장두 부분을 발달시키기에 좋은 운동이다. 벤치에 앉아서도 가능하고 일어서서도 가능하며, 상체가 덤벨의 반동으로 인해 흔들리지 않도록 하는 것이 중요하다. 탄력 있는 팔을 만들고 싶어하는 여성에게 추천하는 운동이다.','헬스','위팔 뒤(삼두)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=15964C8CCFD67F7DC7C266FB526A2C868B1E^outKey=V1223211208895a2566aed8bf371c689db4c70828fd3359218730d8bf371c689db4c7^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
@@ -839,8 +848,9 @@ insert into tb_video_board values(vb_seq.nextval,'트라이셉스 익스텐션 -
 insert into tb_video_board values(vb_seq.nextval,'트라이셉스 프레스 다운 - 케이블','상완삼두근 운동의 가동 범위를 최대로 활용하여 삼두근의 외측두를 발달시키는 데 효과적인 운동이다. 상완삼두근 운동 중 가장 안정적인 자세로 실시할 수 있으며 다른 상완삼두근 운동과 비교했을때 고중량에서도 안정된 자세를 유지하기에 최적의 운동이다.','헬스','위팔 뒤(삼두)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=4732B518FE2E1023BC236BD75D0411BDC493^outKey=V125296329191af4d1af2693fc12a4e395eb3c07233da984e3b94693fc12a4e395eb3^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'킥 백 - 덤벨','상완삼두근의 상부, 특히 바깥쪽 부분을 발달시키는 데 효과적인 운동이다. 가벼운 중량으로 반복횟수를 늘려 정확한 자세로 근육의 긴장과 수축에 집중하는 것이 중요하다. 양손으로 실시하거나 벤치에 엎드려서 실시할 수 있으며, 보다 확실한 긴장과 수축으로 상완삼두근의 발달을 도모하기 위해서는 한 팔씩 교대로 실시하는 방법이 추천된다.','헬스','위팔 뒤(삼두)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=4F083DF8594B9C148D43928155487839090E^outKey=V1265432f27dc68ef05079b09557fb349de0b60e078d2e532df8e9b09557fb349de0b^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'벤치 프레스 - 바벨, 클로즈 그립','상완삼두근의 전체적인 크기를 키우기 위한 운동이다. 다른 삼두근 운동에 비해 무거운 중량을 들 수 있는 장점이 있고, 허리와 등의 부담을 최소화시켜 서서 하는 동작보다 비교적 안정적으로 실시할 수 있다.','헬스','위팔 뒤(삼두)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=224303B14F69354A3F2532FEC71C79DAE748^outKey=V122028d7db7a1b98c1e77af05fc51be5b87ad6d888245da372c87af05fc51be5b87a^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
-
---아래팔 운동(전완근)
+PROMPT 헬스 (윗팔_뒤_삼두) 샘플데이터 입력끝!
+-- 아래 팔 (전완근)
+PROMPT 헬스 (아래_팔_전완근) 샘플데이터 입력중..
 insert into tb_video_board values(vb_seq.nextval,'리스트 컬 - 바벨', '전완의 안쪽 근육을 발달시키는 운동이다. 벤치 가장자리나 무릎 위에 전완부를 고정시키고 손목의 움직임만으로 운동한다.','헬스','아래팔 운동(전완근)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=668C8619377479DFC77404CC676647DAE467^outKey=V127d2622a2b442b58f9ed96732a009e527a9b2b4bb041b4ce957d96732a009e527a9^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'리스트 컬 - 덤벨', '전완의 안쪽 근육을 발달시키는 운동이다. 벤치 가장자리나 무릎 위에 전완부를 고정시키고 손목의 움직임만으로 운동한다. 바벨로 운동할 때보다 손목의 가동 범위가 넓은 것이 장점이다.','헬스','아래팔 운동(전완근)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=5F5E0CC2581785A9775E6ADFD10800810E81^outKey=V122a2d9fcd74e4f23e800911b1a8bfa391d4b437153ed9fc123d0911b1a8bfa391d4^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'리버스 리스트 컬 - 바벨', '전완의 바깥쪽 근육을 발달시키는 운동이다. 벤치 가장자리나 무릎 위에 전완부를 고정시키고 손목의 움직임만으로 동작을 실시한다. 테니스 엘보를 예방하는 데 추천되는 운동이다.','헬스','아래팔 운동(전완근)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=C12197708679A1EF6B5DA26D7F39FD5EFBC1^outKey=V1232b20e21357b298d3f0fc3b833223888e9a489cfa676b22b860fc3b833223888e9^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
@@ -848,9 +858,9 @@ insert into tb_video_board values(vb_seq.nextval,'리버스 리스트 컬 - 덤�
 insert into tb_video_board values(vb_seq.nextval,'조트맨 컬 - 덤벨', '상완이두근과 전완근의 힘을 키우는 운동이다. 이두근 힘으로 덤벨을 올리고, 상완요골근의 힘을 이용해 이완한다. 이두근과 상완요골근을 동시에 운동함으로써 운동 시간을 절약할 수 있다. 부담 없이 할 수 있어 여성에게 추천되는 운동이다.','헬스','아래팔 운동(전완근)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=DDBC513279304973BE3831FF155762E00EB5^outKey=V12714b3d92642b7d897a757bd6f9e80411aa0bd5847a7880382f757bd6f9e80411aa^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'프로네이션 - 덤벨', '전완근을 돌리는 데(손바닥을 위로 가게 하는 데) 동원되는 근육의 힘을 발달시키며 특히 손목 부상 후 재활 시 많이 사용되는 운동이다. 팔꿈치의 각도를 90도로 유지하고 팔꿈치나 팔이 움직이지 않도록 해야 관련 근육의 발달을 최대화할 수 있다. 덤벨 슈피네이션과 함께 해주면 손목의 근육을 강화하는 데 한층 더 효과적이다.','헬스','아래팔 운동(전완근)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=04628D3C624C7F871A64D4A9E7DF87EBB3EB^outKey=V128f40215c28c3ee19e4675b389fa5c322ed4bc5d220b39aefdd675b389fa5c322ed^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'슈피네이션 - 덤벨', '전완근을 돌리는 데(손등을 위로 가게 하는 데) 동원되는 근육의 힘을 발달시키며 특히 손목 부상 후 재활 시 많이 사용되는 운동이다. 팔꿈치 각도를 90도로 유지하고 팔꿈치나 팔을 움직이지 않도록 해야 관련 근육의 발달을 극대화할 수 있다. 덤벨 프로네이션과 함께 해주면 손목의 근육을 강화하는 데 한층 더 효과적이다.','헬스','아래팔 운동(전완근)','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=1B99CBEC5528A60FCE5319ADF714F5FDC957^outKey=V123ad2799dc12706f37ea4327f8225649cd4bd129217cb3affc5a4327f8225649cd4^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
-
-
---등운동
+PROMPT 헬스 (아래_팔_전완근) 샘플데이터 입력끝!
+-- 등
+PROMPT 헬스 (등) 샘플데이터 입력중..
 insert into tb_video_board values(vb_seq.nextval,'랫 풀 다운- 머신','광배근을 발달시키기 위한 대표적인 운동이다. 턱걸이를 하기 어려운 초보자들에게 좋은 운동이다. 팔만 이용하여 바(bar)를 잡아당기면 이두근의 참여도가 지나치게 높아지므로 동작을 시작하는 시점에서 견갑골(날개뼈)을 우선적으로 내리도록 한다.','헬스','등 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=047478A6E4FA2730D265B9B3B443633ADF9C^outKey=V122227df820ae173ac14093fd66a6df2158fefe1546ef2d28bd7093fd66a6df2158f^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'로우 - 바벨, 벤트 오버','등 전체의 근육을 발달시키는 대표적인 운동이다. 상체 전면과 후면 근육들의 협응을 통해 운동이 이루어짐으로써 상체를 보다 단단하게 만들어준다.','헬스','등 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=D4A2CDC4BC6B8F79A9A04304CA058CC3AD52^outKey=V126334ed22f4e883971ffbaa2b7e032d7ae72c9d79d308209ab3fbaa2b7e032d7ae7^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'로우 - 덤벨, 벤트 오버','가동 범위가 넓어 몸의 중심선(척추)에 가까운 등의 근육까지 발달시킬 수 있는 운동이다. 허리 근육이 약할 경우 인클라인 벤치에 엎드린 상태에서 동작을 실시하면 부담을 줄일 수 있다. 한 방향씩 실시하면 동작의 가동 범위를 넓힐 수 있고 목표 근육에 자극을 증가시킬 수 있다.','헬스','등 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=D2918AEA8E3F65040E7920D7D30B15428276^outKey=V121236395a4fd57b13bbe23dfabd5d92cf3acb368e8376f21a21e23dfabd5d92cf3a^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
@@ -859,16 +869,18 @@ insert into tb_video_board values(vb_seq.nextval,'로우 - 케이블, 시티드'
 insert into tb_video_board values(vb_seq.nextval,'로우 - 티바','등 근육의 중간부와 외측을 발달시키는 운동이다. 지지대의 위치를 조절해 손의 위치를 달리함으로써 목표로 하는 근육을 바꿀 수 있다. 지지대가 있어 허리의 부담 없이 벤트 오버 바벨 로우와 거의 동일한 효과를 얻을 수 있다.','헬스','등 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=7123810294B7B96142595D241B37B14007B5^outKey=V128ae1b5d7215fb60e0a330172fed5d63b43970130546a708981330172fed5d63b43^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'풀업 - 어시스티드','머신의 플레이트 무게만큼 체중의 부담을 줄여서 할 수 있는 턱걸이 운동이다. 등 근육을 넓게 만들어주는 운동으로서 특히 광배근의 근력이 약한 사람에게 필수적인 운동이다.','헬스','등 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=381B1528F60501F23B969A646D5027F75302^outKey=V12262b307c94ce5cd82456e96dadafe82e80e652d34aca4b9e3c56e96dadafe82e80^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'로우 - 밴드, 시티드','등의 근력을 키우고 군살을 없애는 데 효과적인 운동법이다. 밴드를 당길 때는 단순하게 팔로만 당기는 느낌이 아니라 등을 접어 준다는 느낌으로 당겨주어야 효과적이다. 헬스클럽에서 머신을 이용한 시티드 케이블 로우와 같은 운동 효과를 가져다주는데, 밴드를 이용해 언제 어디서나 간편하게 실시할 수 있다는 장점이 있다.','헬스','등 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=A5FF0F066A502A7CEDE8F5421DC9B965DB0A^outKey=V126b63842d3604f2cecedab11339240bfdb220ce019034902a03dab11339240bfdb2^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
-
---허리 운동
+PROMPT 헬스 (등) 샘플데이터 입력끝!
+-- 허리
+PROMPT 헬스 (허리) 샘플데이터 입력중..
 insert into tb_video_board values(vb_seq.nextval,'데드리프트 - 바벨','둔근, 대퇴 후면 근육 등 전신 근육 발달에 중요한 영향을 끼치는 운동이다. 신체의 파워를 기를 수 있고, 몸통을 둘러싸고 있는 근육들의 근력을 전반적으로 향상시킬 수 있는 운동이다.','헬스','허리 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=B510DCF1EDCEABC18F09D3B5591FFA52D207^outKey=V123a82d04129bc15d864909de1f3d56a1de78e141d3225c9a96c909de1f3d56a1de7^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'데드리프트 - 덤벨','둔근, 대퇴 후면 근육 등 전신 근육 발달에 중요한 영향을 끼치는 운동이다. 신체의 파워를 기를 수 있고, 몸통을 둘러싸고 있는 근육들의 근력을 전반적으로 향상시킬 수 있는 운동이다. 바벨 데드리프트에 비해 무거운 중량을 들기는 힘들지만 밸런스를 위한 협응성을 기를 수 있다. 특히 무거운 중량의 바벨을 사용하기 어려운 여성들에게 권장되는 운동이다.','헬스','허리 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=E2A7BCB3AD80DF3E56784F3D181E67D1BF1E^outKey=V124b952efad4f24d3b9beaeefb71a5bd30bfb47382978cc24902eaeefb71a5bd30bf^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'굿모닝 - 바벨','등과 허리를 강화시키고 둔근과 대퇴이두근을 발달시키는 데 효과적인 운동이다. 무거운 무게를 들기보다는 정확한 자세로 실시하는 것이 중요하다.','헬스','허리 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=1E27E84853F444B0D6F9DD124553F3D34FA2^outKey=V121267d828c582ef8c4684ace80e287a3c87d4ab048f9b92dce884ace80e287a3c87^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'백 익스텐션','벤치나 짐볼을 이용하거나 맨바닥에서 실시할 수 있는 운동이다. 동작을 천천히 실시하여 집중하는 것이 효과적이다. 복부 운동 다음에는 백 익스텐션을 해주는 것이 좋다.','헬스','허리 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=82D0510CE22335EEA0F1539917A6A68D3809^outKey=V12712df022de9a30639629717e6f14f6a6fa1253669a3aa3bef929717e6f14f6a6fa^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'굿모닝','상체를 숙여 인사하는 듯한 동작 때문에 ‘굿모닝’이라고 이름 붙여졌다. 맨손으로 손쉽게 따라할 수 있는 동작으로 전신 후면에 탄력적인 라인을 만들어주는 데 효과적이다. 또한 요통이 있는 경우에도 많은 도움이 되는 운동이다. 이 동작은 처음에 허리에 자극을 느끼고 이어 엉덩이, 다리 뒤쪽까지 근육이 늘어나는 것을 느끼면서 실시하는 것이 포인트다.','헬스','허리 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=748278BC5421DBE776F0ABF9117740A550A4^outKey=V127e7515d20ff7e1aef47e48f7778b839e761904d77b79ca5cb87e48f7778b839e76^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'굿모닝 - 덤벨','덤벨을 이용한 굿모닝 동작이다. 등과 허리를 강화시키고 둔근과 대퇴이두근을 발달시키는 데 효과적인 운동이다. 무거운 무게를 들기보다는 정확한 자세로 실시하는 것이 중요하다.','헬스','허리 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=450C99A70447DB363A24E4F9350BA109F6B9^outKey=V1212364495fd6e4c07462110a47682ed43d4fdcaf57da808db832110a47682ed43d4^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
-
---복근 운동
+PROMPT 헬스 (허리) 샘플데이터 입력끝!
+-- 복근
+PROMPT 헬스 (복근) 샘플데이터 입력중..
 insert into tb_video_board values(vb_seq.nextval,'싯업','가장 일반적으로 할 수 있는 복근 운동이다. 앉았다 누웠다를 반복하는 동작이므로 복근과 다리를 들어올리는 근육을 발달시킬 수 있다.','헬스','복근 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=BA39794B940470B8E2D8AD2A057C1FB91465^outKey=V127cbba952888106b118d2a0111826c28d3099036505e33f70a5d2a0111826c28d30^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'크런치','복직근 중 상부를 강화하는 운동이다. 허리 부분이 바닥에서 떨어지지 않는다는 것이 싯업과 다른 점이다. 근육을 수축시킬 때뿐만 아니라 이완될 때도 복부에 긴장을 유지하는 것이 중요하다.','헬스','복근 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=928AB90213AC6C37B73A6E39FAF4C3E5B461^outKey=V123e3237dd3f624a569b198b8c5f07a0d6fb85f7b9d495c5ee1c198b8c5f07a0d6fb^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'리버스 크런치','복직근 중 하부를 단련시키는 운동이다. 크런치와 반대되는 동작으로 상체를 들어올리는 대신 다리를 들어올림으로써 하복부를 강화할 수 있다.','헬스','복근 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=2DB1A5D3C08CFA15DDC5EB99D63E183ED696^outKey=V126952fa204fff27b972788e63201f8d332e959ddf9f1491361d788e63201f8d332e^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
@@ -888,15 +900,17 @@ insert into tb_video_board values(vb_seq.nextval,'사이드 벤드 - 밴드','�
 insert into tb_video_board values(vb_seq.nextval,'양손 다리 모으기','복부를 중심으로 팔다리를 활발히 움직임으로써 여러 근육들을 동시에 사용하는 동작으로 칼로리 소모에 아주 효과적이다. 특히 복부의 지방을 빨리 빼고 싶다면 복부 근력 운동 후에 이 동작을 실시해주면 효과 만점이다. 운동할 시간이 없는 경우에 간편 다이어트 운동으로 추천한다.','헬스','복근 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=6E4807F454C97B0ED4061189C90436F3A626^outKey=V123112807b9c50a87d372657b04d1f7193fbc39c5198028e84de2657b04d1f7193fb^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'엎드려 점프','하복부 지방을 태우고 근력을 키우는 데 효과적인 유산소성 근력 운동이다. 엎드려 점프는 상체를 고정시킨 자세에서 양쪽 다리를 벌려 앞뒤로 뛰는 동작으로 아랫배에 지방이 많은 여성들에게 추천한다. 대표적인 하복부 운동 중 하나인 레그 레이즈 동작을 실시한 다음에 이어서 진행하면 더욱 만족스러운 효과를 얻을 수 있다.','헬스','복근 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=F025012E3B5D79440EE2B1B943DB31A9A2C7^outKey=V1266052425c9d0c6ea53880ae4db2f78ed65a635a112b48ffe61880ae4db2f78ed65^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'다리 교차 뛰기','하체 근력을 키우고 칼로리 소모도 높여주는 유산소성 근력 운동이다. 엎드린 상태로 양발을 교차하는 동작은 복부 근육에 자극을 주어 뱃살을 빼는 데도 큰 도움을 준다.','헬스','복근 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=89F3E6409EB48BA9799FC5F813DE2C5F8848^outKey=V1237921717c7ffbd327cf363a22434702f1e80578c26c12802e9f363a22434702f1e^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
-
---엉덩이 운동
+PROMPT 헬스 (복근) 샘플데이터 입력끝!
+-- 엉덩이
+PROMPT 헬스 (엉덩이) 샘플데이터 입력중..
 insert into tb_video_board values(vb_seq.nextval,'덩키 킥','엉덩이를 힙업하고 탄력 있게 만드는 데 탁월한 동작이다. 스쿼트, 런지 등 엉덩이 큰 근육을 강화하는 운동 다음에 실시하면 효과를 배가시킬 수 있다.','헬스','엉덩이 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=E0F796027A982BF9134A062E833F97B7DA2E^outKey=V12129bcf4c6fe8bc49a6249f3de3ce0953e933f2eb5d3ea98ba6249f3de3ce0953e9^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'브릿지','엉덩이 근육을 발달시켜 힙업에 효과적인 동작이다. 등 근육 발달에도 도움이 된다. 특히 요통이 있거나 장시간 책상에 앉아 있는 경우에 수시로 이 동작을 반복해주면 뭉친 허리 근육을 시원하게 풀 수 있다.','헬스','엉덩이 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=609E153EDF2AE76767A16AA1942D6ADBD386^outKey=V12570ba2f1138edc1dec0e798e7b382bb0e83a818b5cc2d9e9c90e798e7b382bb0e8^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'사이드 힙 킥','측면 엉덩이 근육인 중둔근, 소둔근을 발달시켜 군살 없는 힙라인을 만들어준다. 다리를 높이 올릴수록 옆구리의 근육들이 더 강하게 자극되어 보디라인의 탄력을 향상시킬 수 있다.','헬스','엉덩이 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=BF5DA628EE8D96C398A5463C2458197E492A^outKey=V1247632281ab97ffd1235508428f425ce66cdfeafcca6f0798405508428f425ce66c^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'멀티힙- 밴드','밴드를 이용하여 허벅지 바깥쪽 근육과 엉덩이 근육을 강화하는 운동법이다. 탄력적이고 볼륨 있는 엉덩이 라인을 살리는 데 효과적이다. 특히 골반관절을 튼튼하게 만들어주어 여성들에게 추천된다.','헬스','엉덩이 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=A29ACBD6719F604FB24B788E63201F8D332E^outKey=V123e12993871e63c8394a20a5a63669510402b53a232fa0e6daba20a5a6366951040^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'볼 워킹','짐볼 운동은 다른 기구를 사용했을 때보다 안전하게 운동할 수 있는 장점이 있다. 이 동작은 짐볼을 이용한 후면 근육 운동으로 등, 엉덩이, 허벅지 근육들을 자극하여 탄력적인 엉덩이와 허벅지 라인을 가꿔준다. 음악에 맞춰 실시하면 더욱 재미있게 운동할 수 있다.','헬스','엉덩이 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=979FAC721CE58FFBC6434DA3D98F08673DD3^outKey=V128e5cdee3215e1ec7e16706a694ecc318e5c3bcd2402eb246066706a694ecc318e5^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
-
---허벅지 앞 운동
+PROMPT 헬스 (엉덩이) 샘플데이터 입력끝!
+-- 허벅지 앞
+PROMPT 헬스 (허벅지_앞) 샘플데이터 입력중..
 insert into tb_video_board values(vb_seq.nextval,'스쿼트 - 바벨','하체 운동 중 가장 기본이 되는 운동이다. 운동 전에 체중을 이용한 스쿼트 동작으로 자세를 정확히 인지한 후 실시하는 것이 좋다. 등 하부, 엉덩이, 허벅지 전체, 종아리 부위의 근육을 협응적으로 훈련함으로써 에너지 소모가 가장 많은 대표적인 하체 운동이다.','헬스','허벅지 앞 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=E303B587CF6BB77100C6B5F82999A5DE53C1^outKey=V1271b13d121e500d0e8d928155487839090ee3269c0d0bafd5e1928155487839090e^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'스쿼트 - 덤벨','바벨 스쿼트와 함께 대퇴사두근과 둔근의 근력과 크기 증가를 위한 운동이다. 바벨 스쿼트에 비해 균형을 잡기 쉬운 운동으로 등을 곧게 편 상태에서 전방을 주시하면서 의자에 앉듯이 천천히 몸을 낮추면서 실시하면 더욱 균형감 있게 실시할 수 있다.','헬스','허벅지 앞 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=8FDA6E715AF90A9E340339952609AE5BD81B^outKey=V126db213292a1aea1631f6cff91b91f7aaeca5e6cb192903340ef6cff91b91f7aaec^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'스쿼트 - 스미스 머신','바벨 스쿼트 운동에 비해 고립된 운동으로 대퇴부와 둔부 크기를 증가시키기 위한 운동이다. 무릎과 등 하부에 부담을 줄이고 대퇴를 강도 높게 자극할 수 있다. 초보자들이 쉽고 안전하게 할 수 있는 장점이 있지만 등과 허리에 통증이 있는 경우엔 레그 프레스 운동으로 대체해서 실시하는 것이 바람직하다.','헬스','허벅지 앞 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=C3917D3464358E0F34D520D7D30B15428276^outKey=V127dc4e482b8b86617fe185d84c55718ae3e63c633eebe5902b2185d84c55718ae3e^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
@@ -908,21 +922,26 @@ insert into tb_video_board values(vb_seq.nextval,'사이드 런지','허벅지�
 insert into tb_video_board values(vb_seq.nextval,'점프 스쿼트','하체의 체지방은 연소하고 탄력을 향상시키는 데 효과적인 운동이다. 자기 체중을 갖고 하는 근력 운동으로 하체 근력이 어느 정도 있는 경우에는 이 동작 하나로도 강한 운동 효과를 얻을 수 있다. 지속적으로 실시하면 탄력 있는 다리 라인을 만들 수 있다.','헬스','허벅지 앞 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=81B339891F4E87F950A10E798E7B382BB0E8^outKey=V126b1e7f254f238ef9d956d4dc4d275e34f99cd64c412a7b25d956d4dc4d275e34f9^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'와이드 스쿼트','다리, 엉덩이, 허벅지 안쪽을 다양하게 자극하는 스쿼트이다. 이 동작은 특히 여성들에게 추천하는 운동으로 허벅지 안쪽과 엉덩이 옆 라인을 탄력적으로 다듬는 데 효과적이다.','헬스','허벅지 앞 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=AF98BDEEAD9955915D0F0A6DD4AD13278429^outKey=V121220effa6dc2bd93e5d3f93ecf7ae6a1c7d020c553eaf16f55d3f93ecf7ae6a1c7^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'런지','대표적인 다리 운동 중 하나로 허벅지와 엉덩이에 탄력을 주며 하체 근력을 강화하는 운동이다. 자신의 체중을 이용해 실시하더라도 충분한 자극을 느낄 수 있지만, 더 강한 운동 효과를 원한다면 덤벨이나 바벨을 이용하여 천천히 운동하는 것이 좋다.','헬스','허벅지 앞 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=DA32C37D3E8213BA245DE59CEB5A0F33F6BE^outKey=V1293c76d2e6217fd5ca2fb61069c631327d184296a3d8422a42efb61069c631327d1^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
- 
--- 허벅지 뒤 운동
+PROMPT 헬스 (허벅지_앞) 샘플데이터 입력끝!
+-- 허벅지 뒤
+PROMPT 헬스 (허벅지_뒤) 샘플데이터 입력중..
 insert into tb_video_board values(vb_seq.nextval,'레그컬 - 스탠딩','허벅지 뒤쪽 슬굴곡근을 발달시키기 위한 운동이다. 한 번에 한쪽 하체만 훈련이 가능하여 양쪽 다리의 균형을 맞출 수 있는 장점이 있다. 허벅지를 패드에 대고 움직이지 않게 고정시켜주면 더욱 효과적으로 실시할 수 있다.','헬스','허벅지 뒤 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=AD1CE743C7AE496B88E71B6811099841C5E0^outKey=V1273222982a231a917ac216fddaa4e7ce47823a7195df65df828216fddaa4e7ce478^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'레그컬 - 라잉','대퇴후면의 슬굴곡근을 발달시키기 위한 운동이다. 스탠딩 레그 컬보다 많은 중량을 들 수 있는 것이 장점으로, 하체 근력이 약한 사람에게 필수적인 운동이다. 단순관절 운동인 만큼 정확한 자세를 유지하는 것이 중요하다.','헬스','허벅지 뒤 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=11E758A8B2C66AF2386D43A3B8D82C4C0D5D^outKey=V122f2070b0149a8bf82f75e039b2df855a6197fd50b36ca289b875e039b2df855a61^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'멀티 힙','힙 주변 근육을 다양하게 운동할 수 있는 최적의 장비이다. 다리를 앞뒤로 또는 좌우로 운동하면 하복부와 힙 주변을 탄력 있게 만들 수 있는 효과적인 운동이다. 특히 여성에게 추천되는 운동이다.','헬스','허벅지 뒤 운동','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=EDBF2FBA2E063BFEB78559498E28E4722CA9^outKey=V1292655bb80234b1d59799759bc5ed28566cc3aef748f103b0bc99759bc5ed28566c^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
-
---종아리 운동
+PROMPT 헬스 (허벅지_뒤) 샘플데이터 입력끝!
+-- 종아리
+PROMPT 헬스 (종아리) 샘플데이터 입력중..
 insert into tb_video_board values(vb_seq.nextval,'카프레이즈 - 스탠딩','가장 기본이 되는 종아리 운동으로 뒤꿈치를 들어 체중을 올리는 역할을 하는 근육을 발달시킨다. 지구력이 높은 근육의 특성상 고반복이 필수적이다. 스미스 머신을 이용해 실시할 수도 있다.','헬스','종아리','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=F7B52B93E55DDE5886CC1D496879EB567A69^outKey=V12292e0f2aad58729dd65d241b37b14007b597cbed8c0a4e593e5d241b37b14007b5^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'카프레이즈 - 시티드','가자미근이라고 하는 종아리의 심부근육을 발달시키기 위한 운동이다. 비복근의 참여를 줄이기 위해 앉아서 실시하며 여성들에게 추천된다.','헬스','종아리','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=D1EA4778CB010D224508EAEEFB71A5BD30BF^outKey=V123da2e00a3135d4eaeb2bb390108ba95d9b5e98eb4ae44ae1862bb390108ba95d9b^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'카프레이즈 - 싱글 레그','약한 쪽 종아리를 운동함으로써 양쪽 발의 균형을 맞추는 데 유용한 운동이다. 장소에 구애 받지 않고 어디서나 쉽게 할 수 있다는 장점이 있다.','헬스','종아리','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=DD8C1DF3E7B7AD31333404CC676647DAE467^outKey=V1212bbbb649de919f5e7f82aaab48539591afb218bfa5ad44b7ff82aaab48539591a^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
 insert into tb_video_board values(vb_seq.nextval,'카프 프레스- 머신','레그 프레스 머신에서 실시하는 종아리 운동이다. 스탠딩 자세에서 하는 운동과 달리 허리의 추가적인 스트레스를 피할 수 있다는 장점이 있다. 종아리 근육에 대한 집중을 더욱 느낄 수 있고, 자신의 몸무게만큼 고중량으로 실시할 수 있다.','헬스','종아리','http://serviceapi.rmcnmv.naver.com/flash/outKeyPlayer.nhn?vid=1255934BC7773B6B927EBA51898851D750DA^outKey=V127f754232dc7ea041a47e48f7778b839e76aa9da2ab5e7c22977e48f7778b839e76^controlBarMovable=true^jsCallable=true^isAutoPlay=false^skinName=tvcast_white',default);
-PROMPT TB_VIDEO_BOARD 샘플데이터 입력끝!
+PROMPT 헬스 (종아리) 샘플데이터 입력끝!
+PROMPT 헬스 샘플데이터 입력끝!
 
-PROMPT TB_VIDEO_BOARD 맨몸운동 샘플데이터 입력중!
---맨몸 푸쉬업
+-- 맨몸운동 샘플데이터
+PROMPT 맨몸운동 샘플데이터 입력중..
+-- 푸쉬업
+PROMPT 맨몸운동 (푸쉬업) 샘플데이터 입력중..
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런 조성준] 푸쉬업 정석 50개를 한번에 할수 있어야 합니다.','[데스런 조성준] 푸쉬업 정석 50개를 한번에 할수 있어야 합니다.','맨몸운동','맨몸푸시업','zIAN2E6rJ9A',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런 조성준] 한팔 푸쉬업 하는 법.','[데스런 조성준] 한팔 푸쉬업 하는 법.','맨몸운동','맨몸푸시업','ijB_oV8uy4g',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런 조성준] 스토리볼 3화차. 어깨깡패를 만드는 푸쉬업들.(흰두푸쉬업응용, 무빙푸쉬업)','[데스런 조성준] 스토리볼 3화차. 어깨깡패를 만드는 푸쉬업들.(흰두푸쉬업응용, 무빙푸쉬업)','맨몸운동','맨몸푸시업','JNdLbWWrsmg',0);
@@ -970,8 +989,9 @@ INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 푸쉬업을 제�
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] LIVE강좌! 맨몸운동 푸쉬업으로는 어깨운동을 할수 없다? 충분하다!','[데스런] LIVE강좌! 맨몸운동 푸쉬업으로는 어깨운동을 할수 없다? 충분하다!','맨몸운동','맨몸푸시업','yZZvA12zMy4',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] LIVE강좌! 왕초보의 물구나무 연습방법','[데스런] LIVE강좌! 왕초보의 물구나무 연습방법','맨몸운동','맨몸푸시업','HIRqOgQG-dQ',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 딱 90개로 전면. 측면. 후면 삼각근 다 뿌게기!!','[데스런] 딱 90개로 전면. 측면. 후면 삼각근 다 뿌게기!!','맨몸운동','맨몸푸시업','V8FXCKsqJis',0);
-
---맨몸하체
+PROMPT 맨몸운동 (푸쉬업) 샘플데이터 입력끝!
+-- 하체
+PROMPT 맨몸운동 (하체) 샘플데이터 입력중..
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런 조성준] 무릎통증 완화와 강화를 위한 운동','[데스런 조성준] 무릎통증 완화와 강화를 위한 운동','맨몸운동','맨몸하체','ZsdsneSS1_Q',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'′닥치고 데스런′ 서적물 하체파트 운동 미리보기','′닥치고 데스런′ 서적물 하체파트 운동 미리보기','맨몸운동','맨몸하체','AKNbtY1P_dE',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 한쪽 다리가 불편하신 한 장애인 데스러너를 위한 운동법.','[데스런] 한쪽 다리가 불편하신 한 장애인 데스러너를 위한 운동법.','맨몸운동','맨몸하체','zDSv8DKk1Jw',0);
@@ -985,7 +1005,9 @@ INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 스쿼트와 런�
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 스쿼트 자세가 안나오는 분들에게.','[데스런] 스쿼트 자세가 안나오는 분들에게.','맨몸운동','맨몸하체','G6z6TXM1ODM',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] ′남자는 코어′ 그대로 따라가면 되는 복근 하체 운동.','[데스런] ′남자는 코어′ 그대로 따라가면 되는 복근 하체 운동.','맨몸운동','맨몸하체','KPw3FURInJY',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 올바른 스쿼트 자세와 잘못된 스쿼트 자세','[데스런] 올바른 스쿼트 자세와 잘못된 스쿼트 자세','맨몸운동','맨몸하체','2X0gaKAtZjk',0);
---맨몸 철봉
+PROMPT 맨몸운동 (하체) 샘플데이터 입력끝!
+-- 철봉
+PROMPT 맨몸운동 (철봉) 샘플데이터 입력중..
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런 조성준] 프론트 레버 하는법.','[데스런 조성준] 프론트 레버 하는법.','맨몸운동','맨몸철봉','wi9QlRGQ1EA',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런 조성준] 풀업과 친업의 차이','[데스런 조성준] 풀업과 친업의 차이','맨몸운동','맨몸철봉','01bTUwck3M0',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런 조성준] 턱걸이 할때의 ′숄더 팩킹′. 하는 방법','[데스런 조성준] 턱걸이 할때의 ′숄더 팩킹′. 하는 방법','맨몸운동','맨몸철봉','zJIG1fH00cs',0);
@@ -1036,8 +1058,9 @@ INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] LIVE 강좌! 턱�
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] LIVE 강좌! 턱걸이를 할때 어떻게 당기고 얼마나 올리고 내리나요?','[데스런] LIVE 강좌! 턱걸이를 할때 어떻게 당기고 얼마나 올리고 내리나요?','맨몸운동','맨몸철봉','NM15F0Jxulo',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] LIVE강좌! 맨몸운동 턱걸이 할때 몸의 포지션은 어떻게 해야 할까요?','[데스런] LIVE강좌! 맨몸운동 턱걸이 할때 몸의 포지션은 어떻게 해야 할까요?','맨몸운동','맨몸철봉','cSmaq1GfZe0',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 턱걸이를 몇세트로 몇개나 하면 되나요?','[데스런] 턱걸이를 몇세트로 몇개나 하면 되나요?','맨몸운동','맨몸철봉','6RBcSM_305E',0);
-
---맨몸 전신
+PROMPT 맨몸운동 (철봉) 샘플데이터 입력끝!
+-- 전신
+PROMPT 맨몸운동 (전신) 샘플데이터 입력중..
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 왕초보의 맨몸운동 프로그램','[데스런] 왕초보의 맨몸운동 프로그램','맨몸운동','맨몸전신','I2aBKBOlHXY',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 초중급자의 전신 맨몸운동 루틴','[데스런] 초중급자의 전신 맨몸운동 루틴','맨몸운동','맨몸전신','6jxYDoodKxs',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 어깨, 팔뚝, 복근, 맨몸운동 프로그램.','[데스런] 어깨, 팔뚝, 복근, 맨몸운동 프로그램.','맨몸운동','맨몸전신','X5L130x8CjQ',0);
@@ -1056,8 +1079,9 @@ INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 벤트암 플란�
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 공원에서 하는 전신운동 프로그램.','[데스런] 공원에서 하는 전신운동 프로그램.','맨몸운동','맨몸전신','QIheYuWlYgo',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 공원의 벤치도 훌륭한 운동 도구가 됩니다.','[데스런] 공원의 벤치도 훌륭한 운동 도구가 됩니다.','맨몸운동','맨몸전신','BactayPt5_g',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 지방을 태우는 7분 ′플랭크′ 프로그램','[데스런] 지방을 태우는 7분 ′플랭크′ 프로그램','맨몸운동','맨몸전신','YSnacMOWk7c',0);
-
---맨몸 초보자 3개월
+PROMPT 맨몸운동 (전신) 샘플데이터 입력끝!
+-- 초보자 3개월
+PROMPT 맨몸운동 (초보자) 샘플데이터 입력중..
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 초보자를 위한 3개월 주3회 운동프로그램! 시작합니다!','[데스런] 초보자를 위한 3개월 주3회 운동프로그램! 시작합니다!','맨몸운동','맨몸초보자','GxrTYJE_mqk',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 맨몸운동 3개월 프로젝트 첫날','[데스런] 맨몸운동 3개월 프로젝트 첫날','맨몸운동','맨몸초보자','ML9kpnnRuDM',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 맨몸운동 3개월 프로젝트. -1주차 2번째-','[데스런] 맨몸운동 3개월 프로젝트. -1주차 2번째-','맨몸운동','맨몸초보자','byRMLKi3WLU',0);
@@ -1095,186 +1119,103 @@ INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 맨몸운동 3개�
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 맨몸운동 3개월 프로젝트. -12주차 1번째-','[데스런] 맨몸운동 3개월 프로젝트. -12주차 1번째-','맨몸운동','맨몸초보자','iiS7plHQQgE',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 맨몸운동 3개월 프로젝트. -12주차 2번째-','[데스런] 맨몸운동 3개월 프로젝트. -12주차 2번째-','맨몸운동','맨몸초보자','4tYoYz9UxDY',0);
 INSERT INTO TB_VIDEO_BOARD VALUES(vb_seq.nextval,'[데스런] 맨몸운동 3개월 프로젝트 마지막날. -12주차 3번째-','[데스런] 맨몸운동 3개월 프로젝트 마지막날. -12주차 3번째-','맨몸운동','맨몸초보자','mnc8jxiapxo',0);
-
-PROMPT TB_VIDEO_BOARD 샘플데이터 입력 끝..
+PROMPT 맨몸운동 (초보자) 샘플데이터 입력끝!
+PROMPT 맨몸운동 샘플데이터 입력끝!
+PROMPT TB_VIDEO_BOARD 샘플데이터 입력끝!
 
 -- TB_GYM 샘플 데이터
 PROMPT TB_GYM 샘플데이터 입력중..
- INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE) 
-VALUES (gym_seq.nextval, '우노 휘트니스클럽', NULL, NULL, 'AM 06:00', '02-790-6776', '010-1234-5678', NULL, '피트니스', NULL, '서울특별시 용산구 보광동 260-8번지', 2, NULL, DEFAULT);
-
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE) 
-VALUES (gym_seq.nextval, 'AK운동맞춤센터', NULL, NULL, 'AM 06:00', '02-777-3579', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 용산동2가 23번지', 6, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '뚝이 휘트니스', '뚝이.jpg', 'bcd3c2f0821d4751bc534b6783a00ec4.jpg', '10:00~20:00', '02-123-4567', '010-1234-5678', '개별 문의', '헬스, 요가, 필라테스', NULL, '서울특별시 강남구 역삼동 823-25', 2, NULL, 1);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE) 
-VALUES (gym_seq.nextval, '웰니스짐', NULL, NULL, 'AM 06:00', '02-795-9966', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 이태원동 226-3번지', 2, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '휘트니스피플 대치점', '휘트니스피플.jpg,휘트니스피플 대치점.jpg', 'cb52266c966045d4a78f1d1aca3e89e9.jpg,ece0d577cae74371ad96dc80ceecdb91.jpg', '10:00~20:00', '02-553-3912', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 강남구 대치동 994-9', 2, NULL, 1);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE) 
-VALUES (gym_seq.nextval, '그랜드 남여헬스클럽', NULL, NULL, 'AM 06:00', '02-795-5511', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 보광동 216-96번지', 6, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '휘트니스피플 구의점', '휘트니스피플.jpg,휘트니스피플 구의점2.jpg,휘트니스피플 구의점3.jpg', 'cb52266c966045d4a78f1d1aca3e89e9.jpg,c773241bd8b046b8badfd182f6426c98.jpg,bd54f01e3b244c999d9a138ef2de8517.jpg', '10:00~20:00', '02-2201-3912', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 광진구 자양동 216-9', 2, NULL, 1);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
+VALUES (gym_seq.nextval, '휘트니스피플 홍대점', '휘트니스피플.jpg,c87742ea5f294bc089e7372ceff91832.jpg', 'cb52266c966045d4a78f1d1aca3e89e9.jpg,c87742ea5f294bc089e7372ceff91832.jpg', 'AM 06:00', '02-322-2696', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 이촌동 300-15번지', 2, NULL, 1);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
+VALUES (gym_seq.nextval, 'KFA스카이휘트니스클럽', 'KFA스카이휘트니스클럽.jpg,KFA스카이휘트니스클럽2.jpg,KFA스카이휘트니스클럽3.jpg', '0af883718acc47ad8cf7d47eefef5e21.jpg,97de5a06aaba4dc9898fbb3338bb2f48.jpg,c4e1574d872d4d9ca27b5d7bfbaa1700.jpg', 'AM 06:00', '02-797-3993', '010-1234-5678', '개별 문의', '피트니스', NULL, '서울특별시 용산구 남영동 127-1번지', 2, NULL, 1);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
+VALUES (gym_seq.nextval, '스카이휘트니스클럽 시흥점', '스카이휘트니스클럽 시흥2.jpg,스카이휘트니스클럽 시흥3.jpg,스카이휘트니스클럽 시흥.jpg', 'c59437b4fa4c4b6e99f4181cf795dd69.jpg,3245f9e08ef64d51bfb86b7785366e64.jpg,db056911354648efa80d80b32b97f60e.jpg', '05:30~00:30', '031-311-8466', '010-1234-5678', '개별 문의', '피트니스', NULL, '경기도 시흥시 대야동 578-3', 2, NULL, DEFAULT);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
+VALUES (gym_seq.nextval, '스카이휘트니스클럽 오산점', '스카이휘트니스클럽 오산.jpg', 'd8c1daf75eb14390b4e78290c98b8973.jpg', '06:00~24:00', '031-372-7838', '010-1234-5678', '개별 문의', '피트니스', NULL, '경기도 오산시 오산동 925-5', 2, NULL, DEFAULT);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
+VALUES (gym_seq.nextval, '태영휘트니스', '태영.jpg', 'b2d33554a8d946feb2a0ca909c6661d8.jpg', '06:00~23:00', '02-306-4966', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 마포구 성산동 157-3', 6, NULL, 1);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
+VALUES (gym_seq.nextval, '태영휘트니스센터', '태영.jpg', 'b2d33554a8d946feb2a0ca909c6661d8.jpg', '06:00~23:00', '031-406-4966', '010-1234-5678', '개별 문의', '헬스', NULL, '경기도 의정부시 의정부동 193-1', 6, NULL, 1);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
+VALUES (gym_seq.nextval, '스포애니 논현역점', '스포애니.jpg,스포애니 논현역점.jpg,스포애니 논현역점2.jpg', '3f8200179a3446978ae6181c55b4fa05.jpg,dcb06c936c3c41d6a71fcf4c5d322b8b.jpg,a78de777093a416d8bade599223dad4a.jpg', '00:00~24:00 24시간 운영', '02-461-8819', '010-1234-5678', '개별 문의', '헬스, 요가', NULL, '서울특별시 강남구 논현동 122-8', 6, NULL, DEFAULT);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
+VALUES (gym_seq.nextval, '스포애니 대치동점', '스포애니.jpg,스포애니 논현역점.jpg,스포애니 논현역점2.jpg', '3f8200179a3446978ae6181c55b4fa05.jpg,816064e31f4748d1b85d0a323ab97f2e.jpg,46016d99aba34303aec50417386e54f9.jpg', '00:00~24:00 24시간 운영', '02-552-9618', '010-1234-5678', '개별 문의', '헬스, 요가', NULL, '서울특별시 강남구 대치동 989-2', 6, NULL, DEFAULT);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
+VALUES (gym_seq.nextval, '스포애니 신천점', '스포애니.jpg,스포애니 신천점.jpg', '3f8200179a3446978ae6181c55b4fa05.jpg,51f63ed8631347a490423966984c70fe.jpg', '00:00~24:00 24시간 운영', '02-422-9618', '010-1234-5678', '개별 문의', '헬스, 요가', NULL, '서울특별시 송파구 잠실동 181-2', 6, NULL, DEFAULT);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
+VALUES (gym_seq.nextval, '와이짐 용산점', '와이짐 용산점.jpg,와이짐 용산점2.jpg', '91832dd8a9514d3aa865ee01423da6f6.jpg,db63df0abbcf444b90ea854622e9ac70.jpg', '06:00~23:00', '02-797-7304', '010-1234-5678', '개별 문의', '헬스장', NULL, '서울특별시 용산구 이촌동 300-18번지', 6, NULL, 1);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
+VALUES (gym_seq.nextval, '와이짐 부천점', '와이짐 부천점.jpg,와이짐 부천점2.jpg', '69d231a053844f9da32afefbf5bd4505.jpg,e50470a9bc4f495c8ec6fc831ab8cc0f.jpg', '06:00~23:00', '032-655-5959', '010-1234-5678', '개별 문의', '헬스장', NULL, '경기도 부천시 송내동 450-3', 6, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE) 
-VALUES (gym_seq.nextval, '동국 스포츠', NULL, NULL, 'AM 06:00', '02-715-5588', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 원효로4가 142-1번지', 2, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '우노휘트니스클럽.jpg,우노휘트니스클럽2.jpg', '우노휘트니스클럽.jpg', '9d67bd920b4d40009bb2d0aa0a40b120.jpg,fe23f08fe2af4d2fab12a62ac34bb2a5.jpg', 'AM 06:00', '02-790-6776', '010-1234-5678', '개별 문의', '피트니스', NULL, '서울특별시 용산구 보광동 260-8번지', 7, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE) 
-VALUES (gym_seq.nextval, '한강헬스', NULL, NULL, 'AM 06:00', '02-795-9333', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 이촌동 300-15번지', 6, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '웰니스짐', '웰니스짐.jpg,웰니스짐2.jpg,웰니스짐3.jpg,웰니스짐4.jpg', '06cf53e6860e4908925401f114052d70.jpg,6a2582b7a1d441b98929f5d5d5a0578c.jpg,9691aee16d194bc7b530daf1bd23869b.jpg,517369831a874da6bded9bfd6b690283.jpg', 'AM 06:00', '02-795-9966', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 이태원동 226-3번지', 7, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '그램 휘트니스', NULL, NULL, 'AM 06:00', '02-794-6010', '010-1234-5678', NULL, '피트니스', NULL, '서울특별시 용산구 한남동 657-201번지', 2, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '프라이빗 웰니스', '프라이빗웰니스.jpg', 'd73a9db84e7f4b6fb70f71910ced0776.jpg', '06:00~22:00', '02-123-4567', '010-1234-5678', '1개월 5만원', '헬스', NULL, '서울특별시 용산구 한남동 740-1번지', 7, NULL, DEFAULT);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE) 
+VALUES (gym_seq.nextval, '그랜드 남여헬스클럽', '그랜드헬스.jpg,그랜드헬스2.jpg,그랜드헬스3.jpg', 'd9ad838634e84cd19ec57e9474ce7778.jpg,612667fbdaef4ed88e9a3c68447730a5.jpg,193fd6176dd0490c969185ccc798ceed.jpg', 'AM 06:00', '02-795-5511', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 보광동 216-96번지', 7, NULL, DEFAULT);
+INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE) 
+VALUES (gym_seq.nextval, '그램 휘트니스', '그램휘트니스.jpg,그램휘트니스2.jpg,그램휘트니스3.jpg,그램휘트니스4.jpg,그램휘트니스5.jpg,그램휘트니스6.jpg', 'd21fd6e6ff5c40988cd7d5e00425809c.jpg,0f182f1f0ee7418ca6e177bb0e2a7fde.jpg,44782edf397d44a9acc36a40aacf693c.jpg,fcd1572cdaee483ead37d1acae9d1d55.jpg,d6fd4509cf394af7aa72ca8c4fd04773.jpg,fdeac5436bea4ff2bbfe5c65d0f7200b.jpg', 'AM 06:00', '02-794-6010', '010-1234-5678', '개별 문의', '피트니스', NULL, '서울특별시 용산구 한남동 657-201번지', 7, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, 'J헬스클럽', NULL, NULL, 'AM 06:00', '02-796-5176', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 한남동 631-5번지', 6, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '상떼휘트니스', '상떼휘트니스.jpg', '5a10cc71361d48ee96ab66f4a466aa65.jpg', '06:00~23:00', '02-407-5561', '010-1234-5678', '개별 문의', '피트니스', NULL, '서울특별시 송파구 가락동 80', 7, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, 'B AND B 휘트니스', NULL, NULL, 'AM 06:00', '02-794-5600', '010-1234-5678', NULL, '피트니스', NULL, '서울특별시 용산구 이태원동 21-1번지', 2, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '해밀톤 휘트니스센터', '해밀톤.jpg', '286671a4050d411ea09861de659ffbf0.jpg', '06:30~23:00', '02-3786-6375', '010-1234-5678', '개별 문의', '피트니스', NULL, '서울특별시 용산구 이태원동 116-1번지', 7, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '스카이 휘트니스클럽', NULL, NULL, 'AM 06:00', '02-797-3993', '010-1234-5678', NULL, '피트니스', NULL, '서울특별시 용산구 남영동 127-1번지', 6, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '킴스짐헬스클럽', '킴스짐.jpg,킴스짐2.jpg', 'b0ac8b3fb81b4651899b7030c2586717.jpg,0d86064c80274ab884312e7b4134a912.jpg', '06:00~24:00 일요일 휴무', '02-798-8580', '010-1234-5678', '1개월 7만원', '헬스장', NULL, '서울특별시 용산구 이태원동 124-3번지', 7, NULL, 1);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '상떼휘트니스', NULL, NULL, 'AM 06:00', '02-778-7496', '010-1234-5678', NULL, '피트니스', NULL, '서울특별시 용산구 동자동 22-3번지', 2, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '워너핏PT스튜디오', '워너핏.jpg', '4be7efd304e740dda724ba15e9d554ba.jpg', '07:00~23:00', '02-792-1031', '010-1234-5678', '[1:1PT] 8회 - 385,000', '피트니스', NULL, '서울특별시 용산구 남영동 61-4번지', 7, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '해밀톤 휘트니스센터', NULL, NULL, 'AM 06:00', '02-6393-1375', '010-1234-5678', NULL, '피트니스', NULL, '서울특별시 용산구 이태원동 116-1번지', 6, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, 'H 퍼스널트레이닝', 'h퍼스널.jpg,h퍼스널2.jpg', '0db68ea657cd45ebae6c7c76db8c9951.jpg,d7ee708d6ae545dc8001d35e69a98acd.jpg', '06:00~24:00', '02-123-4567', '070-4530-4566', '개별 문의', '헬스', NULL, '서울특별시 용산구 한남동 79-3번지', 7, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '드래곤힐스파휘트니스클럽', NULL, NULL, 'AM 06:00', '02-792-0002', '010-1234-5678', NULL, '피트니스', NULL, '서울특별시 용산구 한강로3가 40-713번지', 2, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '반트짐', '반트짐.jpg', '969ab159c0b14f4b958d8997eaa43d77.jpg', '06:00~23:30 (12:00~13:00 점심시간)', '02-749-9994', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 이촌동 302-52번지', 7, NULL, 1);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '엠파이어휘트니스', NULL, NULL, 'AM 06:00', '02)705-0039', '010-1234-5678', NULL, '피트니스', NULL, '서울특별시 용산구 한강로3가 16-85번지', 6, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, 'Fit In Cool', '핏인쿨.jpg,핏인쿨2.jpg,핏인쿨3.jpg', 'dabb7a81d0ca45f7bee199afc8768856.jpg,370eb521d421442ea41c2b291313e396.jpg,c06833af975e491290823c12e7ea54c8.jpg', '06:30~22:00', '02-601-0004', '010-2662-0828', '개별 문의', '피트니스', NULL, '서울특별시 용산구 한남동 657-45번지', 7, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '한남레포츠종합타운', NULL, NULL, 'AM 06:00', '02)793-6394', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 한남동 96-3번지', 2, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, 'FIT24CLUB', '핏24.jpg', '1906a559883e478b9197f88fd0c6693b.jpg', '09:00~21:00', '032-203-3330', '010-1234-5678', '개별 문의', '피트니스', NULL, '인천광역시 계양구 계산동 303-2', 7, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '태영헬스', NULL, NULL, 'AM 06:00', '02-703-6377', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 청파동3가 111-9번지', 6, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, 'Beautiful Evolution', '뷰티풀에볼.jpg,뷰티풀에볼2.jpg', 'f17090cacfda4a98ba702d83f6551f47.jpg,c7ebe45a39404b7fb2fe669761097f91.jpg', '10:00~22:00', '02-792-4362', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 보광동 216-88번지', 7, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '몽키짐휘트니스', NULL, NULL, 'AM 06:00', '02-3215-8200', '010-1234-5678', NULL, '피트니스', NULL, '서울특별시 용산구 한강로2가 2-8번지', 2, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '에스퍼스널트레이닝', '에스퍼스널.jpg', 'fdbc26a4825b4f8eb3bb5da35a9485c5.jpg', '06:00~23:00', '02-797-0324', '010-8226-2647', '개별 문의', '헬스', NULL, '서울특별시 용산구 용산동5가 24-1번지', 7, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '와이짐', NULL, NULL, 'AM 06:00', '02-797-7304', '010-1234-5678', NULL, '헬스장', NULL, '서울특별시 용산구 이촌동 300-18번지', 6, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '레브 트레이닝 스튜디오', '레브3.jpg,레브.jpg,레브2.jpg', '1c387a559d284137a2b4b2ae1c408298.jpg,52584c34c10b4045816c4d659a4e502f.jpg,db004a41faea4eb9ba081bd226baf285.jpg', '09:00~22:30', '02-796-9600', '010-1234-5678', '1개월 8만원', '헬스', NULL, '서울특별시 용산구 한남동 1-307번지', 7, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '킴스짐헬스크럽', NULL, NULL, 'AM 06:00', '02-749-9995', '010-1234-5678', NULL, '헬스장', NULL, '서울특별시 용산구 이태원동 124-3번지', 2, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '칼라퍼스널트레이닝', '칼라퍼스널.jpg', 'e603cf73b75b421fb3aec99507fabf4b.jpg', '09:00~23:00', '02-711-4013', '010-1234-5678', '개별 문의', '헬스', NULL, '서울특별시 용산구 원효로1가 39-10번지', 7, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, 'Studio-X-Fitness', NULL, NULL, 'AM 06:00', '02-123-4567', '010-1234-5678', NULL, '피트니스', NULL, '서울특별시 용산구 이태원동 651번지', 6, NULL, DEFAULT);
-
+VALUES(gym_seq.nextval, '퍼펙트바디', '퍼펙트바디2.jpg,퍼펙트바디3.jpg,퍼펙트바디.jpg', '0f4f45206e114ec2887cec94f7e14b5f.jpg,d67276839ab545ebba72a191e7979dfd.jpg,045972f26f5b4c9d908b259b3791a080.jpg',  '06:00~24:00', '031-405-7676', '010-1234-1456',  '개별 문의', '헬스, 요가',  NULL, '경기도 안산시 단원구 선부동 1085', 7, NULL, 1);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, 'With Gym', NULL, NULL, 'AM 06:00', '02-749-9690', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 한남동 653-95번지', 2, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '스포짐 용산점', '스포짐.jpg,스포짐 용산.jpg,스포짐 용산2.jpg', '497842f195b349a9a2c0da0fcc1ad458.jpg,1fd3cc6244b44fab99073a6e6c8bf63c.jpg,9d515b73e015429ab277f8ca705ca3e3.jpg', '06:00~23:30', '02-701-0011', '010-1234-5678', '개별 문의', '헬스, 요가, 필라테스', NULL, '서울특별시 용산구 문배동 40-31번지', 8, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '센티넬 크로스핏 한남', NULL, NULL, 'AM 06:00', '02-6431-0802', '010-1234-5678', NULL, '크로스핏', NULL, '서울특별시 용산구 한남동 635-1번지', 6, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '스포짐 사당점', '스포짐.jpg,스포짐 사당.jpg,스포짐 사당2.jpg,스포짐 사당3.jpg', '497842f195b349a9a2c0da0fcc1ad458.jpg,958a2f6104f7488dbdb967f29f60c44a.jpg,95d94b70f1394eecab881d5ab4f2b202.jpg,e1f20919394c440f9c4a857f919f03f7.jpg', '06:00~23:30', '02-522-1061', '010-1234-5678', '개별 문의', '헬스, 요가, 필라테스', NULL, '서울특별시 관악구 남현동 1061-61', 8, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '동서 골프and휘트니스', NULL, NULL, 'AM 06:00', '02-714-2011', '010-1234-5678', NULL, '피트니스', NULL, '서울특별시 용산구 청파동1가 180-24번지', 2, NULL, DEFAULT);
-
+VALUES (gym_seq.nextval, '스포짐 광화문점', '스포짐.jpg,스포짐 광화문.jpg,스포짐 광화문2.jpg', '497842f195b349a9a2c0da0fcc1ad458.jpg,f62d139d6209457da25b20ff4f54ac89.jpg,e2db98b0d1ad4376bf053145c559280d.jpg', '06:00~23:30', '02-733-0114', '010-1234-5678', '개별 문의', '헬스, 요가, 필라테스', NULL, '서울특별시 종로구 내수동 72', 8, NULL, DEFAULT);
 INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '위너핏PT스튜디오', NULL, NULL, 'AM 06:00', '02-792-1031', '010-1234-5678', NULL, '피트니스', NULL, '서울특별시 용산구 남영동 61-4번지', 6, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '스포짐', NULL, NULL, 'AM 06:00', '02-701-0011', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 문배동 40-31번지', 2, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '프라이빗 웰니스', NULL, NULL, 'AM 06:00', '02-123-4567', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 한남동 740-1번지', 6, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, 'H 퍼스널트레이닝', NULL, NULL, 'AM 06:00', '02-123-4567', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 한남동 79-3번지', 2, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '반트짐', NULL, NULL, 'AM 06:00', '02-123-4567', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 이촌동 302-52번지', 6, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, 'Fit In Cool', NULL, NULL, 'AM 06:00', '02-123-4567', '010-2662-0828', NULL, '피트니스', NULL, '서울특별시 용산구 한남동 657-45번지', 2, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '팀레드', NULL, NULL, 'AM 06:00', '02-703-8378', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 원효로1가 39-6번지', 6, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, 'wunderbar GYM', NULL, NULL, 'AM 06:00', '02-790-7175', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 이촌동 300-27번지', 2, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '리복 크로스핏 센티널 원', NULL, NULL, 'AM 06:00', '02-790-0801', '010-1234-5678', NULL, '크로스핏', NULL, '서울특별시 용산구 한남동 76-42번지', 6, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, 'Fit Club', null, null, 'AM 06:00', '02-123-4567', '010-1234-5678', NULL, '피트니스', NULL, '서울특별시 용산구 이태원동', 2, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '유(U)PT', NULL, NULL, 'AM 06:00', '02-796-7978', '010-1234-5678', NULL, '피트니스', NULL, '서울특별시 용산구 한남동 261-6번지', 6, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, 'Beautiful Evolution', NULL, NULL, 'AM 06:00', '02-123-4567', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 보광동 216-88번지', 2, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '에스퍼스널트레이닝', NULL, NULL, 'AM 06:00', '02-797-0324', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 용산동5가 24-1번지', 6, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, 'PENTACLE', NULL, NULL, 'AM 06:00', '02-727-5000', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 동자동 12번지', 2, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '레브트레이닝', NULL, NULL, 'AM 06:00', '02-796-9600', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 한남동 1-307번지', 6, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '스포벡', NULL, NULL, 'AM 06:00', '02-123-4567', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 갈월동 101-45번지', 2, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '와가짐', NULL, NULL, 'AM 06:00', '070-4794-6591', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 이촌동 300-301번지', 6, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '시크모어 웰니스 스튜디오', NULL, NULL, 'AM 06:00', '02-792-1710', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 한남동 722-3번지', 2, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '패스트앤슬로우 컨설팅그룹', NULL, NULL, 'AM 06:00', '02-123-4567', '010-8664-1340', NULL, '헬스', NULL, '서울특별시 용산구 갈월동 69-109번지', 6, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '서울체대입시', NULL, NULL, 'AM 06:00', '02-797-6530', '010-1234-5678', NULL, '체대입시', NULL, '서울특별시 용산구 남영동 17-1번지', 2, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '칼라퍼스널트레이닝', NULL, NULL, 'AM 06:00', '02-711-4013', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 원효로1가 39-10번지', 6, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '랜스앤제이 퍼스널 트레이닝 스튜디오', NULL, NULL, 'AM 06:00', '02-749-7498', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 한남동 258번지', 2, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '유즈웰(USEWELL)', NULL, NULL, 'AM 06:00', '02-749-2260', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 한남동 72-1번지', 6, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval, '제이 스튜디오', NULL, NULL, 'AM 06:00', '02-792-8281', '010-1234-5678', NULL, '헬스', NULL, '서울특별시 용산구 보광동 217-21번지', 2, NULL, DEFAULT);
-
-INSERT INTO TB_GYM (GYM_NO, GYM_NAME, ORIGINAL_IMAGE, RENAME_IMAGE, OP_TIME, TEL, PHONE, PRICE, CATEGORY, DESCRIPTION, LOCATION, USER_NO, DELETE_DATE, APPROVAL_STATE)
-VALUES (gym_seq.nextval,	'뚝이',	'admin클래스.jpg,community클래스.jpg,gym클래스.jpg',	'e9987a63e4d74be5aaa3c6d9519ff494.jpg,4921da6b3e614fd0aefb634613dbaccb.jpg,4ad3933234714be789087197bda4d259.jpg',	'10:00~24:00',	'02-434-5555',	'010-8366-3828',	'1만원',	'헬스, 요가, 필라테스, 맨몸운동',	'뚝이헬스장',	'서울특별시 성동구 동일로', 2, NULL, DEFAULT);
-
-INSERT INTO TB_GYM VALUES(gym_seq.nextval, '테스트용1', NULL, NULL,  '테스트용1', '010-0000-0000', '010-4111-1111',  NULL, '테스트용',  '설명', '안산', 6, NULL, 1, DEFAULT);
-
-INSERT INTO TB_GYM VALUES(gym_seq.nextval, '테스트용2', NULL, NULL,  '테스트용2', '010-0000-0000', '010-4111-1111',  NULL, '테스트용',  '설명', '안산', 6, NULL, 1, SYSDATE-1);
-
-INSERT INTO TB_GYM VALUES(gym_seq.nextval, '테스트용3', NULL, NULL,  '테스트용3', '010-0000-0000', '010-4111-1111',  NULL, '테스트용',  '설명', '안산', 6, NULL, 1, SYSDATE-2);
-
-INSERT INTO TB_GYM VALUES(gym_seq.nextval, '테스트용4', NULL, NULL,  '테스트용4', '010-0000-0000', '010-4111-1111',  NULL, '테스트용',  '설명', '안산', 6, NULL, 1, SYSDATE-3);
-
-INSERT INTO TB_GYM VALUES(gym_seq.nextval, '테스트용5', NULL, NULL,  '테스트용5', '010-0000-0000', '010-4111-1111',  NULL, '테스트용',  '설명', '안산', 6, NULL, 1, SYSDATE-4);
+VALUES (gym_seq.nextval, '스포짐 시청점', '스포짐.jpg,스포짐 시청.jpg,스포짐 시청2.jpg', '497842f195b349a9a2c0da0fcc1ad458.jpg,9ca40d92b2a146e8aba5c5153a880d43.jpg,8517ee5132a6496980a6a5e9808bf333.jpg', '06:00~23:30', '02-772-9682', '010-1234-5678', '개별 문의', '헬스, 요가, 필라테스', NULL, '서울특별시 중구 태평로2가 70-5', 8, NULL, DEFAULT);
 PROMPT TB_GYM 샘플데이터 입력끝!
 
 PROMPT TB_GYM_COMMENT 샘플데이터 입력중..
-INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 1, '테스트', 5, 3);
-INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 1, '테스트', 4, 4);
-INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 1, '테스트', 2, 5);
-INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 2, '테스트', 5, 3);
-INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 2, '테스트', 3, 4);
-INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 3, '테스트', 3, 3);
-INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 3, '테스트', 2, 4);
-INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 3, '테스트', 3, 5);
-INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 4, '테스트', 2, 3);
-INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 4, '테스트', 4, 4);
-
+INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 1, '시설이 깔끔해서 좋네요.', 5, 3);
+INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 1, '트레이너분들 친절하세요^^', 4, 4);
+INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 1, '저는 그저 그랬어요..', 2, 5);
+INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 2, '좋습니다!', 5, 3);
+INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 2, '시설 깔끔해요.', 3, 4);
+INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 3, '트레이너분들 친절합니다.^^', 3, 3);
+INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 3, '너무 비싸요.', 2, 4);
+INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 3, '이용할만 합니다.', 3, 5);
+INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 4, 'KFA스카이휘트니스클럽 좋아요!', 2, 3);
+INSERT INTO TB_GYM_COMMENT VALUES(GC_SEQ.NEXTVAL, 4, '깔끔해요.', 4, 4);
 PROMPT TB_GYM_COMMENT 샘플데이터 입력끝!
 
-
 PROMPT TB_GYM_SCHEDULE 샘플데이터 입력중..
-INSERT INTO TB_GYM_SCHEDULE VALUES (gs_seq.nextval, 48,	'17/12/08',	'18:00~20:00',	'요가');
-
-INSERT INTO TB_GYM_SCHEDULE VALUES (gs_seq.nextval, 48,	'17/12/22',	'14:00~16:00',	'수영');
-PROMPT TB_GYM_SCHEDULE 샘플데이터 입력끝
+INSERT INTO TB_GYM_SCHEDULE VALUES (gs_seq.nextval, 1,	'17/12/08',	'18:00~20:00',	'요가');
+INSERT INTO TB_GYM_SCHEDULE VALUES (gs_seq.nextval, 1,	'17/12/22',	'14:00~16:00',	'수영');
+PROMPT TB_GYM_SCHEDULE 샘플데이터 입력끝!
 
 -- 좋아요 샘플 데이터
 PROMPT TB_LIKE 샘플데이터 입력중..
@@ -1302,19 +1243,16 @@ PROMPT TB_MYPAGE_SCHEDULE 샘플데이터 입력끝!
 
 -- 문의하기 샘플 데이터
 PROMPT TB_QNA 샘플데이터 입력중..
-insert into tb_qna values(QNA_SEQ.NEXTVAL, 2, 1, null, '테스트문의', '이것은 테스트', NULL, NULL, SYSDATE-4, DEFAULT, QNA_SEQ.NEXTVAL, DEFAULT);
-insert into tb_qna values(QNA_SEQ.NEXTVAL, 2, 1, null, '사업자가 보낸 문의 제대로 가나요?', '문의합니다', NULL, NULL, SYSDATE-3, DEFAULT, QNA_SEQ.NEXTVAL, DEFAULT);
-insert into tb_qna values(QNA_SEQ.NEXTVAL, 3, 1, null, '회원이 보낸 문의', '왔나염?', NULL, NULL, SYSDATE-3, DEFAULT, QNA_SEQ.NEXTVAL, DEFAULT);
-insert into tb_qna values(QNA_SEQ.NEXTVAL, 3, 1, null, '회원이 보낸 문의', '왔나염?', NULL, NULL, SYSDATE-1, DEFAULT, QNA_SEQ.NEXTVAL, DEFAULT);
-insert into tb_qna values(QNA_SEQ.NEXTVAL, 4, 1, null, '회원이 보낸 문의', '왔나염?', NULL, NULL, SYSDATE-2, DEFAULT, QNA_SEQ.NEXTVAL, DEFAULT);
-insert into tb_qna values(QNA_SEQ.NEXTVAL, 5, 1, null, '회원이 보낸 문의', '왔나염?', NULL, NULL, SYSDATE-7, DEFAULT, QNA_SEQ.NEXTVAL, DEFAULT);
+insert into tb_qna values(QNA_SEQ.NEXTVAL, 2, 1, null, '헬스장 등록 승인 요청드립니다.', '언제 승인해주시나요.', NULL, NULL, SYSDATE-4, DEFAULT, QNA_SEQ.NEXTVAL, DEFAULT);
+insert into tb_qna values(QNA_SEQ.NEXTVAL, 2, 1, null, '헬스장 등록 처리부탁드립니다.', '승인해주세요.', NULL, NULL, SYSDATE-3, DEFAULT, QNA_SEQ.NEXTVAL, DEFAULT);
+insert into tb_qna values(QNA_SEQ.NEXTVAL, 3, 1, null, '관리자에게 문의합니다.', '문의합니다.', NULL, NULL, SYSDATE-3, DEFAULT, QNA_SEQ.NEXTVAL, DEFAULT);
+insert into tb_qna values(QNA_SEQ.NEXTVAL, 3, 1, null, '동영상 시청 관련 문의합니다.', '동영상 더 추가 안되나요?', NULL, NULL, SYSDATE-1, DEFAULT, QNA_SEQ.NEXTVAL, DEFAULT);
+insert into tb_qna values(QNA_SEQ.NEXTVAL, 4, 1, null, '헬스 동영상 추가해주세요~', '등근육부분 추가해주세용', NULL, NULL, SYSDATE-2, DEFAULT, QNA_SEQ.NEXTVAL, DEFAULT);
+insert into tb_qna values(QNA_SEQ.NEXTVAL, 5, 1, null, '스케줄 관리 문의', '동영상 시청후 좋아요를 눌러야 등록되는건가요?', NULL, NULL, SYSDATE-7, DEFAULT, QNA_SEQ.NEXTVAL, DEFAULT);
 PROMPT TB_QNA 샘플데이터 입력끝!
 
 --공공시설 샘플 데이터
 PROMPT TB_PUBLIC_GYM 샘플 데이터 입력중...
-
-
-  
 Insert into TB_PUBLIC_GYM (PUBLIC_NAME,CATEGORY,CATEGORY_PUBLIC,LOCATION,LNG,LAT,TEL,HOMEPAGE,OP_TIME,END_TIME) values ('사직체육회',null,'간이','서울특별시 종로구 사직로9길 15-32',126.963946,37.577919,'02-2148-1892',null,null,null);
 Insert into TB_PUBLIC_GYM (PUBLIC_NAME,CATEGORY,CATEGORY_PUBLIC,LOCATION,LNG,LAT,TEL,HOMEPAGE,OP_TIME,END_TIME) values ('살곶이정','국궁장','공공','서울 성동구 행당동',127.035949,37.557652,'02-2294-3245','cafe.daum.net/salgojijung','09:00','06:00');
 Insert into TB_PUBLIC_GYM (PUBLIC_NAME,CATEGORY,CATEGORY_PUBLIC,LOCATION,LNG,LAT,TEL,HOMEPAGE,OP_TIME,END_TIME) values ('정릉4동 마을마당',null,'간이','서울 성북구',127.00376,37.616966,null,null,null,null);
@@ -7474,38 +7412,35 @@ Insert into TB_PUBLIC_GYM (PUBLIC_NAME,CATEGORY,CATEGORY_PUBLIC,LOCATION,LNG,LAT
 Insert into TB_PUBLIC_GYM (PUBLIC_NAME,CATEGORY,CATEGORY_PUBLIC,LOCATION,LNG,LAT,TEL,HOMEPAGE,OP_TIME,END_TIME) values ('감나무골체육소공원',null,'간이','울산 동구 옥류로 92',129.424236,35.546883,'052-209-3754',null,null,null);
 Insert into TB_PUBLIC_GYM (PUBLIC_NAME,CATEGORY,CATEGORY_PUBLIC,LOCATION,LNG,LAT,TEL,HOMEPAGE,OP_TIME,END_TIME) values ('양문1리 게이트볼장',null,'간이','경기 포천시 영중면 양문로2길 19',127.240307,38.000164,'031-538-2105',null,'09:00','06:00');
 Insert into TB_PUBLIC_GYM (PUBLIC_NAME,CATEGORY,CATEGORY_PUBLIC,LOCATION,LNG,LAT,TEL,HOMEPAGE,OP_TIME,END_TIME) values ('내손약수체육시설',null,'간이','경기 의왕시 정우2길 6-1',126.983458,37.382785,'031-8086-7425',null,null,null);
-
-PROMPT TB_PUBLIC_GYM 샘플 데이터 입력끝...
-COMMIT;
+PROMPT TB_PUBLIC_GYM 샘플 데이터 입력끝!
 
 -- 회원탈퇴 프로시저 생성 --
 PROMPT 회원탈퇴 프로시저 생성...
 CREATE OR REPLACE PROCEDURE DEL_USER_PROCEDURE
 IS
 BEGIN
-  DELETE FROM TB_USER 
-  WHERE  to_char(DELETE_DATE,'rr/MM/dd')=to_char(sysdate, 'rr/MM/dd');
-  COMMIT;
+DELETE FROM TB_USER 
+WHERE  to_char(DELETE_DATE,'rr/MM/dd')=to_char(sysdate, 'rr/MM/dd');
+COMMIT;
 END;
 /
 
 -- 회원탈퇴 잡 스케줄러 실행 -- 
 PROMPT 회원탈퇴 잡 스케줄러 실행....
 DECLARE
-   J_NO NUMBER;
+ J_NO NUMBER;
 BEGIN
-   DBMS_JOB.SUBMIT (
-      J_NO,
-      'DEL_USER_PROCEDURE;',
-      SYSDATE,
-      'TRUNC(SYSDATE + 1) + 5 / 24',
-      FALSE
-   );
+ DBMS_JOB.SUBMIT (
+    J_NO,
+    'DEL_USER_PROCEDURE;',
+    SYSDATE,
+    'TRUNC(SYSDATE + 1) + 5 / 24',
+    FALSE
+ );
 END;
 /
-  
+
 COMMIT;
+PROMPT COMMIT!
 
 PROMPT FITNESSGORUND 자료입력 끝...
-
-

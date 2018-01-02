@@ -138,7 +138,7 @@
 					</tr>
 					<tr style="font-weight:bold;">
 					  <th style="width:15%;">
-						<select name="category1" id="category1" onchange="selectList('q');" style="background:#f5f5f5;">
+						<select name="category1" id="category1" onchange="selectList('q');" style="background:#f5f5f5; border: 1px solid #f5f5f5; font-weight:bold; text-align-last:center;">
 							<option value="All">All</option>
 							<option value="Q질문">Q 질문</option>
 							<option value="Q미답변">Q 미답변</option>
@@ -262,7 +262,7 @@
 					</tr>
 					<tr style="font-weight:bold;">
 					  <th style="width:15%;">
-					  	<select name="category2" id="category2" onchange="selectList('com');" style="background:#f5f5f5;">
+					  	<select name="category2" id="category2" onchange="selectList('com');" style="background:#f5f5f5; border: 1px solid #f5f5f5; font-weight:bold; text-align-last:center;">
 							<option value="All">All</option>
 							<option value="후기">후기</option>
 							<option value="QnA">QnA</option>
