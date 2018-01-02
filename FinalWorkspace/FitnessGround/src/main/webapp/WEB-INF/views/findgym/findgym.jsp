@@ -132,7 +132,8 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 				var values = "";
 				for ( var i in json.publiclist) {
 					if (json.publiclist[i].tel == null) {
-						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;''><div id='public-desc'><a href='#'><h4 style='font-weight:bold;color:black;'>"
+						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;''><div id='public-desc'>"
+								+ "<a href='javascript:publicgymclick(" + jsonpubliclist[i].public_name + "," + json.publiclist[i].tel + "," + json.publiclist[i].location + ")'><h4 style='font-weight:bold;color:black;'>"
 								+ json.publiclist[i].public_name
 								+ "</h4>"
 								+ json.publiclist[i].location
@@ -140,7 +141,8 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 								+ "- </a></div>"
 								+ "<div id='thumbnail'><a href='#'><img class='img-thumbnail' src='/fitnessground/resources/images/default_image.png' style='height:100px; width:100px;'></a></div></div>";
 					} else {
-						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;''><div id='public-desc'><a href='#'><h4 style='font-weight:bold;color:black;'>"
+						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;''><div id='public-desc'>"
+								+ "<a href='javascript:publicgymclick(" + jsonpubliclist[i].public_name + "," + json.publiclist[i].tel + "," + json.publiclist[i].location + "," + json.publiclist[i].homepage + ")'><h4 style='font-weight:bold;color:black;'>"
 								+ json.publiclist[i].public_name
 								+ "</h4>"
 								+ json.publiclist[i].location
@@ -278,7 +280,7 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 									<c:forEach var="plist" items="${gympage.plist}">
 										<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;'>
 											<div id="public-desc">
-												<a href='#'>
+												<a href='javascript:publicgymclick("${plist.public_name }","${plist.tel }","${plist.location }","${plist.homepage }")'>
 													<h4 style="font-weight:bold;color:black;">${plist.public_name }</h4>${plist.location }<br> 
 													<c:if test="${empty plist.tel }">-</c:if> 
 													<c:if test="${not empty plist.tel }">${plist.tel}</c:if>
