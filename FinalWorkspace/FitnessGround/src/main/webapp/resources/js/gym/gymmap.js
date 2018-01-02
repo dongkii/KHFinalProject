@@ -16,6 +16,19 @@ var markerCurrent;//시설현재마커
 var uMarkerBuffer;//사용자마커버퍼
 var uMarkerCurrent;//사용자현재마커
 
+var gymno = '';
+var gym_name = '';
+var category = '';
+var tel = '';
+var phone = '';
+var desc = '';
+var str_rating = '';
+
+var publicname = '';
+var publicloc = '';
+var publictel = '';
+var publichome = '';
+
 // search by tm128 coordinate
 // 위도 경도 -> 주소로 변환
 function searchCoordinateToAddress(latlng) {
@@ -74,10 +87,20 @@ function searchAddressToCoordinate(address) {
 		var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명 주소]'
 					: '[지번 주소]', point = new naver.maps.Point(item.point.x, item.point.y);
 
-		infoWindow.setContent(['<div style="padding:10px;min-width:200px;line-height:150%;">',
-				'<h4 style="margin-top:5px;">검색 주소 : '+ response.result.userquery
-				+ '</h4><br />', addrType + ' ' + item.address + '<br />',
-				'&nbsp&nbsp&nbsp -> ' + point.x + ',' + point.y, '</div>' ].join(""));
+		infoWindow.setContent([
+			'<div style="padding:10px;min-width:200px;line-height:150%;">',
+			'<h4 style="margin-top:5px;">' + gym_name + '</h4>' +
+			'<h6><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;' + category + '</h6>' +
+			'<h6><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + tel + '</h6>' +
+			'<h6><span class="glyphicon glyphicon-phone"></span>&nbsp;' + phone + '</h6>' +
+			'<h6>' + str_rating + '</h6>' + 
+			'<h6><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;' + desc + '</h6>' +
+			'<a href="detailgym.do?gym_no=' + gymno + '"><h6>자세히보기</h6></a>' +
+			
+			'<br />',
+			addrType + ' ' + item.address
+					+ '<br /></div>'  
+				].join(""));
 		
 		map.setCenter(point);
 		
@@ -95,7 +118,46 @@ function searchAddressToCoordinate(address) {
 		});	
 		
 		infoWindow.open(map, marker); 
-		console.log("searchAddressToCoordinate");
+		});
+}
+
+function publicsearchAddressToCoordinate(address) {
+	naver.maps.Service.geocode({
+		address : address
+	}, function(status, response) {
+		if (status === naver.maps.Service.Status.ERROR) {
+			return alert('올바른 주소가 아닙니다.');
+		}
+
+		var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명 주소]'
+					: '[지번 주소]', point = new naver.maps.Point(item.point.x, item.point.y);
+
+		infoWindow.setContent([
+			'<div style="padding:10px;min-width:200px;line-height:150%;">',
+			'<h4 style="margin-top:5px;">' + publicname + '</h4>' +
+			'<h6><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + publictel + '</h6>' +
+			'<h6><a href="javascript:link(\'' + publichome + '\')"><i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;' + publichome + '</a></h6>' +
+			'<br />',
+			addrType + ' ' + item.address
+					+ '<br /></div>'  
+				].join(""));
+		
+		map.setCenter(point);
+		
+		marker = new naver.maps.Marker({
+			map: map,
+			position: point,
+			title: "나의 위치",
+			zIndex: 150,
+			icon:{
+				url:"/fitnessground/resources/images/gym_marker.png",
+				size : new naver.maps.Size(21, 32),
+				origin : new naver.maps.Point(0, 0),
+				anchor : new naver.maps.Point(10, 32)
+			}
+		});	
+		
+		infoWindow.open(map, marker); 
 		});
 }
 
@@ -348,11 +410,11 @@ function onLoadPublic(map){
 					}				
 				});	
 				
-			var contentString = ["<div style='padding:20px;'>"+
-								"<h3><b>" + json.publiclist[i].public_name + "</b></h3>" +
-								"<p>" + json.publiclist[i].location + "<br><br>"+
-								json.publiclist[i].homepage + "</p>"+
-								"</div>"].join("");
+			var contentString = ['<div style="padding:10px;min-width:200px;line-height:150%;">'+
+								'<h4 style="margin-top:5px;">' + json.publiclist[i].public_name + '</h4>' +
+								'<h6><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + json.publiclist[i].tel + '</h6>' +
+								'<h6><a href="javascript:link(\'' + json.publiclist[i].homepage + '\')"><i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;' + json.publiclist[i].homepage + '</a></h6>' +
+								'<br />' + json.publiclist[i].location + '<br /></div>'  ].join("");
 			
 			infoWindow = new naver.maps.InfoWindow({
 				anchorSkew: true,
@@ -450,6 +512,7 @@ function getClickHandler(seq) { // 클릭 이벤트 핸들러 추가하는 함�
 
 function getAddress(address)
 {
+	
 	naver.maps.Service.geocode({
 		address : address
 	}, function(status, response) {
@@ -473,6 +536,55 @@ function getAddress(address)
 		
 		infoWindow.open(map, map.getCenter());
 		});
+}
+
+function gymclick(gym_no, location){
+	var queryString = {"gym_no": gym_no};
+	$.ajax({
+		url: 'onegym.do',
+		data: queryString,
+		type: 'post',
+		dataType: 'json',
+		async: false,
+		success: function(data){
+			searchAddressToCoordinate(location);
+			gymno = data.gym.gym_no;
+			gym_name = data.gym.gym_name;
+			category = data.gym.category;
+			tel = data.gym.tel;
+			phone = data.gym.phone;
+			result = data.gym.str_rating;
+			var mod = result % 1;
+			var t = 0;
+			result = Math.floor(result);
+			str_rating = '';
+			for(var j = 0; j < result; j ++){
+				str_rating += '<i class="fa fa-star" aria-hidden="true"></i>';
+				t++;
+			}
+			if (mod > 0){
+				str_rating += '<i class="fa fa-star-half-o" aria-hidden="true"></i>';
+				t++;
+			}
+			for(var z = t; z < 5; z++){
+				str_rating += '<i class="fa fa-star-o" aria-hidden="true"></i>';
+			}
+			str_rating += '&nbsp;' + data.gym.str_rating;
+		}
+	});
+}
+
+function publicgymclick(name, tel, location, homepage){
+	publicname = name;
+	publictel = tel;
+	publicloc = location;
+	publichome = homepage;
+	publicsearchAddressToCoordinate(location);
+}
+
+function link(homepage){
+	console.log(homepage);
+	window.open("http://"+homepage, '_blank');
 }
 
 

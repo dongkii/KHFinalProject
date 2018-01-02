@@ -339,6 +339,7 @@ public class GymController {
 
 			for (Gym gym : list) {
 				JSONObject jgym = new JSONObject();
+				jgym.put("gym_no", gym.getGym_no());
 				jgym.put("gym_name", gym.getGym_name());
 				jgym.put("location", gym.getLocation());
 				jgym.put("rename_image", gym.getRename_image());
@@ -607,6 +608,15 @@ public class GymController {
 		mv.addAllObjects(map);
 		mv.setViewName("jsonView");
 		System.out.println("healthlist: " + map);
+		return mv;
+	}
+	
+	@RequestMapping(value="/onegym.do", method=RequestMethod.POST)
+	public ModelAndView Onegym(Gym gym,  HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		Gym g = gymService.onegym(gym);
+		mv.addObject("gym", g);
+		mv.setViewName("jsonView");
 		return mv;
 	}
 

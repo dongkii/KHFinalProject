@@ -200,4 +200,9 @@ HashMap<String, Object> parameters = new HashMap<String, Object>();
 		
 		return gymDao.healthMapList();
 	}
+
+	@Override
+	public Gym onegym(Gym gym) {
+		return gymDao.onegym(gym);
+	}
 }

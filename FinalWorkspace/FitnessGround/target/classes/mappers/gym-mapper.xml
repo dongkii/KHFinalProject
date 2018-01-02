@@ -536,4 +536,17 @@
    		select * from tb_gym where approval_state = 1
    	]]>
    </select>
+   
+   <select id="onegym" parameterType="Gym" resultType="Gym">
+   		<![CDATA[
+   			select gym_no, gym_name, category, tel, phone, description, location, NVL(to_char(rating, '0.0'), 0) as str_rating
+   			from tb_gym
+   			left outer join (select gym_no, avg(rating) as rating
+   				  from tb_gym_comment
+   				  where gym_no = #{gym_no}
+   				  group by gym_no)
+   			using(gym_no)
+   			where gym_no = #{gym_no}
+   		]]>
+   </select>
 </mapper>
