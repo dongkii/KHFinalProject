@@ -248,7 +248,9 @@ public class GymController {
 	}
 	
 	// findgym
+		@SuppressWarnings("unchecked")
 		@RequestMapping(value = "findgym.do")
+		@ResponseBody
 		public ModelAndView findGym(HttpServletRequest request, HttpServletResponse response) {
 			ModelAndView mv = new ModelAndView("findgym/findgym");
 			int currentPage = 1;
@@ -290,7 +292,22 @@ public class GymController {
 			map.put("endPage", endPage);
 			map.put("pendPage", pendPage);
 			map.put("limit", limit);
-			map.put("list", list);
+			
+			//map.put("list", list);
+			JSONArray jar = new JSONArray();
+			String rename = "";
+			
+			for (Gym gym : list) {
+				JSONObject jgym = new JSONObject();
+				jgym.put("gym_no", gym.getGym_no());
+				jgym.put("gym_name", gym.getGym_name());
+				jgym.put("location", gym.getLocation());
+				jgym.put("rename_image", gym.getRename_image().toString().split(",")[0]);
+				jgym.put("tel", gym.getTel());
+
+				jar.add(jgym);
+			}
+			map.put("list", jar);
 			map.put("plist", plist);
 			
 			if(request.getParameter("mode")!=null) mv.addObject("mode", request.getParameter("mode"));
@@ -342,7 +359,7 @@ public class GymController {
 				jgym.put("gym_no", gym.getGym_no());
 				jgym.put("gym_name", gym.getGym_name());
 				jgym.put("location", gym.getLocation());
-				jgym.put("rename_image", gym.getRename_image());
+				jgym.put("rename_image", gym.getRename_image().split(",")[0]);
 				jgym.put("tel", gym.getTel());
 
 				jar.add(jgym);

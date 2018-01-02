@@ -103,7 +103,7 @@ function searchAddressToCoordinate(address) {
 				].join(""));
 		
 		map.setCenter(point);
-		
+		console.log(point);
 		marker = new naver.maps.Marker({
 			map: map,
 			position: point,

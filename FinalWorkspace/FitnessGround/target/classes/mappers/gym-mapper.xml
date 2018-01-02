@@ -59,6 +59,8 @@
 		<id property="delete_date" column="delete_date"/>
 		<id property="approval_state" column="approval_state"/>
 		<id property="register_date" column="register_date"/>
+		<id property="lat" column="lat"/>
+		<id property="lng" column="lng"/>
 	</resultMap>
 	
 	<resultMap id="resultPublicRequest" type="PublicGym">
