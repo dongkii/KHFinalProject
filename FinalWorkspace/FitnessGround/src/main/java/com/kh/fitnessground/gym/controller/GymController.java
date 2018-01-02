@@ -599,9 +599,16 @@ public class GymController {
 		for(Gym gym : list)
 		{
 			JSONObject jlist = new JSONObject();
+			jlist.put("gym_no", gym.getGym_no());
+			jlist.put("gym_name", gym.getGym_name());
+			jlist.put("category", gym.getCategory());
 			jlist.put("location", gym.getLocation());
 			jlist.put("title",gym.getGym_name());
 			jlist.put("tel", gym.getTel());
+			jlist.put("lat", gym.getLat());
+			jlist.put("lng", gym.getLng());
+			jlist.put("str_rating", gym.getStr_rating());
+			jlist.put("phone", gym.getPhone());
 			jar.add(jlist);
 		}
 		map.put("healthlist", jar);
