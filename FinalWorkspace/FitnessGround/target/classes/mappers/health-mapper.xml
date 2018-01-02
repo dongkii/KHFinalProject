@@ -28,6 +28,20 @@
 		<result property="readcount" column="readcount"/>	
 	</resultMap>
 	
+	<resultMap id="resultGymChart" type="GymChart">
+		
+		<id property="category1" column="category1"/>
+		<id property="count" column="count"/>
+		
+	</resultMap>
+	
+	<select id="gymchart" resultMap="resultGymChart" resultType="list">
+		<![CDATA[ 
+		 select category1, count(v_no) count 
+    	 from tb_video_board group by category1
+		]]>
+	</select>
+	
 <!-- 	
 	<resultMap id="like" type="Health">
 		<id property="v_no" column="v_no"/>

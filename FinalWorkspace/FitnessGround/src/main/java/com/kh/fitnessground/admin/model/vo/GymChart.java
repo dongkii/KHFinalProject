@@ -2,23 +2,23 @@ package com.kh.fitnessground.admin.model.vo;
 
 public class GymChart {
 	
-	private String category;
+	private String category1;
 	private int count;
 	
 	public GymChart(){}
 
-	public GymChart(String category, int count) {
+	public GymChart(String category1, int count) {
 		super();
-		this.category = category;
+		this.category1 = category1;
 		this.count = count;
 	}
 
 	public String getCategory() {
-		return category;
+		return category1;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategory(String category1) {
+		this.category1 = category1;
 	}
 
 	public int getCount() {
@@ -31,7 +31,7 @@ public class GymChart {
 
 	@Override
 	public String toString() {
-		return "GymChart [category=" + category + ", count=" + count + "]";
+		return "GymChart [category1=" + category1 + ", count=" + count + "]";
 	}
 	
 	

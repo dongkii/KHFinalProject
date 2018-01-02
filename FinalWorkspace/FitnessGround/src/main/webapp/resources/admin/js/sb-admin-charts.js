@@ -3,8 +3,8 @@
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
 // -- Area Chart Example
-var ctx = document.getElementById("myAreaChart");
-var myLineChart = new Chart(ctx, {
+$(function(){
+var myLineChart = new Chart($("#myAreaChart"), {
   type: 'line',
   data: {
     labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 13"],
@@ -53,7 +53,7 @@ var myLineChart = new Chart(ctx, {
   }
 });
 // -- Bar Chart Example
-var ctx = document.getElementById("myBarChart");
+var ctx = $("#myBarChart");
 var myLineChart = new Chart(ctx, {
   type: 'bar',
   data: {
@@ -95,14 +95,16 @@ var myLineChart = new Chart(ctx, {
   }
 });
 // -- Pie Chart Example
-var ctx = document.getElementById("myPieChart");
+var ctx = $("#myPieChart");
 var myPieChart = new Chart(ctx, {
   type: 'pie',
   data: {
-    labels: ["헬스", "요가", "필라테스", "맨몸운동"],
+    labels: ["Blue", "Red", "Yellow", "Green"],
     datasets: [{
       data: [12.21, 15.58, 11.25, 8.32],
       backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
     }],
   },
+});
+
 });

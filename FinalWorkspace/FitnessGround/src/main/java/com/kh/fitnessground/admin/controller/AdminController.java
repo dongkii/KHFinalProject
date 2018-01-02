@@ -3,12 +3,15 @@ package com.kh.fitnessground.admin.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.codec.multipart.SynchronossPartHttpMessageReader;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fitnessground.admin.model.service.AdminService;
@@ -130,21 +134,34 @@ public class AdminController {
 
 		ArrayList<User> gymRlist = adminService.GymRequest(level);
 		ArrayList<GymQnABoard> qnalist = adminService.GymQnABoard(receiver);
-		ArrayList<VideoChart> hlist = adminService.HealthList();
-		ArrayList<PublicGymChart> pglist = adminService.publicGymList();
-		ArrayList<GymChart> glist = adminService.gymchart();
 		
-		System.out.println("비디오 차트(VideoChart) 조회수  : "+hlist);
-		System.out.println("지역별 공공시설 갯수(PublicGymChart) 조회 : "+pglist);
-		System.out.println("헬스장 카테고리별(GymChart) 갯수 : "+glist);
 		mv.addObject("gymrequest", gymrequest);
 		mv.addObject("message", message);
 		mv.addObject("gymRlist", gymRlist);
 		mv.addObject("qnalist", qnalist);
-		mv.addObject("hlist",hlist);
-		mv.addObject("pglist", pglist);
-		mv.addObject("glist", glist);
+		
 
+		return mv;
+	}
+	
+	@RequestMapping(value="/ajax/chart.do",  method=RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView ajaxChart(ModelAndView mv){
+		mv.setViewName("jsonView");
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		ArrayList<VideoChart> hlist = adminService.HealthList();
+		ArrayList<PublicGymChart> pglist = adminService.publicGymList();
+		ArrayList<GymChart> glist = adminService.gymchart();
+		
+		System.out.println("등록된 동영상 카테고리별 갯수 확인" +glist);
+		System.out.println("공공시설 지역별 현황 확인" +pglist);
+		System.out.println("동영상 카테고리별 조회수 확인"+hlist);
+		map.put("hlist",hlist);
+		map.put("pglist", pglist);
+		map.put("glist", glist);
+		
+		mv.addAllObjects(map);
 		return mv;
 	}
 

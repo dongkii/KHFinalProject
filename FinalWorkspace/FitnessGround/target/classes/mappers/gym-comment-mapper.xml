@@ -30,6 +30,7 @@
 			from(select gym_no, round(avg(rating), 1) rating from tb_gym_comment
 			group by gym_no order by rating desc)  join tb_gym using(gym_no) join tb_user using(user_no)
 			where rownum <=5
+			order by rating desc
 		]]>
 	</select>
 	
