@@ -13,13 +13,13 @@ public class GymRating {
 	private String category;
 	private int gc_no;
 	private String content;
-	private int rating;
+	private double rating;
 		
 	public GymRating(){}
 
 	
 	public GymRating(int gym_no, String gym_name, String location, String email, String name, Date register_date,
-			String category, int gc_no, String content, int rating) {
+			String category, int gc_no, String content, double rating) {
 		super();
 		this.gym_no = gym_no;
 		this.gym_name = gym_name;
@@ -107,11 +107,11 @@ public class GymRating {
 		this.content = content;
 	}
 
-	public int getRating() {
+	public double getRating() {
 		return rating;
 	}
 
-	public void setRating(int rating) {
+	public void setRating(double rating) {
 		this.rating = rating;
 	}
 

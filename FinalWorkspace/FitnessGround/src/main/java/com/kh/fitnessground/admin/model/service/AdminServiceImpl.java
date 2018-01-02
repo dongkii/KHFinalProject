@@ -11,11 +11,15 @@ import com.kh.fitnessground.admin.model.vo.Visit;
 import com.kh.fitnessground.community.model.vo.CommunityBoard;
 import com.kh.fitnessground.community.model.vo.MeetingBoard;
 import com.kh.fitnessground.gym.model.vo.GymQnABoard;
+import com.kh.fitnessground.gym.model.vo.PublicGym;
 import com.kh.fitnessground.user.model.dao.UserDao;
 import com.kh.fitnessground.user.model.vo.User;
 import com.kh.fitnessground.workout.commentlike.vo.Like;
 import com.kh.fitnessground.workout.health.model.vo.Health;
+import com.kh.fitnessground.admin.model.vo.GymChart;
 import com.kh.fitnessground.admin.model.vo.GymRating;
+import com.kh.fitnessground.admin.model.vo.PublicGymChart;
+import com.kh.fitnessground.admin.model.vo.VideoChart;
 @Service("adminService")
 public class AdminServiceImpl  implements AdminService{
 
@@ -192,7 +196,7 @@ public class AdminServiceImpl  implements AdminService{
 
 
 	@Override
-	public ArrayList<Health> HealthList() {
+	public ArrayList<VideoChart> HealthList() {
 		return adminDao.HealthList();
 	}
 
@@ -267,6 +271,18 @@ public class AdminServiceImpl  implements AdminService{
 	@Override
 	public ArrayList<GymRating> GymRating() {
 		return adminDao.GymRating();
+	}
+
+
+	@Override
+	public ArrayList<PublicGymChart> publicGymList() {
+		return adminDao.publicGymList();
+	}
+
+
+	@Override
+	public ArrayList<GymChart> gymchart() {
+		return adminDao.gymchart();
 	}
 
 

@@ -22,7 +22,8 @@
 	<script	src="/fitnessground/resources/admin/vendor/datatables/jquery.dataTables.js"></script>
 	<script	src="/fitnessground/resources/admin/vendor/datatables/dataTables.bootstrap4.js"></script>
 	<script	src="/fitnessground/resources/admin/js/sb-admin-datatables.min.js"></script>
-	
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+
 	
 		
 		

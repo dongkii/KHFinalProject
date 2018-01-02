@@ -27,8 +27,8 @@
 		<select id="GymRatingList" resultMap="resultGymRating" resultType="list">
 		<![CDATA[
 			select *
-			from(select gym_no, round(avg(rating), 1) from tb_gym_comment
-			group by gym_no order by round(avg(rating), 1) desc) join tb_gym using(gym_no) join tb_user using(user_no)
+			from(select gym_no, round(avg(rating), 1) rating from tb_gym_comment
+			group by gym_no order by rating desc)  join tb_gym using(gym_no) join tb_user using(user_no)
 			where rownum <=5
 		]]>
 	</select>
