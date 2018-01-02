@@ -360,7 +360,7 @@ function sortList(){ //체크박스 sortList
 		          title = result.list[i].title;
 		          vid = result.list[i].url;
 		          content = result.list[i].content;
-		          var value ="<div class='video'><div id='video-iframe"+no+"'></div><div id='video-info'><div class='time'><span class='video-time' id='v-time"+no+"'></span>"+
+		          var value ="<div class='video'><a href='javascript:detailView("+no+")'><div id='video-iframe"+no+"'></div></a><div id='video-info'><div class='time'><span class='video-time' id='v-time"+no+"'></span>"+
 						"</div><span id='video-text'><a href='javascript:detailView("+no+")'>"+title+"</a></span></div></div>";
 			
 					if(i==0){

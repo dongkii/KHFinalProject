@@ -36,7 +36,7 @@
                <c:if test="${sessionScope.user==null }">
                   <div id="nvideo-reply" style="color:black;">
                      <input type="text" id="reply-input" placeholder="댓글을 입력하세요">
-                     <button type="submit" id="reply-btn" onclick="loginMessage();">등록</button>
+                     <button type="submit" id="reply-btn" onclick="return loginMessage();">등록</button>
                   </div>
                </c:if>
                
@@ -58,20 +58,22 @@
     </div>
   </div>
 <script type="text/javascript">
+	
+	
    function loginMessage(){
       alert("로그인이 필요한 서비스 입니다.");
+      console.log("실행");
+      return false;
       
    }   
 
    function detailView(v_no,category1,category2, mypageStat){   //모달창 띄우는 메서드
-      
+      console.log("들어옴");
 	  $("#detailView").show();
       $("#detailView").modal();
       $("input[name=mypageStat]").val(mypageStat);
-      
-      
-      
-      
+     
+            
       selectComment(v_no); //댓글
       var comment = '<input type="text" id="reply-input" placeholder="댓글을 입력하세요">' +
                 '<input type="hidden" id="user_no" value="' + ${sessionScope.user.user_no}  + '" >' +
@@ -81,6 +83,24 @@
                '<button type="submit" id="reply-btn" onclick="return insertComment(' + v_no + ');">등록</button>';
       
       $("#video-reply").html(comment);
+      
+      /*댓글 엔터키 입력*/
+      $("#reply-input").keydown(function(key){
+    	  var user_no = $("#user_no").val();
+         if(key.keyCode==13){
+        	
+        	 if(user_no == undefined){
+        		 loginMessage();
+        		 console.log("여기?");
+        	 }
+        	 else{
+        		
+            	insertComment(v_no);
+            	
+        	 }
+         }
+      })
+      
       
             
       viewVideo(v_no); //모달창에서 영상 띄워주는 메서드         
@@ -107,20 +127,12 @@
 	      $("#reply_content").css({'max-height': replyHeight});
       }
       
-      
+     
    
    }
    
    function viewVideo(v_no){ //모달창에서 영상 띄워주는 메서드 (조회수, 제목, 설명 ,좋아요 누르는부분)
-      var user_no = $("#user_no").val();
-   
-      /*댓글 엔터키 입력*/
-      $("#reply-input").keydown(function(key){
-         if(key.keyCode==13){
-            insertComment(v_no);
-         }
-      })
-            
+               
       $.ajax({
          url:"detail.do",
          dataType:"json",
@@ -211,21 +223,20 @@
       var user_no = $("#user_no").val();
       console.log(user_no);
       
-      if(!user_no){
-         loginMessage();
-         return false;
-      }else if(user_no!=="" && (content=="" || content==null)){
-         alert("댓글 내용을 입력 해 주세요!");
-         focus("#reply-input");
-         return false;
-      }
-      
-      console.log("insertComment vb_no : " + vb_no);
    
+     if((content=="" || content==null)){
+         alert("댓글 내용을 입력 해 주세요!");
+         
+         focus("#reply-input");
+        
+     }
+      
+        
       var queryString ={"v_no" : v_no,"content" : content,"user_no":user_no,"vb_no":vb_no};
       
       $.ajax({
          url:"insertReply.do",
+         dataType:"json",
          type:"post",
          data : queryString,
          async:false
@@ -327,6 +338,8 @@
    }
    
     $(function (){
+    	
+    	
          $('#detailView').on('hidden.bs.modal', function (e) {
             e.preventDefault();
             fn_reload($(this));
