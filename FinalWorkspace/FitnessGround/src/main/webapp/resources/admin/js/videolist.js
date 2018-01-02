@@ -121,7 +121,6 @@
 		var vTitle;
 		var vDesc;
 		var vId;
-		var job = new Object();
 		var jarr = [];
 		
 		APICall();
@@ -138,10 +137,9 @@
 					vTitle = item.snippet.title.replace(/&/gi, "+");
 					vDesc = item.snippet.description.replace(/&/gi, "+");
 					vId = item.snippet.resourceId.videoId;
-					//하나가 아니라서 json array에 담고 그걸 다시 json객체에 담아서 컨트롤러에 보내야.....
+					
 					var job = new Object();
 					job.title = vTitle;
-					/* job.content = vDesc; */
 					job.url = vId;
 					job.category1 = category1;
 					job.category2 = category2;
@@ -166,7 +164,8 @@
 					contentType : "application/json; charset=utf-8",
 					success : function(result) {
 						console.log("전송성공:");
-						$('#card-result').append('<div class="alert alert-success" role="alert">"'+vTitle+'" 외 '+(jarr.length-1)+'개의 영상이 추가되었습니다!</div>');
+						$('#card-result').append('<div class="alert alert-success" role="alert">"'+vTitle+'" 외 '
+								+(jarr.length-1)+'개의 영상이 추가되었습니다!</div>');
 						listing(category1);
 					},
 					error : function(request, status, errorData) {

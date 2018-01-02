@@ -4,13 +4,15 @@
 	height: 85vh; /*스크롤 해야 footer보이게 */
 }
 /*Community main */
-h1#community_title{
+
+		/*desktop*/
+@media (min-width: 800px){
+	h1#community_title{
 	font-size: 30pt;
 	font-weight: bold;
 	color: black;
 	padding-bottom: 20px;
 }
-
 
 #boardback{
 	background: white;
@@ -19,6 +21,23 @@ h1#community_title{
 	height: 370;
     margin: 5px 5px;
 }
+
+}
+		/*mobile*/
+@media (max-width: 500px){
+	h1#community_title{
+	font-size: 2-0pt;
+	font-weight: bold;
+	color: black;
+	padding-bottom: 20px;
+	text-align: center;
+	width: 100vw;
+}
+	
+	
+	
+}
+
 .titlehr{
 	margin: 3px 0;
 	border-top: 1.8px solid #11A6B7;
@@ -54,6 +73,7 @@ h1#community_title{
 .form-inline{
 	display: inline-block;
 	margin-left: 43vw;
+	height: 8vh;
 }
 #board-info{
 	margin-bottom: 10px;
@@ -61,6 +81,9 @@ h1#community_title{
 #write{
 	display: inline-block;
 }
+
+		/*desktop*/
+@media (min-width: 800px){
 #selected-btn{
 	font-size: 1.2rem;
 	background: #11A6B7;
@@ -72,6 +95,57 @@ h1#community_title{
 	color: #022D41;
 	border-color: lightgray;
 }
+
+.form-inline{
+	display: inline-block;
+	margin-left: 43vw;
+}
+}
+
+		/*mobile*/
+@media (max-width: 500px){
+	#selected-btn{
+	display: inline-block;
+	    width: 30vw;
+	    height: 40;
+	    font-size: 1rem;
+	    margin-left: 0;
+	}
+	
+	#tab-btn{
+	font-size: 1rem;
+	background: white;
+	color: #022D41;
+	border-color: lightgray;
+	display: inline-block;
+	width: 30vw;
+	height: 40;
+	margin-left: 0;
+}
+	#selection{
+	position: relative;
+    top: 10;
+        right: 150;
+    /* right: 35vw; */
+	
+	}
+	#srch-area{
+		position: relative;
+		right: 53;
+		/* right: 8vw; */
+		bottom: 3.5vh;
+	}
+	
+	#srch-btn{
+		position: relative;
+		left: 128;
+		/* left: 41vw; */
+		bottom: 71;
+	}
+}
+
+/* */
+
 /*detail view */
 
 #board-wrapper{

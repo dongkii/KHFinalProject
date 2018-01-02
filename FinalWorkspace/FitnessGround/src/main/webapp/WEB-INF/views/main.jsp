@@ -158,9 +158,13 @@
                 	  
                 		 $(function () { 
                 			  $('[data-toggle="tooltip"]').tooltip({trigger: 'manual'}).tooltip('show');
-                			  
-                			  $('.tooltip').css("margin-left",indication+"%");
-                			  
+                			  if ($(window).width()<500){
+                				  $('#bmi-btn').css('margin-top','10vh');
+                				  $('.tooltip').css("margin-left",indication+"%");
+                			 	}else{
+	                			  $('.tooltip').css("margin-left",indication+"%");
+	                			  $('.tooltip').css("margin-top", "40px");
+                			 	}
                 			});  
                 
                    },
