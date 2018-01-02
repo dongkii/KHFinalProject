@@ -153,13 +153,13 @@
     font-size: 1.8rem;">운동후기</h1>
 <br>
 <div class="row">
-	<div class="col-md-4 col-sm-4 col-xs-12">
+	<div class="col-md-4 col-sm-4 col-xs-4">
 	<a class="btn btn-primary button-size margin-left-10" id="tab-btn" onclick="meetingPage();">운동같이해요</a>
 	</div>
-	<div class="col-md-4 col-sm-4 col-xs-12">
+	<div class="col-md-4 col-sm-4 col-xs-4">
 	<a class="btn btn-primary button-size margin-left-10" id="selected-btn" onclick="reviewPage();">후기</a>
 	</div>
-	<div class="col-md-4 col-sm-4 col-xs-12">
+	<div class="col-md-4 col-sm-4 col-xs-4">
 	<a class="btn btn-primary button-size margin-left-10" id="tab-btn" onclick="qnaPage();">Q & A</a>
 	</div>
 	</div>
@@ -170,7 +170,7 @@
 						<div class="form-group">
 							  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 					   		 <span>
-								<select class="btn btn-default" style="width:80;" name="searchOption">
+								<select class="btn btn-default" id="selection" style="width:80;" name="searchOption">
 									<option value="title"<c:out value="${map.searchOption == 'title'?'selected':''}"/>>제목</option>
 									<option value="name"<c:out value="${map.searchOption == 'name'?'selected':''}"/>>이름</option>
 									<option value="content"<c:out value="${map.searchOption == 'content'?'selected':''}"/>>내용</option>
@@ -179,7 +179,7 @@
 							</div>
 					  	</div>
 			  				<div class="form-group">
-			   					<input type="text" class="form-control" name ="searchKey"  value="${map.searchKey}" placeholder="Search for..">
+			   					<input type="text" class="form-control" id="srch-area" name ="searchKey"  value="${map.searchKey}" placeholder="Search for..">
 							 </div>
 			 			<span>
 					  		<a class="btn btn-default" id="srch-btn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></a>

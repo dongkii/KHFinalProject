@@ -182,34 +182,28 @@ public class YogaController {
 			return mv;
 		}
 		
-		// 동영상 insert (playlist단위로:: 관리자가 playlist입력->자바스크립트에서 api로 video리스트를 json객체로 담아
-		// 컨트롤러에보냄)
+		// 동영상 insert 
 		@RequestMapping(value = "/yinsert.do", method = RequestMethod.POST)
 		@ResponseBody
 		public ResponseEntity<String> YogaInsertMethod(HttpServletRequest request, @RequestBody String param)
 				throws Exception {
 			logger.info("YogaInsert() run...");
 			request.setCharacterEncoding("utf-8");
-
 			JSONArray jarr = (JSONArray) new JSONParser().parse(param);
 
-			System.out.println("jarr : " + jarr.size());
-
-			List<Yoga> ylist = new ArrayList<Yoga>(); //여러개의 동영상 객체들 담기
+			List<Yoga> ylist = new ArrayList<Yoga>(); 
 			for (int i = 0; i < jarr.size(); i++) {
 				JSONObject job = (JSONObject) jarr.get(i);
 				String title = (String) job.get("title");
-				String content = (String) job.get("title");// 임시로 이렇게..;
+				String content = (String) job.get("title");
 				String url = (String) job.get("url");
 				String category1 = (String) job.get("category1");
 				String category2 = (String) job.get("category2");
 				Yoga yoga = new Yoga(title, content, category1, category2, url);
-				System.out.println("yoga" + yoga);
-
+				
 				ylist.add(yoga);
 			}
 			yogaService.insertYoga(ylist, request);
-
 			return new ResponseEntity<String>("success", HttpStatus.OK);
 		}
 
