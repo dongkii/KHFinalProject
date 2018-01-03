@@ -365,7 +365,7 @@ function category(category2){
 
 function titleSearch(){
 	var searchKeyWord = $("#title-search").val();
-	/* console.log(searchKeyWord); */
+	
 	location.href="homeTraningSearch.do?searchKeyWord="+searchKeyWord;
 }
 

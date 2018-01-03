@@ -58,8 +58,7 @@
 			<div id="diagram" style="background-position: 0px 0px;">
 				<div>
 				<img src="/fitnessground/resources/images/health/muscle.jpg" alt="Click on a muscle group"
-					usemap="#bodyMap" id="myimage" >
-	
+					usemap="#bodyMap" id="myimage" >	
 	
 				<map name="bodyMap" id="muscle_img_map">
 					<!-- 가슴 -->
@@ -270,14 +269,12 @@
 	
 
 	
-	function popUp(part){	//ajax 처리..
-		console.log("part : " + part);
+	function popUp(part){	//부위에 따른 ajax 처리		
 		
 		$('#loadingDiv').show();
 		
 		var category1 = "헬스";
-		var category2 = part;
-		
+		var category2 = part;		
 		
 		if ( part == 'chest')
 			category2 = "가슴";
@@ -313,21 +310,10 @@
 				var json = JSON.parse(jsonStr);
 				
 				var values = "";
+						
 			
-				
-				/* 문자열 매개변수 넘길때 "" 를 \ 이용해서 같이 넘겨야됨.. */
 				for(var i in json.list){
-					values += /* "<div class='video'>" +
-						"<iframe id='video-thumbnail' width='250' src="+ decodeURIComponent(json.list[i].url).replace(/\^/g,"&") +
-							"frameborder='0' gesture='media' allow='encrypted-media' allowfullscreen name='iframe'></iframe>"+
-						"<a id='v-title' href='javascript:detailView("
-								+ json.list[i].v_no + ",\"" + decodeURIComponent(json.list[i].category1) + "\"," 
-								+ "\"" + decodeURIComponent(json.list[i].category2).replace(/\+/g," ") +"\");'><div id='video-cover'></div></a>"+
-						"<p id='health_text'><a href='javascript:detailView("
-								+ json.list[i].v_no + ",\"" + decodeURIComponent(json.list[i].category1) + "\"," 
-								+ "\"" + decodeURIComponent(json.list[i].category2).replace(/\+/g," ") +"\");'>" 
-								+ decodeURIComponent(json.list[i].title).replace(/\+/g," ")+"</a></p>"+
-					"</div>"  */ 
+					values +=
 						"<div class='video'>" +
 		                  "<a id='v-title' href='javascript:detailView("
 		                  + json.list[i].v_no + ",\"" + decodeURIComponent(json.list[i].category1) + "\"," 
@@ -336,11 +322,7 @@
 		                  "<a id='v-title' href='javascript:detailView("
 		                        + json.list[i].v_no + ",\"" + decodeURIComponent(json.list[i].category1) + "\"," 
 		                        + "\"" + decodeURIComponent(json.list[i].category2).replace(/\+/g," ") +"\");'>" + decodeURIComponent(json.list[i].title).replace(/\+/g," ") + "</a>"+
-		                  /* "<p id='health_text'><a href='javascript:detailView("
-		                        + json.list[i].v_no + ",\"" + decodeURIComponent(json.list[i].category1) + "\"," 
-		                        + "\"" + decodeURIComponent(json.list[i].category2).replace(/\+/g," ") +"\");'>" 
-		                        + decodeURIComponent(json.list[i].title).replace(/\+/g," ")+"</a></p>"+ */
-		               "</div>"  
+		                 "</div>"  
 					
 				}
 				

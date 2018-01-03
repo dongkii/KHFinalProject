@@ -179,7 +179,7 @@
       })
    }
    
-   function selectComment(v_no){   //댓글 select
+   function selectComment(v_no){   //영상 번호에 따른 댓글 select
       var user_no = $("#user_no").val();
       
       $.ajax({
@@ -190,7 +190,7 @@
          success:function(data){
             var values="";
             console.log(data.commentList);
-            //스크롤 바로 수정 해야함
+            
             for(var i =0; i<data.commentList.length;i++){
                values += "<hr id='reply-hr' class='rep-hr'><span id='reply-writer'>" + data.commentList[i].name + "</span><span id='reply-content'>" + data.commentList[i].content + "</span><span id='reply-date'>"+ data.commentList[i].stringReplyDate + "</span>"
                
@@ -217,22 +217,16 @@
    function insertComment(v_no){   //댓글 insert
       
       var content = $("#reply-input").val();
-      var vb_no = $("#vb_no").val();
-      
-   
       var user_no = $("#user_no").val();
-      console.log(user_no);
-      
-   
+       
      if((content=="" || content==null)){
          alert("댓글 내용을 입력 해 주세요!");
          
          focus("#reply-input");
         
      }
-      
-        
-      var queryString ={"v_no" : v_no,"content" : content,"user_no":user_no,"vb_no":vb_no};
+              
+      var queryString ={"v_no" : v_no,"content" : content,"user_no":user_no};
       
       $.ajax({
          url:"insertReply.do",
@@ -281,7 +275,6 @@
             userLoginCheck= data.userLoginCheck;
             checkLikeTable = data.checkLikeTable;
             
-            console.log("checkLikeTable"+checkLikeTable);
             if(userLoginCheck==0){
                alert("로그인이 필요한 서비스 입니다.");
             }else if(userLoginCheck!=0 && checkLikeTable==0 && user_level==0){ //일반
