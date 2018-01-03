@@ -547,6 +547,16 @@ INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'vaseline584@naver.com', '$2a$10$wi
 INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'vaseline02@naver.com', '$2a$10$s9FRq3HzDIySGlrlbixbXOntOssZNjPDCQuTtmyVxnISRahwohMhO', '사업자이규연', '사업자이규연', '010-6357-2634', 1, NULL, 0, NULL, NULL, 0);
 INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'jsh@naver.com', '$2a$10$s9FRq3HzDIySGlrlbixbXOntOssZNjPDCQuTtmyVxnISRahwohMhO', '정세화', '사업자정세화', '010-3043-1861', 1, NULL, 0, NULL, NULL, 0);
 INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'kdy@naver.com', '$2a$10$s9FRq3HzDIySGlrlbixbXOntOssZNjPDCQuTtmyVxnISRahwohMhO', '김도영', '사업자도영', '010-7446-0531', 1, NULL, 0, NULL, NULL, 0);
+INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'jis@naver.com', '$2a$10$s9FRq3HzDIySGlrlbixbXOntOssZNjPDCQuTtmyVxnISRahwohMhO', '조인성', '인성이', '010-3812-2712', 0, NULL, 0, NULL, NULL, 0);
+INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'hh@naver.com', '$2a$10$s9FRq3HzDIySGlrlbixbXOntOssZNjPDCQuTtmyVxnISRahwohMhO', '하동훈', '하하', '010-3812-2712', 0, NULL, 0, NULL, NULL, 0);
+INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'yjs@naver.com', '$2a$10$s9FRq3HzDIySGlrlbixbXOntOssZNjPDCQuTtmyVxnISRahwohMhO', '유재석', '메뚝이', '010-3812-2712', 0, NULL, 0, NULL, NULL, 0);
+INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'khn@naver.com', '$2a$10$s9FRq3HzDIySGlrlbixbXOntOssZNjPDCQuTtmyVxnISRahwohMhO', '김하나', '하나', '010-3812-2712', 0, NULL, 0, NULL, NULL, 0);
+INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'ysg@naver.com', '$2a$10$s9FRq3HzDIySGlrlbixbXOntOssZNjPDCQuTtmyVxnISRahwohMhO', '유신광', '신괭', '010-3812-2712', 0, NULL, 0, NULL, NULL, 0);
+INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'hhh@naver.com', '$2a$10$s9FRq3HzDIySGlrlbixbXOntOssZNjPDCQuTtmyVxnISRahwohMhO', '황효혁', '효효기', '010-3812-2712', 0, NULL, 0, NULL, NULL, 0);
+INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'sjh@naver.com', '$2a$10$s9FRq3HzDIySGlrlbixbXOntOssZNjPDCQuTtmyVxnISRahwohMhO', '손정한', '정한', '010-3812-2712', 0, NULL, 0, NULL, NULL, 0);
+INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'ksh@naver.com', '$2a$10$s9FRq3HzDIySGlrlbixbXOntOssZNjPDCQuTtmyVxnISRahwohMhO', '김상혁', '김폭상', '010-3812-2712', 0, NULL, 0, NULL, NULL, 0);
+INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'hmt@naver.com', '$2a$10$s9FRq3HzDIySGlrlbixbXOntOssZNjPDCQuTtmyVxnISRahwohMhO', '홍명택', '명택', '010-3812-2712', 0, NULL, 0, NULL, NULL, 0);
+INSERT INTO TB_USER VALUES(USER_SEQ.NEXTVAL, 'kjh@naver.com', '$2a$10$s9FRq3HzDIySGlrlbixbXOntOssZNjPDCQuTtmyVxnISRahwohMhO', '김지훈', '지훈', '010-3812-2712', 0, NULL, 0, NULL, NULL, 0);
 PROMPT TB_USER 샘플데이터 입력끝!
 
 -- 방문 샘플 데이터
@@ -558,57 +568,190 @@ PROMPT TB_VISIT 샘플데이터 입력끝!
 
 -- 커뮤니티 샘플 데이터
 PROMPT 커뮤니티 샘플데이터 입력중..
--- 운동모임
-PROMPT TB_METTING_BOARD 샘플데이터 입력중..
+--운동모임
 INSERT INTO TB_MEETING_BOARD
-VALUES(mb_seq.nextval,2,'금강산 같이 타실분 구해요','이번 12월 11일날 눈이 많이 온다고들 하네요.. 그때 산 한번 타고 싶은데 같이 타실분 있나요?','구로',
-      '2017/12/21',default,0);
+VALUES(mb_seq.nextval,1,'운동모임 게시판 이용 공지','<p>운동모임 게시판은 소통의 공간입니다.</p><p>운동모임 게시판의 본질이 퇴색되는 유형의 글은 당사 운영규정상 삭제 조치합니다.</p>
+<p>건의사항은 로그인 후 “관리자 문의”에 남겨주십시오.</p>',default,'18/01/10',sysdate,default);
 INSERT INTO TB_MEETING_BOARD
-VALUES(mb_seq.nextval,2,'새벽에 같이 운동 하실분','저녁에 운동하다 지금은 가게 직원이 없어서 운동도못한지 삼주쨰.. 새벽이라도 하고 싶네요.. 새벽에 시청 같이 도실분 있나요??','안산',
-      '2017/12/21',default,0);
+VALUES(mb_seq.nextval,18,'평일(화-토) 아침운동 하실분...','<p>시작 일시 : 1월 19일(화) ~ 계속</p><p>장소 : 관악</p><p>- 일요일만 운동 하기에 부족하신분들...또는 주일에 교회 때문에 늦게 나오는 분들...</p>
+<p>출근을 늦게 해서 아침 시간이 남는 분들을 위해...</p><p>비가 오나 눈이오나... 평일 운동시간을 갖도록 합니다.</p><p>- 강제성은 없는 자유 운동시간 입니다... 아침에 인헌조기회도 참여하는 사람이</p>
+<p>많지 않다고 합니다...우리끼리 몸도 풀고...인헌이랑 미니껨도 가능 합니다.</p><p>- 18일(화) 6시부터...시작 합니다...^^*</p><p>멀리 사는 회원님들은 못오시겠지만... 관악구 근처에 사는 분들은 나와서</p>
+<p>우리의 실력도 향상시키고... 건강한 몸과 마음을 만들어 봅시다.</p>','관악','18/01/19',sysdate,default);
 INSERT INTO TB_MEETING_BOARD
-VALUES(mb_seq.nextval,3,'구로 부천 같이 운동하실분(일요일만)','원래 월~토 운동했는데 앞으로 일~금 운동으로 바꾸려고 합니다. 일요일에 서울이나 부천에서 멀지 않을 곳으로 일권 끊고 운동 다닐까 하는데 같이 하실분 있었으면 해서요~~ 파트너 운동은 경험없고 혼자 조용히 운동하는편인데 커뮤티니에 운동모임 하시는분들 보면 여러면에서 좋아보이네요 주변에 운동하는 사람들이 없어서..ㅎㅎ','부천',
-      '2017/12/21',default,0);
+VALUES(mb_seq.nextval,17,'광주광역시에서~아침운동같이 하실분모집합니다','<p>아침운동같이 하실분 모집합니다.. 운암동서영대 정문에서 오전 9시 출발</p><p>광주천변자전거도로에서 뛰기시작하여 광역시청앞까지 뛰어갔다</p>
+<p>오실분 모집합니다.. 그리고 특히 살빼실분은 돈들여서 헬스장에 가시지마시고..</p><p>달리기 같은 뛰기를 해서 땀이날 정도로 운동하면 쌀이 빠집니다...</p><p>저는 85kg 에서 74kg 까지 뺐습니다..</p>
+<p>기간은 3개월정도 달리기운동으로 해서 뺐네요..</p><p>그리고 지금은 무술발차기운동 돌아차기와 뛰어옆차기운동을 꾸준히 하고있습니다~~ 그리고 살을 뺄려면 채식위주로 식단을</p><p>만들고 치즈, 합성보존료들어간 햄소세지같은것은 절대로 먹어서는 않됩니다..</p>
+<p>육고기도 일주일에 한번씩만 먹으면 됩니다.. 요즘 영영과잉섭취하면서 운동은 30분도 안하니까 살이찌게됩니다~</p><p>걷기운동을 한다면 한시간정도가지고는 않되고 4시간이상 걸어야하지만 요즘바쁜생활에 않맞으므로</p>
+<p>하루 한시간씩 땀이나게 뛰는 것을 권합니다.. 헬스장에서 달리기기구로 뛰는 것은 별로 도움이 되지않으니</p><p>야외나가서 같이 뛰어요!!</p>','운암동','18/01/05',sysdate,default);
 INSERT INTO TB_MEETING_BOARD
-VALUES(mb_seq.nextval,2,'같이 운동하실분','달리기, 걷기, 줄넘기 등.. 같이 운동하실분 계실까요??','천안',
-       '2017/12/21',default,0);
+VALUES(mb_seq.nextval,16,'천안 직산 아침축구 하실분 아침운동 아침축구 하실분 ~','<p>운동시간: 화,수,금,토 아침 6:00 ~ 7:00시까지 운동해요.</p><p>인원은 보통 4:4 ~ 6:6 정도로 운동하구요 작은 골대 놓고 합니다.</p>
+<p>공차는거 좋아하시는분들 가볍게 아침 운동 하실분 오세요~!</p>','직산','18/01/12',sysdate,default);
 INSERT INTO TB_MEETING_BOARD
-VALUES(mb_seq.nextval,3,'같이 탁구나 운동 하실분 찾아요','제 주위에는 운동을 너무 싫어하네요 ㅠㅠ 혼자 신천걷고 뛰는게 싫증이..ㅋㅋ 혹 탁구나 배드민턴 등 아님 신천도 좋지만 .. 무튼 같이 운동하실분 찾아봅니다.! 참고로 저는 수성구 살아요','서울',
-       '2017/12/21',default,0);
-PROMPT TB_METTING_BOARD 샘플데이터 입력끝!
--- 후기
-PROMPT TB_COM_BOARD (후기) 샘플데이터 입력중..
+VALUES(mb_seq.nextval,15,'같이 운동 하실분 찾습니다~','<p>안녕하세요 저는 경기도 성남시 거주 하고있는 28살 여성 입니다.</p><p>작년 11월 결혼 하고 난 후 다니던 직장까지 그만두고 나서 ...</p><p>살이 너무 많이 불어 버렸습니다.. 원래 살이 찐 상태 였고 뚱뚱한 체형이지만</p>
+<p>최근들어 더욱이 살이 쪄버린거 같아 얼마전부터 운동을 시작 했습니다.</p><p>물론 헬스장은 지금껏 갖다버린??돈이 너무 아까워 헬스는 하지 않습니다.</p><p>혼자서 탄천 걷기 . 줄넘기. 정도 ;; 근데 정말 혼자하는 운동... 너무 너무 어렵습니다.</p>
+<p>ㅠㅠ 신랑이 같이 운동하자며 스피드민턴(배드민턴과 테니스의 중간) 을 구입하여 주말엔 같이 운동을 하긴 하지만.. 일주일에 같이 운동할 수 있는 시간은 고작 .. 많아야 2일.....</p>
+<p>신랑이랑 공을 주거니 받거니 운동을 하면 한시간은 금방 지나버리고 땀도 어느정도 나고 운동을 했구나 ~ 라는 생각을 하게 되는데 .. 혼자 운동하게 되면 .. 줄넘기 고작 20분? 탄천 걷기 한시간 한다고 해도 이건 .. 뭐 .... 운동인지 산책인지... ㅜㅜ</p>
+<p>주저리 주저리 쓸데없는 말만 늘어 놓았네요 ㅠㅠ 그래서 제가 꼭 전하고픈 말은 !!!! 같이 운동하실 여성분을 찾습니다 ㅠㅠ 20대 초반~ 30대 초반 여성이면 학생.미혼.기혼 아무상관 없습니다.</p><p>운동장소는 야탑동 매화단지 사시는 분들이 혹시 계시다면 아실지 모르겟지만 매화단지 근처에</p>
+<p>"상희공원" 이 있습니다. 거기에 매일 정해진 시간에 만나 운동을 즐겼으면 합니다.</p><p>관심있으신 분들은 연락처를 메일로 남겨 주시면 답장 드리겠습니다.</p><p>정말이지 같이 운동하실분을 찾습니다. ~ 다이어트 꼭!! 성공하고싶어요 ㅠㅠ</p>','야탑','18/01/05',sysdate,default);
+INSERT INTO TB_MEETING_BOARD
+VALUES(mb_seq.nextval,14,'아차산 운동 같이하실분!!','<p>애보고 청소하고 밥하고 한시간씩 운동할시간이 어디있어요~</p><p>(시간 내면 있긴 하겠지만..<img alt="" src="https://ssl.pstatic.net/static.se2/static/full/20130612/emoticon/1_36.gif" />)</p>
+<p>고강도 인터벌 트레이닝</p><p>15분~20분이면 헬스장 한시간 운동하는것보다 훠얼~씬 좋은거 알고 계세요?</p><p>다이어트 하고 싶으시다면 이렇게 운동 해 보세요</p><p>헬스장서 백날 런닝머신 해 봐야 안빠진다니까요<img alt="" src="https://ssl.pstatic.net/static.se2/static/full/20130612/emoticon/1_47.gif" /></p>
+<p>저도 아이 낳고보니 쪄있는 16키로의 살들</p><p>아직까지 그때 쌓아둔 살들과 타협중인데요,</p><p>(난 나를 너무 잘 알아.<img alt="" src="https://ssl.pstatic.net/static.se2/static/full/20130612/emoticon/1_49.gif" />오늘 적게 먹으면 다음날 더 많이 먹어...)</p>
+<p>그래서 그냥 맛있게 먹고</p><p>열심히 운동을 합니다.</p><p>함께 맛있게 먹고<img alt="" src="https://ssl.pstatic.net/static.se2/static/full/20130612/emoticon/1_48.gif" /></p>
+<p>열심히 운동을 합시다<img alt="" src="https://ssl.pstatic.net/static.se2/static/full/20130612/emoticon/1_46.gif" /></p>
+<p><img alt="" src="http://dbscthumb.phinf.naver.net/2765_000_58/20131021073944129_743GUUO0P.jpg/968278.jpg?type=m4500_4500_fst" style="height:333px; width:500px" /></p>','광장동','18/01/20',sysdate,default);
+INSERT INTO TB_MEETING_BOARD
+VALUES(mb_seq.nextval,13,'강서구 풋살 하실분 모집합니다~~','<p><img alt="" src="https://postfiles.pstatic.net/MjAxNzA1MDdfODQg/MDAxNDk0MTE5MzQ2MTc2.sTKCdyKwoJzb04nmCuZ8P3x6VF4NnyaOYAPtwuyw2_cg.P1CGCIfaJkcY5dMr_H83iX9cRFY-kYeW3v8zKM905Skg.JPEG.iexujmeft3/20170506_134546.jpg?type=w2" style="height:550px; width:550px" /></p>
+<p>요즘 뒤늦게 풋살 입문해서 풋살화도</p><p>구매했어요~ 요즘 날씨도좋고 친구들이랑</p><p>한번 해봤더니 너무 좋았아요</p><p>그래서 친구들이랑 팀 결성하고</p><p>강서구 에서 풋살을 하기로 결심했죠.</p><p>나이는 30대 초반으로 구성되어있으며</p>
+<p>주로 경기하는곳은 개화산 풋살장, 인천 청라,</p><p>부천 중동 , 강서구 화곡 에서 합니다</p><p>실력은 하 입니다. 완전 친목으로 막 시작한</p><p>팀이고 팀원은 12명 입니다. 강서구 거주 하시고</p><p>풋살 , 축구 좋아하시는 20~30대 분들</p><p>연락주세요 같이 풋살해요~</p>','강서구','18/01/19',sysdate,default);
+INSERT INTO TB_MEETING_BOARD
+VALUES(mb_seq.nextval,12,'다이어트해야하는데... 같이 운동하실 분~~^^','<p>다이어트해야하는데... 같이 운동하실 분~~</p><p>아직 겨울 잠도 다 못잤는데 2월이 끝나가네요... 헐~</p>
+<p>요즘 몸이 무거워서 거울을 보면 한숨만 나오네요...</p><p>늘어나는 것은 뱃살과 몸무게 밖에 없네요... 통장 잔고도 이렇게 늘면 참고 버틸텐데...ㅜㅜ</p><p>겨울에는 옷도 두꺼워 살들을 감출 수 있는데</p>
+<p>봄이 오고 여름이 되면 이 살을 어떻게 해야할지...</p><p>그래서 오늘 집 근처에 있는 헬스장을 알아봤습니다.</p><p>운동을 하고 싶은데 아이가 아직 어려서 어떨지 모르지만...</p><p>그래도 가격이나 알아보고 시설이 어떤지 궁금해서 다녀왔습니다.
+</p><p><img alt="" src="https://postfiles.pstatic.net/20160225_87/dms2898_1456409167192g4JNv_JPEG/NaverBlog_20160225_230606_01.jpg?type=w3" style="height:412px; width:550px" /></p>
+<p>동네에서 가장 넓은 곳이라 들어가봤습니다.</p><p>입구부터 화분이 있고, 넓게 시야가 트여서 좋네요.</p><p>5층이라 공기가 나쁠 것 같지도 않아서 첫인상은 좋습니다.^^</p><p>기구들도 다양하게 준비되어 있는 것 같네요.</p>
+<p>전 아줌마이니 기구 보다는 런닝 머신을 많이 이요하겠지요? ㅋㅋㅋ</p><p>운동을 많이 안한 저에게도 기구는 조금 오래되어 보이네요...</p><p>전에 헬스장을 인수하고 젊은 사장님이 운영하는데</p>
+<p>인테리어 비용이 많이 들어 기구는 다 바꾸지 못했다네요.</p><p>돈 벌면서 하나씩 바꿀거라고 합니다.</p><p><img alt="" src="https://postfiles.pstatic.net/20160225_9/dms2898_1456409169332fEtmc_JPEG/NaverBlog_20160225_230608_05.jpg?type=w3" style="height:412px; width:550px" /></p>
+<p>운동하는 곳도 넓고 g.x나 샤워실 등 공간 활용을 잘 한 것 같습니다.</p><p>일대일 pt 지도를 받으면 좋을 것 같네요...</p><p>옷도 준비되어 있어서 가지고 다닐 필요도 없습니다.</p><p>작년까지는 돈을 안받고 회비에 포함이었는데 올 해부터는 회비를 저렴하게 하고 운동복 비용을 받는다네요...ㅜㅜ</p>
+<p>그래도 집에서 준비해오시는 분들은 더 저렴한 가격에 운동을 하실 수 있을 것 같네요...</p><p><img alt="" src="https://postfiles.pstatic.net/20160225_212/dms2898_14564091710630tpmr_JPEG/NaverBlog_20160225_230610_09.jpg?type=w3" style="height:734px; width:550px" /></p>
+<p><img alt="" src="https://ssl.pstatic.net/static/blank.gif" />이벤트를 하여 한 달에 2만원이랍니다.</p><p>단 1년 회비를 납부하면 한 달에 2만원으로 24만원에 해준다고 하네요.</p>
+<p>그것도 현금으로...ㅜㅜ 하지만 좋은 소식은 2명이 와서 등록하면 1명은 공짜랍니다.</p><p>그러니 12만원씩 내면 두 명이 일 년을 운동할 수 있습니다.</p><p>어떠세요?</p><p>저랑 운동하실 분 안계신가요?</p>
+<p>12만원으로 저랑 같이 1년 간 운동해요... 서로 친구도 하고... 정말 주변에 그런 사람 찾고 싶네요..</p><p><img alt="" src="https://postfiles.pstatic.net/20160225_293/dms2898_1456409172167m2V71_JPEG/NaverBlog_20160225_230611_11.jpg?type=w3" style="height:734px; width:550px" /></p>
+<p>​개인 레슨도 할인 행사를 해서 20회에 79만원 합니다.</p><p>​1회에 4만원 정도로 다른 곳보다 조금 저렴하네요^^</p><p>필요하신 분들은 등록하세요~</p>','부평','18/01/19',sysdate,default);
+INSERT INTO TB_MEETING_BOARD
+VALUES(mb_seq.nextval,11,'[빠짐휘트니스]체지방감소 하구싶은분은 부천오정동에서 같이운동해요 ㅎㅎ','<p><img alt="" src="https://postfiles.pstatic.net/20150804_15/jkh4524_1438649518922W4lwe_JPEG/20150310_183221.jpg?type=w1" style="height:365px; width:650px" /></p>
+<p>제가 선택한 빠짐휘트니스입니다 ㅎㅎ 부천 오정동 롯데리아건물 2층에 위치하구 있으며 2015년 하반기 저을 몸짱으로 만들어줄 곳입니다 ㅋㅋㅋ</p><p>열심히 운동해서 몸짱이될 저을 기대해주세요 ㅎ 첨에는 전문트레이너님과 그룹PT을 받구 싶었지만 와이프님이랑 같이 헬스을 다니면서 기초체력을 키우는게 더 좋을것 같아 그룹PT는 나중에....ㅎㅎ</p>
+<p><img alt="" src="https://postfiles.pstatic.net/20150804_114/jkh4524_1438649907578ERC18_JPEG/20150803_173539.jpg?type=w1" style="height:1155px; width:650px" /></p><p>오정동 롯데리아건물 2층에 위치하구있구요. 2층으로 올라가면 빠짐휘트니스입구가 보입니다</p>
+<p>입구사진에 보이시는분이 트레이너 케이님입니다^^저을 몸짱으로 만들어 주셔야 하는데 ㅋㅋ</p><p>어떤유혹이 있더라두 매일 나올께에요~~~ ﻿﻿8월부터는요 ㅎㅎ</p><p>같이하면 그래도 출석률이 높아 지겠죠..? 우리 같이 다녀 보아요..</p>','오정동','18/01/02',sysdate,default);
+INSERT INTO TB_MEETING_BOARD
+VALUES(mb_seq.nextval,10,'목동요가, 목동플라잉에서 같이 운동하실래요?','<p><img alt="" src="https://postfiles.pstatic.net/MjAxNzEwMTVfNTIg/MDAxNTA4MDcyNjc2NTI0.JuOIlc2Iz9yeP00mQAzt-njr0Tq5On0uuFnlSjDFm1og.n0N_E76eI6DQvlpkY98oogg162FeXB71e2QMhIOi2f0g.JPEG.pottyq/DSC_1066.JPG?type=w1" style="height:334px; width:500px" /></p>
+<p>아메리카요가목동점은 아메리카요가 지점중에서도 굉장히 인기있는곳이에요!</p>
+<p>최우수지점, 최우수지점, 우수지점... 또 최우수지점:)자랑할만 하죠~~~~</p>
+<p>그리고 강사님들 물론 직원분들이 너무나도 친절해서 부담없이 방문해서 상담도 받을 수 있어요!</p>
+<p><img alt="" src="https://postfiles.pstatic.net/MjAxNzEwMTVfMjY5/MDAxNTA4MDcyNjc3MjU2.MJUEr45dJaJM5Ul-1vdmSOUHPcwyY8bzNEopKUdGOyMg.bwXr8aotoDXhoVWJRJFzou7HN_170YqW0bmKE8PHabQg.JPEG.pottyq/20171012_132633.jpg?type=w1" style="height:281px; width:500px" /></p>
+<p>목동요가로 아.메리가요가가 너무 좋은 이유는요, 여성전용 센터라서 너무 좋아요!!!!!<br />
+그리고 다양한 수업의 전문 라이센스를 가지고 있는 강사분이 가르치고 있어서 수업시간이 너무나도 즐거워요:)</p>
+<p><img alt="" src="https://postfiles.pstatic.net/MjAxNzEwMTVfMTQ2/MDAxNTA4MDcyNjc3ODUx.BJxs6rdnw2Vg1m9vnucwU4zdFrPLJPu9NdCZBLrVxQgg.SOoYCX6A6b7gA_blcynfanNt1zt5IxOU5Ri6j12aAoog.JPEG.pottyq/20171012_132521.jpg?type=w1" style="height:281px; width:500px" /></p>
+<p>​수업을 하는 목동요가 스튜디오 안이에요! 편안한 느낌이 얼마나 좋은지. 많은분들이 제가 느끼는 편안함을 느껴보셨으면 정말 좋겠어요:)</p>
+<p><img alt="" src="https://postfiles.pstatic.net/MjAxNzEwMTVfMjYx/MDAxNTA4MDcyNjc4MTUx.pq3RMj-ff1k2WDABcrQCDju8VCL4qPeB6NsDTSqnIP8g.OqhTvza-ahaix3GrucbcyOJhAhILdK5LZJmLr1-R4agg.JPEG.pottyq/DSC_1039.JPG?type=w1" style="height:334px; width:500px" /></p>
+<p>플라잉요가, 매트요가, 코어요가때 필요한 도구들은 스튜디오 한쪽에 정리되어 있어요!</p><p>필요하실때마다 꺼내서 사용하시면 되는데 개인용품을 구비하셔서 사용하시는분들도 계시더라구요 ♡</p><p><img alt="" src="https://postfiles.pstatic.net/MjAxNzEwMTVfNTYg/MDAxNTA4MDcyNjc5MDU0.n66VEq0UyTKy1byLhq9SjcsPwS49SfSbK4YITE-o4bgg.9Li885BeCL7dKHO6S06N_0jhlRaNAjxyPyeKRYKTeFcg.JPEG.pottyq/20171012_132552.jpg?type=w1" style="height:281px; width:500px" /></p>
+<p>이건 이번달 시간표에요! 전 주로 12시타임을 듣는데, 이번달에는 목동플라잉, 필라요가, 핫요가도 들을 수 있어서 넘 좋더라구요:)</p><p>그리고 인바디측정도 할 수 있어서 다이어트하시는분들은 매달 체크하셔서 관리하시면 좋을것 같더라구요.</p><p>저도 조만간 다시 측정해서 제대로 관리할 생각이에요:) 이번달부턴 체중감량 도전할려구요!</p><p><img alt="" src="https://postfiles.pstatic.net/MjAxNzEwMTVfMjIz/MDAxNTA4MDcyNjc4NzQx.FovmszBru7Qg5D-xhBHzLY-J1m6AU3GEDaNRf7vR2Fsg.kaBgGoEAn1qSCEGglBmttuJaln4F5p_lnVhkoTwWpjUg.JPEG.pottyq/20171012_132546.jpg?type=w1" style="height:281px; width:500px" /></p>
+<p>참! 그리고 신규가입 할인이벤트는 물론 재연장 이벤트도 함께 진행하고 있더라구요!!!!!!</p><p>습관이 바뀌면 라인이 바뀐다? 정말 맞는말 같아요:) 목동요가 아메리카요가에서 하루 한시간씩 요가하는 습관 어때요?</p><p>저도 이번에 신청했는데요! 같이하면 좋자나요~?ㅋㅋ 같이운동하러 다녀요!!</p>','목4동','18/01/18',sysdate,default);
+INSERT INTO TB_MEETING_BOARD
+VALUES(mb_seq.nextval,8,'공릉 그룹운동 같이 하실분!','<p><strong>공릉 그룹운동 같이 하실분!</strong></p><p>안녕하세요~</p><p>공릉 그룹운동 재밌게 하실분</p><p>저는 여기 홍반장 다이어트 클럽 다녀요~</p>
+<p><strong>그룹pt 처음해봤는데 너무 재밌구</strong></p><p><strong>다oㅣ어트 효과도 너무 좋아서 포스팅 올려요!</strong></p><p><img alt="" src="https://postfiles.pstatic.net/20151028_15/jjy6687_1445995725101LW4b0_JPEG/ggggg.jpg?type=w2" style="height:248px; width:550px" /></p>
+<p>여기는 운동끝나고 단백질섭취도 할 수 있게</p><p>단백질쉐oㅣ크도 제공해주고</p><p><strong>이것까지 포함한 금액이 한달에</strong></p><p><strong>99,000원이에요~!ㅎㅎ</strong></p><p>완전 저렴하고 코 치님들도 엄청 친절하더라구요~</p>
+<p>소도구들로 운동하고 기구없는 운동이고 몸으로</p><p>하는 운동이라 진짜 너무 좋은거 같아요 ㅎㅎ</p><p>그룹pt인데 코 치님들이 진짜</p><p>친절하고 재밌게 해주시니까 너무</p><p>다니기 편하고 처음에는 혼자였는데</p><p><strong>같이 운동하는 분이랑도 너무 친해져서 진짜 좋더라구요</strong></p>
+<p><strong>같이 다욧 정도보 공유하고 너무 좋더라구요!</strong></p><p><img alt="" src="https://postfiles.pstatic.net/20151028_230/jjy6687_1445995726185yPbJX_JPEG/P20150706_225810000_0C21DE2E-96B0-42FE-8344-E1921E5F6FC3.JPG?type=w2" style="height:412px; width:550px" /></p>
+<p>고민하는 분위에 맞춰서 운동해주셔서</p><p>너무 좋은거 같아요 ㅎㅎ</p><p>솔직히 헬스장이런데 pt는 개인으로하면</p><p>비싸기도비싸고 금액도 완전 부담돼는데</p>
+<p>여기는 전혀 그렇지 않아서</p><p>진짜 좋았어요!</p><p><strong>운동하는 중간에 허 브차도 주셔서 먹으라고 하더라구요!</strong></p><p><strong>노폐물 빼준다구 ㅎㅎ</strong></p><p><strong>이런곳은 첨인듯^^</strong></p>','공릉','18/01/13',sysdate,default);
+INSERT INTO TB_MEETING_BOARD
+VALUES(mb_seq.nextval,9,'대곡운동 같이 하실 분','<p><img alt="" src="http://cfile234.uf.daum.net/image/99C1DC335A28FB5531510A" /></p>
+<p>친구랑 소주한잔 할려고</p><p>대곡역 육교 본죽 앞으로 지나가는데</p><p>어디서 ㅋㅋㅋ</p><p>신나는 음악소리가 들려서</p><p>주위를 두리번 거리니 ㅋㅋ</p>
+<p>여기 운동하는 곳이 있었네? ㅋㅋㅋ</p><p>친구랑 ㅋㅋ</p><p>재밌겠다며 들어갔다가 ㅋ</p><p>지금 친구랑 같이 운동하는 중 ㅎㅎㅎ</p>
+<p><img alt="" src="http://cfile215.uf.daum.net/image/993131335A28FB57278712" style="height:375px; width:500px" /></p>
+<p>태어나서 처음 해보는 운동도 진짜 많고 ㅋㅋ</p><p>식단도 봐주는 이런 곳은 처음!!!!</p><p>헬스장이랑 차원이 다른 서비스가</p><p>너무 좋음!!!!</p>
+<p>가성비 진짜 좋은 곳 ㅋ</p><p>대곡운동 같이 해요 ㅋㅋ</p><p>진짜 재밌어요 ㅋㅋㅋ</p>','달서구','18/01/10',sysdate,default);
+
+--운동리뷰
 INSERT INTO TB_COM_BOARD
-VALUES(cb_seq.nextval,2,'붕어운동 기구 솔직후기!!','평소 허리디스크가 있어서 운동도 많이하고 있는편인데 티비보다 홈쇼핑에서 붕어운동기구를 봤어요 보다보니
-뭔가 혹하는?ㅋㅋ 30만원이 넘어서 가격대가 좀 많이 쎄지만 3일 무료체험이 된다고 하니 일단 질렀어용.. 코어운동이 가능하며 몸의 밸런스를 맞춰준다고하니
-완전 저한테 엄청 필요한것 ㅋㅋㅋㅋ 사용해봤는데 붕어운동 운동기구 사용해보니 허리가 가벼워지는 느낌이 좋았어요',0,sysdate,0);
+VALUES(cb_seq.nextval,1,'리뷰게시판 이용 공지','<p>리뷰게시판은 소통의 공간입니다.</p><p>리뷰 게시판의 본질이 퇴색되는 유형의 글은 당사 운영규정상 삭제 조치합니다.</p>
+<p>건의사항은 로그인 후 “관리자 문의”에 남겨주십시오.</p>',0,sysdate,0);
 INSERT INTO TB_COM_BOARD
-VALUES(cb_seq.nextval,2,'승마운동기구후기 뱃살뺐어요!!','뱃살을 빼는데 좋다는 윗몸일으키기부터 요가자세까지..안해본게 없습니다!! 물론 제가 꾸준히 했다면 효과를 봤겠지요..ㅎㅎ
-조금만 힘들면 스스로 만족을 하고 그만두게되는데요..시간을 재어보니 고작 3분??ㅎㅎㅎㅎ 그래서 그냥 포기를 하는게 일수였죠!! 어느날 거울을 보고 안되겠다 싶어 시작한 승마운동기구~~ 뱃살이 조금씩 빠지는걸 보니 계속하게 되더라고요.지금부터 제가 효과 본 승마운동기구후기를 공유할께요!!',0,sysdate,0);
+VALUES(cb_seq.nextval,7,'초보자도 쉽게 할 수 있는 재밌는 운동기구 #이지텐 솔직 리뷰','<p>이번에 작성할 리뷰는 운동기구인데요</p><p>엠스포텍글로벌이라는 기업의<strong>&#39;이지텐&#39;</strong>이라는 운동기구에요</p>
+<p>.<img alt="" src="https://postfiles.pstatic.net/20150826_283/zzi_0_14405784544286YBnm_JPEG/IMG_0555.jpg?type=w1" style="height:333px; width:500px" /></p>
+<p>전 이지텐 위에서 할 수 있는 스트레칭을 많이 하는 편이에요.</p><p>바닥이나 요가매트에서 하는 것 보다 푹신한 느낌이 좋기도하고</p><p>저 위에서는 꼭 운동을 해야겠다는 강박관념?을 받아서 운동하게 되더라구요ㅋㅋ</p>
+<p>또 푹신푹신하니까 은근 재밌어요!</p><p>초보자가 사용하기에 좋은 운동기구인 것 같아요.</p><p>특히 집에서 운동하시는 여성분들에게 추천해드려요!</p>',0,sysdate,default);
 INSERT INTO TB_COM_BOARD
-VALUES(cb_seq.nextval,2,'여자케겔운동기구 사용후기/효과 공개!','사촌 언니가 지난 미즈케어 무료상담 이후 쭉 비공개 프로그램을 진행준입니다. 이는 베리얀3.0이라는
-여자 케겔 운동기루를 이용하는 방법으로서, 본 프로그램의 진행전에 들어가는 무료분석이 상당히 도움이 되는데다 성실하게 실천하기만 한다면 최소 2~3주 이후부터는 효과를 볼 수 있다고 하더군요!',0,sysdate,0);
+VALUES(cb_seq.nextval,8,'보이차 운동할때 같이먹어요','<p><strong>보이차 운동할때 같이먹어요</strong></p><p><img alt="" src="https://postfiles.pstatic.net/MjAxNzEwMThfMjc3/MDAxNTA4MzExOTk1OTM3.lfiIZS6X8MylxE0BMXkLOnblpU6IWW_HU-uR5g1ZRsAg.7Va6ukgV6jksfHAdG_l07TOrxhfOf6LVcl-qI_zipJIg.JPEG.damn8show7/1.jpg?type=w2" style="height:494px; width:740px" /></p>
+<p>친구가 보이차 다이어트 하고있다길래 인터넷에 검색해보니 효능이 완전 다양하더라구요. 저도 다이어트 계획중이라 보이차 분말 주문! :)</p><p>아무런 첨가물 없이 보이차 추출물만 담은 분말이라 안심하고 마시며 보이차 다이어트중이에요 알아보니</p>
+<p><strong>보이차는 티백보다 분말이 유효성분을 더욱 쉽게 먹을 수 있다고 해요ㅎㅎ</strong></p><p>가루가 고와서 찬물 뜨거운물 상관없이 잘 녹아요. 사계절 동안 문제없이 먹을 수 있을듯 합니다 ㅎ~</p>
+<p><img alt="" src="https://postfiles.pstatic.net/MjAxNzEwMThfODMg/MDAxNTA4MzEyMDc1MDUx.TsY1ffwl7VxrZUYVRcA-JuM-K-2NmlRyapvKeTTzb0Ag.LjWIJT90ODoVQawWF9Yyte3Ilcqg91-cvDIP-Kxo5iwg.JPEG.damn8show7/4.jpg?type=w2" style="height:503px; width:743px" /></p>
+<p><strong>보이차에는 갈산성분이 녹차보다 14배나 더욱 많답니다.</strong>이 갈산이 지방을 분해시키고 쌓지이 않도록 해주기 때문에 다이어트차로 인기가 좋은가봐요!</p><p>또<strong>카테킨이라는 성분도 들어있어서 피부와 노화방지에 좋다고 하니 나에게 너무나 필요한 보이차 ㅠㅠ..</strong></p>
+<p><img alt="" src="https://postfiles.pstatic.net/MjAxNzEwMThfMjE1/MDAxNTA4MzEyMDkwNDU4.TaVogC1JPig2a01Xn4xukz3iM_7CNem91Q4m_R5k0mAg.NFRde5hD7WOfIzVAASpJvun2gt57gHGu2f0efL25AsAg.JPEG.damn8show7/5.jpg?type=w2" style="height:494px; width:740px" /></p>
+<p>보이차 추출분말을 물에 타서 하루에 3잔씩 마시고 있는데 <strong>하루 권장량이 정해져 있더라구요</strong>. 그냥 찻잎으로 된 보이차는 갈산을 제대로 섭취하려면</p><p>33잔 이상 마셔야 하는데 <strong>추출분말은 3잔만 마셔도 하루 갈산 권장량을 모두 섭취할 수 있답니다. </strong>그러니 알아보고 계신다면 추출분말로 드시길 추천해요ㅎㅎ</p>
+<p>보이차 맛은 녹차와 비슷한데 살~짝!? 끝맛이 씁쓸해요. 그렇다고 맛이 없거나 거부감 들 정도는 아니에요ㅎㅎ</p><p>보이차 분말을 주로 물에 타서 먹지만 <strong>요거트나 우유, 음식에 넣어 먹어도 좋다고 하니 한번 해봐야겠어요ㅎㅎ</strong></p>
+<p><img alt="" src="https://postfiles.pstatic.net/MjAxNzEwMThfMjc2/MDAxNTA4MzEyMTM3NjM3.95FlqVTzPaB2XogoOhhfN5TM8Xco1Fj8kU2HWHcCtfIg.IccxO-LCY4EK1_EytDZFTK-2l7weROjduYZ6U3PFmkgg.JPEG.damn8show7/8.jpg?type=w2" style="height:494px; width:740px" /></p>
+<p>차를 좋아하는 분들도 보이차를 즐겨마신다고해요ㅎㅎ 알고보니 효리네 민박에서도 마시면</p><p>속이 편안해진다며 먹는 모습이 나왔더라구용 먼저 보이차 다이어트 하고 있는 친구의 조언은 보이차만 먹고 살이 쭉쭉 빠질거란 생각은 버리라며..ㅋㅋㅋ</p>
+<p>꼭 운동도 같이 해야 빠른 효과를 볼 수 있다기에 요즘 열심히 운동도 하는중이에요 <strong>한번 드셔보세용!!</strong></p>',0,sysdate,default);
 INSERT INTO TB_COM_BOARD
-VALUES(cb_seq.nextval,3,'다이어트운동으로 호날두다운 남자복근 만들기 ok!','쁜 일상 때문에 남자복근 만들기가 어렵다.만약 이런 분이 계신다면 아니라고 말씀드리고 싶어요.왜냐하면 전 다이어트운동으로 남자복근 만들기 쉽게 하고 있거든요.
-저도 사실 식스패드를 만나기 전까지만 해도 핑계 대면서 다이어트운동과 남자복근은 꿈도 못 꿨는데! 가만히만 있어도 운동이 되는 식스패드 덕에 아주 흡족해하고 있답니다.',0,sysdate,0);
+VALUES(cb_seq.nextval,10,'다이어트 운동기구 신박한게 뭐가 있을까!','<p>요즘 저는 내년 여름을 위해 헬스장에서 운동을 하고 있는데요 ! <br/>헬스장에서만하는거보다집에서도간단하게 할만한 운동방법이나<br />
+다이어트 운동기구 뭐가 있을지 찾던 도중 아주 신박한 아이템을 찾았습니다~!</p><p><img alt="" src="https://postfiles.pstatic.net/MjAxNzEyMjdfMTA1/MDAxNTE0MzcwMzQzODYx.5tgFFVxRDFecEZNa2gUifdoZeKauyEu9L-L-OOYn4_kg.MtzmiDg2tccJnVYEEyUCP4Z-5cI5YtzapCpuBv_Jw0wg.PNG.sinbeesky/2.png?type=w773" /></p>
+<p>다이어트 운동기구 식스패드는 단시간 동안 장기간 운동한 것과 똑 같은 효과를 볼 수 있다고 합니다.20Hz의 전류를 이용해 근육운동을 진행하는데 전기 운동이라고 해서아프지 않아요! 정형외과에서 전기치료 받는 느낌이랄까? 그것 또한 조금 아프다고 느끼시는 분들은 식스패드에 강도조절 기능 당연히 있습니다 ^^~</p>
+<p><a href="https://blog.naver.com/PostView.nhn?blogId=sinbeesky&amp;logNo=221172372761&amp;beginTime=0&amp;jumpingVid=&amp;from=search&amp;redirect=Log&amp;widgetTypeCall=true&amp;topReferer=https%3A%2F%2Fsearch.naver.com%2Fsearch.naver%3Fdate_from%3D%26date_option%3D0%26date_to%3D%26dup_remove%3D1%26nso%3D%26post_blogurl%3D%26post_blogurl_without%3D%26query%3D%25EA%25B0%2599%25EC%259D%25B4%25EC%259A%25B4%25EB%258F%2599%25ED%2595%2598%25EC%258B%25A4%25EB%25B6%2584%26sm%3Dtab_pge%26srchby%3Dall%26st%3Dsim%26where%3Dpost%26start%3D61&amp;directAccess=false#" onclick="return false;"><img alt="" src="https://postfiles.pstatic.net/MjAxNzEyMjdfMjk2/MDAxNTE0MzcwMzQzMzEy.2uCxYHtmGIuPsksl8I2k9hx6kzcL0wPf68yhvtCaYDAg.fRs-82wOwIW768jAa6C1cjgNiOyFa3QwqfZ1cfhMgoEg.PNG.sinbeesky/5.png?type=w773" /></a></p>
+<p>사용할 땐 젤 세트를 전극부에 다음에 원하는 위에 부착하면  <br />이거 엄청 끈적거릴 줄 알았는데 끈적임이 하나도 없어서 사실 좀 놀랬어 .<br />
+젤시트도 일회성이 아니라 계속 사용할 수 있으니 이 점도 너무 편하고 피부에 끈적임이 남지 않아서  <br/>피부가 예민하신 분들도 부담없이 사용하실수있어요!다이어트 운동기구 식스패드 이전에 나왔던 제품은 강도가 15까지밖에 없었는데<br />
+이번에 새로 나온 식스패드에는 20단계까지 있어서 조금 더 세밀한 운동이 가능해요 <br />사용 후에는 안드로이드 충전기로 간편하게 충전도 가능하고!! <br />
+다이어트 운동기구 식스패드 여러모로 편리하고 좋은 운동기구이지 않나요? <br />사실 운동이라는게 어렵고 힘들면 얼마 못가 포기하기 쉽상인데 <br />
+다이어트 운동기구 식스패드는 그럴 필요 없이 그냥 집에 있을 때 붙이고 편하게 있으면 되니 <br />일석이조! 다같이 다이어트 운동기구 식스패드로 몸짱 만들기 도전해보아요!</p>',0,sysdate,0);
 INSERT INTO TB_COM_BOARD
-VALUES(cb_seq.nextval,2,'집에서 간편하게 운동할 수 있다는 기구 질렀어요~ㅎㅎ','이름은 콜라쉐이퍼라고 하는데요! 따로 운동할 필요 없어 가만히 있어도 된다는 말에 홀랑 질러버린~^^
-홈쇼핑 보고 급 질러버렸어요...ㅎ 배송이 빨라서 담날 바로 받아봤네요 간단하게 사용 후기도 적어볼게요 옆에 전원버튼이 있어요
-충전후에 누르면 진동하면서 운동을 시켜준다고 하네요 ㅎㅎ
-그 왜 헬스장에 벨트?같은 걸로 복부 진동 마사지 해주는 기구 있잖아요 ㅎㅎ 딱 그느낌이에요~',0,sysdate,0);
+VALUES(cb_seq.nextval,16,'[운동 후기] 하루 1시간 걷기 운동 효과/부작용/후기','<p>운동후기를 쓰며<br />이걸 보는 사람들이 꼭 알아야할 점이 있다<br /><br />바로 살, 즉 체지방을 빼고 감량을 하기 위해서는<br />반.드.시<br />식단조절을 해야 눈에 띄는 차이를 볼 수 있다<br /><br />ㅜㅜㅜㅜㅜㅜㅜ<br />
+<br />그래서 모든 운동 후기는&nbsp;다음과 같은 식단조절이 병행되었음을 참고바란다<br /><br />&#39;하루에 1200칼로리 넘지 않게 먹기&#39;<br /><br />참고로 어디선가<br />운동만으로 뺏다는 글을 가끔 본적이 있는데<br />정말 하루에 3~4시간 혹은 강도 높은 운동과<br />하루에 먹는 양이 마음껏 종류상관없이 먹되<br />
+폭식이 아닌 경우만 가능하니<br />이점 유의하길 바란다<br /><br />그리고 모든 후기글의 출처는 &#39;나&#39; 한명이기 때문에<br />내가 효과를 본 경우를 적은것이지<br />모든 사람에게 효과를 줄 수 있는 정석은 아니기를 참고바람 !<br /><br />그리고<br />운동에도 근육을 키우는 무산소운동과<br />
+체지방을 감량하는 유산소 운동이 있는데<br />걷기는 유산소 쪽에 속하며<br />제가 한 운동은 유산소만이 아닌 온갖 운동이 섞여있으므로<br />무산소인지 유산소인지 궁금한 분은<br />인터넷에 쳐보시길 바랍니다</p>
+<p>사람마다 시간 당 걸어다니는 걸음수는 다르다<br />하지만 보통 내가 빠르지도 느리지도 않게 걸었을때<br />약 5000보에서 1만보 사이 였던 것 같다<br /><br />그리고 상대적으로 힘들지는 않지만 인내심이 굉장히 필요한 운동이기 때문에<br />
+나는 한달 동안만 하고 그만두었다</p><h2><q><strong>걷기운동의 효과</strong></q></h2><p>1. 걸으면 당연히 살은 빠진다<br />2. 그리고 다른 유산소 운동보다 일단 하는 방법이 쉽다<br />
+3. 관절, 무릎, 통증 같은것이 없는 운동이다<br /><h2><q><strong><tt>걷기운동의 부작용</tt></strong></q></h2><p>걷기는 사실 부작용이란건 없다<br />하지만 단점은 존재하므로 이 곳에는 단점을 적겠다<br /><br />1. 하루 중 시간을 굉장히 많이 투자해야 편<br />- 사실 걷기로 체지방을 감소하기 위해서는 1시간은 걸어야 하는것 같다<br />2. 걷는 동안 음악듣는 것 외에는 할게 없음<br />- 그래서 나는 시간이 아깝다는 생각이 종종 들었다<br />3. 눈에 띄는 효과를 보려면 최소 2달은 해야 하는 운동이다</p><h2><q><strong>나의총평</strong></q></h2><p>걷기운동은 사실 따로 이 날 이만큼 걸어야지 라고 하기에는<br />오랜기간 해야하기 때문에 정신적으로&nbsp; 힘들다<br /><s>나는 한달 걷기로 인해 1.5kg정도 밖에 감량 안 한것 같은데...</s><br />
+아무튼 걷기로 살빼려면<br />정해놓고 이만큼 해야지! 하는 운동이 아니라<br />최대한 걸어다니려고 하는 습관으로 만드는 것이 더 효과적이고<br />정신건강에도 좋을 것 같다</p><p>사실 내가 운동 후기와 식단 후기를<br />이렇게 카테고리까지 만들며 적는 이유는<br /><br />온갖 다이어트 방법이란 방법은 다해보았음<br />효과도 있는 것이 몇개 있었다<br />이걸 잊지 않고 기록해두고 나 그리고 다른분들한테도 도움이 되었으면 한다</p>',0,sysdate,0);
 INSERT INTO TB_COM_BOARD
-VALUES(cb_seq.nextval,2,'렉스파 운동기구 질렀어요 ㅋㅋ ','티비 홈쇼핑에 나오길래 질러버렸네요~ 렉스파 운동기구 혹 사용하는 맘 계신가요? ㅎㅎ 후기가 궁금~
-신랑이 보너스 탄게 있어서 걍 눈감고 질러버렸거든여~ 날씨는 점점 따뜻해지는데 요놈의 뱃살 빠질생각 안하더라고요~~ㅠㅠ 아휴.집에 오면 큰맘먹고 뱃살이랑 이별준비해야겠네요 ㅎㅎ',0,sysdate,0);
-PROMPT TB_COM_BOARD (후기) 샘플데이터 입력끝!
--- QnA
-PROMPT TB_COM_BOARD (QnA) 샘플데이터 입력중..
+VALUES(cb_seq.nextval,15,'운동기구 스텝퍼 후기','<p>점점 추워지는 겨울<br />운동은 해야될 것 같고 나가기는 싫고..<br />하지만 이대로 있다가는(?) 안되겠고 해서 구입한...!</p><p><a href="https://blog.naver.com/PostView.nhn?blogId=yon123ks&amp;logNo=221169816334&amp;beginTime=0&amp;jumpingVid=&amp;from=search&amp;redirect=Log&amp;widgetTypeCall=true&amp;topReferer=https%3A%2F%2Fsearch.naver.com%2Fsearch.naver%3Fdate_from%3D%26date_option%3D0%26date_to%3D%26dup_remove%3D1%26nso%3D%26post_blogurl%3D%26post_blogurl_without%3D%26query%3D%25EC%259A%25B4%25EB%258F%2599%25EA%25B8%25B0%25EA%25B5%25AC%2520%25ED%259B%2584%25EA%25B8%25B0%26sm%3Dtab_pge%26srchby%3Dall%26st%3Dsim%26where%3Dpost%26start%3D111&amp;directAccess=false#" onclick="return false;"><img alt="" src="https://postfiles.pstatic.net/MjAxNzEyMjNfMTc4/MDAxNTE0MDMzOTE2NjYy.X3Ne_zxMrduV2oNyTX7_8q5bceKOBNb10pF_075n3iQg.G8oS8vgvR2hXq1WlcH5-lEBhsBEvUkg3umRWZx56V1kg.JPEG.yon123ks/IMG_3118.jpg?type=w966" style="height:547px; width:500px" /></a></p>
+<p>요 스텝퍼 되시겠다&nbsp;스텝퍼라 함은 자전거나 런닝처럼 유산소 운동에 속하는데 약간 파워워킹하는 개념이다!<br />가격은 40220원&nbsp;굳이 스텝퍼를 구매한 이유는&nbsp;<br />가격도 저렴하고 무엇보다 자리를 많이 차지 안한다는 점이다 실내 자전거 같은 거는 부피가 커서 고생이지만 이거는 그런 면에서는 가장 실용적인 듯!<br />
+<a href="https://blog.naver.com/PostView.nhn?blogId=yon123ks&amp;logNo=221169816334&amp;beginTime=0&amp;jumpingVid=&amp;from=search&amp;redirect=Log&amp;widgetTypeCall=true&amp;topReferer=https%3A%2F%2Fsearch.naver.com%2Fsearch.naver%3Fdate_from%3D%26date_option%3D0%26date_to%3D%26dup_remove%3D1%26nso%3D%26post_blogurl%3D%26post_blogurl_without%3D%26query%3D%25EC%259A%25B4%25EB%258F%2599%25EA%25B8%25B0%25EA%25B5%25AC%2520%25ED%259B%2584%25EA%25B8%25B0%26sm%3Dtab_pge%26srchby%3Dall%26st%3Dsim%26where%3Dpost%26start%3D111&amp;directAccess=false#" onclick="return false;"><img alt="" src="https://postfiles.pstatic.net/MjAxNzEyMjNfMTIw/MDAxNTE0MDM0MDI2NjM4.GCkJtJ06xba5WdmuIR6apRImVpHMNmUzLZl47qoOzjEg.8j6x-uOJw9-ZaDPief5iyYAI4zQu8USttht71-BQPecg.JPEG.yon123ks/IMG_3084.jpg?type=w966" style="height:500px; width:500px" /></a></p>
+<p>그래서 구매 후 담날 도착한 스텝퍼 흥분해서 마구 뜯다가 중간부터 찍어버린 사진ㅋㅋㅋㅋㅋ그래서 주위가..쩜쩜...<br /><a href="https://blog.naver.com/PostView.nhn?blogId=yon123ks&amp;logNo=221169816334&amp;beginTime=0&amp;jumpingVid=&amp;from=search&amp;redirect=Log&amp;widgetTypeCall=true&amp;topReferer=https%3A%2F%2Fsearch.naver.com%2Fsearch.naver%3Fdate_from%3D%26date_option%3D0%26date_to%3D%26dup_remove%3D1%26nso%3D%26post_blogurl%3D%26post_blogurl_without%3D%26query%3D%25EC%259A%25B4%25EB%258F%2599%25EA%25B8%25B0%25EA%25B5%25AC%2520%25ED%259B%2584%25EA%25B8%25B0%26sm%3Dtab_pge%26srchby%3Dall%26st%3Dsim%26where%3Dpost%26start%3D111&amp;directAccess=false#" onclick="return false;"><img alt="" src="https://postfiles.pstatic.net/MjAxNzEyMjNfMjAg/MDAxNTE0MDM0MTM0NjE4.EC7BNDfzmB_QtEvl7LSUPSc4DO4Q9Sxdi-eeUcbgAIsg.CH0byKO4EDbp_55_VARhlfbI5vTjtK1fY651usElSTQg.JPEG.yon123ks/IMG_3088.jpg?type=w966" style="height:500px; width:500px" /></a><br />
+음~사용감 굳굳 이게 운동이 될까 싶었던 의문이 들었는데 10분만이 전신에 땀이 주르르르륵<br />뭔가 엄청 힘들지도 않고 음악 들으면서 하니 넘 좋았다 소음은 약간 있음<br />아직 그 기름칠을 안해서 그럴지도...?!<br />무튼 총평은 굳굳 요즘 같은 겨울에 강추하는 운동기구로 임명함당!</p>',0,sysdate,0);
 INSERT INTO TB_COM_BOARD
-VALUES(cb_seq.nextval,2,'운동전 식사가 더 좋은가요?','제가 헬스를 시작한지 얼마 안되서요 ㅠㅠ 운동전에 밥을 먹어야할지 운동후에 밥을 먹어야할지 모르겠네요..',1,sysdate,0);
+VALUES(cb_seq.nextval,11,'운동기구추천 로베라 스카이워커 솔직후기','"<p>​<img alt="" src="https://postfiles.pstatic.net/MjAxNzExMjNfMyAg/MDAxNTExNDI3Nzg3OTI2.CGVZ7h1hVbJKcY8JwaNNeSyN8e-I9g4noHHiUYq_cZ0g.EhY0wU5wqtaTYLt_F_DNeq-d-2T5miQlZ-3ui9Zt3nwg.JPEG.sando505/1.jpg?type=w2" style="height:960px; width:539px" /></p>
+<p>아침 저녁으로 시원한 바람이 부네요<br />운동하기 좋은 계절이죠??<br />날씬한 몸매를 원하십니까?? 이 멘트 기억하시나요??</p><p>들어본 적 있으신가요??<br />그렇다면 나이가 좀 있는걸로 ㅎㅎ<br />스카이워커 재밌고 힘들지 않아서 운동기구추천</p>
+<p>꾹 눌러줍니다 ㅎㅎ<br />택배로 왔는데 조립이 조금 어려웠어요<br />신랑 퇴근때까지 기다렸다가 후딱 조립해서 운동시작합니다&nbsp;<br />신랑이 이렇게 쉬운 것도 혼자 못하고 내가 꼭 해줘야 하느냐며</p><p>생색을 우찌나내던지요<br />전 조립이 싫어서 꼬맹이들 레고도 잘 안사주는 나쁜 엄마랍니다&nbsp;<br />
+<br /><img alt="" src="https://postfiles.pstatic.net/MjAxNzExMjNfMTA2/MDAxNTExNDI3Nzg4MzYw.0erfmeXj93qC_zs6iFKX99our2Pl97OhVBv0X2Hko84g.-pRC7s8Fa88pFVqDvDObVjNbH3H7a6XYKGwf9QmET-gg.JPEG.sando505/2.jpg?type=w2" style="height:960px; width:539px" /></p>
+<p>바닥매트까지 오더라구요<br />요가매트처럼 작은 엠보싱이<br />하지만 무게에 눌려 자국이 생겼어요<br />매트야~ 미안해<br />간단하죠?? 운동방식은 더 간단<br />간고등어 코치죠?? 그분이 광고하시는 제품인데<br />인상도 참 좋고 늘 꾸준히 운동하시는 분이라 믿고 구매했어요<br />
+로베라에서 운동기구 많이 나오네요<br />써보고 좋은 거 있으면 운동기구추천 할게요<br /><br /><img alt="" src="https://postfiles.pstatic.net/MjAxNzExMjNfMjQ0/MDAxNTExNDI3Nzg4NjM1.Mp5KRcnt4s-FuFNp0jLkqO3IL6bDnlVdFHwPS1cnWAQg.Ycyc2fVw3lylnQY2FRILhGlXWJeIFDt4JEJJh-qvOdYg.JPEG.sando505/3.jpg?type=w2" style="height:280px; width:500px" /></p>
+<p>발 올려놓는 곳이예요<br />전 운동화 신고 올라가서 운동한답니다<br />맨발로 하셔도 상관없구요<br /><br /><img alt="" src="https://postfiles.pstatic.net/MjAxNzExMjNfMTc3/MDAxNTExNDI3Nzg4ODQx.sTVPM0CbNka1xINmmRKb6If0Uari2901d7Wy2W9eSKYg.8cQRmyFX7AHv4ETBszjMkbnejXtWgI85FAhjk_Gqoocg.JPEG.sando505/4.jpg?type=w2" style="height:891px; width:500px" /></p>
+<p>운동방식 아시죠??<br />오른쪽 왼쪽 번갈아가면서 앞뒤로 스키타듯이<br />우리 동네에 운동하는 곳 많이 생겼는데</p><p>요렇게 운동하는 거 꼭 있잖아요<br />전 양발을 번갈아 가면서 운동하는 거 보다<br />그네타듯이 두 발을 앞뒤로 하는 게 배에 더 힘이 들어가서 좋아하거든요<br />근데 주의사항에 두발을 동시에 같은 방향으로 운동하지</p><p>마시오! 라고 적힌거 보고 깜놀했어요<br />집에서 혼자하는 건 제 맘대로 운동해도 되는 거겠죠??ㅋㅋ</p>
+<p>생각보다 좋네요~ 한번 사용해보시는거도 좋을거 같아요</p>',0,sysdate,0);
 INSERT INTO TB_COM_BOARD
-VALUES(cb_seq.nextval,2,'다이어트 중 궁금한게 있어요..','제가 식단 조절은 안하고 다이어트를 하고 싶은데 최대한 저염식으로요.. 어떤식으로 해야 먹을거 먹으면서 살뺄수 있을까요..',1,sysdate,0);
+VALUES(cb_seq.nextval,17,'가정용 턱걸이, 팔굽혀펴기 기구 후기','<p>간만에 글을 올리네요.<br />오늘은 제 남동생이 구매한 가정용 턱걸이, 팔굽혀펴기 기구 후기를 알릴까 합니다.&nbsp;<br />
+제 남동생이 일을 하다 보니, 근력이 많이 떨어지게 되어서 구매하게 되었어요.<br /><a href="https://blog.naver.com/PostView.nhn?blogId=dreams544&amp;logNo=221048517506&amp;beginTime=0&amp;jumpingVid=&amp;from=search&amp;redirect=Log&amp;widgetTypeCall=true&amp;topReferer=https%3A%2F%2Fsearch.naver.com%2Fsearch.naver%3Fquery%3D%25ED%258C%2594%25EA%25B5%25BD%25ED%2598%2580%25ED%258E%25B4%25EA%25B8%25B0%2520%25ED%259B%2584%25EA%25B8%25B0%26where%3Dpost%26sm%3Dtab_nmr%26nso%3D&amp;directAccess=false#" onclick="return false;"><img alt="" src="https://postfiles.pstatic.net/MjAxNzA3MTBfMTg0/MDAxNDk5Njk0MTkzNTA4.xfS0Zg0z8clL-84XPDsA1dMI2sdlQ_bw2IIgxIHrhpog._yL5mSK2Na6GmGDPrfRPs7SaxTkLYiSMXDqQUWjY3eIg.JPEG.dreams544/image_4181301101499693646770.jpg?type=w966" style="height:338px; width:500px" /></a></p>
+<p>음... 영어네요.</p><p>턱걸이를 아래로 옮기게 되면, 이렇게 할 수 있는것 같은데, 저희집은 한번 고정시켜놓고 절대 옮기지 않았어요.</p><p>문에다가 다는 방법을 안내합니다.고정시키는 방법을 안내합니다. 위 방법은 확실한 방법을 안내하였는데요. 고정캡(?)를 드릴로 박아서 봉을 넣는 방법입니다.<br />
+<a href="https://blog.naver.com/PostView.nhn?blogId=dreams544&amp;logNo=221048517506&amp;beginTime=0&amp;jumpingVid=&amp;from=search&amp;redirect=Log&amp;widgetTypeCall=true&amp;topReferer=https%3A%2F%2Fsearch.naver.com%2Fsearch.naver%3Fquery%3D%25ED%258C%2594%25EA%25B5%25BD%25ED%2598%2580%25ED%258E%25B4%25EA%25B8%25B0%2520%25ED%259B%2584%25EA%25B8%25B0%26where%3Dpost%26sm%3Dtab_nmr%26nso%3D&amp;directAccess=false#" onclick="return false;"><img alt="" src="https://postfiles.pstatic.net/MjAxNzA3MTBfMjE5/MDAxNDk5Njk0NjI5Nzgx.QY158UgYTormLqnMQ--4JYEbZCv8AE689MNih69Y7mUg.-F4K0gelaPuutoJrDFMD1Pe-MeIIyy9GwAXHqEmoTNIg.JPEG.dreams544/image_1233834371499693646690.jpg?type=w966" style="height:525px; width:700px" /></a></p>
+<p>화살표로 된 부분을 계속 돌려가며 길이를 문 너비에 딱 맞추시면 고정시킬 수 있습니다.<br />이거는 푸쉬업 기구입니다.</p><p><a href="https://blog.naver.com/PostView.nhn?blogId=dreams544&amp;logNo=221048517506&amp;beginTime=0&amp;jumpingVid=&amp;from=search&amp;redirect=Log&amp;widgetTypeCall=true&amp;topReferer=https%3A%2F%2Fsearch.naver.com%2Fsearch.naver%3Fquery%3D%25ED%258C%2594%25EA%25B5%25BD%25ED%2598%2580%25ED%258E%25B4%25EA%25B8%25B0%2520%25ED%259B%2584%25EA%25B8%25B0%26where%3Dpost%26sm%3Dtab_nmr%26nso%3D&amp;directAccess=false#" onclick="return false;"><img alt="" src="https://postfiles.pstatic.net/MjAxNzA3MTBfMTcx/MDAxNDk5Njk0MjA1ODcz.msef-CfzscPD2h8mHSKd4Apk0_y3UO0kCOCdlQ4EF_gg.GM499Ruk7DMK_IQaQieF6FF1P_EmbBESJcDvZMqmfmIg.JPEG.dreams544/image_1944770281499693646704.jpg?type=w966" style="height:375px; width:500px" /></a></p>
+<p>이런 식으로 생겼습니다. 손에 물집이 생기는것을 방지해 주려 손잡이는 폭신합니다.</p><p>후기를 물어본 결과, 내 남동생은 만족한다고 하네요. ㅋㅋ&nbsp;<br /><br />산지가 몇주 정도 지났는데, 제 남동생은 만족하며 꾸준히 하고 있답니다.<br /><br />꾸준히 해서 그런지 팔뚝도 예전보다 눈에 띄게 굵어졌습니다.<br />
+<br />그럼 모두들 건강한 몸 만드세요!!</p>',0,sysdate,0);
+
+
+--운동Q&A
 INSERT INTO TB_COM_BOARD
-VALUES(cb_seq.nextval,2,'제가 처음 운동을 시작하는데..','제가 처음 운동을 시작하는데 어떤 운동을 해야 할지 잘 모르겠어요 ㅠ 어떤 운동부터 시작해야 할까요 ㅠㅠ 저는 쫌 마른편입니다..',1,sysdate,0);
-PROMPT TB_COM_BOARD (QnA) 샘플데이터 입력끝!
+VALUES(cb_seq.nextval,1,'Q&A이용 공지','<p>Q&A 게시판은 소통의 공간입니다.</p><p>Q&A 게시판의 본질이 퇴색되는 유형의 글은 당사 운영규정상 삭제 조치합니다.</p>
+<p>건의사항은 로그인 후 “관리자 문의”에 남겨주십시오.</p>',1,sysdate,0);
+INSERT INTO TB_COM_BOARD
+VALUES(cb_seq.nextval,11,'턱걸이 초보는 원래 삼각근에 자극이 크나요?','<p>자세 특별히 망가진건 없는거같고 등에 자극이 아예 안가는건 아닌거같은데 </p> <p>삼각근과 어깨쪽의 자극이 많이 가네요 </p><p>원래 처음엔 광배가 아니라 삼각근쪽에 자극이 많이가나요? </p> <p>그리고 오른쪽 삼각근이 더 땡기던데 이건 자세 문제인건가요...특별히 자세가 망가진거는 잘 모르겠는데... </p> <p>힘들어서 아무 생각 없어서 그런가..</p>',1,sysdate,0);
+INSERT INTO TB_COM_BOARD
+VALUES(cb_seq.nextval,13,'살빼기 및 살처짐 문의좀드리겠습니다','<p>살을 좀 급하게 빼야하는데요 20키로정도 한달은 시간관계없이 운동가능합니다.</p><p>식단은 제가 잘몰라서 그런데 연어샐러드 닭가슴살 샐러드 이런거 하루에 한끼 먹으려는데 괜찮을까요?</p> 
+<p>또 살처짐이 생길거같은데 최대한 안처지게 하려면 어떤식으로 해야할까요? 유산소 1시간 웨이트 2시간 이런식으로 하면될까요? 무게는 저중량 고반복?</p> <p>이전엔 꾸준히 운동하다가 회사들어와서 운동을 쉬면서 25키로 정도가 쪗거든요.</p> 
+<p>너무 심각하다 느껴져서 회사도 그만두고 한달동안 살을 최대한 빼려고합니다. 건강하게 뺀다는 생각은 당연히 못하겠고 최대한 살쳐짐없이 빼고싶습니다. 살찌니까 사람이 성격도 소심해지니 미치겠어요..</p>
+<p>예전에 운동할땐 살빼기보단 옷을좋아해서 살안찌기위해 운동을 해서 전문적인 지식은 없습니다.</p> <p>운동어떤식으로 해야할지.. 식단이랑 살처짐 최대한 없애는거좀 알려주세요 ㅠ</p>',1,sysdate,0);
+INSERT INTO TB_COM_BOARD
+VALUES(cb_seq.nextval,12,'웨이트 부상 방지와 회복을 위한 중량 콘트롤 문제','<p>아시다시피 중량을 매일 계속 치다보면</p><p>관절과 근신경계?의 더딘 회복속도 때문에</p><p>결국 염증이나고 부상을 입게될 수 있다는 점 아실겁니다</p> 
+<p>저도 최근 이 내용에 좀 더 주의를 기울이려고해서</p><p>원알엠을 자주 시험해보거나 원알엠 한단계 아래까지 굳이</p><p>올라가려고 안하는 편 인데요<p><p>많은 고수분들이 말하는 중량치지마세요의 기준은</p>
+<p>어느정도로 잡아야할까요?</p><p>원알엠에서 70%까지는 매일 올려봐도 괜찮은 선 일까요?</p><p>경험이 부족해서 어느정도로 기준을 잡아야할지 난감하네여</p><p>안전하게 즐거움을 느낄 수 있도록 롱런하고 싶습니다</p>',1,sysdate,0);
+INSERT INTO TB_COM_BOARD
+VALUES(cb_seq.nextval,15,'맨몸운동 루틴인데 조언좀 부탁합니다.','<p>근력,체력,몸</p><p>3가지를 갖기 위해서 홈트로 맨몸운동을 시작했습니다.</p><p>운동을 시작한지는 대략 한달정도 되었어요.</p><p>인터벌 루틴</p><br><p>케틀벨 스윙 12회</p><br><p>스쿼트 12회</p><br><p>런지 (한발씩) 12회</p>
+<br><p>팔굽혀펴기 12회</p><br><p>크런치 12회</p><br><p>레그 레이즈 12회</p><br><p>플랭크 20초</p><br><br><p>이렇게 1세트구여.</p><p>1세트가 끝나면 3분 휴식 가졌습니다.</p><p>여기까지가 루틴입니다. 총 6세트 했습니다.</p><p>운동량은 적당한것 같은데</p><p>혹시 여기서 더 보완해야할점이나 조언같은게 있을까요??</p>',1,sysdate,0);
+INSERT INTO TB_COM_BOARD
+VALUES(cb_seq.nextval,16,'근육운동하면 체질변화오나요??','<p>회원님들께 질문드립니다ㅎㅎ</p><br><p>운동을 꾸준히하면서 근육붙는 재미를 느끼고있었는데 불편한 점이 생겼습니다ㅠ</p><p>조금만더워도 땀이 많이나게 되었어요... 원래는 땀이 많지않은 체질이었는데요...</p><p>이거 운동해서그런게 맞나요? 다들 그런건가요 저만그런가요??</p>',1,sysdate,0);
+INSERT INTO TB_COM_BOARD
+VALUES(cb_seq.nextval,11,'단백질보충제 칼로리높은건지봐주세요꾸벅','<p><strong>이탈리아제품이구요 하루에운동하고 한번</strong></p><p><strong>자기전한번먹는데 칼로리가높은것같아서요</strong></p>
+<p><strong>살찌면안먹으려구요ㅜ한번봐주세요</strong></p><p><img src="https://cafeptthumb-phinf.pstatic.net/MjAxNzA5MDNfMjYz/MDAxNTA0MzkzODMxMjk2.Tugmys4b-EZ2iLYofEHGGvTbiMAXcO_wqc4A8qj7300g.S7EPwYInHBQ0W47C7L5Y5KMfJWlsbv2qsYeXU6btf6og.JPEG.qkrwkdgma1/20170902_181303.jpg?type=w740" style="height:534px; width:300px" /></p>',1,sysdate,0);
+INSERT INTO TB_COM_BOARD
+VALUES(cb_seq.nextval,13,'운동전 식사가 더 좋은가요?','<p>제가 헬스를 시작한지 얼마 안되서요 ㅠㅠ 운동전에 밥을 먹어야할지 운동후에 밥을 먹어야할지 모르겠네요..</p>',1,sysdate,0);
+INSERT INTO TB_COM_BOARD
+VALUES(cb_seq.nextval,8,'헬스장 등록건에 대해 궁금해서 여쭈어봅니다..','<p>제가 사업자로 헬스장 등록을 하고 싶은데 뭐 따로 신청해야 하는게 있나요?</p>',1,sysdate,0);
+INSERT INTO TB_COM_BOARD
+VALUES(cb_seq.nextval,9,'다이어트 중 궁금한게 있어요..','<p>제가 식단 조절은 안하고 다이어트를 하고 싶은데 최대한 저염식으로요..</p> <p>어떤식으로 해야 먹을거 먹으면서 살뺄수 있을까요..</p>',1,sysdate,0);
+INSERT INTO TB_COM_BOARD
+VALUES(cb_seq.nextval,11,'제가 처음 운동을 시작하는데..','<p>제가 처음 운동을 시작하는데 어떤 운동을 해야 할지 잘 모르겠어요 ㅠ</p> <p>어떤 운동부터 시작해야 할까요 ㅠㅠ 저는 쫌 마른편입니다..',1,sysdate,0);
+
+
 PROMPT 커뮤니티 샘플데이터 입력끝!
 
 -- TB_VIDEO_BOARD 샘플데이터
