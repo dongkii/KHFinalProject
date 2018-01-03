@@ -57,7 +57,6 @@ textarea#editor1 {
 		location.href = "qna.do";
 	}
 </script>
-
 <br>
 <div class="container">
 <h1 id="title">Q & A-글쓰기</h1><br>
@@ -65,7 +64,7 @@ textarea#editor1 {
 <br>
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<form name='qna' method="post" action="qnaInsert.do">
+		<form name='qna' method="post" action="qnaInsert.do" onsubmit="return false;">
 			<input name="user_no" type="hidden" value="${sessionScope.user.user_no }" />
 			<div class="form-group">
 				<p>제목<input style="font-size:10pt;" id="title-input" class="input-group input-group-lg" name="title" type="text" placeholder="제목을 입력하세요"/></p>
@@ -80,7 +79,6 @@ textarea#editor1 {
 </div>
 				<br>
 				<input type="submit" name="업로드" value="작성하기" id="submit-btn" class="btn btn-primary">
-				
 				<a href="#this" class="pull-right margin-right-20" id="list">목록으로</a>
 		
 			</form>

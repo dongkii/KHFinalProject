@@ -126,7 +126,7 @@
 	<!-- 게시글 이름 개수 -->
 	<select id="getMeetingNameCount" resultType="_int" parameterType="hashmap">
 		<![CDATA[
-			select count(*) from tb_meeting_board where name like #{searchKey}
+			select count(*) from tb_meeting_board a join tb_user b on (a.user_no = b.user_no) where name like #{searchKey}
 		]]>
 	</select>
 	
@@ -147,7 +147,7 @@
 		statementType="PREPARED" useGeneratedKeys="true" >
 		<![CDATA[insert into tb_meeting_board values(mb_seq.nextval,#{user_no},#{title},#{content},#{meeting_location},#{meeting_date},default,default)]]>
 	</insert>
-	
+		
 	<!-- 운동같이해요삭제 -->
 	<delete id="deleteMeeting" >
 		<![CDATA[delete from tb_meeting_board where mb_no=#{mb_no}]]>
@@ -267,7 +267,7 @@
 	<!-- 게시글 이름 개수 -->
 	<select id="getQnANameCount" resultType="_int" parameterType="hashmap">
 		<![CDATA[
-			select count(*) from tb_com_board where name like #{searchKey}
+			select count(*) from tb_com_board a join tb_user b on (a.user_no = b.user_no) where name like #{searchKey}
 		]]>
 	</select>
 	
@@ -364,7 +364,7 @@
 	<!-- 게시글 이름 개수 -->
 	<select id="getReviewNameCount" resultType="_int" parameterType="hashmap">
 		<![CDATA[
-			select count(*) from tb_com_board where name like #{searchKey}
+			select count(*) from tb_com_board a join tb_user b on (a.user_no = b.user_no) where name like #{searchKey}
 		]]>
 	</select>
 	

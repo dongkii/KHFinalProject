@@ -29,7 +29,7 @@ com.kh.fitnessground.community.model.vo.CommunityBoard, java.sql.Date, java.util
 		location.href = "qna.do";
 	}
 </script>
-
+<br><br>
 <div class="container margin-top-60" id="comm-container">
 	<div class="row">
 		<h1 id=community_title>커뮤니티</h1>
