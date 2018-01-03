@@ -7,12 +7,17 @@ var infoWindow = new naver.maps.InfoWindow({
 	anchorSkew : true
 });
 
+var checkGeo=false;
+var checkSch=false;
+
+var infoWindowGeo;
 var markers = [];
 var hmarkers = [];
 var infoWindows = [];
 var hinfoWindows = [];
 var markerBuffer;//시설마커버퍼
 var markerCurrent;//시설현재마커
+var markerGeo;
 var uMarkerBuffer;//사용자마커버퍼
 var uMarkerCurrent;//사용자현재마커
 
@@ -28,6 +33,40 @@ var publicname = '';
 var publicloc = '';
 var publictel = '';
 var publichome = '';
+var infoWindowCurrent;
+
+function setDelGeo(tf){
+	checkGeo = tf;
+}
+function getDelGeo(){
+	return checkGeo;
+}
+function setDelSch(tf){
+	checkSch = tf;
+}
+function getDelSch(){
+	return checkSch;
+}
+
+
+function deleteMarker()
+{
+	if(getDelGeo()){
+		markerGeo.setMap(null);
+		markerGeo = '';
+		infoWindowGeo.close();
+		infoWindowGeo = '';
+		setDelGeo(false);
+	}
+	if(getDelSch()){
+		markerCurrent.setMap(null);
+		markerCurrent = '';
+		infoWindowCurrent.close();
+		infoWindowCurrent = '';
+		setDelSch(false);
+	}
+}
+
 
 // search by tm128 coordinate
 // 위도 경도 -> 주소로 변환
@@ -62,13 +101,13 @@ function searchCoordinateToAddress(latlng) {
 
 		infoWindow.open(map, latlng);
 		
-		marker = new naver.maps.Marker({
+		markerCurrent = new naver.maps.Marker({
 			map: map,
 			position: latlng,
 			title: "나의 위치",
 			zIndex: 150,
 			icon:{
-				url:"/fitnessground/resources/images/gym_marker.png"
+				url:"/fitnessground/resources/images/current_marker.png"
 			}
 	});	
 		
@@ -77,6 +116,46 @@ function searchCoordinateToAddress(latlng) {
 
 // result by latlng coordinate 주소 -> 위도 경도로 변환
 function searchAddressToCoordinate(address) {
+	naver.maps.Service.geocode({
+		address : address
+	}, function(status, response) {
+		if (status === naver.maps.Service.Status.ERROR) {
+			return alert('올바른 주소가 아닙니다.');
+		}
+
+		var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명 주소]'
+					: '[지번 주소]', point = new naver.maps.Point(item.point.x, item.point.y);
+		infoWindowCurrent = new naver.maps.InfoWindow({
+			anchorSkew : true
+		});
+		
+		infoWindowCurrent.setContent([
+			'<div style="padding:10px;min-width:200px;line-height:150%;">',
+            '<h4 style="margin-top:5px;">현재 검색 주소 : '+ response.result.userquery +'</h4></div>'
+        ].join('\n'));
+		
+		map.setCenter(point);
+		console.log(point);
+		markerCurrent = new naver.maps.Marker({
+			map: map,
+			position: point,
+			title: "나의 위치",
+			zIndex: 150,
+			icon:{
+				url:"/fitnessground/resources/images/current_marker.png",
+				size : new naver.maps.Size(21, 32),
+				origin : new naver.maps.Point(0, 0),
+				anchor : new naver.maps.Point(10, 32)
+			}
+		});	
+		
+		infoWindowCurrent.open(map, markerCurrent); 
+		});
+	
+	setDelSch(true);
+}
+
+function gymSearchAddressToCoordinate(address) {
 	naver.maps.Service.geocode({
 		address : address
 	}, function(status, response) {
@@ -118,6 +197,7 @@ function searchAddressToCoordinate(address) {
 		});	
 		
 		infoWindow.open(map, marker); 
+		
 		});
 }
 
@@ -150,7 +230,7 @@ function publicsearchAddressToCoordinate(address) {
 			title: "나의 위치",
 			zIndex: 150,
 			icon:{
-				url:"/fitnessground/resources/images/gym_marker.png",
+				url:"/fitnessground/resources/images/public_marker.png",
 				size : new naver.maps.Size(21, 32),
 				origin : new naver.maps.Point(0, 0),
 				anchor : new naver.maps.Point(10, 32)
@@ -158,6 +238,7 @@ function publicsearchAddressToCoordinate(address) {
 		});	
 		
 		infoWindow.open(map, marker); 
+		
 		});
 }
 
@@ -245,11 +326,13 @@ function initMap() {
 	
 	naver.maps.Event.addListener(map, 'zoom_changed', function(){
 		//줌에 변경이 있을경우실행됨
+		deleteMarker();
 		setGymlist(map);
 	});
 	  
 	naver.maps.Event.addListener(map, 'dragend', function(){
 		//화면이동이 끝나면 실행됨 
+		deleteMarker();
 		setGymlist(map);
 	});
 	
@@ -268,7 +351,7 @@ function onSuccessGeolocation(position) {
 	
 	console.log("onSuccessGeolocationStart");
 	
-	marker = new naver.maps.Marker({
+	markerGeo = new naver.maps.Marker({
 			map: map,
 			position: location,
 			title: "나의 위치",
@@ -304,16 +387,17 @@ function onSuccessGeolocation(position) {
 	
 	var contentString = ['<div style="padding:20px;"><h5 style="margin-bottom:5px;">현재 내 위치</h5>'].join("");
 	
-	var infoWindow = new naver.maps.InfoWindow({
+	infoWindowGeo = new naver.maps.InfoWindow({
 		anchorskew: true,
 		content:contentString
 	});
 	
-	infoWindow.open(map, marker);
+	infoWindowGeo.open(map, markerGeo);
 	console.log("onSuccessGeolocationEnd");
 	map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
 	map.setZoom(10); // 지도의 줌 레벨을 변경합니다.
 	setGymlist(map);
+	setDelGeo(true);
 }
 
 function onErrorGeolocation() {
@@ -361,6 +445,7 @@ function setGymlist(map){
 	this.markers = [];
 	this.hmarkers = [];
 	
+	this.markerCurrent = '';
 	this.hinfoWindows = [];
 	this.infoWindows = [];
 	console.log("beforeOnloadPublic");
@@ -515,9 +600,7 @@ function onLoadHealth(map){
 						'<a href="detailgym.do?gym_no=' + gymno + '"><h6>자세히보기</h6></a>' +
 						
 						'<br />', ' ' + json.healthlist[i].location + '<br /></div>'  
-							].join("");
-						
-				
+							].join("");				
 					
 					infoWindow = new naver.maps.InfoWindow({
 						anchorSkew: true,
@@ -534,12 +617,14 @@ function onLoadHealth(map){
 			}
 			// map.setCenter(location);
 			
+			
 		},
 		error: function(request, status, error){
 			alert("code:" + request.status + "\n" + "message:" + request.responseText
 					+ "\n" + "error:" + error);
 		}
 	});
+	
 }
 
 function getClickHandler(seq) { // 클릭 이벤트 핸들러 추가하는 함수
@@ -577,7 +662,7 @@ function gymclick(gym_no, location){
 		dataType: 'json',
 		async: false,
 		success: function(data){
-			searchAddressToCoordinate(location);
+			gymSearchAddressToCoordinate(location);
 			gymno = data.gym.gym_no;
 			gym_name = data.gym.gym_name;
 			category = data.gym.category;
@@ -610,6 +695,7 @@ function publicgymclick(name, tel, location, homepage){
 	publicloc = location;
 	publichome = homepage;
 	publicsearchAddressToCoordinate(location);
+	
 }
 
 function link(homepage){
