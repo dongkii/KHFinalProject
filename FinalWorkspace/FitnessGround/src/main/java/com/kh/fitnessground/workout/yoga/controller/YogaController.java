@@ -59,7 +59,7 @@ public class YogaController {
 					y.setTitle(y.getTitle().replaceAll("\\\"", "＇").substring(0, 40)+"..");
 				y.setContent(y.getContent().replaceAll("\\\"", "＇"));// 쌍따옴표jsp출력 문제로 미리 치환
 				}
-			System.out.println(list);
+			
 			int count1 = yogaService.selectVideoCount("빈야사");
 			int count2 = yogaService.selectVideoCount("다이어트");
 			int count3 = yogaService.selectVideoCount("체형교정");
@@ -86,7 +86,7 @@ public class YogaController {
 					y.setTitle(y.getTitle().replaceAll("\\\"", "＇").substring(0, 40)+"..");
 				y.setContent(y.getContent().replaceAll("\\\"", "＇"));// 쌍따옴표jsp출력 문제로 미리 치환
 				}
-			System.out.println(list);
+			
 			int count1 = yogaService.selectVideoCount("스트레칭");
 			int count2 = yogaService.selectVideoCount("복근집중운동");
 			int count3 = yogaService.selectVideoCount("전신운동");
@@ -211,9 +211,9 @@ public class YogaController {
 		@RequestMapping(value = "/editview.do", method= RequestMethod.POST)
 		public ModelAndView yogaUpdateViewMethod(Yoga yoga, HttpServletRequest request) {
 			ModelAndView mv = new ModelAndView("admin/videolist");
-			System.out.println(yoga+"v_no came here");
+			
 			Yoga y = yogaService.updateViewYoga(yoga, request);
-			System.out.println("from db:"+y);
+			
 			mv.addObject("yoga", y);
 			mv.setViewName("jsonView");
 			return mv;
@@ -235,10 +235,10 @@ public class YogaController {
 		@RequestMapping(value = "/deleteone.do", method = RequestMethod.POST)
 		public ModelAndView YogadeleteMethod(Yoga yoga, HttpServletRequest request) {
 			ModelAndView mv = new ModelAndView("admin/videolist");
-			System.out.println(yoga+":v_no got ");
+			
 			yogaService.deleteYoga(yoga, request);
 			ArrayList<Yoga> list = yogaService.selectAllList();
-			System.out.println(list+":list received");
+			
 			mv.addObject("list", list);
 			mv.setViewName("jsonView");
 			return mv;
@@ -325,12 +325,6 @@ public class YogaController {
 			String selectValue = request.getParameter("selectValue");
 			if(yoga.getCategory2()!=null){
 			
-				System.out.println("category1:" + yoga.getCategory1());
-				System.out.println("category2:" + yoga.getCategory2());
-				System.out.println("선택 값 : "+selectValue);
-				/*ArrayList<Health> sortList = healthService.selectAllList();*/
-			
-				
 				if(selectValue.equals("All")){
 					list = yogaService.selectCList(yoga);
 					

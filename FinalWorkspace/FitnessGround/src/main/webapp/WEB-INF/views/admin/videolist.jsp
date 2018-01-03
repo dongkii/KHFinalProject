@@ -69,7 +69,13 @@
 			<div id="card-result"></div>
 			<div class="card-body">
 					<div class="table-responsive">
-							
+							<div id="loadingDiv">
+								  <div class="loader">
+								    <svg class="circular" viewBox="25 25 50 50">
+								      <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+								    </svg>
+								  </div>
+								</div>
 							<table class="table table-bordered" id="dataTable" width="100%"
 								cellspacing="0">
 								<thead>
