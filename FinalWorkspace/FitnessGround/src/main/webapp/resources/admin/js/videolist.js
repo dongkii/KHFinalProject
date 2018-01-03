@@ -4,6 +4,7 @@
 	
 	/*template layout때문에 수정 */
 	$(document).ready(function(){
+		$('#loadingDiv').hide(); 
 		
 		var value2 = '<a href="javascript: deleteSelected()"><button class="btn btn-info" id="delete-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button></a>';
 		$('.dataTables_length>label').prepend(value2); //삭제버튼 붙이기 
@@ -38,6 +39,7 @@
 	
 	/*운동종류별 목록 ajax로 select */
 	function listing(category1){
+		$('#loadingDiv').show();
 		$('#active').removeAttr('id','active');
 		$('.'+category1).attr('id', 'active');
 		$('.all').removeAttr('id','active');
@@ -87,8 +89,8 @@
 			
 			}(i));//IIFE codes exit
 		  $('#rows').html(value);
+		  
 	  		};//for문종료  
-	
 	  
 	   },
 	   error : function(request, status, errorData){
@@ -97,6 +99,7 @@
 	            + "\n" + "error : " + errorData);
 	   }
 	});//ajax code exit 
+		$('#loadingDiv').hide();
 	} //listing() ends... 
 	
 	
@@ -146,7 +149,7 @@
 					jarr.push(job);
 	
 				});
-				console.log(JSON.stringify(jarr));
+				
 				ajaxFunction();
 			});
 			
@@ -163,10 +166,12 @@
 					async: false,
 					contentType : "application/json; charset=utf-8",
 					success : function(result) {
-						console.log("전송성공:");
+						
 						$('#card-result').append('<div class="alert alert-success" role="alert">"'+vTitle+'" 외 '
 								+(jarr.length-1)+'개의 영상이 추가되었습니다!</div>');
-						listing(category1);
+						setTimeout(function(){
+							window.location.reload();
+						}, 1300);
 					},
 					error : function(request, status, errorData) {
 						alert("error code : " + request.status + "\n"
@@ -182,6 +187,7 @@
 	
 	/* Edit 수정하기 화면 collapse */
 	function editView(v_no){
+		
 		var id = "#tr-"+v_no;
 		var value = "<tr id='collapse"+v_no+"' class='collapse in' data-toggle='collapse'><td colspan='5' id='edit-td'>"+
 		"<label for='title'>Title</label>"+
@@ -303,7 +309,9 @@
 			success: function(result){
 				alert("수정되었습니다.");
 				var category1 = result.list[0].category1;
-				listing(category1);
+				setTimeout(function(){
+					window.location.reload();
+				}, 300);
 			},
 			error: function(request, status, errorData) {
 				alert("error code : " + request.status + "\n"
@@ -327,11 +335,11 @@
 				dataType: "json",
 				type : "post",
 				success : function(result) {
-					console.log("전송성공:");
+					
 					alert("삭제되었습니다!");
 					setTimeout(function(){
 						window.location.reload();
-					}, 1500);
+					}, 1000);
 				},
 				error : function(request, status, errorData) {
 					alert("error code : " + request.status + "\n"
@@ -348,7 +356,6 @@
 		$('input[type="checkbox"]:checked').each(function() {
 		    checkedlist.push($(this).attr('value'));
 		});
-		console.log(checkedlist+"selected");
 		if (confirm(checkedlist.toString()+"번 영상을 정말 삭제하시겠습니까??") == false){
 			return;
 		}else{
@@ -358,7 +365,7 @@
 				type : "post",
 				contentType : "application/json; charset=utf-8",
 				success : function(result) {
-					console.log("전송성공:");
+				
 					alert("선택한 동영상이 삭제되었습니다.");
 					setTimeout(function(){
 						window.location.reload();

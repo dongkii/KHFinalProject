@@ -30,7 +30,123 @@ input[type="search"]{
 	margin-left: 20vw !important;
 	width: 30vw;
 }
+/*loading spinner */
+#loadingDiv {
+  position: absolute;
+  top: 120px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5%;
+}
 
+.loader {
+  position: relative;
+  margin: 0 auto;
+  width: 100px;
+}
+.loader:before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.circular {
+  -webkit-animation: rotate 2s linear infinite;
+          animation: rotate 2s linear infinite;
+  height: 100%;
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.path {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  -webkit-animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+          animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+  stroke-linecap: round;
+}
+
+@-webkit-keyframes rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+@-webkit-keyframes color {
+  100%,
+  0% {
+    stroke: #11A6B7;
+  }
+  40% {
+    stroke: #022D41;
+  }
+  66% {
+    stroke: #FF5C7F;
+  }
+  80%,
+  90% {
+    stroke: #FE424D;
+  }
+}
+@keyframes color {
+  100%,
+  0% {
+    stroke: #11A6B7;
+  }
+  40% {
+    stroke: #022D41;
+  }
+  66% {
+    stroke: #FF5C7F;
+  }
+  80%,
+  90% {
+    stroke: #FE424D;
+  }
+}
 
 /*수정하기view 부분 */
 #edit-td{
