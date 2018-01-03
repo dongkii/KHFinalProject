@@ -94,7 +94,7 @@ textarea#editor1 {
 								
 					
 
-				<div id="map" style="width: 600px; height: 400px;">
+				<div id="map">
 					<script type="text/javascript" src="/fitnessground/resources/js/community/communityMap.js"></script>
 				</div>
 				<br>

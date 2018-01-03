@@ -117,10 +117,10 @@ body {
 	.explanation {
 		display: inline-block;
 		width: 35vw;
-		height: 36vh;
+		height: 20vh;
 		padding: 2vh 1vw;
 		position: absolute;
-		top: 135vw;
+		top: 272vh;
 	}
 	#bmi-wrapper {
 		height: 86vh;

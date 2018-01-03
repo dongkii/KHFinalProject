@@ -72,7 +72,7 @@ textarea#editor1 {
 		<form name='meeting' method="post" action="meetingInsert.do">
 			<input name="user_no" type="hidden" value="${sessionScope.user.user_no }" />
 			<div class="form-group">
-				<p>제목<input style="font-size:10pt;" class="input-group input-group-lg" name="title" type="text" placeholder="제목을 입력하세요"/></p>
+				<p>제목<input style="font-size:10pt;" id="title-input" class="input-group input-group-lg" name="title" type="text" placeholder="제목을 입력하세요"/></p>
 				<p>모임날짜 &nbsp;<input style="width:120pt;border-radius:3px;"  name="meeting_date" type="date" /></p>
 			</div>
 			<div class="form-group">
@@ -85,13 +85,13 @@ textarea#editor1 {
 </div>
 				<div class="meeting-place">
 						
-						<p>모임장소</p><input type="text" class="form-group form-inline" name="meeting_location" id="address"/>
+						<p id="place">모임장소</p><input type="text" class="form-group form-inline" name="meeting_location" id="address"/>
 								
 								<button class="btn btn-primary" type="button" id="submit">검색</button>
 						
 						
 				</div>
-				<div id="map" style="width: 600px; height: 400px;">
+				<div id="map">
 					<script type="text/javascript" src="/fitnessground/resources/js/community/communityMap.js"></script>
 				</div>
 		

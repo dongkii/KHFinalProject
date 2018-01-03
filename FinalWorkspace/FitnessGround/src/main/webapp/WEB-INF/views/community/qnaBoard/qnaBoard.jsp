@@ -71,9 +71,10 @@
 		}
 		function loginCheck(){
 			alert("로그인이 필요한 서비스 입니다.");
+			return false;
 		}	
 		
-		$(document).ready(function(){
+		/* $(document).ready(function(){
 			$("#write").on("click", function(e){
 				e.preventDefault();
 				write();
@@ -82,7 +83,7 @@
 		
 		function write() {
 			location.href = "qnaInsert.do";
-		}
+		} */
 		
 		function qnaLoadList(page)
 		{
@@ -206,12 +207,12 @@
 			<col width="15%"/>
 			<col width="10%"/>
 		</colgroup>
-    <tr>
-      <th>번호</th>
-      <th>제목</th>
-      <th>글쓴이</th>
-      <th>작성일</th>
-      <th>조회수</th>
+     <tr>
+	      <th>번호</th>
+	      <th id="th-title">제목</th>
+	      <th id="th-writer">글쓴이</th>
+	      <th  class="desktop">작성일</th>
+	      <th  class="desktop">조회수</th>
     </tr>
   
   <tbody id="qnalist">
@@ -220,14 +221,30 @@
 		<c:if test="${cm.board_property == 1}">
     <tr>
       <td>${cm.cb_no}</td>
-      <td style="text-align: left;padding-left: 30px;color:black;"><a href="qnaDetail.do?no=${cm.cb_no}">${cm.title}</a>
+      <td id="td-title"><a href="qnaDetail.do?no=${cm.cb_no}" class="a-title${cm.cb_no}">${cm.title}</a>
       </td>
-      <td>${cm.name}</td>
-      <td>${cm.upload_date}</td>
-      <td>${cm.readcount}</td>
+      <td id="td-writer">${cm.name}</td>
+      <td class="desktop">${cm.upload_date}</td>
+      <td class="desktop">${cm.readcount}</td>
     
     </tr>
     </c:if>
+    <script>
+					if( $(window).width()<500){
+						$('.desktop').hide();
+						$('table#community_table').css('table-layout','auto');
+						$('table#community_table th').css('padding','2px');
+						$('#td-title').css('width','60vw');
+						$('#th-title').css('width','60vw');
+						$('#th-writer').css('width','20vw');
+						$('#td-writer').css('width','20vw');
+						if("${cm.title}".length>20){
+						var mbtitle = "${cm.title}".substr(0,20)+"..";
+						
+						$('.a-title'+${cm.cb_no}).html(mbtitle);
+						}
+					}
+	</script>
    </c:forEach>
   
   </tbody>
@@ -280,7 +297,7 @@
     </c:if>
  </ul>
  <c:if test="${sessionScope.user==null}">
-<a class="btn btn-primary pull-right margin-right-20" onclick="loginCheck();">글쓰기</a>
+<a class="btn btn-primary pull-right margin-right-20" id="write" onclick="return loginCheck();">글쓰기</a>
 </c:if>
 <c:if test="${sessionScope.user.name != null }">
 <a href="qnaInsert.do" class="btn btn-primary pull-right margin-right-20">글쓰기</a>			

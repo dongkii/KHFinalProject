@@ -63,9 +63,7 @@
 }
 /*community Boards 목록 */
 
-#reviewpaging, #meetingpaging, #qnapaging{
-	margin-left: 34vw;
-}
+
 #count{
 	display: inline-block;
 	font-size: 1rem;
@@ -78,12 +76,17 @@
 #board-info{
 	margin-bottom: 10px;
 }
-#write{
-	display: inline-block;
-}
+
 
 		/*desktop*/
 @media (min-width: 800px){
+
+	#reviewpaging, #meetingpaging, #qnapaging{
+	margin-left: 34vw;
+}
+#td-title{
+	text-align: left;padding-left: 30px;color:black;
+}
 #selected-btn{
 	font-size: 1.2rem;
 	background: #11A6B7;
@@ -100,10 +103,71 @@
 	display: inline-block;
 	margin-left: 43vw;
 }
+#title-hr{
+	height: 2pt;
+	background-color: #022D41;
+}
+#detail-info{
+	float: right;
+	padding: 0 7px;
+	padding-top: 48px;
+}
+#map{
+	width: 400px; height: 300px; margin-left: 50px;
+}
+#detail_ail_div{
+	margin-left: 2vw;
+    margin-right: 2vw;
+}
+#board-wrapper{
+	background: white;
+	padding: 15px 40px;
+    margin-top: 2vh;
+    margin-bottom:5vh;
+}
+.texts-name{
+	display: inline-block;
+	margin: 1vh 1vw;
+	width: 4vw;
+	margin-left: 2vw;
+}
+.texts-content{
+	display: inline-block;
+	margin: 1vh 1vw;
+	width: 46vw;
+}
+.texts-date{
+	display: inline-block;
+	margin: 1vh 1vw;
+}
+.texts-del{
+	display: inline-block;
+	margin: 1vh 1vw;
+	width: 1vw;
+}
 }
 
 		/*mobile*/
 @media (max-width: 500px){
+		#write {
+    display: inline-block;
+    width: 15vw;
+    padding: 3;
+    font-size: 0.8rem;
+}
+	#reviewpaging, #meetingpaging, #qnapaging{
+	    margin-left: 32vw;
+    font-size: 0.9rem;
+}
+#td-title{
+	text-align: left;padding-left: 2px;color:black;
+}
+
+.pagination > li:first-child > a, .pagination>li:last-child>a, .pagination>li:nth-child(2)>a{
+	padding: 2px 6px;
+	
+}
+	
 	#selected-btn{
 	display: inline-block;
 	    width: 30vw;
@@ -142,68 +206,91 @@
 		/* left: 41vw; */
 		bottom: 71;
 	}
+	#title-hr{
+	height: 2pt;
+	margin-bottom: 0.8em;
+	background-color: #022D41;
+}
+#detail-info{
+	float: right;
+	padding: 0 7px;
+	padding-top: 10px;
+}
+hr#hr{
+	margin-bottom: 0.8em;
+}
+#map{
+	width: 300px; height: 200px;
+}
+#detail_ail_div{
+	margin-left: 1vw;
+    margin-right: 1vw;
+}
+#board-wrapper{
+	background: white;
+	padding: 15px 10px;
+    margin-top: 2vh;
+    margin-bottom:5vh;
+}
+
+.texts-name{
+	display: inline-block;
+	margin: 1vh 1vw;
+	margin-left: 2vw;
+	font-size: 0.78rem;
+	color: #022D41;
+}
+.texts-content{
+	display: inline-block;
+	margin: 1vh 1vw;
+	font-size: 0.78rem;
+	word-wrap: break-word;
+    max-width: 250;
+
+}
+.texts-date{
+	display: inline-block;
+	margin: 1vh 1vw;
+	font-size: 0.7rem;
+}
+.texts-del{
+	display: inline-block;
+	margin: 1vh 1vw;
+	width: 1vw;
+	font-size: 0.7rem;
+}
+#content{
+	font-size: 0.9rem;
+}
+
 }
 
 /* */
 
 /*detail view */
 
-#board-wrapper{
-	background: white;
-	padding: 15px 40px;
-    margin-top: 2vh;
-    margin-bottom:5vh;
-}
+
 #detail-title{
 	margin-top: 8vh;
 	margin-left: 2vw;
 	font-size: 1.8rem;
 	color: #022D41;
 }
-#title-hr{
-	height: 2pt;
-	background-color: #022D41;
-}
+
 hr#hr{
     height:1pt;
     background-color:lightgray;
 }
-#detail-info{
-	float: right;
-	padding: 0 7px;
-	padding-top: 48px;
-}
-#detail_ail_div{
-	margin-left: 2vw;
-    margin-right: 2vw;
-}
+
+
 #comment-area{
 	background: #fafafa;
 }
 #reply{
 	
 }
-.texts-name{
-	display: inline-block;
-	margin: 1vh 1vw;
-	width: 4vw;
-	margin-left: 2vw;
-}
-.texts-content{
-	display: inline-block;
-	margin: 1vh 1vw;
-	width: 50vw;
-}
-.texts-date{
-	display: inline-block;
-	margin: 1vh 1vw;
-	width: 6vw;
-}
-.texts-del{
-	display: inline-block;
-	margin: 1vh 1vw;
-	width: 1vw;
-}
+
+
 #meetingCommentInsert, #communityCommentInsert{
 	margin: 1vw 1vw;
 }
