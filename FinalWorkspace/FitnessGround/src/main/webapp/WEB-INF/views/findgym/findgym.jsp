@@ -71,7 +71,7 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 					} else {
 						var rename_image = json.gymlist[i].rename_image.split(",");
 						values += "<div id='wrapper'style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;'><div id='health-desc'>"
-								+ "<a href=''javascript: gymclick(\"" 
+								+ "<a href='javascript: gymclick(\"" 
 										+ json.gymlist[i].gym_no + "\",\""
 										+ json.gymlist[i].location
 								+ "\")'><h4 style='font-weight:bold;color:black;'>" 
@@ -85,6 +85,7 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 								+ "<a href='#'><img class='img-thumbnail' src=/fitnessground/resources/images/gymimages/" + rename_image[0] + " style='height:100px; width:100px;'></a></div></div>";
 					}
 				}
+				
 				console.log("json.gymlist[i].rename_image");
 				console.log(json.gymlist[i].rename_image);
 				$("#healthlist").html(values);
@@ -99,10 +100,10 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 					} else {
 						valuesPaging  += "<li><a href='javascript:loadGymList(" + (data.startPage)
 			 						  + ")' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
-					}
-					/* valuesPaging += "<li><a href='javascript:loadGymList("
+					}/* 
+					 valuesPaging += "<li><a href='javascript:loadGymList("
 							+ (data.currentPage - 1)
-							+ ")' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>"; */
+							+ ")' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";  */
 				}
 				for (var i = data.startPage; i <= data.endPage; i++) {
 					if (data.currentPage == i) {
@@ -121,11 +122,10 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 						valuesPaging += "<li><a href='javascript:loadGymList(" + (data.maxPage)
 			 			 			 + ")' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
 					}
-					/* valuesPaging += "<li><a href='javascript:loadGymList(" + (data.currentPage + 1) + ")' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>"; */
+					// valuesPaging += "<li><a href='javascript:loadGymList(" + (data.currentPage + 1) + ")' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>"; 
 				}
 				$("#healthpaging").html(valuesPaging);
 
-				
 				},			
 			error : function(request, status, errorData){
 					alert("error code : " + request.status + "\n"
@@ -133,7 +133,6 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 							+ "error : " + errorData);
 					}
 			});	
-
 	}
 
 	function loadPublicList(ppage) {
@@ -148,28 +147,29 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 				console.log(data.pmaxPage);
 				var jsonStr = JSON.stringify(data);
 				var json = JSON.parse(jsonStr);
+				
 				// 리스트 처리
 				var values = "";
 				for (var i in json.publiclist) {
 					if (json.publiclist[i].image != null) {
-						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;''><div id='public-desc'>"
+						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;'><div id='public-desc'>"
 								+ "<a href='javascript:publicgymclick(" + json.publiclist[i].public_name + "," + json.publiclist[i].tel + "," + json.publiclist[i].location + ")'><h4 style='font-weight:bold;color:black;'>"
 								+ json.publiclist[i].public_name
 								+ "</h4>"
 								+ json.publiclist[i].location
 								+ "<br>Tel : ";
-								if (json.publiclist[i].tel != null) { values += json.publiclist[i].tel }
-								else { values += "없음" }
-						values += "</a></div><div id='thumbnail'><a href='#'><img class='img-thumbnail' src='"+ json.publiclist[i].image + "' style='height:100px; width:100px;'></a></div></div>";
+								if (json.publiclist[i].tel != null) { values += json.publiclist[i].tel; }
+								else { values += "없음"; }
+						values += "</a></div><div id='thumbnail'><a href='#'><img class='img-thumbnail' src='/fitnessground/resources/images/default_image.png' style='height:100px; width:100px;'></a></div></div>";
 					} else {
-						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;''><div id='public-desc'>"
+						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;'><div id='public-desc'>"
 							+ "<a href='javascript:publicgymclick(" + json.publiclist[i].public_name + "," + json.publiclist[i].tel + "," + json.publiclist[i].location + ")'><h4 style='font-weight:bold;color:black;'>"
 							+ json.publiclist[i].public_name
 							+ "</h4>"
 							+ json.publiclist[i].location
 							+ "<br>Tel : ";
-							if (json.publiclist[i].tel != null) { values += json.publiclist[i].tel }
-							else { values += "없음" }
+							if (json.publiclist[i].tel != null) { values += json.publiclist[i].tel; }
+							else { values += "없음"; }
 						values += "</a></div><div id='thumbnail'><a href='#'><img class='img-thumbnail' src='/fitnessground/resources/images/default_image.png' style='height:100px; width:100px;'></a></div></div>";
 					}
 				}
@@ -211,7 +211,7 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 					}
 				}
 				$("#publicpaging").html(valuesPaging);
-				setGymlist(map);
+				//setGymlist(map);
 			},
 			error : function(request, status, errorData) {
 				alert("error code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + errorData);
