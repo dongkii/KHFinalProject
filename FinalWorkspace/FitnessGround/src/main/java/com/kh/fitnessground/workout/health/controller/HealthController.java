@@ -272,16 +272,9 @@ public class HealthController {
 	public ModelAndView sortList(HttpServletRequest request,Health health){
 		ModelAndView mv = new ModelAndView();
 		ArrayList<Health> list = null;
-		
-		
-		
+				
 		String selectValue = request.getParameter("selectValue");
 		if(health.getCategory2()!=null){
-		
-			System.out.println("category1:" + health.getCategory1());
-			System.out.println("category2:" + health.getCategory2());
-			System.out.println("선택 값 : "+selectValue);
-			/*ArrayList<Health> sortList = healthService.selectAllList();*/
 		
 			
 			if(selectValue.equals("All")){
@@ -420,16 +413,18 @@ public class HealthController {
         String src = "";
 		
 		for(int i=0; i<list.size();i++){	//뽑아온 리스트중에 헬스가 있으면
+			keyarr.add(list.get(i).getTitle().replaceAll(" ", ""));
+			System.out.println("i번째 : " + i);
+		}
+		System.out.println("keyarr Size : " + keyarr.size());
+		for(int i=0; i<keyarr.size(); i++){
 			if(list.get(i).getCategory1().equals("헬스")){
-				keyarr.add(list.get(i).getTitle().replaceAll(" ", ""));
-				System.out.println("i번째 : " + i);
-				  for(int k=0;k<keyarr.size();k++) {
-			        		
+				  		        		
 				        try {
-				        	  query = URLEncoder.encode(keyarr.get(k),"UTF-8");
-				        	} catch (UnsupportedEncodingException e1) {
+				        	  query = URLEncoder.encode(keyarr.get(i),"UTF-8");
+				        } catch (UnsupportedEncodingException e1) {
 				        	  e1.printStackTrace();
-				        	}
+				        }
 				        int j = 0;
 				        try {
 					        URL url = new URL("https://openapi.naver.com/v1/search/encyc.xml?query="+query);
@@ -439,8 +434,7 @@ public class HealthController {
 					        BufferedReader br = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
 					        String data="";
 					        String msg = null;
-					        while((msg = br.readLine())!=null)
-					        {
+					        while((msg = br.readLine())!=null){
 					            data += msg;
 					        }
 					       
@@ -475,12 +469,10 @@ public class HealthController {
 					        }catch(Exception e) {
 								e.printStackTrace();
 					        }
+			        	}else{ //유투브
+			        		list.get(i).setTitle(list.get(i).getTitle().replaceAll("\\\"", "＇"));
+			        		list.get(i).setContent(list.get(i).getContent().replaceAll("\\\"", "＇"));
 			        	}
-			}else{ //유투브
-				list.get(i).setTitle(list.get(i).getTitle().replaceAll("\\\"", "＇"));
-				list.get(i).setContent(list.get(i).getContent().replaceAll("\\\"", "＇"));
-			
-			}
 			
 		}
 		

@@ -72,7 +72,11 @@
 				
 				</div>
 				<!-- animated 검색바 -->
-				<span id="head-title">Yoga 전체 인기동영상</span>
+				
+				<c:if test="${empty keyWord}"> <span id="head-title">Yoga 전체 인기동영상</span> </c:if>	<!-- 일반 -->
+				
+				<c:if test="${!empty keyWord }"><span id="head-title"> '${keyWord}' 로 검색한 동영상</span></c:if> <!-- 제목으로 검색 했을 때 -->
+				
 				<div class="srch_wrpr" id="main-wrpr">
 					<div class="srch_sb_cnt">
 						<input type="text" name="searchKeyWord" id="title-search" class="sech_txt_inpt"
