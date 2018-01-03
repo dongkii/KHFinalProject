@@ -310,7 +310,11 @@ public class GymController {
 			map.put("list", jar);
 			map.put("plist", plist);
 			
-			if(request.getParameter("mode")!=null) mv.addObject("mode", request.getParameter("mode"));
+			if(request.getParameter("mode")!=null) {
+				String mode = request.getParameter("mode");
+				mv.addObject("mode", mode);
+				if(mode.equals("3")) mv.addObject("address", request.getParameter("address"));
+			}
 			
 			mv.addObject("gympage",map);
 			

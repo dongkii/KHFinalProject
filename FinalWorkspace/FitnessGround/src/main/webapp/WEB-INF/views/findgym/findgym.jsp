@@ -17,19 +17,18 @@
 <script type="text/javascript">
 
  $(function(){
-var mode = ${mode};
-if(mode == 1) {
-	$('#health').addClass('active');
-	$('#public').removeClass('active');
-	$('#healthTab').addClass('active');
-	$('#publicTab').removeClass('active');
-} else if(mode == 2) {
-	$('#public').addClass('active');
-	$('#health').removeClass('active');
-	$('#publicTab').addClass('active');
-	$('#healthTab').removeClass('active');
-}
-$('#myPageBar nav ul #uBoard').addClass('activeMenu');	
+	var mode = $('#mode').val();
+	if(mode == 1) {
+		$('#health').addClass('active');
+		$('#public').removeClass('active');
+		$('#healthTab').addClass('active');
+		$('#publicTab').removeClass('active');
+	} else if(mode == 2) {
+		$('#public').addClass('active');
+		$('#health').removeClass('active');
+		$('#publicTab').addClass('active');
+		$('#healthTab').removeClass('active');
+	} 
 });	
 </script>
 
@@ -98,7 +97,7 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 						valuesPaging += "<li><a href='javascript:loadGymList(" + (data.currentPage - 5)
 						 			 + ")' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
 					} else {
-						valuesPaging  += "<li><a href='javascript:loadGymList(" + (data.startPage)
+						valuesPaging  += "<li><a href='javascript:loadGymList(" + 1
 			 						  + ")' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
 					}/* 
 					 valuesPaging += "<li><a href='javascript:loadGymList("
@@ -153,17 +152,17 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 				for (var i in json.publiclist) {
 					if (json.publiclist[i].image != null) {
 						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;'><div id='public-desc'>"
-								+ "<a href='javascript:publicgymclick(" + json.publiclist[i].public_name + "," + json.publiclist[i].tel + "," + json.publiclist[i].location + ")'><h4 style='font-weight:bold;color:black;'>"
+								+ "<a href='javascript:publicgymclick(\"" + json.publiclist[i].public_name + "\",\"" + json.publiclist[i].tel + "\",\"" + json.publiclist[i].location + "\",\"" + json.publiclist[i].homepage + "\")'><h4 style='font-weight:bold;color:black;'>"
 								+ json.publiclist[i].public_name
 								+ "</h4>"
 								+ json.publiclist[i].location
 								+ "<br>Tel : ";
 								if (json.publiclist[i].tel != null) { values += json.publiclist[i].tel; }
 								else { values += "없음"; }
-						values += "</a></div><div id='thumbnail'><a href='#'><img class='img-thumbnail' src='/fitnessground/resources/images/default_image.png' style='height:100px; width:100px;'></a></div></div>";
+						values += "</a></div><div id='thumbnail'><a href='#'><img class='img-thumbnail' src='"+json.publiclist[i].image+"' style='height:100px; width:100px;'></a></div></div>";
 					} else {
 						values += "<div id='wrapper' style='padding-bottom:10px;padding-top:10px;border-bottom:1px solid #dedede;'><div id='public-desc'>"
-							+ "<a href='javascript:publicgymclick(" + json.publiclist[i].public_name + "," + json.publiclist[i].tel + "," + json.publiclist[i].location + ")'><h4 style='font-weight:bold;color:black;'>"
+							+ "<a href='javascript:publicgymclick(\"" + json.publiclist[i].public_name + "\",\"" + json.publiclist[i].tel + "\",\"" + json.publiclist[i].location + "\",\"" + json.publiclist[i].homepage + "\")'><h4 style='font-weight:bold;color:black;'>"
 							+ json.publiclist[i].public_name
 							+ "</h4>"
 							+ json.publiclist[i].location
@@ -185,7 +184,7 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 						valuesPaging += "<li><a href='javascript:loadPublicList(" + (data.pcurrentPage - 5)
 						 			 + ")' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
 					} else {
-						valuesPaging  += "<li><a href='javascript:loadPublicList(" + (data.pstartPage)
+						valuesPaging  += "<li><a href='javascript:loadPublicList(" + 1
 			 						  + ")' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
 					}
 				}
@@ -225,7 +224,9 @@ $('#myPageBar nav ul #uBoard').addClass('activeMenu');
 		<div class="col-md-4" style="margin-top:50px;" align="left">
 			<div class="row" style="padding:10px; width:100%;">
 				<div class="input-group">
-					<input type="text" class="form-control" id="address" placeholder="Search for..." style="width:420px;">
+					<c:if test="${mode ne null}"><input type="hidden" id="mode" value="${mode}"></c:if>
+					<c:if test="${address ne null}"><input type="text" class="form-control" id="address" placeholder="Search for..." style="width:420px;" value="${address}"></c:if>
+					<c:if test="${address eq null}"><input type="text" class="form-control" id="address" placeholder="Search for..." style="width:420px;"></c:if>
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button" id="submit" style='height:34px;'>
 							<span class="glyphicon glyphicon-search"></span>

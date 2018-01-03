@@ -6,11 +6,25 @@
     <c:import url="include/common/headend.jsp" />
 	<script>
 	$(document).ready(function(){
-
  		if ($(window).width()<500){
- 		$('#start-btn').hide();
+ 			$('#start-btn').hide();
  		}
+ 		
+ 		$('#search').on('keydown', function(e) {
+ 			var keyCode = e.which;
+ 			if (keyCode === 13) { // Enter Key
+ 				searchAddressGym($('#search').val());
+ 			}
+ 		});
+ 		$('#searchBt').on('click', function(e) {
+ 			e.preventDefault();
+ 			searchAddressGym($('#search').val());
+ 		});
  	});
+	
+	function searchAddressGym(address) {
+		location.href = "findgym.do?mode=3&address="+address;
+	}
 	</script>
     <div id="page-wrapper">
         <!-- Header -->
@@ -55,12 +69,12 @@
         <div class="wrapper style2">
 
             <article id="main" class="container special">
-                <header>
+                <header style="margin-top:80px !important;">
                     <h3 id="gym-title">내 주변 운동시설/헬스장을 찾아보세요</h3>
                 </header>
                 <footer>
-                	<input type="search" placeholder="지역을 입력하세요">
-                    <a href="#" class="btn"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
+                	<input type="search" placeholder="지역을 입력하세요" id="search">
+                    <a href="#" id="searchBt" class="btn"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
                 </footer>
             </article>
 
@@ -98,7 +112,7 @@
 					  <span class="range-slider__value">0</span>
 					</div>
 				</div>
-				<div class="explanation">
+				<div class="explanation" style="margin-top:50px;">
 					
 				<span>BMI란  체질량 지수(體質量指數, Body Mass Index)로서  비만도를 측정하는 지수입니다.</span><br>
 					<span>BMI는 18세 이상의 성인들을 측정하기에 적합하지만, 나이나 성별 등 개인 차를 고려하지 않기 때문에 완전히 정확한 신체 측정이라고 보기는 어렵습니다.

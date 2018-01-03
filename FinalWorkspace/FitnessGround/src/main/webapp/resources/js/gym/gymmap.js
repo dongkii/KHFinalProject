@@ -705,5 +705,10 @@ function link(homepage){
 
 $(window).on("load", function() {
 	initMap();
-	onLoadGeolocation();
+	var mode = $('#mode').val();
+	if(mode == 3) {
+		var address = $('#address').val();
+		searchAddressToCoordinate(address);
+	}
+	else {onLoadGeolocation();}
 });
