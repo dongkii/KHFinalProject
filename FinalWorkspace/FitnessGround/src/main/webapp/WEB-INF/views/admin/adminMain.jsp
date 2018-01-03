@@ -10,6 +10,7 @@
 
 	
 <c:import url="common/headend.jsp" />
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 
     <c:if test="${ sessionScope.user == null }">
 		<script type="text/javascript">

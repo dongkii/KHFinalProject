@@ -136,7 +136,7 @@ function qnaModify(q_no) {
 -->
 			<div class="card-body">
 				<div class="table-responsive">
-					<table class="table table-bordered" id="dataTable" width="100%"
+					<table class="table table-bordered table-hover" id="dataTable" width="100%"
 						cellspacing="0">
 						<thead>
 							<tr align="center">
@@ -153,10 +153,10 @@ function qnaModify(q_no) {
 							<c:forEach var="item" items="${list }" varStatus="status">
 									<c:choose>
 										<c:when test="${item.response_state == 1 }">
-											<tr id="Activation">
+											<tr>
 										</c:when>
 										<c:when test="${item.response_state == 0 }">
-											<tr id="inactive">
+											<tr>
 										</c:when>
 									</c:choose>
 									
@@ -168,12 +168,12 @@ function qnaModify(q_no) {
 											<c:choose>
 												<c:when test="${item.response_state==0}">
 
-													<td>
+													<td align="center">
 													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#qnaResponse" data-content="${item.content}" data-title="${item.title}" data-sender="${item.sender}" data-qno="${item.q_no}">답변</button></td>
 												</c:when>
 												<c:when test="${item.response_state==1}">
 
-													<td><button type="submit" class="btn btn-primary" onclick="qnaModify(${item.q_no});">완료</button>
+													<td align="center"><button type="submit" class="btn btn-primary" onclick="qnaModify(${item.q_no});">완료</button>
 												</c:when>
 
 											</c:choose>

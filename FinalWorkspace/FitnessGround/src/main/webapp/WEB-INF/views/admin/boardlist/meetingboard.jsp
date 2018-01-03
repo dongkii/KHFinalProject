@@ -69,7 +69,7 @@ function registerView(){
 			type : "post",
 			data : {"mb_no" : mb_no},
 			success : function(result){
-				alert(mb_no + "번 게시물이 삭제 되었습니다.")
+				alert("게시물이 삭제 되었습니다.")
 				location.href = "adminMettingBoard.do";
 			},
 			error : function(request, status, error){
@@ -88,19 +88,19 @@ function registerView(){
 	<div class="container-fluid">
 		<!-- Breadcrumbs-->
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item">FitnessGround</li>
-			<li class="breadcrumb-item active"></li> 
+			<li class="breadcrumb-item"><a href="adminMain.do">Fitness Ground</a></li>
+			<li class="breadcrumb-item active">메인으로 이동</li>
 		</ol>
 		<!-- Example DataTables Card-->
 		<div class="card mb-3">
 			<div class="card-header">
 
-				<div class="buttons">
+				<div class="buttons" align="right">
 
-					<button class="btn btn-warning" onclick="adminMettingBoard();">Meeting</button>
+					<!-- <button class="btn btn-warning" onclick="adminMettingBoard();">Meeting</button>
 					<button class="btn btn-warning" onclick="adminQNABoard();">Q&A</button>
-					<button class="btn btn-warning" onclick="adminReviewBoard();">Review</button>
-					<button class="btn btn-warning" onclick="registerView();" align="right" >공지사항 등록</button>
+					<button class="btn btn-warning" onclick="adminReviewBoard();">Review</button> -->
+					<button class="btn btn-primary" onclick="registerView();" align="right" >공지사항 등록</button>
 
 				</div>
 			</div>
@@ -110,7 +110,7 @@ function registerView(){
 				<div class="card-body">
 					<div class="table-responsive">
 					<form name="userForm">
-						<table class="table table-bordered" id="dataTable" width="100%"
+						<table class="table table-bordered table-hover" id="dataTable" width="100%"
 							cellspacing="0">
 							<thead>
 								<tr align="center">

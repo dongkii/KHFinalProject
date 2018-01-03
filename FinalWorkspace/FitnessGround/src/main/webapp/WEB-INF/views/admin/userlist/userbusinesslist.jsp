@@ -30,7 +30,7 @@
 	}
 	
 	function businessChange(user_no){
-		alert("비활성화 버튼 클릭");
+		
 		
 		$.ajax({
 			
@@ -54,7 +54,7 @@
 	}
 	
 	function businessBack(user_no){
-		alert("활성화 버튼 클릭");
+		
 		
 		$.ajax({
 			
@@ -92,11 +92,11 @@
 		<div class="card mb-3">
 			<div class="card-header">
 
-				<div class="buttons">
+				<div class="buttons" align="right">
 
-					<button class="btn btn-warning" onclick="userlistPage();">일반회원</button>
-					<button class="btn btn-warning" onclick="businesslistPage();">사업자회원</button>
-					<button class="btn btn-warning" onclick="businessRequestlistPage();">등록요청</button>
+					<!-- <button class="btn btn-warning" onclick="userlistPage();">일반회원</button>
+					<button class="btn btn-warning" onclick="businesslistPage();">사업자회원</button> -->
+					<button class="btn btn-primary" onclick="businessRequestlistPage();">등록요청보기</button>
 
 				
 				</div>
@@ -104,7 +104,7 @@
 			</div>
 				<div class="card-body">
 					<div class="table-responsive">
-						<table class="table table-bordered" id="dataTable" width="100%"
+						<table class="table table-bordered table-hover" id="dataTable" width="100%"
 							cellspacing="0">
 							<thead>
 								<tr align="center">
@@ -132,13 +132,13 @@
 								<c:forEach var="item" items="${list }" varStatus="status">
 									<c:choose>
 										<c:when test="${item.user_state == 0 && item.delete_date eq null }">
-											<tr id="inactive">
+											<tr class="active">
 										</c:when>
 										<c:when test="${item.user_state==1 && item.delete_date eq null }">
-											<tr id="Activation">
+											<tr class="success">
 										</c:when>
 										<c:when test="${item.user_state==0 || item.user_state==1 && item.delete_date ne null }">
-											<tr id="secession">
+											<tr class="warning">
 										</c:when>
 									</c:choose>
 										<td>${status.count }</td>
@@ -150,12 +150,12 @@
 										<c:choose>
 												<c:when test="${item.user_state==0}">
 
-													<td><button type="submit" class="btn btn-primary"
+													<td align="center"><button type="submit" class="btn btn-primary"
 															onclick="businessChange(${item.user_no});">비활성화</button></td>
 												</c:when>
 												<c:when test="${item.user_state==1}">
 
-													<td><button type="submit" class="btn btn-primary"
+													<td align="center"><button type="submit" class="btn btn-primary"
 															onclick="businessBack(${item.user_no});">활성화</button></td>
 												</c:when>
 

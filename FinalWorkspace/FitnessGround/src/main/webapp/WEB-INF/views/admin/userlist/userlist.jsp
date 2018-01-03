@@ -101,11 +101,11 @@
 		<div class="card mb-3">
 			<div class="card-header">
 
-				<div class="buttons">
+				<div class="buttons" align="right">
 
-					<button class="btn btn-warning" onclick="userlistPage();">일반회원</button>
-					<button class="btn btn-warning" onclick="businesslistPage();">사업자회원</button>
-					<button class="btn btn-warning" onclick="businessRequestlistPage();">등록요청</button>
+					<!-- <button class="btn btn-warning" onclick="userlistPage();">일반회원</button>
+					<button class="btn btn-warning" onclick="businesslistPage();">사업자회원</button> -->
+					<button class="btn btn-primary" onclick="businessRequestlistPage();">등록요청보기</button>
 
 				</div>
 
@@ -130,13 +130,13 @@
 									<c:forEach var="item" items="${list }" varStatus="status">
 										  <c:choose>
 										 	<c:when test="${item.user_state==0 && item.delete_date eq null}">
-												<tr class="p-3 mb-2 bg-success text-white">
+												<tr class="active">
 											</c:when> 
 										    <c:when test="${item.user_state==1 && item.delete_date eq null}">
-												<tr class="p-3 mb-2 bg-warning text-white">
+												<tr class="success">
 											</c:when>
 											<c:when test="${item.user_state==0 || item.user_state==1 && item.delete_date != null }">
-												<tr class="p-3 mb-2 bg-secondary text-white">
+												<tr class="warning">
 											</c:when>
 										</c:choose> 
 										 
@@ -167,7 +167,7 @@
 											<c:if test="${item.delete_date ne null }" >
 													
 													<td align="center">
-													<button class="btn btn-primary" onclick="checkUser('${item.delete_date}');">탈퇴계정</button></td>
+													<button class="btn btn-default" onclick="checkUser('${item.delete_date}');" >탈퇴계정</button></td>
 												
 											</c:if>
 

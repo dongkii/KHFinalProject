@@ -36,7 +36,7 @@
 						<i class="fa fa-fw fa-table"></i> 
 							<span class="nav-link-text">게시판관리</span>
 					</a>
-					<ul class="sidenav-second-level collapse" id="collapse-second">
+					<ul class="sidenav-second-level collapse show" id="collapse-second">
 							<li><a href="adminMettingBoard.do">Meeting</a></li>
 							<li><a href="adminQNABoard.do">QnA</a></li>
 							<li><a href="adminReviewBoard.do">Review</a></li>

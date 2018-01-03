@@ -93,11 +93,11 @@
 		<div class="card mb-3">
 			<div class="card-header">
 
-				<div class="buttons">
+				<div class="buttons" align="right">
 
-					<button class="btn btn-warning" onclick="userlistPage();">일반회원</button>
-					<button class="btn btn-warning" onclick="businesslistPage();">사업자회원</button>
-					<button class="btn btn-warning" onclick="businessRequestlistPage();">등록요청</button>
+					<!-- <button class="btn btn-warning" onclick="userlistPage();">일반회원</button>
+					<button class="btn btn-warning" onclick="businesslistPage();">사업자회원</button> -->
+					<button class="btn btn-primary" onclick="businessRequestlistPage();">등록요청보기</button>
 
 
 				</div>
@@ -105,7 +105,7 @@
 	
 				<div class="card-body">
 					<div class="table-responsive">
-						<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
+						<table class="table table-bordered table-hover" id="dataTable" width="100%"	cellspacing="0">
 							<thead>
 								<tr align="center">
 									<th>Index</th>
@@ -133,10 +133,10 @@
 								<c:forEach var="item" items="${list }" varStatus="status">
 									<c:choose>
 											<c:when test="${item.approval_state==0}">
-												<tr id="inactive">
+												<tr>
 											</c:when>
 											<c:when test="${item.approval_state==1}">
-												<tr id="Activation">
+												<tr>
 											</c:when>
 									</c:choose>
 										<td>${status.count }</td>

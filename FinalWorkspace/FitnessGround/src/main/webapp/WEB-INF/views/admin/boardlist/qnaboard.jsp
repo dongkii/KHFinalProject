@@ -70,7 +70,7 @@ function qnaDelete(cb_no){
 		type : "post",
 		data : {"cb_no" : cb_no},
 		success : function(result){
-			alert(cb_no + "번 게시물이 삭제 되었습니다.")
+			alert("게시물이 삭제 되었습니다.")
 			location.href = "adminQNABoard.do";
 		},
 		error : function(request, status, error){
@@ -97,13 +97,12 @@ function qnaDelete(cb_no){
 		<div class="card mb-3">
 			<div class="card-header">
 
-				<div class="buttons">
+				<div class="buttons" align="right">
 
-					<button class="btn btn-warning" onclick="adminMettingBoard();">Meeting</button>
+					<!-- <button class="btn btn-warning" onclick="adminMettingBoard();">Meeting</button>
 					<button class="btn btn-warning" onclick="adminQNABoard();">Q&A</button>
-					<button class="btn btn-warning" onclick="adminReviewBoard();">Review</button>
-					<button class="btn btn-warning" onclick="registerView();"
-						align="right">공지사항 등록</button>
+					<button class="btn btn-warning" onclick="adminReviewBoard();">Review</button> -->
+					<button class="btn btn-primary" onclick="registerView();">공지사항 등록</button>
 
 
 				</div>
@@ -111,7 +110,7 @@ function qnaDelete(cb_no){
 
 			<div class="card-body">
 				<div class="table-responsive">
-					<table class="table table-bordered" id="dataTable" width="100%"
+					<table class="table table-bordered table-hover" id="dataTable" width="100%"
 						cellspacing="0">
 						<thead>
 							<tr align="center">

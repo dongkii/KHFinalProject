@@ -198,7 +198,7 @@
 	<insert id="adminMeetingBoardInsert" parameterType="Meeting" flushCache="true"
 		statementType="PREPARED" useGeneratedKeys="true" >
 		<![CDATA[
-		insert into tb_meeting_board values(mb_seq.nextval,#{user_no},#{title},#{content},null,default,default)
+		insert into tb_meeting_board values(mb_seq.nextval,#{user_no},#{title},#{content},null,null,default,default)
 		]]>
 	</insert>
 	
