@@ -25,7 +25,7 @@ function searchCoordinateToAddress(latlng) {		//주소를 경도 위도로 바�
         coordType: naver.maps.Service.CoordType.TM128
     }, function(status, response) {
         if (status === naver.maps.Service.Status.ERROR) {
-            return alert('경도 위도.. 크흠!');
+            return alert('주소를 정확히 입력해주세요');
         }
 
         var items = response.result.items,
@@ -56,7 +56,7 @@ function searchAddressToCoordinate(address) {
         address: address
     }, function(status, response) {
         if (status === naver.maps.Service.Status.ERROR) {
-            return alert('경도 위도... 크흠..');
+            return alert('주소를 정확히 입력해주세요');
         }
 
         var item = response.result.items[0],
