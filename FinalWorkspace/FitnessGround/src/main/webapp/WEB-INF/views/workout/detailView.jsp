@@ -275,7 +275,6 @@
             userLoginCheck= data.userLoginCheck;
             checkLikeTable = data.checkLikeTable;
             
-            console.log("checkLikeTable"+checkLikeTable);
             if(userLoginCheck==0){
                alert("로그인이 필요한 서비스 입니다.");
             }else if(userLoginCheck!=0 && checkLikeTable==0 && user_level==0){ //일반

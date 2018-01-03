@@ -354,7 +354,9 @@ public class HealthController {
 		
 		ModelAndView mv = new ModelAndView();
 		
-		int checkLikeTable = healthService.checkLikeTable(like); //좋아요 테이블에 있는지 확인하는 변수
+		
+		int checkLikeTable = healthService.checkLikeTable(like); 
+		// 좋아요 테이블에 있는지 확인하는 변수
 		// 있으면 1 없으면 0
 		
 		int userLoginCheck = like.getUser_no();

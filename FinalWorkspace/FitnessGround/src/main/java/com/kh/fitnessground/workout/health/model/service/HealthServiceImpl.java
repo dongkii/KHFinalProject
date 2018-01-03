@@ -73,13 +73,14 @@ public class HealthServiceImpl implements HealthService{
 
 	@Override //좋아요 테이블에 있는지 확인
 	public int checkLikeTable(Like like) {
-		ArrayList<Like> list = healthDao.selectLikeList();	//좋아요 테이블에 들어가 있는 리스트들 불러옴..
-		int result=0;
+		ArrayList<Like> list = healthDao.selectLikeList();	//좋아요 테이블에 들어가 있는 리스트들 불러옴
 		
-		for(int i=0; i<list.size();i++){
+		int result=0;	//좋아요 테이블에 있는지 확인하는 변수
+				
+		for(int i=0; i<list.size();i++){ //뷰에서 보낸 데이터 v_no , user_no값이 좋아요 테이블에 있는 v_no , user_no 랑 같으면
 			if(like.getV_no()==list.get(i).getV_no() && like.getUser_no()==list.get(i).getUser_no()){
-				result=1;
-				break;
+				result=1;	//변수를 1로 바꾸고
+				break;		// for문 종료
 			}else{
 				result=0;
 			}
