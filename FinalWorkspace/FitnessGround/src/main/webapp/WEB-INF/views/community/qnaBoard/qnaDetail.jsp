@@ -135,7 +135,7 @@
 		     <hr id="hr">
 		   <div id="detail_ail_div"> 
 		    <div id="community-contents">
-		     	<p>${community.content}</p>
+		     	<p id="content">${community.content}</p>
 		    </div>
 		      <div align="right">
 					   <c:if test="${sessionScope.user.user_no eq community.user_no}">

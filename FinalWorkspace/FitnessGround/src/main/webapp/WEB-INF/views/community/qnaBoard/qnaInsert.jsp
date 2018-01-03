@@ -68,7 +68,7 @@ textarea#editor1 {
 		<form name='qna' method="post" action="qnaInsert.do">
 			<input name="user_no" type="hidden" value="${sessionScope.user.user_no }" />
 			<div class="form-group">
-				<p>제목<input style="font-size:10pt;" class="input-group input-group-lg" name="title" type="text" placeholder="제목을 입력하세요"/></p>
+				<p>제목<input style="font-size:10pt;" id="title-input" class="input-group input-group-lg" name="title" type="text" placeholder="제목을 입력하세요"/></p>
 			</div>
 			<div class="form-group">
 				<textarea name="content" id="editor2" placeholder="내용을 입력해주세요.."></textarea>

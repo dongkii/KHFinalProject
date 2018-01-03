@@ -9,15 +9,55 @@
 	margin-top: 3vh;
 }
 #address{
-	width: 33vw;
 	height: 2;
 	display: inline-block;
-	margin-left: 18vw;
 }
+
+
+	/*mobile*/
+@media (max-width: 500px){
+#submit-btn{
+	background: #022D41;
+}	
+#map{
+	margin: 20px 0;
+	width: 320px; height: 200px;
+}
+#place{
+	 display: inline-block;
+}
+#address{
+	width: 46vw;
+	margin-left: 8vw;
+}
+#submit{
+	width: 13vw;
+    display: inline-block;
+}
+#list{
+	    display: inline-block;
+    text-decoration: underline;
+    margin-top: 2vh;
+}
+#title-input{
+	    padding: 0.4rem;
+}
+
+	}
+	/*desktop*/
+@media (min-width: 800px){
 #submit-btn{
 	margin-left: 33vw;
+}
+#address{
+	width: 33vw;
+	margin-left: 18vw;
 }
 #map{
 	margin-left: 17vw; /*가운데정렬하기위함...안되면 숫자조정*/
 	margin-top: 2vh;
+	width: 600px; height: 400px;
 }
+
+		
+	}

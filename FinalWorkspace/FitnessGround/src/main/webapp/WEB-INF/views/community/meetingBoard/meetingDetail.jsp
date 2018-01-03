@@ -65,8 +65,8 @@
    				 for(var i in data.mblist)
    					 {
    					  	
-   					 	values += "<div id='reply'><div class='texts-name'><b>" + data.mblist[i].name + "<b></div>"+
-      					"<div class='texts-content'>" +  data.mblist[i].content + "</div><div class='texts-date'>" + data.mblist[i].reply_date +"</div>";
+   					 	values += "<div id='reply'><div class='texts-name'><span>" + data.mblist[i].name + "</span></div>"+
+      					"<div class='texts-content'><span>" +  data.mblist[i].content + "</span></div><div class='texts-date'>" + data.mblist[i].reply_date +"</div>";
       					
       					if(user_no == data.mblist[i].user_no){
    	      					values += "<div class='texts-del'><a class='btn' type='submit' onclick='meetingCommentDelete("+data.mblist[i].mb_no+","+ data.mblist[i].mbc_no +")'><i class='fa fa-trash' aria-hidden='true'></i></a></div>"
@@ -154,12 +154,12 @@
 		     <div id="detail_ail_div" align="center"> 
 			    <div align="center">
 			    	<div id="community-contents">
-				     	<p>${meeting.content}</p>
+				     	<p id="content">${meeting.content}</p>
 				    </div>
 			     	<input type="hidden" id="location" value=${meeting.meeting_location }>
 			     		<div>
 			     			<p>모임장소 : ${meeting.meeting_location }</p>
-			     			<div id="map" style="width: 400px; height: 300px; margin-left: 50px">
+			     			<div id="map">
 								<script type="text/javascript" src="/fitnessground/resources/js/community/communityMap.js"></script>
 							</div>
 						</div>	
