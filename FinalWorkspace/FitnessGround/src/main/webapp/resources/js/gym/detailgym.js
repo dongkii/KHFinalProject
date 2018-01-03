@@ -271,8 +271,8 @@ $(document).ready(function(){
 						}
 						values += '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="reviewOne">' +
 							hr +
-							'<div id="rvnickname" class="col-lg-1 col-md-1 col-sm-2 col-xs-3">' + data.gc[i].nickname + '</div>' +
-							'<div id="rvcontent" class="col-lg-7" col-md-11 col-sm-10 col-xs-9>' + data.gc[i].content + '</div>' +
+							'<div id="rvnickname" class="col-lg-2 col-md-2 col-sm-2 col-xs-3">' + data.gc[i].nickname + '</div>' +
+							'<div id="rvcontent" class="col-lg-6" col-md-10 col-sm-10 col-xs-9>' + data.gc[i].content + '</div>' +
 							'<div id="rvetc" class="col-lg-4 col-md-12 col-sm-12 col-xs-12">' + 
 							'<span id="rvstar">' + star + '</span>' +
 							'<span id="rvrating">' + data.gc[i].str_rating + '</span>&nbsp|&nbsp' + 

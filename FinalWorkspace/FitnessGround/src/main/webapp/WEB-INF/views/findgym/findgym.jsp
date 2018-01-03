@@ -10,7 +10,7 @@
 	<c:import url="../user/register.jsp" />
 	<c:import url="../include/main/nav.jsp" />
 </div>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=vWkJuuK8gXcwBG8Rijlh&submodules=geocoder"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=G0XI103VNKmTZuGNcR9G&submodules=geocoder"></script>
 <script type="text/javascript" src="/fitnessground/resources/js/gym/gymmap.js"></script>
 <c:import url="../include/common/headend.jsp" />
 
