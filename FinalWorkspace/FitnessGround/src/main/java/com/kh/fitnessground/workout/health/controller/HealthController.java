@@ -38,7 +38,7 @@ import com.kh.fitnessground.workout.health.model.vo.Health;
 public class HealthController {
 	@Autowired
 	private HealthService healthService;
-	private static int random = 0;
+	private static int select = 0;
 	
 	@RequestMapping(value="/healthMain.do")	//메인 페이지 이동
 	public ModelAndView boardListMethod(HttpServletRequest request, HttpServletResponse response){
@@ -53,35 +53,32 @@ public class HealthController {
 	public void selectCategorytListMethod(Health health,HttpServletResponse response) throws IOException{
 		
 		  
-		if(random==3){
-	        random=0;
+		if(select==3){
+	        select=0;
 	    }
-		System.out.println("random 값 : " + random);
-		ArrayList<Health> list = healthService.selectWorkoutCategoryList(health);
-		System.out.println(health.getCategory2());
+		
+		// 카테고리1 = 헬스 , 카테고리2 = 선택 부위 에 따른 리스트를 불러옴
+		ArrayList<Health> list = healthService.selectWorkoutCategoryList(health);	
+		
 		/* NAVER api code */
 		String clientID=null;
         String clientSecret = null;
+       
         //미향, 준일 , 동균 순서 id,pwd
         String clientIdArr[] = {"ruv96TRHNK8A6XvNLhkO","gW6kXM8gjSemyGCzbFM7","G0XI103VNKmTZuGNcR9G"};
         String clientSecretArr[] = {"L2Y9X7t1_5","JxqdihRctq","GTG4zI8eUQ"};
   
-        
-       // int select = (int)(Math.random()*2) + 1;
-        //System.out.println("select : " + select);
-      
-        clientID = clientIdArr[random];
-        clientSecret = clientSecretArr[random];
+        clientID = clientIdArr[select];
+        clientSecret = clientSecretArr[select];
                 
-        random++;
+        select++;
         
-        ArrayList<String> srcarr = new ArrayList<String>();
-        ArrayList<String> keyarr = new ArrayList<String>();
+        ArrayList<String> srcarr = new ArrayList<String>(); //제목에 따른 url 을 저장해둘 배열
+        ArrayList<String> keyarr = new ArrayList<String>();	//제목을 저장해둘 배열 
         for(int i=0;i<list.size();i++) {
         	keyarr.add(list.get(i).getTitle().replaceAll(" ", ""));
         }
-        System.out.println("keyarr Size : " + keyarr.size());
-        System.out.println(keyarr.toString()); //검색할 동영상 제목들 다 keyarr에 넣어둠
+   
         String query = "";
         String src = "";
         
@@ -100,7 +97,7 @@ public class HealthController {
 		        urlConn.setRequestProperty("X-Naver-Client-ID", clientID);
 		        urlConn.setRequestProperty("X-Naver-Client-Secret", clientSecret);
 		        BufferedReader br = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
-		        System.out.println("호출 횟수 : " + i);
+		      
 		        String data="";
 		        String msg = null;
 		        while((msg = br.readLine())!=null)
@@ -244,7 +241,7 @@ public class HealthController {
 		
 		
 		ArrayList<Health> slist = healthService.selectSearchList(keyWord);
-		System.out.println(slist);
+		
 		
 		int pushUpCount = healthService.selectVideoCount("맨몸푸시업");
 		int lowerBodyCount = healthService.selectVideoCount("맨몸하체");
