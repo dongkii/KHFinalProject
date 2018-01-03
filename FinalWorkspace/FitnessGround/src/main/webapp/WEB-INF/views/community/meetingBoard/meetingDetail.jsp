@@ -152,10 +152,12 @@
 		    <hr id="hr">
 		    <br>
 		     <div id="detail_ail_div" align="center"> 
+		  
 			    <div align="center">
 			    	<div id="community-contents">
 				     	<p id="content">${meeting.content}</p>
 				    </div>
+				    <c:if test="${meeting.user_no ne 1}">   
 			     	<input type="hidden" id="location" value=${meeting.meeting_location }>
 			     		<div>
 			     			<p>모임장소 : ${meeting.meeting_location }</p>
@@ -163,7 +165,7 @@
 								<script type="text/javascript" src="/fitnessground/resources/js/community/communityMap.js"></script>
 							</div>
 						</div>	
-							  
+					  </c:if>
 			        </div>
 			        <div align="right">
 				   <c:if test="${sessionScope.user.user_no eq meeting.user_no}">

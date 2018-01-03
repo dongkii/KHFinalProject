@@ -188,10 +188,11 @@
 					  	</div>
 			  				<div class="form-group">
 			   					<input type="text" class="form-control" id="srch-area" name ="searchKey"  value="${map.searchKey}" placeholder="Search for..">
-							 </div>
-			 			<span>
-					  		<a class="btn btn-default" id="srch-btn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></a>
-						</span>
+						<span>
+					  		<button class="btn btn-default" id="srch-btn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+					  	</span>
+					  		</div>
+						
 					</form>
 			</div>	
 			

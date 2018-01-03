@@ -33,7 +33,6 @@ public class MeetingBoard {
 		this.readcount = readcount;
 		this.email = email;
 	}
-
 	public int getMb_no() {
 		return mb_no;
 	}

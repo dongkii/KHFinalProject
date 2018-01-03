@@ -51,15 +51,15 @@ public class CommunityBoardDao {
 		 map.put("startRow", startRow); 
 	     map.put("endRow", endRow);
 	     map.put("searchKey", "%" + searchKey + "%");  
-	     if(searchOption.equals("")){
-	    	 return sqlSession.selectList("community.meetingListView", map);
+	     if(searchOption.equals("content")){
+	    	 return sqlSession.selectList("community.meetingContentSearch", map);
 	     }
 	     else if(searchOption.equals("title")) {
 	         return sqlSession.selectList("community.meetingTitleSearch", map);
 	      }else if(searchOption.equals("name")){
 	         return sqlSession.selectList("community.meetingNameSearch", map);
 	      }else
-	    	 return sqlSession.selectList("community.meetingContentSearch", map);
+    	    return sqlSession.selectList("community.meetingListView", map);
 	}
 
 	public int meetingInsert(MeetingBoard meetingboard) {
@@ -128,15 +128,15 @@ public class CommunityBoardDao {
 		 map.put("startRow", startRow); 
 	     map.put("endRow", endRow);
 	     map.put("searchKey", "%" + searchKey + "%");  
-	     if(searchOption.equals("")){
-	    	 return sqlSession.selectList("community.reviewListView", map);
+	     if(searchOption.equals("content")){
+	    	 return sqlSession.selectList("community.reviewContentSearch", map);
 	     }
 	     else if(searchOption.equals("title")) {
 	         return sqlSession.selectList("community.reviewTitleSearch", map);
 	      }else if(searchOption.equals("name")){
 	         return sqlSession.selectList("community.reviewNameSearch", map);
 	      }else
-	    	 return sqlSession.selectList("community.reviewContentSearch", map);
+	    	 return sqlSession.selectList("community.reviewListView", map);
 	}
 
 	public int reviewInsert(CommunityBoard communityboard) {
@@ -186,15 +186,15 @@ public class CommunityBoardDao {
 		 map.put("startRow", startRow); 
 	     map.put("endRow", endRow);
 	     map.put("searchKey", "%" + searchKey + "%");  
-	     if(searchOption.equals("")){
-	    	 return sqlSession.selectList("community.qnaListView", map);
+	     if(searchOption.equals("content")){
+	    	 return sqlSession.selectList("community.qnaContentSearch", map);
 	     }
 	     else if(searchOption.equals("title")) {
 	         return sqlSession.selectList("community.qnaTitleSearch", map);
 	      }else if(searchOption.equals("name")){
 	         return sqlSession.selectList("community.qnaNameSearch", map);
 	      }else
-	    	 return sqlSession.selectList("community.qnaContentSearch", map);
+	    	 return sqlSession.selectList("community.qnaListView", map);
 	      	
 	}
 	
