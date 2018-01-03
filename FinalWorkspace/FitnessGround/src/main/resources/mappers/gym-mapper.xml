@@ -176,7 +176,7 @@
 	
 	<select id="QnaMessage" parameterType="_int" resultType="_int">
 		<![CDATA[ 
-		select count(*) from tb_qna where receiver = #{receiver} and response_state=0
+		select count(*) from tb_qna where receiver = #{receiver}
 		]]>
 	</select>
 	

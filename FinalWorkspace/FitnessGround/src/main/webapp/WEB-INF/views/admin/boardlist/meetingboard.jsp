@@ -88,8 +88,8 @@ function registerView(){
 	<div class="container-fluid">
 		<!-- Breadcrumbs-->
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="adminMain.do">Fitness Ground</a></li>
-			<li class="breadcrumb-item active">메인으로 이동</li>
+			<li class="breadcrumb-item">FitnessGround</li>
+			<li class="breadcrumb-item active"></li> 
 		</ol>
 		<!-- Example DataTables Card-->
 		<div class="card mb-3">
@@ -103,7 +103,7 @@ function registerView(){
 					<button class="btn btn-warning" onclick="registerView();" align="right" >공지사항 등록</button>
 
 				</div>
-</div>
+			</div>
 
 
 
@@ -225,7 +225,9 @@ function registerView(){
   </div>
 				
 				
-				<div class="card-footer small text-muted"><h4>Total Board : ${boardCount }개</h4></div>
+				<div class="card-footer small text-muted"><h4>Total Board : ${boardCount }개</h4>
+				
+				</div>
 			
 		</div>
 		<!-- /.container-fluid-->
