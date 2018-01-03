@@ -5,7 +5,7 @@
 
 <!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-		<a class="navbar-brand" id= "nav-brand" href="adminMain.do">FitnessGround ADMIN</a>
+		<a class="navbar-brand" id= "nav-brand" href="adminMain.do"><img src="/fitnessground/resources/images/blacklogo.png" id="blacklogo" height="30"></a>
 		<button class="navbar-toggler navbar-toggler-right" type="button"
 			data-toggle="collapse" data-target="#navbarResponsive"
 			aria-controls="navbarResponsive" aria-expanded="false"
@@ -14,6 +14,7 @@
 		</button>
 		
 		<div class="collapse navbar-collapse" id="navbarResponsive">
+		
 			<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
 			
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
@@ -84,7 +85,7 @@
 				</a>
 					<div class="dropdown-menu" id="new-dropdown" aria-labelledby="messagesDropdown">
 					
-						<h6 class="dropdown-header">New Messages:</h6>
+						<h6 class="dropdown-header">새로온 문의</h6>
 						<c:forEach var="qnaitem" items="${qnalist }" varStatus="status">
 						
 						<div class="dropdown-divider"></div>
@@ -113,7 +114,7 @@
 				</a>
 				<div class="dropdown-menu" id="new-dropdown" aria-labelledby="messagesDropdown">
 					
-						<h6 class="dropdown-header">New Request:</h6>
+						<h6 class="dropdown-header">새로온 요청</h6>
 						<c:forEach var="ritem" items="${gymRlist }" varStatus="status">
 						
 						<div class="dropdown-divider"></div>

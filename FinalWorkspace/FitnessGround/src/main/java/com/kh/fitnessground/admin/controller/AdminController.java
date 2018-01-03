@@ -531,7 +531,7 @@ public class AdminController {
 	}	
 	
 	
-	@RequestMapping(value="userDetail.do")
+	/*@RequestMapping(value="userDetail.do")
 	public ModelAndView userDetailMethod(User u, Like l, HttpServletRequest request, HttpServletResponse response){
 		
 		ModelAndView mv = new ModelAndView("admin/userlist/userDetail");
@@ -543,7 +543,7 @@ public class AdminController {
 		mv.addObject("like", like);
 		
 		return mv;
-	}
+	}*/
 	
 	
 	/*public void sessionCreated(HttpSessionEvent sessionEve) {

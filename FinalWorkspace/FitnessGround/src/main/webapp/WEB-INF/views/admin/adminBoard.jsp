@@ -123,6 +123,7 @@ function qnaModify(q_no) {
 		</ol>
 		<!-- Example DataTables Card-->
 		<div class="card mb-3">
+<!-- 
 			<div class="card-header">
 
 				<div class="buttons">
@@ -130,9 +131,9 @@ function qnaModify(q_no) {
 					<button class="btn btn-primary" onclick="adminBoard();">문의함</button>
 
 
-				</div>
+				</div> 
 			</div>
-
+-->
 			<div class="card-body">
 				<div class="table-responsive">
 					<table class="table table-bordered" id="dataTable" width="100%"
