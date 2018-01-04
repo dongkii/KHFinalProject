@@ -128,19 +128,21 @@ $(document).ready(function(){
 	
 							infoWindow
 									.setContent([
-											'<div style="padding:10px;min-width:200px;line-height:150%;">',
-											'<h4 style="margin-top:5px;">' + gym_name + '</h4>' +
-											'<h6><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;' + category + '</h6>' +
-											'<h6><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + tel + '</h6>' +
-											'<h6><span class="glyphicon glyphicon-phone"></span>&nbsp;' + phone + '</h6>' +
-											'<h6><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;' + desc + '</h6>' +
+											'<div style="padding:10px;min-width:200px;line-height:150%;box-shadow: 0 3px 12px 1px rgba(0,0,0,.7);border-radius: 6px;">',
+											'<h4 style="margin-top:5px;color:#022D41;font-weight:bold;text-align:center;">' + gym_name + '</h4>' +
+											'<h6 style="font-size: 0.9rem;text-align:left;margin-left:30px;"><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;' + category + '</h6>' +
+											'<h6 style="font-size: 0.9rem;text-align:left;margin-left:30px;"><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + tel + '</h6>' +
+											'<h6 style="font-size: 0.9rem;text-align:left;margin-left:30px;"><span class="glyphicon glyphicon-phone"></span>&nbsp;' + phone + '</h6>' +
+											'<h6 style="font-size: 0.9rem;text-align:left;margin-left:30px;"><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;' + desc + '</h6>' +
 											
 											'<br />',
-											addrType + ' ' + item.address
-													+ '<br /></div>' ]
+											addrType + '<h6 style="font-size: 0.9rem;"> ' + item.address
+													+ '</h6></div>' ]
 											.join('\n'));
 							map.setCenter(point);
 							infoWindow.open(map, point);
+							$("[style='position: absolute; top: 0px; left: 0px; z-index: 0; margin: 0px; padding: 0px; border: 1px solid rgb(51, 51, 51); display: block; cursor: default; box-sizing: content-box !important; background: rgb(255, 255, 255);']").css("border", "0px solid transparent");
+
 						});
 	}
 	

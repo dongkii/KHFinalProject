@@ -100,6 +100,8 @@ function searchCoordinateToAddress(latlng) {
 				htmlAddresses.join('<br />'), '</div>' ].join('\n'));
 
 		infoWindow.open(map, latlng);
+		$("[style='position: absolute; top: 0px; left: 0px; z-index: 0; margin: 0px; padding: 0px; border: 1px solid rgb(51, 51, 51); display: block; cursor: default; box-sizing: content-box !important; background: rgb(255, 255, 255);']").css("border", "0px solid transparent");
+
 		
 		markerCurrent = new naver.maps.Marker({
 			map: map,
@@ -130,7 +132,7 @@ function searchAddressToCoordinate(address) {
 		});
 		
 		infoWindowCurrent.setContent([
-			'<div style="padding:10px;min-width:200px;line-height:150%;">',
+			'<div id="gym-info" style="padding:10px;min-width:200px;line-height:150%;">',
             '<h4 style="margin-top:5px;">현재 검색 주소 : '+ response.result.userquery +'</h4></div>'
         ].join('\n'));
 		
@@ -167,20 +169,20 @@ function gymSearchAddressToCoordinate(address) {
 					: '[지번 주소]', point = new naver.maps.Point(item.point.x, item.point.y);
 
 		infoWindow.setContent([
-			'<div style="padding:10px;min-width:200px;line-height:150%;">',
-			'<h4 style="margin-top:5px;color:#022D41;font-weight:bold;">' + gym_name + '</h4>' +
-			'<h6 style="font-size: 0.9rem;"><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;' + category + '</h6>' +
-			'<h6 style="font-size: 0.9rem;"><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + tel + '</h6>' +
-			'<h6 style="font-size: 0.9rem;"><span class="glyphicon glyphicon-phone"></span>&nbsp;' + phone + '</h6>' +
+			'<div id="gym-info" style="padding:10px;min-width:200px;line-height:150%;">',
+			'<h4 style="margin:10px 0;color:#022D41;font-weight:bold;">' + gym_name + '</h4>' +
+			'<h6 style="font-size: 0.9rem;text-align:left;margin-left:40px;"><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;' + category + '</h6>' +
+			'<h6 style="font-size: 0.9rem;text-align:left;margin-left:40px;"><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + tel + '</h6>' +
+			'<h6 style="font-size: 0.9rem;text-align:left;margin-left:40px;"><span class="glyphicon glyphicon-phone"></span>&nbsp;' + phone + '</h6>' +
+			'<h6 style="font-size: 0.9rem;text-align:left;margin-left:40px;"><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;' + desc + '</h6>' +
 			'<h6 style="font-size: 0.9rem;">' + str_rating + '</h6>' + 
-			'<h6 style="font-size: 0.9rem;"><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;' + desc + '</h6>' +
-			'<a href="detailgym.do?gym_no=' + gymno + '"><h6  style="font-size: 0.8rem;">자세히보기</h6></a>' +
+			'<a href="detailgym.do?gym_no=' + gymno + '"><h6 style="font-size: 0.8rem;text-decoration:underline;">자세히보기</h6></a>' +
 			
 			'<br />',
 			addrType + ' ' + item.address
 					+ '<br /></div>'  
 				].join(""));
-		
+				
 		map.setCenter(point);
 		console.log(point);
 		marker = new naver.maps.Marker({
@@ -196,7 +198,9 @@ function gymSearchAddressToCoordinate(address) {
 			}
 		});	
 		
-		infoWindow.open(map, marker); 
+		infoWindow.open(map, marker);
+		$("[style='position: absolute; top: 0px; left: 0px; z-index: 0; margin: 0px; padding: 0px; border: 1px solid rgb(51, 51, 51); display: block; cursor: default; box-sizing: content-box !important; background: rgb(255, 255, 255);']").css("border", "0px solid transparent");
+
 		
 		});
 }
@@ -213,10 +217,10 @@ function publicsearchAddressToCoordinate(address) {
 					: '[지번 주소]', point = new naver.maps.Point(item.point.x, item.point.y);
 
 		infoWindow.setContent([
-			'<div style="padding:10px;min-width:200px;line-height:150%;">',
-			'<h4 style="margin-top:5px;">' + publicname + '</h4>' +
-			'<h6><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + publictel + '</h6>' +
-			'<h6><a href="javascript:link(\'' + publichome + '\')"><i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;' + publichome + '</a></h6>' +
+			'<div id="gym-info" style="padding:10px;min-width:200px;line-height:150%;">',
+			'<h4 style="margin-top:5px;color:#022D41;font-weight:bold;">' + publicname + '</h4>' +
+			'<h6 style="font-size: 0.9rem;text-align:left;margin-left:10px;"><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + publictel + '</h6>' +
+			'<h6 style="font-size: 0.9rem;text-align:left;margin-left:10px;"><a href="javascript:link(\'' + publichome + '\')"><i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;' + publichome + '</a></h6>' +
 			'<br />',
 			addrType + ' ' + item.address
 					+ '<br /></div>'  
@@ -238,6 +242,8 @@ function publicsearchAddressToCoordinate(address) {
 		});	
 		
 		infoWindow.open(map, marker); 
+		$("[style='position: absolute; top: 0px; left: 0px; z-index: 0; margin: 0px; padding: 0px; border: 1px solid rgb(51, 51, 51); display: block; cursor: default; box-sizing: content-box !important; background: rgb(255, 255, 255);']").css("border", "0px solid transparent");
+
 		
 		});
 }
@@ -338,6 +344,7 @@ function initMap() {
 	
 	$('#geolocation').on("click", function() {
 		onLoadGeolocation();
+		
 	});
 	console.log("initMap()");
 }
@@ -385,7 +392,7 @@ function onSuccessGeolocation(position) {
 	console.log("currentAddr");
 	console.log(currentAddr);
 	
-	var contentString = ['<div style="padding:20px;"><h5 style="margin-bottom:5px;">현재 내 위치</h5>'].join("");
+	var contentString = ['<div id="gym-info" style="padding:20px;"><h5 style="margin-bottom:5px;">현재 내 위치</h5>'].join("");
 	
 	infoWindowGeo = new naver.maps.InfoWindow({
 		anchorskew: true,
@@ -409,6 +416,8 @@ function onErrorGeolocation() {
 					+ center.lng() + '</div>');
 
 	infoWindow.open(map, center);
+	$("[style='position: absolute; top: 0px; left: 0px; z-index: 0; margin: 0px; padding: 0px; border: 1px solid rgb(51, 51, 51); display: block; cursor: default; box-sizing: content-box !important; background: rgb(255, 255, 255);']").css("border", "0px solid transparent");
+
 }
 
 function onLoadGeolocation(){
@@ -426,6 +435,8 @@ function onLoadGeolocation(){
 										+ center.lng()
 										+ '</div>');
 		infoWindow.open(map, center);
+		$("[style='position: absolute; top: 0px; left: 0px; z-index: 0; margin: 0px; padding: 0px; border: 1px solid rgb(51, 51, 51); display: block; cursor: default; box-sizing: content-box !important; background: rgb(255, 255, 255);']").css("border", "0px solid transparent");
+
 		
 	}
 	console.log("onLoadgeolocation");
@@ -495,16 +506,17 @@ function onLoadPublic(map){
 					}				
 				});	
 				
-			var contentString = ['<div style="padding:10px;min-width:200px;line-height:150%;">'+
-								'<h4 style="margin-top:5px;">' + json.publiclist[i].public_name + '</h4>' +
-								'<h6><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + json.publiclist[i].tel + '</h6>' +
-								'<h6><a href="javascript:link(\'' + json.publiclist[i].homepage + '\')"><i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;' + json.publiclist[i].homepage + '</a></h6>' +
-								'<br />' + json.publiclist[i].location + '<br /></div>'  ].join("");
+			var contentString = ['<div id="gym-info" style="padding:10px;min-width:200px;line-height:150%;">'+
+								'<h4 style="margin:5px 0;margin-bottom:10px;color:#022D41;font-weight:bold;">' + json.publiclist[i].public_name + '</h4>' +
+								'<h6 style="font-size: 0.9rem;text-align:left;margin-left:10px;"><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + json.publiclist[i].tel + '</h6>' +
+								'<h6 style="font-size: 0.9rem;text-align:left;margin-left:10px;"><a href="javascript:link(\'' + json.publiclist[i].homepage + '\')"><i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;' + json.publiclist[i].homepage + '</a></h6>' +
+								'<br /><h6 style="font-size: 0.9rem;">' + json.publiclist[i].location + '</h6><br /></div>'  ].join("");
 			
 			infoWindow = new naver.maps.InfoWindow({
 				anchorSkew: true,
 				content: contentString
 			});		
+			
 			
 			markers.push(marker);
 			infoWindows.push(infoWindow);	
@@ -513,6 +525,7 @@ function onLoadPublic(map){
 			for(var i = 0, ii=markers.length; i < ii; i++)
 			{
 				naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
+				
 			}
 			// map.setCenter(location);
 			
@@ -591,16 +604,17 @@ function onLoadHealth(map){
 						
 					var contentString = [
 						'<div id="gym-info" style="padding:10px;min-width:200px;line-height:150%;">',
-						'<h4 style="margin:5px 0;color:#022D41;font-weight:bold;">' + gym_name + '</h4>' +
-						'<h6 style="font-size: 0.9rem;"><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;' + category + '</h6>' +
-						'<h6 style="font-size: 0.9rem;"><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + tel + '</h6>' +
-						'<h6 style="font-size: 0.9rem;"><span class="glyphicon glyphicon-phone"></span>&nbsp;' + phone + '</h6>' +
+						'<h4 style="margin:10px 0;color:#022D41;font-weight:bold;">' + gym_name + '</h4>' +
+						'<h6 style="font-size: 0.9rem;text-align:left;margin-left:40px;"><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;' + category + '</h6>' +
+						'<h6 style="font-size: 0.9rem;text-align:left;margin-left:40px;"><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + tel + '</h6>' +
+						'<h6 style="font-size: 0.9rem;text-align:left;margin-left:40px;"><span class="glyphicon glyphicon-phone"></span>&nbsp;' + phone + '</h6>' +
+						'<h6 style="font-size: 0.9rem;text-align:left;margin-left:40px;"><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;' + desc + '</h6>' +
 						'<h6 style="font-size: 0.9rem;">' + str_rating + '</h6>' + 
-						'<h6 style="font-size: 0.9rem;"><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;' + desc + '</h6>' +
-						'<a href="detailgym.do?gym_no=' + gymno + '"><h6 style="font-size: 0.8rem;">자세히보기</h6></a>' +
+						'<a href="detailgym.do?gym_no=' + gymno + '"><h6 style="font-size: 0.8rem;text-decoration:underline;">자세히보기</h6></a>' +
 						
-						'<br />', ' ' + json.healthlist[i].location + '<br /></div>'  
+						'<br />', '<h6 style="font-size: 0.9rem;"> ' + json.healthlist[i].location + '</h6><br /></div>'  
 							].join("");				
+					$("[style='position: absolute; top: 0px; left: 0px; z-index: 0; margin: 0px; padding: 0px; border: 1px solid rgb(51, 51, 51); display: block; cursor: default; box-sizing: content-box !important; background: rgb(255, 255, 255);']").css("border", "0px solid transparent");
 					
 					infoWindow = new naver.maps.InfoWindow({
 						anchorSkew: true,
@@ -616,7 +630,6 @@ function onLoadHealth(map){
 				naver.maps.Event.addListener(hmarkers[i], 'click', getClickHandlerHealth(i));
 			}
 			// map.setCenter(location);
-			
 			
 		},
 		error: function(request, status, error){
@@ -636,6 +649,8 @@ function getClickHandler(seq) { // 클릭 이벤트 핸들러 추가하는 함�
 			infoWindow.close();
 		} else {
 			infoWindow.open(map, marker);
+			$("[style='position: absolute; top: 0px; left: 0px; z-index: 0; margin: 0px; padding: 0px; border: 1px solid rgb(51, 51, 51); display: block; cursor: default; box-sizing: content-box !important; background: rgb(255, 255, 255);']").css("border", "0px solid transparent");
+
 		}
 	};
 }
@@ -649,6 +664,8 @@ function getClickHandlerHealth(seq) { // 클릭 이벤트 핸들러 추가하는
 			infoWindow.close();
 		} else {
 			infoWindow.open(map, marker);
+			$("[style='position: absolute; top: 0px; left: 0px; z-index: 0; margin: 0px; padding: 0px; border: 1px solid rgb(51, 51, 51); display: block; cursor: default; box-sizing: content-box !important; background: rgb(255, 255, 255);']").css("border", "0px solid transparent");
+
 		}
 	};
 }
@@ -685,6 +702,7 @@ function gymclick(gym_no, location){
 				str_rating += '<i class="fa fa-star-o" aria-hidden="true"></i>';
 			}
 			str_rating += '&nbsp;' + data.gym.str_rating;
+			
 		}
 	});
 }
@@ -711,4 +729,5 @@ $(window).on("load", function() {
 		searchAddressToCoordinate(address);
 	}
 	else {onLoadGeolocation();}
+	
 });

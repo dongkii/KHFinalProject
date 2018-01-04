@@ -414,7 +414,12 @@
 		</div>
 		<!-- col-md-4 -->
 
-		<div class="col-md-8" style="margin-top:60px;" align="center">
+		<div class="col-md-7" style="margin-top:60px;" align="center">
+			<div id="marker-explain">
+			<span>내위치 <img width="16" src="/fitnessground/resources/images/current_marker.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			공공시설<img width="16" src="/fitnessground/resources/images/public_marker.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			헬스장 <img width="16" src="/fitnessground/resources/images/gym_marker.png"> </span>
+			</div>
 			<div id="map">
 				<script type="text/javascript" src="/fitnessground/resources/js/gym/gymmap.js"></script>
 			</div>

@@ -20,8 +20,8 @@ body {
 #map{
 	border:1px solid #dedede;
 	display: inline-block;
-	width: 1000px;
-	height: 600px;
+	    width: 950px;
+    height: 540px;
 }
 
 #container{
@@ -64,4 +64,8 @@ body {
 }
 #gym-info{
     box-shadow: 0 3px 12px 1px rgba(0,0,0,.7);
+    border-radius: 6px;
+}
+#marker-explain{
+	width: 950;
 }
