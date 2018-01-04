@@ -13,7 +13,7 @@
 		<result property="readcount" column="readcount" />
 	</resultMap>
 
-	<!-- yoga 전체리스트 top5 select -->
+	<!-- yoga 전체리스트 top8 select -->
 	<select id="selectAllYList" resultType="list" resultMap="yogaResult">
 		<![CDATA[
 		select v_no, title, content, category1, category2, url, readcount from (select rownum, v_no, title, content, category1, category2, url, readcount 
@@ -21,7 +21,7 @@
 		]]>
 	</select>
 	
-	<!-- pilates 전체리스트 top5 select -->
+	<!-- pilates 전체리스트 top8 select -->
 	<select id="selectAllPList" resultType="list" resultMap="yogaResult">
 		<![CDATA[
 		select v_no, title, content, category1, category2, url, readcount from (select rownum, v_no, title, content, category1, category2, url, readcount 

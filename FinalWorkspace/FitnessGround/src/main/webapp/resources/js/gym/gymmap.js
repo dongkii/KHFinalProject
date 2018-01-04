@@ -168,13 +168,13 @@ function gymSearchAddressToCoordinate(address) {
 
 		infoWindow.setContent([
 			'<div style="padding:10px;min-width:200px;line-height:150%;">',
-			'<h4 style="margin-top:5px;">' + gym_name + '</h4>' +
-			'<h6><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;' + category + '</h6>' +
-			'<h6><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + tel + '</h6>' +
-			'<h6><span class="glyphicon glyphicon-phone"></span>&nbsp;' + phone + '</h6>' +
-			'<h6>' + str_rating + '</h6>' + 
-			'<h6><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;' + desc + '</h6>' +
-			'<a href="detailgym.do?gym_no=' + gymno + '"><h6>자세히보기</h6></a>' +
+			'<h4 style="margin-top:5px;color:#022D41;font-weight:bold;">' + gym_name + '</h4>' +
+			'<h6 style="font-size: 0.9rem;"><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;' + category + '</h6>' +
+			'<h6 style="font-size: 0.9rem;"><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + tel + '</h6>' +
+			'<h6 style="font-size: 0.9rem;"><span class="glyphicon glyphicon-phone"></span>&nbsp;' + phone + '</h6>' +
+			'<h6 style="font-size: 0.9rem;">' + str_rating + '</h6>' + 
+			'<h6 style="font-size: 0.9rem;"><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;' + desc + '</h6>' +
+			'<a href="detailgym.do?gym_no=' + gymno + '"><h6  style="font-size: 0.8rem;">자세히보기</h6></a>' +
 			
 			'<br />',
 			addrType + ' ' + item.address
@@ -590,14 +590,14 @@ function onLoadHealth(map){
 					else str_rating += '&nbsp;' + '0';
 						
 					var contentString = [
-						'<div style="padding:10px;min-width:200px;line-height:150%;">',
-						'<h4 style="margin-top:5px;">' + gym_name + '</h4>' +
-						'<h6><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;' + category + '</h6>' +
-						'<h6><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + tel + '</h6>' +
-						'<h6><span class="glyphicon glyphicon-phone"></span>&nbsp;' + phone + '</h6>' +
-						'<h6>' + str_rating + '</h6>' + 
-						'<h6><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;' + desc + '</h6>' +
-						'<a href="detailgym.do?gym_no=' + gymno + '"><h6>자세히보기</h6></a>' +
+						'<div id="gym-info" style="padding:10px;min-width:200px;line-height:150%;">',
+						'<h4 style="margin:5px 0;color:#022D41;font-weight:bold;">' + gym_name + '</h4>' +
+						'<h6 style="font-size: 0.9rem;"><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;' + category + '</h6>' +
+						'<h6 style="font-size: 0.9rem;"><span class="glyphicon glyphicon-earphone"></span>&nbsp;' + tel + '</h6>' +
+						'<h6 style="font-size: 0.9rem;"><span class="glyphicon glyphicon-phone"></span>&nbsp;' + phone + '</h6>' +
+						'<h6 style="font-size: 0.9rem;">' + str_rating + '</h6>' + 
+						'<h6 style="font-size: 0.9rem;"><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;' + desc + '</h6>' +
+						'<a href="detailgym.do?gym_no=' + gymno + '"><h6 style="font-size: 0.8rem;">자세히보기</h6></a>' +
 						
 						'<br />', ' ' + json.healthlist[i].location + '<br /></div>'  
 							].join("");				

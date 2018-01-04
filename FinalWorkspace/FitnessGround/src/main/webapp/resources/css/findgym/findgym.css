@@ -62,3 +62,6 @@ body {
 	margin-left: 50px;
 	align: center;
 }
+#gym-info{
+    box-shadow: 0 3px 12px 1px rgba(0,0,0,.7);
+}

@@ -99,9 +99,7 @@
 					<c:forEach items="${list}" var="it" varStatus="status">
 					list.push("${it.url}");
 					st = ${status.count}-1;
-					console.log(list);
-					/* $(document).ready(function(){ */
-						/* for(var i=0;i<5;i++){ */
+					
 							$.get("https://www.googleapis.com/youtube/v3/videos", {
 								part : 'contentDetails',
 								maxResults : 50,
@@ -142,14 +140,12 @@
 			                            sec = "00";
 			                        }
 			                        duration = hour+min+":"+sec;
-									console.log("time:" + duration);
 									$('#v-time${it.v_no}').append(duration);
 								});
 								
 				
 							});
-						/* } */
-						/* for(var i=0;i<5;i++){ */
+				
 							$.get("https://www.googleapis.com/youtube/v3/videos", {
 								part : 'snippet',
 								maxResults : 50,
@@ -179,12 +175,10 @@
 				<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" id="search-count"> '${keyWord}' 검색 개수 : ${searchCount }</div>
 			</c:if>
 		
-			<c:forEach items="${list}" var="y" varStatus="st">
-					
+			<c:forEach items="${list}" var="y" varStatus="st">	
 				<div class="video">
 					<a href='javascript:detailView(${y.v_no} , "${y.category1}" , "${y.category2}")'> 
-						<div id="video-iframe${y.v_no}">
-						</div>
+						<div id="video-iframe${y.v_no}"></div>
 					</a>
 					<div id="video-info">
 						<div class="time">
@@ -192,11 +186,8 @@
 						</div>
 						<span id="video-text">
 						<a href='javascript:detailView(${y.v_no} , "${y.category1}" , "${y.category2}")'>${y.title }</a></span> 
-						<%-- <span id="video-text"><c:url var="detail" value="#detail" /></span> --%>
-						
 					</div>
 				</div>
-			
 			</c:forEach>
 		</c:if>
 	</div>

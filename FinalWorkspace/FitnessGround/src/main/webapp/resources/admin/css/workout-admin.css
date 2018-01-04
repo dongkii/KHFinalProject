@@ -165,7 +165,7 @@ br{
 	clear: left;
 }
 #v-title, #v-url{
-	width: 40vw;
+	width: 38vw;
 	margin-bottom: 10px;
 }
 #select-w, #select-c{
@@ -175,9 +175,9 @@ br{
 	margin-bottom: 10px;
 }
 #v-content{
-	width: 40vw;
+	width: 38vw;
 	margin: 4px 4px;
 }
 #edit-btn{
-	margin-left: 44vw;
+	margin-left: 40vw;
 }
