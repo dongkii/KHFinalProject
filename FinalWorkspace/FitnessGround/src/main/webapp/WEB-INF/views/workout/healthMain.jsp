@@ -285,7 +285,7 @@
 		else if(part == 'triceps')
 			category2 ="위팔 뒤(삼두)";
 		else if(part == 'lowerarm')
-			category2 = "아래팔전완";
+			category2 = "아래팔";
 		else if(part == 'back')
 			category2 =  "등";
 		else if(part == 'waist')

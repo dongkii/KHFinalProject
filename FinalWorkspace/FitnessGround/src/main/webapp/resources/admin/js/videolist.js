@@ -354,7 +354,9 @@
 	function deleteSelected(){
 		var checkedlist = [];
 		$('input[type="checkbox"]:checked').each(function() {
-		    checkedlist.push($(this).attr('value'));
+			if($(this).attr('value')!=null && $(this).attr('value')!=""){
+				checkedlist.push($(this).attr('value'));
+			}
 		});
 		if (confirm(checkedlist.toString()+"번 영상을 정말 삭제하시겠습니까??") == false){
 			return;
