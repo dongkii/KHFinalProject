@@ -10,7 +10,7 @@
 	#gymQSendBt {width:100%;}
 </style>
 
-<div class="modal modal-center fade" id="gymQnaUpAndAnswerModal" style="z-index:100;">
+<div class="modal modal-center fade" id="gymQnaUpAndAnswerModal">
 	<div class="modal-dialog modal-center modal-lg">
 		<div class="modal-content" id="gymQModalCUA">
 			<div class="modal-header" align="top">

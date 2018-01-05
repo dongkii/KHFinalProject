@@ -11,7 +11,7 @@
 	#gymQSendBt {width:100%;}
 </style>
 
-<div class="modal modal-center fade" id="gymQnaInsertModal" style="z-index:100;">
+<div class="modal modal-center fade" id="gymQnaInsertModal">
 	<div class="modal-dialog modal-center modal-lg">
 		<div class="modal-content" id="gymQModalC">
 			<div class="modal-header" align="top">

@@ -16,7 +16,7 @@
 	}
 </style>
 
-<div class="modal modal-center fade" id="gymQnaDetailModal" style="z-index:100;">
+<div class="modal modal-center fade" id="gymQnaDetailModal">
 	<div class="modal-dialog modal-center modal-lg">
 		<div class="modal-content" id="gymQModalC">
 			<div class="modal-header" align="top">
