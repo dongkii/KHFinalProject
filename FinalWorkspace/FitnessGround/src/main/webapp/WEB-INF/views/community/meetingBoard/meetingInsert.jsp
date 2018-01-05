@@ -70,7 +70,7 @@ textarea#editor1 {
 <br>
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<form name='meeting' method="post" action="meetingInsert.do" onsubmit="return false;">
+		<form name='meeting' method="post" action="meetingInsert.do">
 			<input name="user_no" type="hidden" value="${sessionScope.user.user_no }" />
 			<div class="form-group">
 				<p>제목<input style="font-size:10pt;" id="title-input" class="input-group input-group-lg" name="title" type="text" placeholder="제목을 입력하세요"/></p>
