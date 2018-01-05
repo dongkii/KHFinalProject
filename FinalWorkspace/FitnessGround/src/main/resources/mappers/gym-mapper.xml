@@ -316,7 +316,7 @@
 		statementType="PREPARED" useGeneratedKeys="true" >
 		<![CDATA[
 			insert into tb_gym
-			values (gym_seq.nextval, 'name' , #{original_image}, #{rename_image}, 'optime', 'tel', 'phone', 'price', 'category', 'description', 'location', '1', default, default, default )
+			values (gym_seq.nextval, 'name' , #{original_image}, #{rename_image}, 'optime', 'tel', 'phone', 'price', 'category', 'description', 'location', '1', default, default, default,  0,0)
 		]]>
 	</insert>
 	

@@ -93,9 +93,7 @@ public class GymController {
 	public void OneSchedule(HttpServletRequest request, HttpServletResponse response) throws ParseException {
 		GymSchedule gs = new GymSchedule();
 		java.util.Date utilDate = new java.util.Date();
-		
 		gs.setGym_no(Integer.parseInt(request.getParameter("gym_no")));
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		utilDate = sdf.parse(request.getParameter("day"));
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
