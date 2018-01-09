@@ -40,8 +40,7 @@
 		</div>
     </div>
        
-   <script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=vWkJuuK8gXcwBG8Rijlh&submodules=geocoder">	
+   <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=G0XI103VNKmTZuGNcR9G&submodules=geocoder"></script>	
    </script>
    
     <script type="text/javascript">
