@@ -82,7 +82,7 @@ var arr = new Array();
 		function fdUpload(e){
 			e.stopPropagation();
 			e.preventDefault();
-			fdOver(e); // (e.type != "dragover") 캔슬을위해 [여기서 별도로 작업해줘도 상관없음]
+			fdOver(e);
 			
 			sel_files = [];
 			$("#li1").empty();
